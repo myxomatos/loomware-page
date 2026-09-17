@@ -1,0 +1,158 @@
+.challenge {
+  background: var(--bg-page);
+}
+.challenge__card {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(0, 2.3fr);
+  gap: var(--sp-8);
+  padding: var(--sp-8);
+  box-shadow: var(--shadow-md);
+}
+.challenge__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+.challenge__title {
+  font-size: clamp(1.5rem, 1.1rem + 1.2vw, 1.75rem); /* 24 → 28 */
+}
+.challenge__accent {
+  color: var(--purple-500);
+}
+.challenge__pains {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-1);
+}
+.challenge__pains li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--text-900);
+}
+
+/* Entradas → Loomware → Resultados */
+.challenge__flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-3);
+}
+.flow__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  text-align: center;
+  min-width: 0;
+}
+.flow__col--core {
+  align-self: stretch;
+  justify-content: center;
+}
+.flow__label {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-900);
+}
+.flow__hint {
+  font-size: var(--fs-2xs);
+  color: var(--text-500);
+  margin-bottom: var(--sp-2);
+  min-height: 2.6em;
+}
+.flow__list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4);
+  border-radius: var(--r-lg);
+  text-align: left;
+}
+.flow__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  color: var(--text-900);
+}
+.icon-tile.is-green {
+  color: var(--green-500);
+  background: rgba(37, 211, 102, 0.14);
+}
+.flow__arrow {
+  display: grid;
+  place-items: center;
+  color: var(--purple-400);
+}
+.flow__core {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: var(--sp-6) var(--sp-5);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+}
+.flow__brand {
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.flow__brand .brand__name {
+  font-size: 1.125rem;
+}
+.flow__core-list {
+  width: 100%;
+  gap: var(--sp-3);
+}
+.flow__core-list li {
+  text-align: left;
+  color: var(--white);
+  font-weight: 500;
+}
+.flow__core-list .icon {
+  color: var(--white);
+}
+
+@media (max-width: 1199px) {
+  .challenge__card {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+  }
+  .challenge__copy {
+    max-width: 560px;
+  }
+}
+@media (max-width: 767px) {
+  .challenge__card {
+    padding: var(--sp-6) var(--sp-5);
+  }
+  .challenge__flow {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .flow__arrow .icon {
+    transform: rotate(90deg);
+  }
+  .flow__hint {
+    min-height: 0;
+  }
+  .flow__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 479px) {
+  .flow__list {
+    grid-template-columns: 1fr;
+  }
+}

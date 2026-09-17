@@ -1,0 +1,26 @@
+import React from 'react'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import Challenge from './components/Challenge'
+import Solutions from './components/Solutions'
+import Needs from './components/Needs'
+import Process from './components/Process'
+import CtaBand from './components/CtaBand'
+import Footer from './components/Footer'
+
+export default function App() {
+  return (
+    <>
+      <Navbar />
+      <main id="contenido">
+        <Hero />
+        <Challenge />
+        <Solutions />
+        <Needs />
+        <Process />
+        <CtaBand />
+      </main>
+      <Footer />
+    </>
+  )
+}
