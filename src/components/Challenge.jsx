@@ -1,4 +1,3 @@
-import React from 'react'
 import Icon from './Icon'
 import Logo from './Logo'
 import './Challenge.css'

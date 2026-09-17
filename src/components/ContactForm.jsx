@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Icon from './Icon'
 import './ContactForm.css'
 
@@ -46,10 +46,8 @@ export default function ContactForm({ interes = '' }) {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    const form = e.currentTarget
-    if (!form.reportValidity()) return
     // Honeypot: bots fill every field; humans never see this one.
-    if (form.elements._gotcha && form.elements._gotcha.value) return
+    if (e.currentTarget.elements._gotcha.value) return
 
     setError('')
 
@@ -64,12 +62,12 @@ export default function ContactForm({ interes = '' }) {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...values, interes, origen: 'loomware.com — diagnóstico' }),
+        body: JSON.stringify({ ...values, interes, origen: 'Sitio web — formulario de diagnóstico' }),
       })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       setStatus('success')
       setValues(INITIAL)
-    } catch (err) {
+    } catch {
       setStatus('error')
       setError('No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos a ' + FALLBACK_EMAIL)
     }

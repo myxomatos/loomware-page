@@ -125,9 +125,6 @@ h4,
 .text-xs {
   font-size: var(--fs-xs);
 }
-.text-muted {
-  color: var(--text-500);
-}
 .text-gradient {
   background: var(--grad-brand);
   -webkit-background-clip: text;
@@ -308,14 +305,12 @@ button.chip:hover {
   border-color: var(--purple-400);
   box-shadow: var(--shadow-sm);
 }
-.chip--active,
 .chip[aria-pressed='true'] {
   color: var(--white);
   background: var(--purple-500);
   border-color: var(--purple-500);
   box-shadow: var(--shadow-purple);
 }
-.chip--active .icon,
 .chip[aria-pressed='true'] .icon {
   color: inherit;
 }
@@ -337,9 +332,6 @@ button.chip:hover {
   color: var(--white);
   background: var(--navy-800);
   border-color: transparent;
-}
-.card--soft {
-  background: var(--bg-soft);
 }
 
 /* Icon tile — the rounded square behind an icon */

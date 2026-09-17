@@ -1,5 +1,3 @@
-import React from 'react'
-
 /*
  * Inline SVG icon set (24x24, stroke-based, currentColor).
  * Usage: <Icon name="arrow-right" size={18} />
@@ -50,12 +48,6 @@ const PATHS = {
     </>
   ),
   check: <path d="M20 6 9 17l-5-5" />,
-  'check-circle': (
-    <>
-      <circle cx="12" cy="12" r="10" />
-      <path d="m9 12 2 2 4-4" />
-    </>
-  ),
   'message-circle': <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />,
   globe: (
     <>
@@ -225,12 +217,6 @@ const PATHS = {
       <circle cx="12" cy="12" r="2" />
     </>
   ),
-  eye: (
-    <>
-      <path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0" />
-      <circle cx="12" cy="12" r="3" />
-    </>
-  ),
   menu: (
     <>
       <path d="M4 6h16" />
@@ -270,12 +256,6 @@ const PATHS = {
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
   ),
   'chevron-right': <path d="m9 18 6-6-6-6" />,
-  'arrow-up-right': (
-    <>
-      <path d="M7 17 17 7" />
-      <path d="M7 7h10v10" />
-    </>
-  ),
 }
 
 export default function Icon({ name, size = 20, strokeWidth = 2, className = '', ...rest }) {
@@ -283,7 +263,7 @@ export default function Icon({ name, size = 20, strokeWidth = 2, className = '',
   if (!paths) return null
   return (
     <svg
-      className={`icon icon--${name} ${className}`.trim()}
+      className={`icon ${className}`.trim()}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -300,5 +280,3 @@ export default function Icon({ name, size = 20, strokeWidth = 2, className = '',
     </svg>
   )
 }
-
-export const ICON_NAMES = Object.keys(PATHS)

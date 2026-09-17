@@ -26,11 +26,10 @@
   --border-strong: #d5d9e8;
   --bg-page: #ffffff;
   --bg-soft: #f7f8fc;
-  --bg-lavender: #f3f2fc;
   --white: #ffffff;
 
   /* Gradients */
-  --grad-brand: linear-gradient(90deg, #6338ff 0%, #b5179e 55%, #e11d48 100%);
+  --grad-brand: linear-gradient(90deg, var(--purple-500) 0%, var(--pink-500) 55%, var(--red-500) 100%);
   --grad-hero: radial-gradient(120% 90% at 80% 20%, #ece9ff 0%, #f6f5fd 55%, #ffffff 100%);
 
   /* Typography — Inter everywhere, one scale */
@@ -61,7 +60,6 @@
   --sp-10: 40px;
   --sp-12: 48px;
   --sp-16: 64px;
-  --sp-20: 80px;
 
   /* Layout */
   --container: 1200px;
