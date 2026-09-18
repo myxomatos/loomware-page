@@ -77,9 +77,11 @@ const pick = (r, ...keys) => {
 }
 
 function normalize(r) {
-  const calle = [pick(r, 'Tipo_vialidad'), pick(r, 'Calle'), pick(r, 'Num_Exterior')]
-    .filter(Boolean)
-    .join(' ')
+  // A veces 'Calle' ya trae el tipo de vialidad ('CALZADA DE LA VIRGEN'); no repetirlo.
+  const tipo = pick(r, 'Tipo_vialidad')
+  const nombreCalle = pick(r, 'Calle')
+  const repetido = tipo && nombreCalle.toUpperCase().startsWith(tipo.toUpperCase() + ' ')
+  const calle = [repetido ? '' : tipo, nombreCalle, pick(r, 'Num_Exterior')].filter(Boolean).join(' ')
   return {
     id: pick(r, 'Id', 'id'),
     nombre: pick(r, 'Nombre', 'nombre'),
