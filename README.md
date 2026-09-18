@@ -74,3 +74,38 @@ src/
 - Colores y tamaños de letra: `src/styles/tokens.css`.
 - Íconos nuevos: agrega la entrada en `PATHS` dentro de `src/components/Icon.jsx`.
 - Redes sociales: llena las URLs en `SOCIAL` dentro de `Footer.jsx`.
+
+## Herramienta de prospección (`/prospectar`)
+
+Página privada que consulta el **DENUE del INEGI** (directorio de +5 millones de negocios) para encontrar empresas por giro, zona y tamaño, filtrarlas y exportarlas a Excel. No aparece en el menú, no la indexa Google (`robots.txt` + `noindex`) y pide contraseña.
+
+### 1. Obtener el token del INEGI (gratis, 2 minutos)
+
+1. Entra a <https://www.inegi.org.mx/servicios/api_denue.html>.
+2. Clic en **"Obtener token"** (o "Regístrate"), escribe tu correo y acepta los términos.
+3. Revisa tu correo: llega un token (cadena larga de letras y números).
+
+### 2. Configurarlo
+
+- **En local**: en `.env` pon `DENUE_TOKEN=<tu token>`. En local no se pide contraseña.
+- **En Cloudflare Pages**: Settings → Environment variables → agrega `DENUE_TOKEN` y `PROSPECT_KEY` (la contraseña que quieras para entrar). Vuelve a desplegar.
+
+El token vive solo en el servidor (`functions/api/denue`); el navegador nunca lo ve.
+
+### 3. Usarla
+
+Abre `http://localhost:5173/prospectar.html` (local) o `https://tu-dominio/prospectar` (publicado).
+
+| Modo | Cuándo usarlo |
+| --- | --- |
+| **Por giro y estado** | Palabra clave ("software", "clínica", "ferretería") en un estado o todo México. |
+| **Por actividad, zona y tamaño** | El más preciso: sector SCIAN + estado/alcaldía + **número de empleados**. |
+| **Cerca de un punto** | Todo lo que hay en un radio de hasta 5 km de una coordenada (clic derecho en Google Maps → copiar coordenadas). |
+
+Después de buscar: filtra por tamaño, "con teléfono" o "con correo", marca las que te interesen y **Exportar a Excel (CSV)**.
+
+### Códigos útiles
+
+- **Estados**: 09 CDMX, 15 Edo. de México, 14 Jalisco, 19 Nuevo León, 22 Querétaro, 21 Puebla (lista completa en el selector).
+- **SCIAN** (giros): 54 servicios profesionales, 43 comercio mayoreo, 46 comercio menudeo, 31–33 manufactura, 72 restaurantes y hoteles, 62 salud. Códigos de 3–6 dígitos en <https://www.inegi.org.mx/app/scian/>.
+- **Municipios** fuera de CDMX: clave de 3 dígitos del INEGI. Catálogo: <https://www.inegi.org.mx/app/ageeml/>.

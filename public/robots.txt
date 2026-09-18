@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /prospectar
 
 # Cambia el dominio cuando el sitio tenga su URL definitiva
 Sitemap: https://loomware.com/sitemap.xml

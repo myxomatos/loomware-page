@@ -1,0 +1,92 @@
+/* Catálogos del INEGI usados por la herramienta de prospección. */
+
+export const ESTADOS = [
+  ['00', 'Todo México'],
+  ['01', 'Aguascalientes'],
+  ['02', 'Baja California'],
+  ['03', 'Baja California Sur'],
+  ['04', 'Campeche'],
+  ['05', 'Coahuila'],
+  ['06', 'Colima'],
+  ['07', 'Chiapas'],
+  ['08', 'Chihuahua'],
+  ['09', 'Ciudad de México'],
+  ['10', 'Durango'],
+  ['11', 'Guanajuato'],
+  ['12', 'Guerrero'],
+  ['13', 'Hidalgo'],
+  ['14', 'Jalisco'],
+  ['15', 'Estado de México'],
+  ['16', 'Michoacán'],
+  ['17', 'Morelos'],
+  ['18', 'Nayarit'],
+  ['19', 'Nuevo León'],
+  ['20', 'Oaxaca'],
+  ['21', 'Puebla'],
+  ['22', 'Querétaro'],
+  ['23', 'Quintana Roo'],
+  ['24', 'San Luis Potosí'],
+  ['25', 'Sinaloa'],
+  ['26', 'Sonora'],
+  ['27', 'Tabasco'],
+  ['28', 'Tamaulipas'],
+  ['29', 'Tlaxcala'],
+  ['30', 'Veracruz'],
+  ['31', 'Yucatán'],
+  ['32', 'Zacatecas'],
+]
+
+// Alcaldías de la Ciudad de México (clave de municipio INEGI).
+export const ALCALDIAS_CDMX = [
+  ['002', 'Azcapotzalco'],
+  ['003', 'Coyoacán'],
+  ['004', 'Cuajimalpa'],
+  ['005', 'Gustavo A. Madero'],
+  ['006', 'Iztacalco'],
+  ['007', 'Iztapalapa'],
+  ['008', 'Magdalena Contreras'],
+  ['009', 'Milpa Alta'],
+  ['010', 'Álvaro Obregón'],
+  ['011', 'Tláhuac'],
+  ['012', 'Tlalpan'],
+  ['013', 'Xochimilco'],
+  ['014', 'Benito Juárez'],
+  ['015', 'Cuauhtémoc'],
+  ['016', 'Miguel Hidalgo'],
+  ['017', 'Venustiano Carranza'],
+]
+
+// Sectores SCIAN (2 dígitos). En el campo de texto se puede escribir un código
+// más específico: subsector (3), rama (4) o clase (6 dígitos).
+export const SECTORES_SCIAN = [
+  ['11', 'Agricultura, ganadería y pesca'],
+  ['21', 'Minería'],
+  ['22', 'Energía, agua y gas'],
+  ['23', 'Construcción'],
+  ['31', 'Industria manufacturera (31–33)'],
+  ['43', 'Comercio al por mayor'],
+  ['46', 'Comercio al por menor'],
+  ['48', 'Transporte y almacenamiento (48–49)'],
+  ['51', 'Medios e información'],
+  ['52', 'Servicios financieros y seguros'],
+  ['53', 'Inmobiliarios y alquiler'],
+  ['54', 'Servicios profesionales y técnicos'],
+  ['55', 'Corporativos'],
+  ['56', 'Apoyo a negocios y manejo de residuos'],
+  ['61', 'Servicios educativos'],
+  ['62', 'Salud y asistencia social'],
+  ['71', 'Esparcimiento y cultura'],
+  ['72', 'Hoteles y restaurantes'],
+  ['81', 'Otros servicios'],
+]
+
+// Estrato = tamaño por número de personas ocupadas.
+export const ESTRATOS = [
+  ['1', '0 a 5'],
+  ['2', '6 a 10'],
+  ['3', '11 a 30'],
+  ['4', '31 a 50'],
+  ['5', '51 a 100'],
+  ['6', '101 a 250'],
+  ['7', '251 y más'],
+]
