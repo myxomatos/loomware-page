@@ -16,5 +16,6 @@ Thumbs.db
 !.vscode/extensions.json
 *.log
 
-# Claude Code
-.claude/
+# Claude Code: los comandos del equipo se comparten; lo personal no
+.claude/*
+!.claude/commands/
