@@ -9,7 +9,7 @@ import './ContactForm.css'
  * pre-filled, so the submit button always does something useful.
  */
 const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || ''
-const FALLBACK_EMAIL = 'hola@loomware.com'
+const FALLBACK_EMAIL = 'aldo_sanchez@loomware.com.mx'
 
 const INITIAL = { nombre: '', empresa: '', correo: '', telefono: '', necesidad: '' }
 
