@@ -5,6 +5,9 @@ Sitio público de Loomware: <https://loomware.com.mx>. React + Vite, desplegado 
 
 ## Ramas y despliegue
 
+- Sesión de trabajo: empieza con `/inicio` (jala `main` a tu rama) y termina con `/cierre`
+  (commit, build, push y PR). Los dos skills viven en `.claude/skills/`.
+
 - `main` es producción y está protegida: solo recibe código por Pull Request aprobado por Aldo.
   Un push directo a `main` es rechazado por GitHub.
 - Cada quien tiene su rama de trabajo permanente: **Alan → `alan`**, **Aldo → `aldo`**.
