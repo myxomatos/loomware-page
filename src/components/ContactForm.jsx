@@ -35,7 +35,7 @@ function buildMailto(values, interes) {
 
 export default function ContactForm({ interes = '' }) {
   const [values, setValues] = useState(INITIAL)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [status, setStatus] = useState('idle') // idle | sending | error
   const [error, setError] = useState('')
 
   const onChange = (e) => {
@@ -58,8 +58,7 @@ export default function ContactForm({ interes = '' }) {
       })
       const data = await res.json().catch(() => null)
       if (!res.ok) throw new Error((data && data.error) || `Error ${res.status}`)
-      setStatus('success')
-      setValues(INITIAL)
+      window.location.assign('/gracias')
     } catch (err) {
       setStatus('error')
       setError(
@@ -68,12 +67,6 @@ export default function ContactForm({ interes = '' }) {
           : err.message,
       )
     }
-  }
-
-  const reset = () => {
-    setValues(INITIAL)
-    setStatus('idle')
-    setError('')
   }
 
   return (
@@ -94,134 +87,121 @@ export default function ContactForm({ interes = '' }) {
         </ul>
       </div>
 
-      {status === 'success' ? (
-        <div className="contact__success" role="status" aria-live="polite">
-          <span className="icon-tile icon-tile--round">
-            <Icon name="check" size={24} strokeWidth={2.5} />
-          </span>
-          <h4>¡Listo! Recibimos tu solicitud.</h4>
-          <p className="text-xs">Te contactaremos en menos de 24 horas hábiles.</p>
-          <button type="button" className="btn btn--outline btn--sm" onClick={reset}>
-            Enviar otra solicitud
-          </button>
-        </div>
-      ) : (
-        <form className="contact__form" onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="_gotcha"
-            tabIndex="-1"
-            autoComplete="off"
-            className="visually-hidden"
-            aria-hidden="true"
-          />
-          <input type="hidden" name="interes" value={interes} />
+      <form className="contact__form" onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="_gotcha"
+          tabIndex="-1"
+          autoComplete="off"
+          className="visually-hidden"
+          aria-hidden="true"
+        />
+        <input type="hidden" name="interes" value={interes} />
 
-          {interes && (
-            <p className="contact__interes">
-              Interés seleccionado: <strong>{interes}</strong>
-            </p>
-          )}
-
-          <label className="visually-hidden" htmlFor="f-nombre">
-            Nombre completo
-          </label>
-          <input
-            id="f-nombre"
-            className="field"
-            type="text"
-            name="nombre"
-            placeholder="Nombre completo"
-            autoComplete="name"
-            required
-            minLength={2}
-            value={values.nombre}
-            onChange={onChange}
-          />
-
-          <label className="visually-hidden" htmlFor="f-empresa">
-            Empresa
-          </label>
-          <input
-            id="f-empresa"
-            className="field"
-            type="text"
-            name="empresa"
-            placeholder="Empresa"
-            autoComplete="organization"
-            required
-            value={values.empresa}
-            onChange={onChange}
-          />
-
-          <label className="visually-hidden" htmlFor="f-correo">
-            Correo corporativo
-          </label>
-          <input
-            id="f-correo"
-            className="field"
-            type="email"
-            name="correo"
-            placeholder="Correo corporativo"
-            autoComplete="email"
-            inputMode="email"
-            required
-            value={values.correo}
-            onChange={onChange}
-          />
-
-          <label className="visually-hidden" htmlFor="f-telefono">
-            WhatsApp o teléfono
-          </label>
-          <input
-            id="f-telefono"
-            className="field"
-            type="tel"
-            name="telefono"
-            placeholder="WhatsApp o teléfono"
-            autoComplete="tel"
-            inputMode="tel"
-            required
-            minLength={8}
-            value={values.telefono}
-            onChange={onChange}
-          />
-
-          <label className="visually-hidden" htmlFor="f-necesidad">
-            Cuéntanos brevemente tu necesidad
-          </label>
-          <textarea
-            id="f-necesidad"
-            className="field"
-            name="necesidad"
-            placeholder="Cuéntanos brevemente tu necesidad"
-            rows={3}
-            maxLength={1000}
-            value={values.necesidad}
-            onChange={onChange}
-          />
-
-          {status === 'error' && (
-            <p className="contact__error" role="alert">
-              {error}{' '}
-              <a href={buildMailto(values, interes)}>Escríbenos por correo</a>.
-            </p>
-          )}
-
-          <button
-            type="submit"
-            className="btn btn--primary btn--block"
-            disabled={status === 'sending'}
-          >
-            {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico gratuito'}
-          </button>
-
-          <p className="contact__note">
-            <Icon name="lock" size={13} />
-            Tu información está segura. No enviamos spam.
+        {interes && (
+          <p className="contact__interes">
+            Interés seleccionado: <strong>{interes}</strong>
           </p>
-        </form>
-      )}
+        )}
+
+        <label className="visually-hidden" htmlFor="f-nombre">
+          Nombre completo
+        </label>
+        <input
+          id="f-nombre"
+          className="field"
+          type="text"
+          name="nombre"
+          placeholder="Nombre completo"
+          autoComplete="name"
+          required
+          minLength={2}
+          value={values.nombre}
+          onChange={onChange}
+        />
+
+        <label className="visually-hidden" htmlFor="f-empresa">
+          Empresa
+        </label>
+        <input
+          id="f-empresa"
+          className="field"
+          type="text"
+          name="empresa"
+          placeholder="Empresa"
+          autoComplete="organization"
+          required
+          value={values.empresa}
+          onChange={onChange}
+        />
+
+        <label className="visually-hidden" htmlFor="f-correo">
+          Correo corporativo
+        </label>
+        <input
+          id="f-correo"
+          className="field"
+          type="email"
+          name="correo"
+          placeholder="Correo corporativo"
+          autoComplete="email"
+          inputMode="email"
+          required
+          value={values.correo}
+          onChange={onChange}
+        />
+
+        <label className="visually-hidden" htmlFor="f-telefono">
+          WhatsApp o teléfono
+        </label>
+        <input
+          id="f-telefono"
+          className="field"
+          type="tel"
+          name="telefono"
+          placeholder="WhatsApp o teléfono"
+          autoComplete="tel"
+          inputMode="tel"
+          required
+          minLength={8}
+          value={values.telefono}
+          onChange={onChange}
+        />
+
+        <label className="visually-hidden" htmlFor="f-necesidad">
+          Cuéntanos brevemente tu necesidad
+        </label>
+        <textarea
+          id="f-necesidad"
+          className="field"
+          name="necesidad"
+          placeholder="Cuéntanos brevemente tu necesidad"
+          rows={3}
+          maxLength={1000}
+          value={values.necesidad}
+          onChange={onChange}
+        />
+
+        {status === 'error' && (
+          <p className="contact__error" role="alert">
+            {error}{' '}
+            <a href={buildMailto(values, interes)}>Escríbenos por correo</a>.
+          </p>
+        )}
+
+        <button
+          type="submit"
+          className="btn btn--primary btn--block"
+          disabled={status === 'sending'}
+        >
+          {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico gratuito'}
+        </button>
+
+        <p className="contact__note">
+          <Icon name="lock" size={13} />
+          Tu información está segura. No enviamos spam.
+        </p>
+      </form>
     </div>
   )
 }

@@ -358,9 +358,6 @@ button.chip:hover {
   color: var(--red-500);
   background: var(--red-100);
 }
-.icon-tile--round {
-  border-radius: 50%;
-}
 
 /* Check list — "✓ item" rows */
 .check-list {

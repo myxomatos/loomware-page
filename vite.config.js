@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => {
         input: {
           main: 'index.html',
           prospectar: 'prospectar.html',
+          gracias: 'gracias.html',
         },
       },
     },
