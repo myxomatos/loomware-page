@@ -16,5 +16,5 @@ Thumbs.db
 !.vscode/extensions.json
 *.log
 
-# Claude Code
-.claude/
+# Claude Code: los skills de .claude/skills/ sí se versionan; lo local no
+.claude/settings.local.json
