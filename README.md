@@ -44,6 +44,16 @@ En Cloudflare Pages estas variables se configuran en **Settings → Environment 
 
 Cada `git push` a la rama principal vuelve a desplegar el sitio.
 
+## Flujo de trabajo (ramas)
+
+- **`main`** es producción: lo que está ahí es lo que se ve en <https://loomware.com.mx>. Está protegida: no acepta push directo ni force-push; solo entra código por Pull Request con al menos una aprobación.
+- Cada quien trabaja en su rama: **`alan`** y **`aldo`**. Cloudflare publica un preview de cada rama en `https://<rama>.<proyecto>.pages.dev` para revisarlo antes de mezclar.
+- Para pasar algo a producción:
+  1. `git push origin <tu-rama>`
+  2. Abre un Pull Request hacia `main` (o `gh pr create --base main`).
+  3. Se revisa el preview, se aprueba y se hace el merge. Cloudflare despliega `main` solo.
+- Después del merge, actualiza tu rama: `git checkout <tu-rama> && git merge main`.
+
 ## Estructura
 
 ```

@@ -2,7 +2,7 @@ import Logo from './Logo'
 import Icon from './Icon'
 import './Footer.css'
 
-const EMAIL = 'hola@loomware.com'
+const EMAIL = 'aldo_sanchez@loomware.com.mx'
 const PHONE_DISPLAY = '+52 55 8096 8928'
 const PHONE_TEL = '+525580968928'
 
