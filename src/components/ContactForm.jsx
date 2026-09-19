@@ -3,12 +3,11 @@ import Icon from './Icon'
 import './ContactForm.css'
 
 /*
- * Where the form posts to. Set VITE_FORM_ENDPOINT in .env (see .env.example)
- * to a Formspree / Web3Forms / own API URL that accepts JSON. Without it the
- * form falls back to opening the visitor's email client with the message
- * pre-filled, so the submit button always does something useful.
+ * El formulario se envía a functions/api/contacto.js, que manda el correo con
+ * Resend. Esa función sólo existe en Cloudflare: en `npm run dev` la petición
+ * falla y se muestra el aviso de abajo, que ofrece escribir por correo.
  */
-const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || ''
+const ENDPOINT = '/api/contacto'
 const FALLBACK_EMAIL = 'aldo_sanchez@loomware.com.mx'
 
 const INITIAL = { nombre: '', empresa: '', correo: '', telefono: '', necesidad: '' }
@@ -46,30 +45,28 @@ export default function ContactForm({ interes = '' }) {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    // Honeypot: bots fill every field; humans never see this one.
-    if (e.currentTarget.elements._gotcha.value) return
+    // Honeypot: los bots lo llenan; la persona nunca lo ve. Lo valida el servidor.
+    const _gotcha = e.currentTarget.elements._gotcha.value
 
     setError('')
-
-    if (!ENDPOINT) {
-      window.location.href = buildMailto(values, interes)
-      setStatus('success')
-      return
-    }
-
     setStatus('sending')
     try {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...values, interes, origen: 'Sitio web — formulario de diagnóstico' }),
+        body: JSON.stringify({ ...values, interes, _gotcha }),
       })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json().catch(() => null)
+      if (!res.ok) throw new Error((data && data.error) || `Error ${res.status}`)
       setStatus('success')
       setValues(INITIAL)
-    } catch {
+    } catch (err) {
       setStatus('error')
-      setError('No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos a ' + FALLBACK_EMAIL)
+      setError(
+        import.meta.env.DEV
+          ? 'En local no corre la función de Cloudflare; prueba el formulario en el sitio publicado.'
+          : err.message,
+      )
     }
   }
 
@@ -103,11 +100,7 @@ export default function ContactForm({ interes = '' }) {
             <Icon name="check" size={24} strokeWidth={2.5} />
           </span>
           <h4>¡Listo! Recibimos tu solicitud.</h4>
-          <p className="text-xs">
-            {ENDPOINT
-              ? 'Te contactaremos en menos de 24 horas hábiles.'
-              : 'Se abrió tu cliente de correo con la solicitud lista para enviar.'}
-          </p>
+          <p className="text-xs">Te contactaremos en menos de 24 horas hábiles.</p>
           <button type="button" className="btn btn--outline btn--sm" onClick={reset}>
             Enviar otra solicitud
           </button>
@@ -210,7 +203,8 @@ export default function ContactForm({ interes = '' }) {
 
           {status === 'error' && (
             <p className="contact__error" role="alert">
-              {error}
+              {error}{' '}
+              <a href={buildMailto(values, interes)}>Escríbenos por correo</a>.
             </p>
           )}
 

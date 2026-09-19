@@ -3,16 +3,9 @@ import Icon from './Icon'
 import './Footer.css'
 
 const EMAIL = 'aldo_sanchez@loomware.com.mx'
-const PHONE_DISPLAY = '+52 55 8096 8928'
-const PHONE_TEL = '+525580968928'
 
-// Fill in the real profile URLs; an empty url renders the icon without a link.
-const SOCIAL = [
-  { icon: 'linkedin', label: 'LinkedIn', url: '' },
-  { icon: 'instagram', label: 'Instagram', url: '' },
-  { icon: 'youtube', label: 'YouTube', url: '' },
-  { icon: 'facebook', label: 'Facebook', url: '' },
-]
+// display = como se lee; tel = lo que marca el teléfono (sin espacios, con lada país).
+const PHONES = [{ display: '+52 55 8096 8928', tel: '+525580968928' }]
 
 const COLUMNS = [
   {
@@ -57,23 +50,6 @@ export default function Footer() {
             <p className="footer__tagline">
               Tecnología empresarial para crecer con claridad, control y confianza.
             </p>
-            <ul className="footer__social" aria-label="Redes sociales">
-              {SOCIAL.map((s) =>
-                s.url ? (
-                  <li key={s.icon}>
-                    <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
-                      <Icon name={s.icon} size={18} />
-                    </a>
-                  </li>
-                ) : (
-                  <li key={s.icon}>
-                    <span title={s.label}>
-                      <Icon name={s.icon} size={18} />
-                    </span>
-                  </li>
-                ),
-              )}
-            </ul>
           </div>
 
           {COLUMNS.map((col) => (
@@ -96,10 +72,12 @@ export default function Footer() {
                 <Icon name="mail" size={16} />
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
               </li>
-              <li>
-                <Icon name="phone" size={16} />
-                <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
-              </li>
+              {PHONES.map((p) => (
+                <li key={p.tel}>
+                  <Icon name="phone" size={16} />
+                  <a href={`tel:${p.tel}`}>{p.display}</a>
+                </li>
+              ))}
               <li>
                 <Icon name="map-pin" size={16} />
                 <span>México, CDMX</span>

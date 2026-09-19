@@ -27,7 +27,9 @@ Copia `.env.example` a `.env`:
 
 | Variable             | Para qué sirve                                                                                                   |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `VITE_FORM_ENDPOINT` | URL que recibe el formulario de diagnóstico como JSON (Formspree, Web3Forms, API propia). Vacío = abre el correo. |
+| `RESEND_API_KEY` | **Sólo en Cloudflare.** Llave de [Resend](https://resend.com) con la que se envía el correo del formulario. Guardar como *Secret*. |
+| `LEAD_TO` | **Sólo en Cloudflare.** Bandeja que recibe los leads (varias separadas por coma). Por omisión, el correo de contacto del sitio. |
+| `LEAD_FROM` | **Sólo en Cloudflare.** Remitente, en un dominio verificado en Resend. Por omisión `Loomware <web@loomware.com.mx>`. |
 | `VITE_SCHEDULE_URL`  | Enlace de agenda (Calendly, Cal.com) para "Agendar ahora". Vacío = lleva al formulario.                           |
 
 En Cloudflare Pages estas variables se configuran en **Settings → Environment variables**.
@@ -119,3 +121,26 @@ Después de buscar: filtra por tamaño, "con teléfono" o "con correo", marca la
 - **Estados**: 09 CDMX, 15 Edo. de México, 14 Jalisco, 19 Nuevo León, 22 Querétaro, 21 Puebla (lista completa en el selector).
 - **SCIAN** (giros): 54 servicios profesionales, 43 comercio mayoreo, 46 comercio menudeo, 31–33 manufactura, 72 restaurantes y hoteles, 62 salud. Códigos de 3–6 dígitos en <https://www.inegi.org.mx/app/scian/>.
 - **Municipios** fuera de CDMX: clave de 3 dígitos del INEGI. Catálogo: <https://www.inegi.org.mx/app/ageeml/>.
+
+## Formulario de diagnóstico
+
+Al enviar, el formulario hace `POST /api/contacto`. Esa ruta es la Function
+`functions/api/contacto.js`, que valida los datos y manda un correo con [Resend](https://resend.com).
+El correo llega a `LEAD_TO` con el asunto `Diagnóstico — <Empresa> (<Nombre>)` y trae nombre,
+empresa, correo, teléfono, interés seleccionado y la necesidad descrita. El `reply_to` es el correo
+del interesado: basta con **responder** ese mensaje para contestarle directamente.
+
+### Puesta en marcha
+
+1. Crear cuenta en <https://resend.com> (plan gratuito: 3 000 correos al mes).
+2. **API Keys → Create API Key**; copiar la llave (empieza con `re_`).
+3. En Cloudflare → Settings → Environment variables, agregar `RESEND_API_KEY`
+   como *Secret*, **en Production y en Preview**, y volver a desplegar.
+4. Para que el remitente sea `@loomware.com.mx`: en Resend, **Domains → Add Domain**,
+   agregar `loomware.com.mx` y capturar en Cloudflare los registros DNS que indique.
+   Mientras no esté verificado, se puede probar poniendo
+   `LEAD_FROM = Loomware <onboarding@resend.dev>`, que sólo entrega al correo
+   dueño de la cuenta de Resend.
+
+> La Function no existe en `npm run dev`: en local el envío falla a propósito y muestra un
+> aviso. El formulario se prueba en el preview de la rama o en producción.

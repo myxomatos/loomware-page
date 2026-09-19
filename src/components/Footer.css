@@ -19,24 +19,6 @@
   max-width: 28ch;
   line-height: var(--lh-body);
 }
-.footer__social {
-  display: flex;
-  gap: var(--sp-2);
-}
-.footer__social a,
-.footer__social span {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-sm);
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-  transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
-}
-.footer__social a:hover {
-  background: var(--purple-500);
-}
 .footer__col {
   display: flex;
   flex-direction: column;
