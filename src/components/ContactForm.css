@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
   margin-top: auto;
   padding-top: var(--sp-6);
   border-top: 1px solid var(--border);
@@ -27,15 +27,31 @@
   font-weight: 700;
   color: var(--text-900);
 }
-.contact__directo-correo {
+.contact__directo-enlace {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-2);
-  font-size: var(--fs-xs);
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-600);
+  transition: color var(--t-base) var(--ease);
+}
+.contact__directo-enlace strong {
+  color: var(--text-900);
+  font-weight: 600;
+}
+.contact__directo-enlace .icon {
+  flex: none;
+  color: var(--purple-500);
+}
+.contact__directo-enlace .contact__directo-wa {
+  --icon-bg: var(--white);
+  color: var(--green-500);
+}
+.contact__directo-enlace:hover {
   color: var(--purple-600);
 }
-.contact__directo-correo:hover {
-  text-decoration: underline;
+.contact__directo-enlace:hover strong {
+  color: var(--purple-600);
 }
 .contact__title {
   font-size: var(--fs-h3);

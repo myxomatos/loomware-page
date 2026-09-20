@@ -94,15 +94,19 @@ export default function ContactForm({ interes = '' }) {
             href={whatsappUrl('Hola, prefiero platicar por WhatsApp sobre un diagnóstico para mi empresa.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn--whatsapp"
+            className="contact__directo-enlace"
             onClick={() => clicWhatsApp('formulario')}
           >
-            <Icon name="whatsapp" size={20} strokeWidth={0} />
-            WhatsApp {WHATSAPP.display}
+            <Icon name="whatsapp" size={18} strokeWidth={0} className="contact__directo-wa" />
+            <span>
+              <strong>WhatsApp</strong> {WHATSAPP.display}
+            </span>
           </a>
-          <a href={`mailto:${EMAIL}`} className="contact__directo-correo">
-            <Icon name="mail" size={15} />
-            {EMAIL}
+          <a href={`mailto:${EMAIL}`} className="contact__directo-enlace">
+            <Icon name="mail" size={18} />
+            <span>
+              <strong>Correo</strong> {EMAIL}
+            </span>
           </a>
         </div>
       </div>
