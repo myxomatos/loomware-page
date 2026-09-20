@@ -11,7 +11,7 @@ import './ContactForm.css'
 const ENDPOINT = '/api/contacto'
 const FALLBACK_EMAIL = EMAIL
 
-const INITIAL = { nombre: '', empresa: '', correo: '', telefono: '', necesidad: '' }
+const INITIAL = { nombre: '', empresa: '', correo: '', telefono: '', necesidad: '', acepta: false }
 
 const BENEFITS = [
   'Análisis de tus canales y procesos',
@@ -40,8 +40,8 @@ export default function ContactForm({ interes = '' }) {
   const [error, setError] = useState('')
 
   const onChange = (e) => {
-    const { name, value } = e.target
-    setValues((v) => ({ ...v, [name]: value }))
+    const { name, value, type, checked } = e.target
+    setValues((v) => ({ ...v, [name]: type === 'checkbox' ? checked : value }))
   }
 
   const onSubmit = async (e) => {
@@ -182,6 +182,23 @@ export default function ContactForm({ interes = '' }) {
           value={values.necesidad}
           onChange={onChange}
         />
+
+        <label className="contact__acepta">
+          <input
+            type="checkbox"
+            name="acepta"
+            required
+            checked={values.acepta}
+            onChange={onChange}
+          />
+          <span>
+            He leído y acepto el{' '}
+            <a href="/aviso-de-privacidad" target="_blank" rel="noopener noreferrer">
+              aviso de privacidad
+            </a>
+            . Mis datos se usan sólo para atender esta solicitud.
+          </span>
+        </label>
 
         {status === 'error' && (
           <p className="contact__error" role="alert">

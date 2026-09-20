@@ -7,6 +7,12 @@ export const DOMINIO = 'https://loomware.com.mx'
 export const EMAIL = 'aldo_sanchez@loomware.com.mx'
 export const CIUDAD = 'Ciudad de México'
 
+// Para el aviso de privacidad. Mientras estén vacíos se usa el nombre comercial
+// y la ciudad; hay que capturar los datos legales antes de salir a producción.
+export const RAZON_SOCIAL = ''
+export const DOMICILIO = ''
+export const AVISO_ACTUALIZADO = '20 de septiembre de 2026'
+
 // display: como se lee. tel: lo que marca el teléfono. wa: para wa.me (sin + ni espacios).
 export const TELEFONOS = [{ display: '+52 55 8096 8928', tel: '+525580968928', wa: '525580968928' }]
 

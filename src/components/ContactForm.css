@@ -67,3 +67,26 @@
   height: 1px;
   background: var(--border);
 }
+
+/* Consentimiento del aviso de privacidad */
+.contact__acepta {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin-top: var(--sp-1);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  color: var(--text-500);
+  cursor: pointer;
+}
+.contact__acepta input {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  accent-color: var(--purple-500);
+}
+.contact__acepta a {
+  color: var(--purple-600);
+  text-decoration: underline;
+}

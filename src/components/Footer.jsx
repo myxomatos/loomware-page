@@ -31,7 +31,7 @@ const COLUMNS = [
       { label: 'Casos de éxito', href: '#impacto' },
       { label: 'Recursos', href: '#desafio' },
       { label: 'Acerca de nosotros', href: '#inicio' },
-      { label: 'Privacidad', href: '#contacto' },
+      { label: 'Aviso de privacidad', href: '/aviso-de-privacidad' },
     ],
   },
 ]

@@ -50,6 +50,8 @@ export async function onRequestPost({ request, env }) {
 
   const faltantes = ['nombre', 'empresa', 'correo', 'telefono'].filter((k) => !lead[k])
   if (faltantes.length) return json({ error: `Faltan datos: ${faltantes.join(', ')}` }, 400)
+  // El consentimiento se valida aquí y no sólo en el navegador (LFPDPPP).
+  if (body.acepta !== true) return json({ error: 'Es necesario aceptar el aviso de privacidad' }, 400)
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.correo)) {
     return json({ error: 'El correo no parece válido' }, 400)
   }
@@ -61,6 +63,7 @@ export async function onRequestPost({ request, env }) {
     ['WhatsApp / teléfono', lead.telefono],
     ['Interés principal', lead.interes || '—'],
     ['Necesidad', lead.necesidad || '—'],
+    ['Aviso de privacidad', 'Aceptado'],
   ]
 
   const texto = filas.map(([k, v]) => `${k}: ${v}`).join('\n')

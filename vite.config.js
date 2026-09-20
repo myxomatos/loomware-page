@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
           main: 'index.html',
           prospectar: 'prospectar.html',
           gracias: 'gracias.html',
+          aviso: 'aviso-de-privacidad.html',
         },
       },
     },
