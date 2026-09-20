@@ -31,8 +31,7 @@ export default function Nosotros() {
           <div className="nosotros__copy">
             <span className="eyebrow eyebrow--purple">Quiénes somos</span>
             <h2 className="nosotros__title">
-              Una empresa mexicana que pone orden donde el negocio creció más rápido que sus
-              sistemas
+              Ponemos orden en la operación y nos quedamos hasta que funcione
             </h2>
             <p>
               Loomware nace en {CIUDAD} para atender a empresas que hoy operan entre hojas de

@@ -12,7 +12,7 @@ export const SERVICIOS = [
   {
     slug: 'crm',
     resumen: 'Gestiona clientes, ventas y oportunidades en una sola plataforma.',
-    beneficio: { icon: 'bar-chart', label: 'Convierte más oportunidades' },
+    beneficio: { icon: 'bar-chart', label: 'Cierra más ventas' },
     nombre: 'CRM',
     icon: 'users',
     titulo: 'CRM para pymes en México | Loomware',
@@ -270,7 +270,7 @@ export const SERVICIOS = [
   {
     slug: 'infraestructura-cloud',
     resumen: 'Seguridad, rendimiento y disponibilidad para una operación sin fricciones.',
-    beneficio: { icon: 'cloud', label: 'Siempre disponible, siempre segura' },
+    beneficio: { icon: 'cloud', label: 'Disponible y segura' },
     nombre: 'Infraestructura cloud',
     icon: 'cloud',
     titulo: 'Infraestructura en la nube para empresas | Loomware',
@@ -313,7 +313,7 @@ export const SERVICIOS = [
   {
     slug: 'apps-moviles',
     resumen: 'Experiencias móviles para equipos, clientes y operaciones en campo.',
-    beneficio: { icon: 'smartphone', label: 'Tu negocio en cualquier lugar' },
+    beneficio: { icon: 'smartphone', label: 'Tu operación en campo' },
     nombre: 'Apps móviles',
     icon: 'smartphone',
     titulo: 'Apps móviles para operación en campo | Loomware',
