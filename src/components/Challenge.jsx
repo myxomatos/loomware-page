@@ -28,12 +28,12 @@ const CORE = [
 ]
 
 const RESULTS = [
-  { icon: 'target', label: 'Oportunidades atendidas' },
-  { icon: 'refresh-cw', label: 'Seguimiento constante' },
-  { icon: 'list-checks', label: 'Menos tareas manuales' },
-  { icon: 'activity', label: 'Información en tiempo real' },
-  { icon: 'lightbulb', label: 'Mejores decisiones' },
-  { icon: 'trending-up', label: 'Más ventas y crecimiento' },
+  { icon: 'target', label: 'Cada prospecto con dueño y fecha' },
+  { icon: 'refresh-cw', label: 'Cero seguimientos olvidados' },
+  { icon: 'list-checks', label: 'Lo repetitivo corre solo' },
+  { icon: 'activity', label: 'Inventario real, no el de ayer' },
+  { icon: 'lightbulb', label: 'Reportes que se arman solos' },
+  { icon: 'trending-up', label: 'Sabes cuánto vas a cerrar' },
 ]
 
 function FlowArrow() {
@@ -106,7 +106,7 @@ export default function Challenge() {
 
             <div className="flow__col">
               <p className="flow__label">Resultados</p>
-              <p className="flow__hint">Más control, más ventas, menos trabajo manual</p>
+              <p className="flow__hint">Lo que cambia en la operación</p>
               <ul className="flow__list card">
                 {RESULTS.map((r) => (
                   <li key={r.label}>
