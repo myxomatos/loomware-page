@@ -79,6 +79,10 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       entendí; si algo no es así, se cambia el texto, no se deja.
 - [ ] **Confirmar que +52 55 8096 8928 es el WhatsApp** que van a atender. Está en
       `src/data/contacto.js` y de ahí sale para todo el sitio.
+- [ ] **Video de "Ver cómo funciona".** Cuando el clip de Clipchamp esté listo, subirlo a YouTube
+      como *No listado* y poner la URL en `src/data/video.js`. Con eso el enlace del hero abre el
+      video en una ventana sobre la página; sin URL sigue llevando al proceso. También acepta un
+      MP4 en `public/video/` si pesa menos de ~15 MB.
 - [ ] **Analítica.** Crear la propiedad de Google Analytics 4 y dar de alta
       `loomware.com.mx` en Search Console (por DNS o con `VITE_GSC_VERIFICATION`). Enviar el
       sitemap: `https://loomware.com.mx/sitemap.xml`. El código ya reporta `generate_lead` al
@@ -96,8 +100,11 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 Se revisan en <https://alan.loomware-page.pages.dev> antes de mezclar.
 
-- [x] **WhatsApp**: botón flotante, en el hero, junto al formulario, en el footer, en cada
-      página de servicio y en `/gracias`. Mensaje prellenado con el origen.
+- [x] **WhatsApp**: botón flotante, en el hero, en el formulario ("¿Prefieres hablar directo?"),
+      en el footer, en cada página de servicio y en `/gracias`. Mensaje prellenado con el origen.
+- [x] **Pulido tras revisión de Alan (2026-09-20)**: "Ver cómo funciona" listo para abrir el video;
+      chips de industrias en una sola fila; "Impacto" convertido en franja horizontal compacta
+      sobre un formulario centrado con el canal de WhatsApp en su columna izquierda.
 - [x] **Aviso de privacidad**: página `/aviso-de-privacidad`, casilla obligatoria en el
       formulario, validación del consentimiento en el servidor, enlace en el footer.
 - [x] **Quiénes somos**: sección `#nosotros` con texto de empresa y principios; tarjetas de

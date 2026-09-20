@@ -98,3 +98,11 @@
 .hero__como:hover .btn__play {
   border-color: var(--purple-500);
 }
+.hero__como-nota {
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--purple-100);
+  color: var(--purple-600);
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+}

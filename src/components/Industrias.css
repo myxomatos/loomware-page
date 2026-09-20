@@ -20,14 +20,27 @@
 }
 .industria__solucion {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
   gap: var(--sp-2);
   margin-top: var(--sp-2);
   padding-top: var(--sp-4);
   border-top: 1px solid var(--border);
+}
+.industria__etiqueta {
   font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--text-500);
+}
+.industria__chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--sp-2);
+}
+.industria__chips .chip {
+  min-height: 34px;
+  padding-inline: var(--sp-3);
 }
 .industria__solucion .chip:hover {
   border-color: var(--purple-400);

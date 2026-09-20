@@ -1,6 +1,9 @@
+import { useState } from 'react'
 import Icon from './Icon'
+import VideoModal from './VideoModal'
 import { whatsappUrl } from '../data/contacto'
-import { clicWhatsApp } from '../lib/analytics'
+import { VIDEO_URL } from '../data/video'
+import { clicWhatsApp, rastrear } from '../lib/analytics'
 import './Hero.css'
 
 const HIGHLIGHTS = [
@@ -10,6 +13,12 @@ const HIGHLIGHTS = [
 ]
 
 export default function Hero() {
+  const [video, setVideo] = useState(false)
+  const abrirVideo = () => {
+    setVideo(true)
+    rastrear('ver_video', { origen: 'hero' })
+  }
+
   return (
     <section id="inicio" className="hero">
       <div className="container hero__inner">
@@ -39,12 +48,22 @@ export default function Hero() {
               Escríbenos por WhatsApp
             </a>
           </div>
-          <a href="#proceso" className="link-arrow hero__como">
-            <span className="btn__play">
-              <Icon name="play" size={12} />
-            </span>
-            Ver cómo funciona
-          </a>
+          {VIDEO_URL ? (
+            <button type="button" className="link-arrow hero__como" onClick={abrirVideo}>
+              <span className="btn__play">
+                <Icon name="play" size={12} />
+              </span>
+              Ver cómo funciona
+              <span className="hero__como-nota">1 min</span>
+            </button>
+          ) : (
+            <a href="#proceso" className="link-arrow hero__como">
+              <span className="btn__play">
+                <Icon name="play" size={12} />
+              </span>
+              Ver cómo funciona
+            </a>
+          )}
 
           <ul className="hero__highlights" aria-label="Beneficios">
             {HIGHLIGHTS.map((h) => (
@@ -76,6 +95,7 @@ export default function Hero() {
           </picture>
         </figure>
       </div>
+      {VIDEO_URL && <VideoModal abierto={video} onCerrar={() => setVideo(false)} />}
     </section>
   )
 }

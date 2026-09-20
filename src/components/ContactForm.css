@@ -1,14 +1,41 @@
 .contact {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: var(--sp-6);
-  padding: var(--sp-6);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-10);
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: var(--sp-8);
   scroll-margin-top: calc(var(--nav-h) + 24px);
 }
 .contact__intro {
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
+}
+/* Canal alterno, al pie de la columna izquierda */
+.contact__directo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  margin-top: auto;
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--border);
+}
+.contact__directo-titulo {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-900);
+}
+.contact__directo-correo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--purple-600);
+}
+.contact__directo-correo:hover {
+  text-decoration: underline;
 }
 .contact__title {
   font-size: var(--fs-h3);
@@ -51,22 +78,6 @@
   }
 }
 
-/* Separador "o" entre enviar y WhatsApp */
-.contact__o {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  margin-top: var(--sp-2);
-  font-size: var(--fs-2xs);
-  color: var(--text-500);
-}
-.contact__o::before,
-.contact__o::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
 
 /* Consentimiento del aviso de privacidad */
 .contact__acepta {

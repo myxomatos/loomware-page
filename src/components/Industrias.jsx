@@ -21,8 +21,9 @@ export default function Industrias() {
               </span>
               <h3 className="industria__nombre">{g.nombre}</h3>
               <p className="industria__dolor">{g.dolor}</p>
-              <p className="industria__solucion">
-                <span>Lo que suele resolverlo:</span>
+              <div className="industria__solucion">
+                <span className="industria__etiqueta">Lo que suele resolverlo</span>
+                <span className="industria__chips">
                 {g.servicios.map((slug) => {
                   const s = servicioPorSlug(slug)
                   return s ? (
@@ -31,7 +32,8 @@ export default function Industrias() {
                     </a>
                   ) : null
                 })}
-              </p>
+                </span>
+              </div>
             </li>
           ))}
         </ul>

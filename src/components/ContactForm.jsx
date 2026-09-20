@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Icon from './Icon'
-import { EMAIL, whatsappUrl } from '../data/contacto'
+import { EMAIL, WHATSAPP, whatsappUrl } from '../data/contacto'
 import { clicWhatsApp } from '../lib/analytics'
 import './ContactForm.css'
 
@@ -87,6 +87,24 @@ export default function ContactForm({ interes = '' }) {
             </li>
           ))}
         </ul>
+
+        <div className="contact__directo">
+          <p className="contact__directo-titulo">¿Prefieres hablar directo?</p>
+          <a
+            href={whatsappUrl('Hola, prefiero platicar por WhatsApp sobre un diagnóstico para mi empresa.')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--whatsapp"
+            onClick={() => clicWhatsApp('formulario')}
+          >
+            <Icon name="whatsapp" size={20} strokeWidth={0} />
+            WhatsApp {WHATSAPP.display}
+          </a>
+          <a href={`mailto:${EMAIL}`} className="contact__directo-correo">
+            <Icon name="mail" size={15} />
+            {EMAIL}
+          </a>
+        </div>
       </div>
 
       <form className="contact__form" onSubmit={onSubmit}>
@@ -221,19 +239,6 @@ export default function ContactForm({ interes = '' }) {
           Tu información está segura. No enviamos spam.
         </p>
 
-        <div className="contact__o">
-          <span>o</span>
-        </div>
-        <a
-          href={whatsappUrl('Hola, prefiero platicar por WhatsApp sobre un diagnóstico para mi empresa.')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn--whatsapp-outline btn--block"
-          onClick={() => clicWhatsApp('formulario')}
-        >
-          <Icon name="whatsapp" size={20} strokeWidth={0} />
-          Mejor por WhatsApp
-        </a>
       </form>
     </div>
   )
