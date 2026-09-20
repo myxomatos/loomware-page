@@ -1,5 +1,13 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import { readdirSync } from 'node:fs'
+
+// Una entrada por cada servicios/<slug>.html que genera scripts/generar-servicios.js
+const servicios = Object.fromEntries(
+  readdirSync('servicios')
+    .filter((f) => f.endsWith('.html'))
+    .map((f) => ['servicios/' + f.replace('.html', ''), 'servicios/' + f]),
+)
 
 export default defineConfig(({ mode }) => {
   // DENUE_TOKEN no lleva prefijo VITE_ a propósito: nunca entra al bundle.
@@ -14,6 +22,7 @@ export default defineConfig(({ mode }) => {
           prospectar: 'prospectar.html',
           gracias: 'gracias.html',
           aviso: 'aviso-de-privacidad.html',
+          ...servicios,
         },
       },
     },

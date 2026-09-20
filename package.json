@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generar-servicios.js",
     "build": "vite build",
     "preview": "vite preview",
+    "generar:servicios": "node scripts/generar-servicios.js",
     "share": "cloudflared tunnel --url http://localhost:5173"
   },
   "dependencies": {
