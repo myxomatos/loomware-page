@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import Icon from './Icon'
 import VideoModal from './VideoModal'
-import { whatsappUrl } from '../data/contacto'
 import { VIDEO_URL } from '../data/video'
-import { clicWhatsApp, rastrear } from '../lib/analytics'
+import { rastrear } from '../lib/analytics'
 import './Hero.css'
 
 const HIGHLIGHTS = [
-  { icon: 'zap', label: 'Más eficiencia' },
-  { icon: 'sliders', label: 'Más control' },
-  { icon: 'bar-chart', label: 'Más crecimiento' },
+  { icon: 'map-pin', label: 'Hecho en México' },
+  { icon: 'search', label: 'Diagnóstico sin costo' },
+  { icon: 'list-checks', label: 'Entregas por etapas' },
 ]
 
 export default function Hero() {
@@ -37,33 +36,23 @@ export default function Hero() {
               Solicitar diagnóstico
               <Icon name="arrow-right" size={18} />
             </a>
-            <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--whatsapp-outline"
-              onClick={() => clicWhatsApp('hero')}
-            >
-              <Icon name="whatsapp" size={20} strokeWidth={0} />
-              Escríbenos por WhatsApp
-            </a>
+            {VIDEO_URL ? (
+              <button type="button" className="btn btn--outline hero__video" onClick={abrirVideo}>
+                <span className="btn__play">
+                  <Icon name="play" size={12} />
+                </span>
+                Ver cómo funciona
+                <span className="hero__video-nota">1 min</span>
+              </button>
+            ) : (
+              <a href="#proceso" className="btn btn--outline hero__video">
+                <span className="btn__play">
+                  <Icon name="play" size={12} />
+                </span>
+                Ver cómo funciona
+              </a>
+            )}
           </div>
-          {VIDEO_URL ? (
-            <button type="button" className="link-arrow hero__como" onClick={abrirVideo}>
-              <span className="btn__play">
-                <Icon name="play" size={12} />
-              </span>
-              Ver cómo funciona
-              <span className="hero__como-nota">1 min</span>
-            </button>
-          ) : (
-            <a href="#proceso" className="link-arrow hero__como">
-              <span className="btn__play">
-                <Icon name="play" size={12} />
-              </span>
-              Ver cómo funciona
-            </a>
-          )}
 
           <ul className="hero__highlights" aria-label="Beneficios">
             {HIGHLIGHTS.map((h) => (

@@ -83,26 +83,24 @@
   }
 }
 
-/* "Ver cómo funciona" como enlace bajo los botones */
-.hero__como {
-  margin-top: var(--sp-1);
-  color: var(--text-900);
+/* Botón secundario con el círculo de play dentro */
+.hero__video {
+  padding-left: var(--sp-3);
 }
-.hero__como .btn__play {
+.hero__video .btn__play {
   width: 28px;
   height: 28px;
+  border-color: currentColor;
 }
-.hero__como:hover {
-  color: var(--purple-500);
-}
-.hero__como:hover .btn__play {
-  border-color: var(--purple-500);
-}
-.hero__como-nota {
+.hero__video-nota {
   padding: 2px 8px;
   border-radius: var(--r-pill);
   background: var(--purple-100);
   color: var(--purple-600);
   font-size: var(--fs-2xs);
   font-weight: 700;
+}
+.hero__video:hover .hero__video-nota {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
 }
