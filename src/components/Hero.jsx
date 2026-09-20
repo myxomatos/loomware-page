@@ -57,7 +57,12 @@ export default function Hero() {
         </div>
 
         <figure className="hero__media">
+          {/* WebP por tamaño de pantalla; el PNG queda como respaldo. Las mismas
+              reglas de media están precargadas en index.html. */}
           <picture>
+            <source media="(max-width: 767px)" type="image/webp" srcSet="/hero-mobile.webp" />
+            <source media="(max-width: 1199px)" type="image/webp" srcSet="/hero-tablet.webp" />
+            <source type="image/webp" srcSet="/hero-desktop.webp" />
             <source media="(max-width: 767px)" srcSet="/hero_mobile-1400w.png" />
             <source media="(max-width: 1199px)" srcSet="/hero_tablet-1400w.png" />
             <img

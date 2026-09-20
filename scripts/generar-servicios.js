@@ -75,13 +75,7 @@ const plantilla = (s) => `<!DOCTYPE html>
     <meta name="twitter:title" content="${esc(s.titulo)}" />
     <meta name="twitter:description" content="${esc(s.descripcion)}" />
     <meta name="twitter:image" content="${DOMINIO}/og-image.png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     <script type="application/ld+json">${ldService(s)}</script>
     <script type="application/ld+json">${ldFaq(s)}</script>
