@@ -1,0 +1,181 @@
+.dg {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  padding: var(--sp-8);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+}
+.dg__titulo {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-500);
+  text-align: center;
+}
+
+/* Nodo: caja con ícono y etiqueta */
+.dg-nodo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  text-align: center;
+}
+.dg-nodo__caja {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-lg);
+  color: var(--purple-500);
+  background: var(--purple-50);
+  border: 1px solid var(--purple-100);
+}
+.dg-nodo.is-destacado .dg-nodo__caja {
+  color: var(--white);
+  background: var(--purple-500);
+  border-color: var(--purple-500);
+  box-shadow: var(--shadow-purple);
+}
+.dg-nodo__texto {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-900);
+  line-height: var(--lh-snug);
+  max-width: 12ch;
+}
+
+/* flujo */
+.dg__flujo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.dg__paso {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+.dg__paso:last-child {
+  flex: 0 0 auto;
+}
+.dg__flecha {
+  flex: 1;
+  height: 2px;
+  min-width: 20px;
+  margin: 31px var(--sp-2) 0;
+  background: linear-gradient(90deg, var(--purple-400), var(--purple-100));
+  position: relative;
+}
+.dg__flecha::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--purple-400);
+  border-right: 2px solid var(--purple-400);
+  transform: rotate(45deg);
+}
+
+/* hub */
+.dg__hub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+.dg__centro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-6);
+  border-radius: var(--r-md);
+  color: var(--white);
+  background: var(--navy-800);
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+.dg__modulos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+
+/* capas */
+.dg__capas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-width: 640px;
+  margin-inline: auto;
+  width: 100%;
+}
+.dg__capa {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--r-md);
+  color: var(--text-900);
+  background: var(--purple-50);
+  border: 1px solid var(--purple-100);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.dg__capa .icon {
+  flex: none;
+  color: var(--purple-500);
+}
+.dg__capa:last-child {
+  color: var(--white);
+  background: var(--purple-500);
+  border-color: var(--purple-500);
+}
+.dg__capa:last-child .icon {
+  color: var(--white);
+}
+
+@media (max-width: 767px) {
+  .dg {
+    padding: var(--sp-5);
+  }
+  .dg__flujo {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-2);
+  }
+  .dg__paso {
+    flex-direction: column;
+    align-items: center;
+  }
+  .dg__flecha {
+    width: 2px;
+    height: 24px;
+    min-width: 0;
+    flex: none;
+    margin: var(--sp-1) 0;
+    background: linear-gradient(180deg, var(--purple-400), var(--purple-100));
+  }
+  .dg__flecha::after {
+    right: -4px;
+    top: auto;
+    bottom: 0;
+    transform: rotate(135deg);
+  }
+  .dg__modulos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 479px) {
+  .dg__modulos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

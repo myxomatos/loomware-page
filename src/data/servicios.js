@@ -7,10 +7,24 @@
  *
  * Reglas del texto: hablar del problema del cliente antes que de la tecnología;
  * sin cifras que no se hayan medido; español de México.
+ *
+ * diagrama.tipo: 'flujo' (pasos con flechas), 'hub' (núcleo y módulos) o
+ * 'capas' (bloques apilados). Lo dibuja src/components/Diagrama.jsx.
  */
 export const SERVICIOS = [
   {
     slug: 'crm',
+    diagrama: {
+      tipo: 'flujo',
+      titulo: 'El camino de cada oportunidad',
+      nodos: [
+        { icon: 'target', texto: 'Prospecto' },
+        { icon: 'message-circle', texto: 'Contacto' },
+        { icon: 'file-text', texto: 'Propuesta' },
+        { icon: 'balanza', texto: 'Negociación' },
+        { icon: 'check-circle', texto: 'Cierre', destacado: true },
+      ],
+    },
     resumen: 'Gestiona clientes, ventas y oportunidades en una sola plataforma.',
     beneficio: { icon: 'bar-chart', label: 'Cierra más ventas' },
     nombre: 'CRM',
@@ -54,6 +68,19 @@ export const SERVICIOS = [
 
   {
     slug: 'erp',
+    diagrama: {
+      tipo: 'hub',
+      titulo: 'Un núcleo, todas las áreas',
+      centro: { icon: 'database', texto: 'Datos de la empresa' },
+      nodos: [
+        { icon: 'dollar', texto: 'Finanzas' },
+        { icon: 'package', texto: 'Inventario' },
+        { icon: 'truck', texto: 'Compras' },
+        { icon: 'bar-chart', texto: 'Ventas' },
+        { icon: 'settings', texto: 'Producción' },
+        { icon: 'file-text', texto: 'Facturación' },
+      ],
+    },
     resumen: 'Conecta finanzas, inventario y operación en un sistema preparado para crecer.',
     beneficio: { icon: 'clock', label: 'Control total de tu negocio' },
     nombre: 'ERP',
@@ -97,6 +124,17 @@ export const SERVICIOS = [
 
   {
     slug: 'nomina',
+    diagrama: {
+      tipo: 'flujo',
+      titulo: 'De la asistencia al recibo',
+      nodos: [
+        { icon: 'clock', texto: 'Asistencia' },
+        { icon: 'calculator', texto: 'Cálculo' },
+        { icon: 'shield-check', texto: 'Timbrado CFDI' },
+        { icon: 'dollar', texto: 'Dispersión' },
+        { icon: 'mail', texto: 'Recibos', destacado: true },
+      ],
+    },
     resumen: 'Cálculo, timbrado de CFDI y dispersión en un proceso que corre solo.',
     beneficio: { icon: 'shield-check', label: 'Cada quincena sin sorpresas' },
     nombre: 'Nómina',
@@ -140,6 +178,17 @@ export const SERVICIOS = [
 
   {
     slug: 'tienda-en-linea',
+    diagrama: {
+      tipo: 'flujo',
+      titulo: 'Del catálogo a la entrega',
+      nodos: [
+        { icon: 'package', texto: 'Catálogo' },
+        { icon: 'shopping-cart', texto: 'Carrito' },
+        { icon: 'credit-card', texto: 'Pago' },
+        { icon: 'truck', texto: 'Envío' },
+        { icon: 'check-circle', texto: 'Entrega', destacado: true },
+      ],
+    },
     resumen: 'Vende las 24 horas con inventario, pagos y envíos conectados a tu operación.',
     beneficio: { icon: 'shopping-cart', label: 'Ventas sin recaptura' },
     nombre: 'Comercio en línea',
@@ -183,6 +232,16 @@ export const SERVICIOS = [
 
   {
     slug: 'automatizacion',
+    diagrama: {
+      tipo: 'flujo',
+      titulo: 'Así corre un flujo',
+      nodos: [
+        { icon: 'zap', texto: 'Algo ocurre' },
+        { icon: 'sliders', texto: 'Se evalúa la regla' },
+        { icon: 'settings', texto: 'Se ejecuta la acción' },
+        { icon: 'mail', texto: 'Se avisa al responsable', destacado: true },
+      ],
+    },
     resumen: 'Reduce tareas manuales y acelera procesos con flujos inteligentes.',
     beneficio: { icon: 'zap', label: 'Ahorra tiempo y costos' },
     nombre: 'Automatización',
@@ -226,6 +285,17 @@ export const SERVICIOS = [
 
   {
     slug: 'software-a-medida',
+    diagrama: {
+      tipo: 'flujo',
+      titulo: 'Cómo lo construimos',
+      nodos: [
+        { icon: 'search', texto: 'Diagnóstico' },
+        { icon: 'pencil', texto: 'Diseño' },
+        { icon: 'code', texto: 'Desarrollo' },
+        { icon: 'check-circle', texto: 'Pruebas' },
+        { icon: 'rocket', texto: 'Operación', destacado: true },
+      ],
+    },
     resumen: 'Soluciones a medida que se adaptan a tus procesos y objetivos.',
     beneficio: { icon: 'sliders', label: 'Hecho para tu operación' },
     nombre: 'Software a medida',
@@ -269,6 +339,16 @@ export const SERVICIOS = [
 
   {
     slug: 'infraestructura-cloud',
+    diagrama: {
+      tipo: 'capas',
+      titulo: 'Cuatro capas, una sola responsabilidad',
+      nodos: [
+        { icon: 'globe', texto: 'Red y entrega de contenido' },
+        { icon: 'server', texto: 'Cómputo que escala solo' },
+        { icon: 'database', texto: 'Datos cifrados' },
+        { icon: 'shield-check', texto: 'Respaldo y recuperación' },
+      ],
+    },
     resumen: 'Seguridad, rendimiento y disponibilidad para una operación sin fricciones.',
     beneficio: { icon: 'cloud', label: 'Disponible y segura' },
     nombre: 'Infraestructura cloud',
@@ -312,6 +392,19 @@ export const SERVICIOS = [
 
   {
     slug: 'apps-moviles',
+    diagrama: {
+      tipo: 'hub',
+      titulo: 'Lo que resuelve en campo',
+      centro: { icon: 'smartphone', texto: 'App del equipo' },
+      nodos: [
+        { icon: 'map-pin', texto: 'Visitas y rutas' },
+        { icon: 'camera', texto: 'Evidencia' },
+        { icon: 'pencil', texto: 'Firmas' },
+        { icon: 'wifi-off', texto: 'Sin conexión' },
+        { icon: 'refresh-cw', texto: 'Sincroniza' },
+        { icon: 'bar-chart', texto: 'Reportes' },
+      ],
+    },
     resumen: 'Experiencias móviles para equipos, clientes y operaciones en campo.',
     beneficio: { icon: 'smartphone', label: 'Tu operación en campo' },
     nombre: 'Apps móviles',

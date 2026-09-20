@@ -87,6 +87,14 @@
   font-size: var(--fs-sm);
 }
 
+/* Cómo funciona: el diagrama del servicio */
+.servicio__diagrama-inner {
+  max-width: 980px;
+}
+.servicio__diagrama .section__head {
+  margin-bottom: var(--sp-6);
+}
+
 /* Qué incluye */
 .servicio__grid {
   display: grid;

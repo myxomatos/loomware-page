@@ -2,6 +2,7 @@ import Logo from '../components/Logo'
 import Icon from '../components/Icon'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
+import Diagrama from '../components/Diagrama'
 import { servicioPorSlug, SERVICIOS } from '../data/servicios'
 import { whatsappUrl } from '../data/contacto'
 import '../components/Faq.css'
@@ -98,7 +99,18 @@ export default function Servicio({ slug }) {
           </div>
         </section>
 
-        <section className="section servicio__incluye">
+        {s.diagrama && (
+          <section className="section servicio__diagrama">
+            <div className="container servicio__diagrama-inner">
+              <header className="section__head">
+                <h2>Cómo funciona</h2>
+              </header>
+              <Diagrama d={s.diagrama} />
+            </div>
+          </section>
+        )}
+
+        <section className="section section--soft servicio__incluye">
           <div className="container">
             <header className="section__head">
               <h2>Qué incluye</h2>
@@ -114,7 +126,7 @@ export default function Servicio({ slug }) {
           </div>
         </section>
 
-        <section className="section section--soft servicio__proceso">
+        <section className="section servicio__proceso">
           <div className="container">
             <header className="section__head">
               <h2>Cómo lo implementamos</h2>
@@ -134,7 +146,7 @@ export default function Servicio({ slug }) {
           </div>
         </section>
 
-        <section className="section servicio__faq">
+        <section className="section section--soft servicio__faq">
           <div className="container servicio__faq-inner">
             <header>
               <h2>Preguntas sobre {s.nombre}</h2>
@@ -153,7 +165,7 @@ export default function Servicio({ slug }) {
           </div>
         </section>
 
-        <section className="section section--soft servicio__cierre">
+        <section className="section servicio__cierre">
           <div className="container">
             <div className="card card--dark servicio__cta">
               <div>
