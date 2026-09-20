@@ -31,6 +31,20 @@ Sitio público de Loomware: <https://loomware.com.mx>. React + Vite, desplegado 
 
 Estado al 20 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
+### Ruta a producción — Aldo, en este orden
+
+1. **Revisar el preview** <https://alan.loomware-page.pages.dev> en escritorio **y en celular**
+   (abrir el menú, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de
+   servicio, abrir `/prospectar`). Son 22 commits en `alan`, cada uno explica qué y por qué.
+2. **Cargar las variables de Cloudflare** (bloque siguiente). Sin ellas el formulario y
+   `/prospectar` no funcionan aunque el sitio se vea.
+3. **Mezclar el PR** de `alan` a `main`. Alan lo abre en cuanto Aldo confirme que revisó el preview.
+4. **Probar en producción** <https://loomware.com.mx>: enviar el formulario (debe llegar el correo
+   y aterrizar en `/gracias`), entrar a `/prospectar` con la contraseña y hacer una búsqueda.
+5. **Search Console**: dar de alta el dominio y enviar `https://loomware.com.mx/sitemap.xml`.
+   Antes de esto Google no sabe que el sitio existe.
+6. Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
+
 ### Bloquean funcionalidad ya construida — Aldo
 
 - [ ] **Cargar las variables en Cloudflare.** Workers & Pages → `loomware-page` → Settings →
@@ -77,6 +91,11 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 - [ ] **Validar las respuestas de precio, plazos, migración y SAT** en `src/data/faq.js` y en
       cada `faq` de `src/data/servicios.js`. Describen la política de la empresa tal como la
       entendí; si algo no es así, se cambia el texto, no se deja.
+- [ ] **Validar tres afirmaciones nuevas del inicio**, escritas por Alan y Claude sin confirmar
+      con Aldo: (a) el hero dice que atienden *distribuidoras, manufactura y empresas de
+      servicios* — es el posicionamiento; (b) la tarjeta de agenda promete *una llamada de 30
+      minutos, sin costo*; (c) "Quiénes somos" dice que *la persona que hace el diagnóstico es la
+      misma que diseña la solución y responde el WhatsApp*. Si alguna no es cierta, se cambia.
 - [ ] **Confirmar que +52 55 8096 8928 es el WhatsApp** que van a atender. Está en
       `src/data/contacto.js` y de ahí sale para todo el sitio.
 - [ ] **Video de "Ver cómo funciona".** Cuando el clip de Clipchamp esté listo, subirlo a YouTube
@@ -104,7 +123,14 @@ Se revisan en <https://alan.loomware-page.pages.dev> antes de mezclar.
       en el footer, en cada página de servicio y en `/gracias`. Mensaje prellenado con el origen.
 - [x] **Pulido tras revisión de Alan (2026-09-20)**: "Ver cómo funciona" listo para abrir el video;
       chips de industrias en una sola fila; "Impacto" convertido en franja horizontal compacta
-      sobre un formulario centrado con el canal de WhatsApp en su columna izquierda.
+      sobre un formulario centrado con WhatsApp y correo como enlaces en su columna izquierda.
+- [x] **Segunda auditoría (2026-09-20)**: hero con titular al problema del prospecto y palabras
+      clave en `<title>`; **menú móvil corregido** (abría con 0 px de alto por el
+      `backdrop-filter` del header — nunca había funcionado en celular); banda morada con botón
+      en vez de promesas repetidas; tarjeta de agenda sin urgencia inventada; columna
+      "Resultados" con frases comprobables; título de Nosotros sin repetir el hero; chips de
+      soluciones en una línea; footer sin solape con el botón flotante; **diagrama "Cómo
+      funciona" en las ocho páginas de servicio**, dibujado desde los datos.
 - [x] **Aviso de privacidad**: página `/aviso-de-privacidad`, casilla obligatoria en el
       formulario, validación del consentimiento en el servidor, enlace en el footer.
 - [x] **Quiénes somos**: sección `#nosotros` con texto de empresa y principios; tarjetas de
