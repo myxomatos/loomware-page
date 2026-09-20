@@ -16,6 +16,5 @@ Thumbs.db
 !.vscode/extensions.json
 *.log
 
-# Claude Code: los comandos del equipo se comparten; lo personal no
-.claude/*
-!.claude/commands/
+# Claude Code: los skills de .claude/skills/ sí se versionan; lo local no
+.claude/settings.local.json
