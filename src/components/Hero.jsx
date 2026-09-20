@@ -1,5 +1,6 @@
 import Icon from './Icon'
 import { whatsappUrl } from '../data/contacto'
+import { clicWhatsApp } from '../lib/analytics'
 import './Hero.css'
 
 const HIGHLIGHTS = [
@@ -32,6 +33,7 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn--whatsapp-outline"
+              onClick={() => clicWhatsApp('hero')}
             >
               <Icon name="whatsapp" size={20} strokeWidth={0} />
               Escríbenos por WhatsApp

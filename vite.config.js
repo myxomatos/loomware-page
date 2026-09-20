@@ -11,10 +11,31 @@ const servicios = Object.fromEntries(
 
 export default defineConfig(({ mode }) => {
   // DENUE_TOKEN no lleva prefijo VITE_ a propósito: nunca entra al bundle.
-  const { DENUE_TOKEN = '' } = loadEnv(mode, process.cwd(), '')
+  const { DENUE_TOKEN = '', VITE_GA_ID = '', VITE_GSC_VERIFICATION = '' } = loadEnv(mode, process.cwd(), '')
+
+  // Google Analytics 4 y verificación de Search Console, sólo si hay ID.
+  // Van en el HTML estático de todas las páginas; sin ID no se inyecta nada.
+  const analitica = {
+    name: 'loomware-analitica',
+    transformIndexHtml() {
+      const tags = []
+      if (VITE_GSC_VERIFICATION) {
+        tags.push({ tag: 'meta', attrs: { name: 'google-site-verification', content: VITE_GSC_VERIFICATION }, injectTo: 'head' })
+      }
+      if (VITE_GA_ID) {
+        tags.push({ tag: 'script', attrs: { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${VITE_GA_ID}` }, injectTo: 'head' })
+        tags.push({
+          tag: 'script',
+          children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${VITE_GA_ID}');`,
+          injectTo: 'head',
+        })
+      }
+      return tags
+    },
+  }
 
   return {
-    plugins: [react()],
+    plugins: [react(), analitica],
     build: {
       rollupOptions: {
         input: {

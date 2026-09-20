@@ -1,5 +1,6 @@
 import Icon from './Icon'
 import { whatsappUrl } from '../data/contacto'
+import { clicWhatsApp } from '../lib/analytics'
 import './WhatsAppButton.css'
 
 /*
@@ -15,6 +16,7 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       className="wa-flotante"
       aria-label="Escríbenos por WhatsApp"
+      onClick={() => clicWhatsApp('flotante')}
     >
       <Icon name="whatsapp" size={28} strokeWidth={0} />
       <span className="wa-flotante__texto">¿Hablamos?</span>

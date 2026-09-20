@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Icon from './Icon'
 import { EMAIL, whatsappUrl } from '../data/contacto'
+import { clicWhatsApp } from '../lib/analytics'
 import './ContactForm.css'
 
 /*
@@ -228,6 +229,7 @@ export default function ContactForm({ interes = '' }) {
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn--whatsapp-outline btn--block"
+          onClick={() => clicWhatsApp('formulario')}
         >
           <Icon name="whatsapp" size={20} strokeWidth={0} />
           Mejor por WhatsApp
