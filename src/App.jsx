@@ -6,6 +6,7 @@ import Needs from './components/Needs'
 import Process from './components/Process'
 import CtaBand from './components/CtaBand'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/WhatsAppButton'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <CtaBand />
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   )
 }

@@ -1,10 +1,7 @@
 import Logo from '../components/Logo'
 import Icon from '../components/Icon'
+import { EMAIL, WHATSAPP, whatsappUrl } from '../data/contacto'
 import './gracias.css'
-
-const EMAIL = 'aldo_sanchez@loomware.com.mx'
-const PHONE_DISPLAY = '+52 55 8096 8928'
-const PHONE_TEL = '+525580968928'
 
 const PASOS = [
   {
@@ -64,9 +61,9 @@ export default function Gracias() {
               <Icon name="mail" size={15} />
               {EMAIL}
             </a>
-            <a className="chip" href={`tel:${PHONE_TEL}`}>
-              <Icon name="phone" size={15} />
-              {PHONE_DISPLAY}
+            <a className="chip" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
+              <Icon name="message-circle" size={15} />
+              WhatsApp {WHATSAPP.display}
             </a>
           </div>
         </div>

@@ -240,6 +240,22 @@ const PATHS = {
     </>
   ),
   'chevron-right': <path d="m9 18 6-6-6-6" />,
+  // Logotipo de WhatsApp: globo relleno con el auricular calado. El calado toma
+  // el color de fondo del contenedor vía --icon-bg (blanco por omisión).
+  whatsapp: (
+    <>
+      <path
+        d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"
+        fill="currentColor"
+        stroke="none"
+      />
+      <path
+        d="M9.1 7.6c.3-.3.7-.4 1-.3l1.2 2.1c.1.3 0 .6-.2.8l-.7.7c.6 1.3 1.7 2.4 3 3l.7-.7c.2-.2.5-.3.8-.2l2.1 1.2c.1.3 0 .7-.3 1-.7.7-1.6 1-2.6.8-2.9-.6-5.3-3-5.9-5.9-.2-1 .1-1.9.9-2.5z"
+        fill="var(--icon-bg, #fff)"
+        stroke="none"
+      />
+    </>
+  ),
 }
 
 export default function Icon({ name, size = 20, strokeWidth = 2, className = '', ...rest }) {

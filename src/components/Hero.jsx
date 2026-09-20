@@ -1,4 +1,5 @@
 import Icon from './Icon'
+import { whatsappUrl } from '../data/contacto'
 import './Hero.css'
 
 const HIGHLIGHTS = [
@@ -26,13 +27,22 @@ export default function Hero() {
               Solicitar diagnóstico
               <Icon name="arrow-right" size={18} />
             </a>
-            <a href="#proceso" className="btn btn--ghost">
-              <span className="btn__play">
-                <Icon name="play" size={14} />
-              </span>
-              Ver cómo funciona
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--whatsapp-outline"
+            >
+              <Icon name="whatsapp" size={20} strokeWidth={0} />
+              Escríbenos por WhatsApp
             </a>
           </div>
+          <a href="#proceso" className="link-arrow hero__como">
+            <span className="btn__play">
+              <Icon name="play" size={12} />
+            </span>
+            Ver cómo funciona
+          </a>
 
           <ul className="hero__highlights" aria-label="Beneficios">
             {HIGHLIGHTS.map((h) => (

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Icon from './Icon'
+import { EMAIL, whatsappUrl } from '../data/contacto'
 import './ContactForm.css'
 
 /*
@@ -8,7 +9,7 @@ import './ContactForm.css'
  * falla y se muestra el aviso de abajo, que ofrece escribir por correo.
  */
 const ENDPOINT = '/api/contacto'
-const FALLBACK_EMAIL = 'aldo_sanchez@loomware.com.mx'
+const FALLBACK_EMAIL = EMAIL
 
 const INITIAL = { nombre: '', empresa: '', correo: '', telefono: '', necesidad: '' }
 
@@ -201,6 +202,19 @@ export default function ContactForm({ interes = '' }) {
           <Icon name="lock" size={13} />
           Tu información está segura. No enviamos spam.
         </p>
+
+        <div className="contact__o">
+          <span>o</span>
+        </div>
+        <a
+          href={whatsappUrl('Hola, prefiero platicar por WhatsApp sobre un diagnóstico para mi empresa.')}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn--whatsapp-outline btn--block"
+        >
+          <Icon name="whatsapp" size={20} strokeWidth={0} />
+          Mejor por WhatsApp
+        </a>
       </form>
     </div>
   )

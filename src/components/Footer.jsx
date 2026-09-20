@@ -1,11 +1,7 @@
 import Logo from './Logo'
 import Icon from './Icon'
+import { EMAIL, TELEFONOS, CIUDAD, whatsappUrl } from '../data/contacto'
 import './Footer.css'
-
-const EMAIL = 'aldo_sanchez@loomware.com.mx'
-
-// display = como se lee; tel = lo que marca el teléfono (sin espacios, con lada país).
-const PHONES = [{ display: '+52 55 8096 8928', tel: '+525580968928' }]
 
 const COLUMNS = [
   {
@@ -72,15 +68,21 @@ export default function Footer() {
                 <Icon name="mail" size={16} />
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
               </li>
-              {PHONES.map((p) => (
+              {TELEFONOS.map((p) => (
                 <li key={p.tel}>
                   <Icon name="phone" size={16} />
                   <a href={`tel:${p.tel}`}>{p.display}</a>
                 </li>
               ))}
               <li>
+                <Icon name="message-circle" size={16} />
+                <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+              </li>
+              <li>
                 <Icon name="map-pin" size={16} />
-                <span>México, CDMX</span>
+                <span>{CIUDAD}</span>
               </li>
             </ul>
           </div>

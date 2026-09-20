@@ -82,3 +82,19 @@
     padding-inline: var(--sp-3);
   }
 }
+
+/* "Ver cómo funciona" como enlace bajo los botones */
+.hero__como {
+  margin-top: var(--sp-1);
+  color: var(--text-900);
+}
+.hero__como .btn__play {
+  width: 28px;
+  height: 28px;
+}
+.hero__como:hover {
+  color: var(--purple-500);
+}
+.hero__como:hover .btn__play {
+  border-color: var(--purple-500);
+}

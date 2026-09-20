@@ -50,3 +50,20 @@
     padding: var(--sp-5);
   }
 }
+
+/* Separador "o" entre enviar y WhatsApp */
+.contact__o {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-2xs);
+  color: var(--text-500);
+}
+.contact__o::before,
+.contact__o::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
