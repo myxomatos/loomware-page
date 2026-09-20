@@ -33,7 +33,7 @@ Estado al 20 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
 
 ### Bloquean funcionalidad ya construida — Aldo
 
-- [ ] **Cargar cinco variables en Cloudflare.** Workers & Pages → `loomware-page` → Settings →
+- [ ] **Cargar las variables en Cloudflare.** Workers & Pages → `loomware-page` → Settings →
       **Variables and Secrets** → Add. Cada una hay que capturarla **dos veces**: una en
       *Production* y otra en *Preview*; el preview de cada rama es un entorno distinto. Al
       terminar, Deployments → último → ⋯ → **Retry deployment**, porque las variables no se
@@ -46,8 +46,11 @@ Estado al 20 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
       | `RESEND_API_KEY` | Sí | Crear cuenta en <https://resend.com> → API Keys → Create (empieza con `re_`). |
       | `LEAD_TO` | No | Sólo para probar antes de verificar el dominio: el correo dueño de la cuenta de Resend. |
       | `LEAD_FROM` | No | Sólo para probar: `Loomware <onboarding@resend.dev>`. Se borran las dos al verificar el dominio. |
+      | `VITE_GA_ID` | No | ID de medición de Google Analytics 4 (`G-…`). Sin él no se carga nada. Ver "Analítica" abajo. |
+      | `VITE_GSC_VERIFICATION` | No | Código de Search Console (método "etiqueta HTML"), si se verifica por ese método. |
 
-      Sin las dos primeras, `/prospectar` responde 500. Sin la tercera, el formulario no envía nada.
+      Sin las dos primeras, `/prospectar` responde 500. Sin la tercera, el formulario no envía.
+      Las de analítica son las únicas que aplican al **build**: tras cargarlas hay que redesplegar.
 
 - [ ] **Verificar `loomware.com.mx` en Resend.** Domains → Add Domain, y capturar en Cloudflare DNS
       los tres registros que indique (MX `send`, TXT `send` con el SPF, TXT `resend._domainkey`).
@@ -57,49 +60,65 @@ Estado al 20 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
 - [ ] **Invitar a Alan a la cuenta de Cloudflare.** Manage Account → Members → Invite, rol
       Administrator. Es un minuto y evita que cada variable o registro DNS tenga que pasar por Aldo.
 
+### Datos que faltan para completar lo construido — Aldo
+
+Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
+
+- [ ] **Prueba social.** `src/data/casos.js` está vacío y la sección "Resultados con clientes" no
+      aparece hasta que tenga un caso. Formato en el mismo archivo. Regla: nada inventado ni
+      redondeado; si el cliente no autoriza su nombre, se describe por giro, tamaño y ciudad.
+      Con un solo caso real ya se muestra.
+- [ ] **Equipo.** `src/data/equipo.js`: cargo, dos líneas de bio, foto cuadrada (600×600, en
+      `public/equipo/`) y LinkedIn de Aldo y de Alan. Las tarjetas aparecen solas cuando una
+      persona tiene cargo y foto. Falta también el apellido de Alan.
+- [ ] **Datos legales del aviso de privacidad.** `src/data/contacto.js`: `RAZON_SOCIAL` y
+      `DOMICILIO`. Mientras estén vacíos el aviso dice "Loomware" y "Ciudad de México". Y que
+      alguien con criterio legal lea `/aviso-de-privacidad` antes de producción.
+- [ ] **Validar las respuestas de precio, plazos, migración y SAT** en `src/data/faq.js` y en
+      cada `faq` de `src/data/servicios.js`. Describen la política de la empresa tal como la
+      entendí; si algo no es así, se cambia el texto, no se deja.
+- [ ] **Confirmar que +52 55 8096 8928 es el WhatsApp** que van a atender. Está en
+      `src/data/contacto.js` y de ahí sale para todo el sitio.
+- [ ] **Analítica.** Crear la propiedad de Google Analytics 4 y dar de alta
+      `loomware.com.mx` en Search Console (por DNS o con `VITE_GSC_VERIFICATION`). Enviar el
+      sitemap: `https://loomware.com.mx/sitemap.xml`. El código ya reporta `generate_lead` al
+      llegar a `/gracias` y `click_whatsapp` con el origen; en GA4 hay que marcarlos como
+      conversiones.
+
 ### Decisiones de contenido — Aldo y Alan
 
-- [ ] **Aviso de privacidad.** El footer enlaza "Privacidad" a `#contacto`, que no lleva a nada, y
-      el formulario capta nombre, empresa, correo y teléfono sin aviso ni casilla de consentimiento.
-      La LFPDPPP lo exige. Es el único pendiente con implicación legal. Falta decidir quién redacta
-      el texto; el desarrollo de la página y el enlace es rápido.
+- [ ] **Nómina y comercio en línea ya están en el sitio** (tarjeta y página cada uno). Confirmar
+      que sí se ofrecen; si no, quitarlos de `src/data/servicios.js` y se van solos de todos lados.
+- [ ] **Hero.** La ilustración es un render 3D genérico. Cuando haya foto real del equipo o de
+      un proyecto, conviene reemplazarla: `public/hero_*.png` y `npm run optimizar:imagenes`.
 
-- [ ] **Analítica.** No hay ninguna. `/gracias` se creó para poder medir la conversión del
-      formulario y hoy nada la mide. Falta decidir herramienta (GA4 u otra), dar de alta el dominio
-      en Search Console y enviar el sitemap.
+### Resueltas el 2026-09-20 en la rama `alan`, pendientes de que Aldo las verifique
 
-- [ ] **Cinco enlaces que prometen páginas que no existen:** Servicios → `#proceso`,
-      Casos → `#impacto`, Recursos → `#desafio`, Acerca de nosotros → `#inicio`,
-      Casos de éxito → `#impacto`. Decidir si se crean esas páginas o se quitan del menú.
+Se revisan en <https://alan.loomware-page.pages.dev> antes de mezclar.
 
-- [ ] **Dos teléfonos adicionales** para el footer. El código ya los acepta: se agregan a la lista
-      `PHONES` en `src/components/Footer.jsx`.
+- [x] **WhatsApp**: botón flotante, en el hero, junto al formulario, en el footer, en cada
+      página de servicio y en `/gracias`. Mensaje prellenado con el origen.
+- [x] **Aviso de privacidad**: página `/aviso-de-privacidad`, casilla obligatoria en el
+      formulario, validación del consentimiento en el servidor, enlace en el footer.
+- [x] **Quiénes somos**: sección `#nosotros` con texto de empresa y principios; tarjetas de
+      equipo listas para datos.
+- [x] **Prueba social**: sección `#casos` y enlace del footer, ambos condicionados a datos.
+- [x] **Páginas por servicio**: ocho en `/servicios/<slug>`, generadas desde
+      `src/data/servicios.js` con título, descripción, canonical y datos estructurados en el
+      HTML estático. Sitemap generado con todo lo indexable.
+- [x] **Industrias**: sección `#industrias` con seis giros y enlace a los servicios que aplican.
+- [x] **Preguntas frecuentes**: `#faq` con nueve preguntas y datos estructurados FAQPage.
+- [x] **Analítica**: GA4 y Search Console inyectables por variable; eventos de conversión listos.
+- [x] **Rendimiento**: hero en WebP (575 → 29 KB en móvil) con precarga, Inter servida desde el
+      sitio. Lighthouse móvil: rendimiento 67 → 99, accesibilidad 98 → 100, LCP 7.2 s → 1.8 s.
+- [x] Navbar y footer sólo enlazan a lo que existe y es lo que dice. Tarjetas de soluciones
+      enlazan a su página.
+- [x] `canonical`, `og:url`, `og-image.png` 1200×630, `apple-touch-icon`, enlace "saltar al
+      contenido", README al día.
 
-### Mejoras técnicas — resueltas el 2026-09-20, pendientes de que Aldo las verifique
-
-Todas van en la rama `alan`; se revisan en <https://alan.loomware-page.pages.dev> antes de mezclar.
-
-- [x] `canonical` y `og:url` agregados a `index.html`, apuntando a `https://loomware.com.mx/`,
-      para que los previews `.pages.dev` no compitan como contenido duplicado.
-      *Cómo verificar:* ver el código fuente de la página y buscar `rel="canonical"`.
-- [x] Nueva `public/og-image.png` de 1200×630 (logo, titular y el hero), con
-      `og:image:width/height/alt`. Sustituye al hero 4:3 que salía recortado al compartir.
-      *Cómo verificar:* pegar la URL del preview en <https://www.opengraph.xyz> o en un chat.
-- [x] `public/apple-touch-icon.png` de 180×180, a sangre completa sobre el azul de marca.
-      *Cómo verificar:* en iPhone, Compartir → Agregar a inicio.
-- [x] Enlace "Saltar al contenido" como primer elemento enfocable, oculto hasta que se tabula.
-      *Cómo verificar:* abrir el sitio y presionar Tab una vez.
-- [x] `README.md` actualizado: se corrigió el menú de Cloudflare ("Variables and Secrets"), se
-      quitó la instrucción muerta sobre `SOCIAL`, se documentaron `/gracias`, `npm run share`,
-      `DENUE_TOKEN` y `PROSPECT_KEY`, y el bloque de estructura ahora refleja el repositorio real.
-
-### Mejoras técnicas, no requieren decisión
-
-- [ ] Nada pendiente en este bloque.
-
-### Hecho
+### Hecho antes
 
 - [x] Sitio reconstruido en Vite + React, responsivo verificado de 320 a 1440 px (2026-09-19).
 - [x] `/prospectar` sobre la API DENUE del INEGI, con el token del lado del servidor (2026-09-17).
 - [x] Formulario enviando por `POST /api/contacto` con Resend, y página `/gracias` (2026-09-19).
-- [x] Comandos `/inicio` y `/cierre` versionados en `.claude/commands/` (2026-09-19).
+- [x] Comandos `/inicio` y `/cierre` como skills en `.claude/skills/` (2026-09-19).

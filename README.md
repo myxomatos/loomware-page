@@ -33,6 +33,17 @@ npm run share      # en otra: abre un túnel y da una URL pública temporal
 La URL vive mientras las dos terminales estén abiertas y cambia en cada ejecución. Para un
 enlace estable se usa el preview de la rama (ver *Flujo de trabajo*).
 
+## Scripts
+
+| Comando | Qué hace |
+| --- | --- |
+| `npm run dev` | Servidor de desarrollo con recarga en caliente |
+| `npm run build` | Genera las páginas de servicio y el sitemap, y compila a `dist/` |
+| `npm run preview` | Sirve `dist/` para revisarlo |
+| `npm run generar:servicios` | Regenera `servicios/*.html` y `public/sitemap.xml` desde `src/data/servicios.js` (el build ya lo hace) |
+| `npm run optimizar:imagenes` | Convierte los PNG del hero a WebP; correrlo sólo si cambian los originales |
+| `npm run share` | Túnel público temporal para enseñar el avance |
+
 ## Variables de entorno (opcionales)
 
 Copia `.env.example` a `.env`:
@@ -45,6 +56,8 @@ Copia `.env.example` a `.env`:
 | `VITE_SCHEDULE_URL`  | Enlace de agenda (Calendly, Cal.com) para "Agendar ahora". Vacío = lleva al formulario. Va en `.env`. |
 | `DENUE_TOKEN` | Token de la API DENUE del INEGI para `/prospectar`. Va en `.env` **y** en Cloudflare como *Secret*. |
 | `PROSPECT_KEY` | **Sólo en Cloudflare.** Contraseña de `/prospectar`; en local no se pide. |
+| `VITE_GA_ID` | ID de Google Analytics 4 (`G-…`). Se inyecta al compilar en todas las páginas; sin él no se carga nada. |
+| `VITE_GSC_VERIFICATION` | Código de verificación de Search Console (método "etiqueta HTML"). |
 
 En Cloudflare Pages estas variables se configuran en **Settings → Variables and Secrets**.
 
@@ -74,46 +87,56 @@ una para *Production* y otra para *Preview*, que son entornos distintos. Despué
 
 ```
 CLAUDE.md                  # reglas del proyecto y lista de pendientes
-vite.config.js             # tres entradas, proxy de /api/denue en desarrollo
-index.html                 # página principal: metadatos, SEO y fuente Inter
+vite.config.js             # entradas, proxy de /api/denue en desarrollo, inyección de analítica
+index.html                 # página principal
 prospectar.html            # herramienta interna (noindex)
 gracias.html               # agradecimiento tras enviar el formulario (noindex)
+aviso-de-privacidad.html   # aviso de privacidad
+servicios/*.html           # una página por servicio; las genera scripts/generar-servicios.js
+
+scripts/
+  generar-servicios.js     # escribe servicios/*.html y public/sitemap.xml desde los datos
+  optimizar-imagenes.js    # PNG del hero → WebP
 
 functions/api/
   contacto.js              # recibe el formulario y envía el correo con Resend
   denue/[[path]].js        # proxy al DENUE; guarda el token del lado del servidor
 
-public/                    # hero (PNG), og-image.png, favicon.svg, apple-touch-icon.png,
-                           # 404.html, _headers, robots.txt, sitemap.xml
+public/                    # hero (PNG y WebP), fonts/, og-image.png, favicon.svg,
+                           # apple-touch-icon.png, 404.html, _headers, robots.txt, sitemap.xml
 src/
-  main.jsx                 # punto de entrada de la página principal
-  App.jsx                  # orden de las secciones
-  styles/tokens.css        # colores, tipografía, espaciado, radios, sombras
+  data/                    # TODO EL CONTENIDO EDITABLE vive aquí
+    contacto.js            # correo, teléfonos, WhatsApp, datos legales
+    servicios.js           # los ocho servicios: tarjetas del inicio y páginas completas
+    industrias.js          # giros de la sección "Por giro"
+    faq.js                 # preguntas frecuentes del inicio
+    casos.js               # casos con clientes (vacío hasta tener uno real)
+    equipo.js              # equipo para "Quiénes somos" (aparece cuando hay cargo y foto)
+  lib/analytics.js         # eventos de conversión (generate_lead, click_whatsapp)
+  styles/tokens.css        # fuente, colores, tipografía, espaciado, radios, sombras
   styles/base.css          # reset, escala H1–H4, .btn, .chip, .card, .field
-  components/
-    Icon.jsx               # set de íconos SVG (inline, currentColor)
-    Logo.jsx               # logotipo SVG
-    Navbar.jsx             # navegación + menú móvil
-    Hero.jsx               # portada
-    Challenge.jsx          # "El desafío": entradas → Loomware → resultados
-    Solutions.jsx          # "Nuestras soluciones"
-    Needs.jsx              # "¿Qué necesita tu empresa?" + impacto
-    ContactForm.jsx        # formulario de diagnóstico
-    Process.jsx            # "Un proceso claro" + agenda
-    CtaBand.jsx            # banda morada
-    Footer.jsx
-  prospectar/              # interfaz de la herramienta de prospección
+  components/              # una carpeta plana; cada sección del inicio es un componente
+  servicio/                # página de servicio (un componente para las ocho)
+  prospectar/              # herramienta de prospección
   gracias/                 # página de agradecimiento
+  aviso/                   # aviso de privacidad
 
 .claude/skills/            # /inicio y /cierre, el flujo de sesión del equipo
 ```
 
 ## Editar contenido
 
-- Textos, listas e íconos de cada sección están en arreglos al inicio de cada componente (`SOLUTIONS`, `STEPS`, `COLUMNS`, etc.).
-- Colores y tamaños de letra: `src/styles/tokens.css`.
-- Íconos nuevos: agrega la entrada en `PATHS` dentro de `src/components/Icon.jsx`.
-- Teléfonos del footer: agrega entradas a `PHONES` dentro de `Footer.jsx`.
+Casi todo se edita en `src/data/` sin tocar componentes:
+
+- **Un servicio** (tarjeta del inicio + página completa + sitemap): `src/data/servicios.js`.
+  Agregar o quitar una entrada basta; el build regenera lo demás.
+- **Teléfono, WhatsApp, correo, razón social**: `src/data/contacto.js`. De ahí sale para todo el sitio.
+- **Casos de éxito**: `src/data/casos.js`. La sección aparece con el primer caso.
+- **Equipo**: `src/data/equipo.js` y fotos en `public/equipo/`.
+- **Giros y preguntas frecuentes**: `src/data/industrias.js` y `src/data/faq.js`.
+- **Colores y tamaños de letra**: `src/styles/tokens.css`.
+- **Íconos nuevos**: entrada en `PATHS` dentro de `src/components/Icon.jsx`.
+
 
 ## Herramienta de prospección (`/prospectar`)
 
