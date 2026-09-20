@@ -22,13 +22,13 @@ export default function Hero() {
     <section id="inicio" className="hero">
       <div className="container hero__inner">
         <div className="hero__copy">
-          <span className="eyebrow">Tecnología que impulsa tu operación</span>
+          <span className="eyebrow">CRM · ERP · Nómina · Software a medida</span>
           <h1 className="hero__title">
-            Tecnología que escala con <span className="text-gradient">tu negocio</span>
+            Tu negocio creció más rápido que <span className="text-gradient">tus sistemas</span>.
           </h1>
           <p className="lead hero__lead">
-            CRM, ERP, automatización, software a medida e infraestructura cloud para empresas
-            mexicanas que buscan crecer con más control, eficiencia y resultados.
+            Para distribuidoras, manufactura y empresas de servicios en México. Ponemos orden
+            donde hoy hay Excel, WhatsApp y programas que no se hablan entre sí.
           </p>
 
           <div className="hero__actions">

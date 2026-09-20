@@ -52,9 +52,7 @@ export default function Challenge() {
           <div className="challenge__copy">
             <span className="eyebrow eyebrow--purple">El desafío</span>
             <h2 className="challenge__title">
-              Tu negocio <span className="challenge__accent">crece.</span>
-              <br />
-              ¿Tus procesos también?
+              De datos dispersos a <span className="challenge__accent">control real</span>
             </h2>
             <p className="text-sm">
               Cuando la información está en todas partes, el control se pierde y las
