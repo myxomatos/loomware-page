@@ -234,14 +234,6 @@ h4,
   background: var(--purple-500);
   box-shadow: var(--shadow-purple);
 }
-.btn--ghost {
-  color: var(--text-900);
-  background: transparent;
-  padding-inline: var(--sp-2);
-}
-.btn--ghost:hover {
-  color: var(--purple-500);
-}
 .btn--pill {
   border-radius: var(--r-pill);
 }
@@ -253,7 +245,7 @@ h4,
 .btn--block {
   width: 100%;
 }
-/* Circular play badge used by the ghost button in the hero */
+/* Circular play badge used by the "Ver cómo funciona" link in the hero */
 .btn__play {
   display: inline-grid;
   place-items: center;
@@ -262,9 +254,6 @@ h4,
   border-radius: 50%;
   border: 1.5px solid var(--text-900);
   transition: inherit;
-}
-.btn--ghost:hover .btn__play {
-  border-color: var(--purple-500);
 }
 
 /* Text link with arrow */
