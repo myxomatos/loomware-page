@@ -1,0 +1,69 @@
+.casos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--sp-6);
+}
+.caso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-6);
+}
+.caso__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+.caso__quien {
+  font-size: var(--fs-sm);
+  color: var(--text-900);
+}
+.caso__detalle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin: 0;
+}
+.caso__detalle dt {
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-500);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.caso__detalle dd {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+}
+.caso__resultado {
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--purple-50);
+}
+.caso__resultado dt {
+  color: var(--purple-600);
+}
+.caso__resultado dd {
+  color: var(--text-900);
+  font-weight: 600;
+}
+.caso__cita {
+  margin: 0;
+  padding-left: var(--sp-4);
+  border-left: 3px solid var(--purple-400);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  color: var(--text-600);
+}
+.caso__cita footer {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text-900);
+}

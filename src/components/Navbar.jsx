@@ -3,16 +3,11 @@ import Logo from './Logo'
 import Icon from './Icon'
 import './Navbar.css'
 
-/*
- * Anchors are provisional: "Servicios", "Casos" and "Recursos" do not have
- * their own pages yet, so they point to the closest section on this page.
- * Swap the href when those pages exist.
- */
 const NAV_LINKS = [
   { label: 'Soluciones', href: '#soluciones' },
-  { label: 'Servicios', href: '#proceso' },
-  { label: 'Casos', href: '#impacto' },
-  { label: 'Recursos', href: '#desafio' },
+  { label: 'Industrias', href: '#industrias' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Preguntas', href: '#faq' },
   { label: 'Contacto', href: '#contacto' },
 ]
 

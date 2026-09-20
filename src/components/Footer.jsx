@@ -1,36 +1,32 @@
 import Logo from './Logo'
 import Icon from './Icon'
 import { EMAIL, TELEFONOS, CIUDAD, whatsappUrl } from '../data/contacto'
+import { SERVICIOS } from '../data/servicios'
+import { CASOS } from '../data/casos'
 import './Footer.css'
 
 const COLUMNS = [
   {
     title: 'Soluciones',
-    links: [
-      { label: 'CRM', href: '#solucion-crm' },
-      { label: 'ERP', href: '#solucion-erp' },
-      { label: 'Automatización', href: '#solucion-automatizacion' },
-      { label: 'Desarrollo de software', href: '#solucion-software' },
-      { label: 'Infraestructura cloud', href: '#solucion-cloud' },
-      { label: 'Apps móviles', href: '#solucion-apps' },
-    ],
+    links: SERVICIOS.map((s) => ({ label: s.nombre, href: `/servicios/${s.slug}` })),
   },
   {
-    title: 'Servicios',
+    title: 'Cómo trabajamos',
     links: [
-      { label: 'Integraciones', href: '#proceso' },
-      { label: 'Consultoría', href: '#proceso' },
-      { label: 'Implementación', href: '#proceso' },
-      { label: 'Soporte y mantenimiento', href: '#proceso' },
-      { label: 'Migración de sistemas', href: '#proceso' },
+      { label: 'Diagnóstico sin costo', href: '#contacto' },
+      { label: 'Nuestro proceso', href: '#proceso' },
+      { label: 'Integraciones', href: '/servicios/automatizacion' },
+      { label: 'Migración a la nube', href: '/servicios/infraestructura-cloud' },
+      { label: 'Soporte y mantenimiento', href: '#faq' },
     ],
   },
   {
     title: 'Empresa',
     links: [
-      { label: 'Casos de éxito', href: '#impacto' },
-      { label: 'Recursos', href: '#desafio' },
-      { label: 'Acerca de nosotros', href: '#inicio' },
+      { label: 'Quiénes somos', href: '#nosotros' },
+      { label: 'Industrias', href: '#industrias' },
+      ...(CASOS.length ? [{ label: 'Resultados con clientes', href: '#casos' }] : []),
+      { label: 'Preguntas frecuentes', href: '#faq' },
       { label: 'Aviso de privacidad', href: '/aviso-de-privacidad' },
     ],
   },
@@ -50,7 +46,7 @@ export default function Footer() {
 
           {COLUMNS.map((col) => (
             <nav key={col.title} className="footer__col" aria-label={col.title}>
-              <h4 className="footer__heading">{col.title}</h4>
+              <h3 className="footer__heading">{col.title}</h3>
               <ul className="footer__links">
                 {col.links.map((l) => (
                   <li key={l.label}>
@@ -62,7 +58,7 @@ export default function Footer() {
           ))}
 
           <div className="footer__col">
-            <h4 className="footer__heading">Contacto</h4>
+            <h3 className="footer__heading">Contacto</h3>
             <ul className="footer__links footer__contact">
               <li>
                 <Icon name="mail" size={16} />
