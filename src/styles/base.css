@@ -412,6 +412,25 @@ textarea.field {
   resize: vertical;
 }
 
+/* Enlace de salto: sólo aparece al tabular, para saltarse el menú */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: var(--sp-4);
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  background: var(--purple-500);
+  color: var(--white);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  transform: translateY(-110%);
+  transition: transform var(--t-base) var(--ease);
+}
+.skip-link:focus {
+  transform: none;
+}
+
 /* Utilities */
 .visually-hidden {
   position: absolute !important;

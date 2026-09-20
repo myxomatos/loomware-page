@@ -75,19 +75,27 @@ Estado al 20 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
 - [ ] **Dos teléfonos adicionales** para el footer. El código ya los acepta: se agregan a la lista
       `PHONES` en `src/components/Footer.jsx`.
 
+### Mejoras técnicas — resueltas el 2026-09-20, pendientes de que Aldo las verifique
+
+Todas van en la rama `alan`; se revisan en <https://alan.loomware-page.pages.dev> antes de mezclar.
+
+- [x] `canonical` y `og:url` agregados a `index.html`, apuntando a `https://loomware.com.mx/`,
+      para que los previews `.pages.dev` no compitan como contenido duplicado.
+      *Cómo verificar:* ver el código fuente de la página y buscar `rel="canonical"`.
+- [x] Nueva `public/og-image.png` de 1200×630 (logo, titular y el hero), con
+      `og:image:width/height/alt`. Sustituye al hero 4:3 que salía recortado al compartir.
+      *Cómo verificar:* pegar la URL del preview en <https://www.opengraph.xyz> o en un chat.
+- [x] `public/apple-touch-icon.png` de 180×180, a sangre completa sobre el azul de marca.
+      *Cómo verificar:* en iPhone, Compartir → Agregar a inicio.
+- [x] Enlace "Saltar al contenido" como primer elemento enfocable, oculto hasta que se tabula.
+      *Cómo verificar:* abrir el sitio y presionar Tab una vez.
+- [x] `README.md` actualizado: se corrigió el menú de Cloudflare ("Variables and Secrets"), se
+      quitó la instrucción muerta sobre `SOCIAL`, se documentaron `/gracias`, `npm run share`,
+      `DENUE_TOKEN` y `PROSPECT_KEY`, y el bloque de estructura ahora refleja el repositorio real.
+
 ### Mejoras técnicas, no requieren decisión
 
-- [ ] `index.html` no tiene `canonical` ni `og:url`. Hacen falta para que Google no trate los
-      previews `.pages.dev` como contenido duplicado del sitio.
-- [ ] La imagen de `og:image` es 1400×1050 (4:3) pero la etiqueta es `summary_large_image`, que
-      espera ~1200×630: al compartir el enlace sale recortada.
-- [ ] Falta `apple-touch-icon`; al guardar el sitio en la pantalla de inicio de un iPhone aparece
-      un ícono genérico.
-- [ ] Falta el enlace "saltar al contenido" para navegación por teclado.
-- [ ] `README.md` quedó desfasado: menciona `SOCIAL` en el footer (ya no existe), llama
-      "Environment variables" al menú que Cloudflare renombró a "Variables and Secrets", y su
-      bloque de estructura omite `gracias.html`, `prospectar.html`, `functions/` y
-      `.claude/commands/`.
+- [ ] Nada pendiente en este bloque.
 
 ### Hecho
 

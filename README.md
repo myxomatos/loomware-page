@@ -6,6 +6,8 @@ Landing page de Loomware (CRM, ERP, automatización, software a medida, cloud y 
 
 - Node.js 18 o superior
 - npm (viene con Node)
+- [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/)
+  sólo si vas a usar `npm run share` (ver abajo)
 
 ## Desarrollo
 
@@ -21,6 +23,16 @@ npm run build      # genera la carpeta dist/
 npm run preview    # sirve dist/ localmente para revisarlo
 ```
 
+## Enseñar el avance a alguien fuera de tu red
+
+```bash
+npm run dev        # en una terminal
+npm run share      # en otra: abre un túnel y da una URL pública temporal
+```
+
+La URL vive mientras las dos terminales estén abiertas y cambia en cada ejecución. Para un
+enlace estable se usa el preview de la rama (ver *Flujo de trabajo*).
+
 ## Variables de entorno (opcionales)
 
 Copia `.env.example` a `.env`:
@@ -30,21 +42,23 @@ Copia `.env.example` a `.env`:
 | `RESEND_API_KEY` | **Sólo en Cloudflare.** Llave de [Resend](https://resend.com) con la que se envía el correo del formulario. Guardar como *Secret*. |
 | `LEAD_TO` | **Sólo en Cloudflare.** Bandeja que recibe los leads (varias separadas por coma). Por omisión, el correo de contacto del sitio. |
 | `LEAD_FROM` | **Sólo en Cloudflare.** Remitente, en un dominio verificado en Resend. Por omisión `Loomware <web@loomware.com.mx>`. |
-| `VITE_SCHEDULE_URL`  | Enlace de agenda (Calendly, Cal.com) para "Agendar ahora". Vacío = lleva al formulario.                           |
+| `VITE_SCHEDULE_URL`  | Enlace de agenda (Calendly, Cal.com) para "Agendar ahora". Vacío = lleva al formulario. Va en `.env`. |
+| `DENUE_TOKEN` | Token de la API DENUE del INEGI para `/prospectar`. Va en `.env` **y** en Cloudflare como *Secret*. |
+| `PROSPECT_KEY` | **Sólo en Cloudflare.** Contraseña de `/prospectar`; en local no se pide. |
 
-En Cloudflare Pages estas variables se configuran en **Settings → Environment variables**.
+En Cloudflare Pages estas variables se configuran en **Settings → Variables and Secrets**.
 
 ## Despliegue en Cloudflare Pages
 
-1. Sube el repositorio a GitHub.
-2. En Cloudflare: **Workers & Pages → Create → Pages → Connect to Git** y elige el repo.
-3. Configuración:
-   - Framework preset: **Vite**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-4. Agrega las variables de entorno si las usas y haz **Save and Deploy**.
+Ya está configurado en el proyecto `loomware-page` (preset **Vite**, build `npm run build`,
+salida `dist`). No hay que crear nada: Cloudflare publica solo cada push.
 
-Cada `git push` a la rama principal vuelve a desplegar el sitio.
+- Push a `main` → producción, <https://loomware.com.mx>.
+- Push a cualquier otra rama → preview en `https://<rama>.loomware-page.pages.dev`.
+
+Las variables se capturan en **Settings → Variables and Secrets**, y hay que hacerlo **dos veces**:
+una para *Production* y otra para *Preview*, que son entornos distintos. Después, **Deployments →
+último → ⋯ → Retry deployment**: las variables no se aplican a un despliegue ya publicado.
 
 ## Flujo de trabajo (ramas)
 
@@ -59,10 +73,20 @@ Cada `git push` a la rama principal vuelve a desplegar el sitio.
 ## Estructura
 
 ```
-index.html                 # HTML base, metadatos y fuente Inter
-public/                    # estáticos: hero (PNG), favicon.svg, 404.html, _headers, robots, sitemap
+CLAUDE.md                  # reglas del proyecto y lista de pendientes
+vite.config.js             # tres entradas, proxy de /api/denue en desarrollo
+index.html                 # página principal: metadatos, SEO y fuente Inter
+prospectar.html            # herramienta interna (noindex)
+gracias.html               # agradecimiento tras enviar el formulario (noindex)
+
+functions/api/
+  contacto.js              # recibe el formulario y envía el correo con Resend
+  denue/[[path]].js        # proxy al DENUE; guarda el token del lado del servidor
+
+public/                    # hero (PNG), og-image.png, favicon.svg, apple-touch-icon.png,
+                           # 404.html, _headers, robots.txt, sitemap.xml
 src/
-  main.jsx                 # punto de entrada
+  main.jsx                 # punto de entrada de la página principal
   App.jsx                  # orden de las secciones
   styles/tokens.css        # colores, tipografía, espaciado, radios, sombras
   styles/base.css          # reset, escala H1–H4, .btn, .chip, .card, .field
@@ -78,6 +102,10 @@ src/
     Process.jsx            # "Un proceso claro" + agenda
     CtaBand.jsx            # banda morada
     Footer.jsx
+  prospectar/              # interfaz de la herramienta de prospección
+  gracias/                 # página de agradecimiento
+
+.claude/skills/            # /inicio y /cierre, el flujo de sesión del equipo
 ```
 
 ## Editar contenido
@@ -85,7 +113,7 @@ src/
 - Textos, listas e íconos de cada sección están en arreglos al inicio de cada componente (`SOLUTIONS`, `STEPS`, `COLUMNS`, etc.).
 - Colores y tamaños de letra: `src/styles/tokens.css`.
 - Íconos nuevos: agrega la entrada en `PATHS` dentro de `src/components/Icon.jsx`.
-- Redes sociales: llena las URLs en `SOCIAL` dentro de `Footer.jsx`.
+- Teléfonos del footer: agrega entradas a `PHONES` dentro de `Footer.jsx`.
 
 ## Herramienta de prospección (`/prospectar`)
 
@@ -100,7 +128,7 @@ Página privada que consulta el **DENUE del INEGI** (directorio de +5 millones d
 ### 2. Configurarlo
 
 - **En local**: en `.env` pon `DENUE_TOKEN=<tu token>`. En local no se pide contraseña.
-- **En Cloudflare Pages**: Settings → Environment variables → agrega `DENUE_TOKEN` y `PROSPECT_KEY` (la contraseña que quieras para entrar). Vuelve a desplegar.
+- **En Cloudflare Pages**: Settings → Variables and Secrets → agrega `DENUE_TOKEN` y `PROSPECT_KEY` (la contraseña que quieras para entrar). Vuelve a desplegar.
 
 El token vive solo en el servidor (`functions/api/denue`); el navegador nunca lo ve.
 
@@ -124,7 +152,12 @@ Después de buscar: filtra por tamaño, "con teléfono" o "con correo", marca la
 
 ## Formulario de diagnóstico
 
-Al enviar, el formulario hace `POST /api/contacto`. Esa ruta es la Function
+Al enviar, el visitante llega a **`/gracias`** (`gracias.html` + `src/gracias/`), una página
+propia con el agradecimiento y los siguientes pasos. Tiene URL propia a propósito: es lo que
+permite medir la conversión en Google Ads o Analytics, algo imposible con un aviso dentro de la
+misma pantalla. Lleva `noindex`.
+
+Por debajo, el formulario hace `POST /api/contacto`. Esa ruta es la Function
 `functions/api/contacto.js`, que valida los datos y manda un correo con [Resend](https://resend.com).
 El correo llega a `LEAD_TO` con el asunto `Diagnóstico — <Empresa> (<Nombre>)` y trae nombre,
 empresa, correo, teléfono, interés seleccionado y la necesidad descrita. El `reply_to` es el correo
@@ -134,7 +167,7 @@ del interesado: basta con **responder** ese mensaje para contestarle directament
 
 1. Crear cuenta en <https://resend.com> (plan gratuito: 3 000 correos al mes).
 2. **API Keys → Create API Key**; copiar la llave (empieza con `re_`).
-3. En Cloudflare → Settings → Environment variables, agregar `RESEND_API_KEY`
+3. En Cloudflare → Settings → Variables and Secrets, agregar `RESEND_API_KEY`
    como *Secret*, **en Production y en Preview**, y volver a desplegar.
 4. Para que el remitente sea `@loomware.com.mx`: en Resend, **Domains → Add Domain**,
    agregar `loomware.com.mx` y capturar en Cloudflare los registros DNS que indique.
