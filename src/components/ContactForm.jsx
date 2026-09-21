@@ -35,7 +35,7 @@ function buildMailto(values, interes) {
   return `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
 }
 
-export default function ContactForm({ interes = '' }) {
+export default function ContactForm({ interes = '', titulo, intro, origen = 'Inicio' }) {
   const [values, setValues] = useState(INITIAL)
   const [status, setStatus] = useState('idle') // idle | sending | error
   const [error, setError] = useState('')
@@ -56,7 +56,7 @@ export default function ContactForm({ interes = '' }) {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...values, interes, _gotcha }),
+        body: JSON.stringify({ ...values, interes, origen, _gotcha }),
       })
       const data = await res.json().catch(() => null)
       if (!res.ok) throw new Error((data && data.error) || `Error ${res.status}`)
@@ -74,10 +74,10 @@ export default function ContactForm({ interes = '' }) {
   return (
     <div id="contacto" className="card contact">
       <div className="contact__intro">
-        <h3 className="contact__title">Lleva tu negocio al siguiente nivel</h3>
+        <h3 className="contact__title">{titulo || 'Lleva tu negocio al siguiente nivel'}</h3>
         <p className="text-xs">
-          Recibe un diagnóstico sin costo y descubre cómo podemos ayudarte a crecer con más
-          control y eficiencia.
+          {intro ||
+            'Recibe un diagnóstico sin costo y descubre cómo podemos ayudarte a crecer con más control y eficiencia.'}
         </p>
         <ul className="check-list">
           {BENEFITS.map((b) => (

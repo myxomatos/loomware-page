@@ -46,6 +46,7 @@ export async function onRequestPost({ request, env }) {
     telefono: clean(body.telefono),
     necesidad: clean(body.necesidad),
     interes: clean(body.interes),
+    origen: clean(body.origen),
   }
 
   const faltantes = ['nombre', 'empresa', 'correo', 'telefono'].filter((k) => !lead[k])
@@ -62,6 +63,7 @@ export async function onRequestPost({ request, env }) {
     ['Correo', lead.correo],
     ['WhatsApp / teléfono', lead.telefono],
     ['Interés principal', lead.interes || '—'],
+    ['Llegó desde', lead.origen || 'Inicio'],
     ['Necesidad', lead.necesidad || '—'],
     ['Aviso de privacidad', 'Aceptado'],
   ]
@@ -96,7 +98,7 @@ export async function onRequestPost({ request, env }) {
       from: env.LEAD_FROM || DEFAULT_FROM,
       to: (env.LEAD_TO || DEFAULT_TO).split(',').map((s) => s.trim()).filter(Boolean),
       reply_to: lead.correo,
-      subject: `Diagnóstico — ${lead.empresa} (${lead.nombre})`,
+      subject: `Diagnóstico${lead.origen && lead.origen !== 'Inicio' ? ' · ' + lead.origen : ''} — ${lead.empresa} (${lead.nombre})`,
       text: texto,
       html,
     }),

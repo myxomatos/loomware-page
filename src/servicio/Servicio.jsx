@@ -3,6 +3,7 @@ import Icon from '../components/Icon'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
 import Diagrama from '../components/Diagrama'
+import ContactForm from '../components/ContactForm'
 import { servicioPorSlug, SERVICIOS } from '../data/servicios'
 import { whatsappUrl } from '../data/contacto'
 import '../components/Faq.css'
@@ -48,7 +49,7 @@ export default function Servicio({ slug }) {
               </a>
             ))}
           </nav>
-          <a href="/#contacto" className="btn btn--outline btn--pill btn--sm">
+          <a href="#contacto" className="btn btn--outline btn--pill btn--sm">
             Diagnóstico
             <Icon name="arrow-right" size={16} />
           </a>
@@ -69,7 +70,7 @@ export default function Servicio({ slug }) {
                 </p>
               ))}
               <div className="servicio__acciones">
-                <a href="/#contacto" className="btn btn--primary">
+                <a href="#contacto" className="btn btn--primary">
                   Solicitar diagnóstico
                   <Icon name="arrow-right" size={18} />
                 </a>
@@ -167,30 +168,12 @@ export default function Servicio({ slug }) {
 
         <section className="section servicio__cierre">
           <div className="container">
-            <div className="card card--dark servicio__cta">
-              <div>
-                <h2>Empecemos por un diagnóstico</h2>
-                <p>
-                  Revisamos tu operación y te decimos si {s.nombre} es lo que conviene resolver
-                  primero. Sin costo y sin compromiso.
-                </p>
-              </div>
-              <div className="servicio__cta-acciones">
-                <a href="/#contacto" className="btn btn--primary">
-                  Solicitar diagnóstico
-                  <Icon name="arrow-right" size={18} />
-                </a>
-                <a
-                  href={whatsappUrl(mensajeWa)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn--whatsapp"
-                >
-                  <Icon name="whatsapp" size={20} strokeWidth={0} />
-                  WhatsApp
-                </a>
-              </div>
-            </div>
+            <ContactForm
+              interes={s.nombre}
+              origen={s.nombre}
+              titulo={`Empecemos por un diagnóstico de ${s.nombre}`}
+              intro={`Revisamos tu operación y te decimos si ${s.nombre} es lo que conviene resolver primero. Sin costo y sin compromiso.`}
+            />
 
             {relacionados.length > 0 && (
               <div className="servicio__relacionados">
