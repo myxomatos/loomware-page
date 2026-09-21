@@ -1,5 +1,5 @@
 .wa-flotante {
-  --icon-bg: var(--green-500);
+  --icon-bg: var(--green-700);
   position: fixed;
   right: var(--sp-5);
   bottom: var(--sp-5);
@@ -11,15 +11,16 @@
   padding: 0 var(--sp-5) 0 var(--sp-4);
   border-radius: var(--r-pill);
   color: var(--white);
-  background: var(--green-500);
+  background: var(--green-700);
   font-size: var(--fs-sm);
   font-weight: 700;
-  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.42);
+  box-shadow: 0 10px 28px rgba(15, 122, 64, 0.38);
   transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
 }
 .wa-flotante:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 34px rgba(37, 211, 102, 0.5);
+  background: var(--green-800);
+  box-shadow: 0 14px 34px rgba(15, 122, 64, 0.45);
 }
 .wa-flotante .icon {
   flex: none;
@@ -41,24 +42,24 @@
 
 /* Botón de WhatsApp dentro de la página (hero, formulario) */
 .btn--whatsapp {
-  --icon-bg: var(--white);
+  --icon-bg: var(--green-700);
   color: var(--white);
-  background: var(--green-500);
-  border-color: var(--green-500);
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+  background: var(--green-700);
+  border-color: var(--green-700);
+  box-shadow: 0 8px 20px rgba(15, 122, 64, 0.28);
 }
 .btn--whatsapp:hover {
-  background: #1fb85a;
-  border-color: #1fb85a;
+  background: var(--green-800);
+  border-color: var(--green-800);
 }
 .btn--whatsapp-outline {
   --icon-bg: var(--white);
-  color: #15803d;
+  color: var(--green-700);
   background: var(--white);
-  border-color: var(--green-500);
+  border-color: var(--green-700);
 }
 .btn--whatsapp-outline .icon {
-  color: var(--green-500);
+  color: var(--green-700);
 }
 .btn--whatsapp-outline:hover {
   background: #f0fdf4;

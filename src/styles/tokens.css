@@ -29,7 +29,9 @@
   --red-500: #e11d48; /* CTA */
   --red-100: #fde7ec; /* "X" tile bg */
   --pink-500: #b5179e;
-  --green-500: #25d366;
+  --green-500: #25d366; /* verde de marca de WhatsApp: sólo para íconos */
+  --green-700: #0f7a40; /* superficies con texto blanco: contraste 5.41:1 */
+  --green-800: #0c6535; /* estado hover */
 
   /* Neutrals */
   --text-900: var(--navy-900);
