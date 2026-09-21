@@ -29,13 +29,18 @@ Sitio público de Loomware: <https://loomware.com.mx>. React + Vite, desplegado 
 
 ## Pendientes
 
-Estado al 20 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
+Estado al 21 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
+
+> **La página está en pausa desde el 21 de septiembre de 2026.** Alan cerró su parte: la
+> rama `alan` tiene 38 commits, construye sin errores y el preview está publicado. De aquí en
+> adelante todo lo que falta depende de Aldo, y está en esta lista. Mientras tanto Alan trabaja
+> en el material de venta, que vive fuera del repositorio y no toca el código.
 
 ### Ruta a producción — Aldo, en este orden
 
 1. **Revisar el preview** <https://alan.loomware-page.pages.dev> en escritorio **y en celular**
    (abrir el menú, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de
-   servicio, abrir `/prospectar`). Son 22 commits en `alan`, cada uno explica qué y por qué.
+   servicio, abrir `/prospectar`). Son 38 commits en `alan`, cada uno explica qué y por qué.
 2. **Cargar las variables de Cloudflare** (bloque siguiente). Sin ellas el formulario y
    `/prospectar` no funcionan aunque el sitio se vea.
 3. **Mezclar el PR** de `alan` a `main`. Alan lo abre en cuanto Aldo confirme que revisó el preview.
@@ -144,8 +149,12 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
-- [x] **Responsable legal identificado**: razón social y domicilio en el aviso de privacidad, en
-      el footer y en los datos estructurados. Sin esto el aviso era defectuoso ante la LFPDPPP.
+- [x] **Footer limpio**: se quitaron la razón social y el domicilio del pie. Ninguna empresa
+      comparable los publica ahí y ensuciaban el renglón; siguen donde la ley los pide, en
+      `/aviso-de-privacidad`. También salió el domicilio de la columna de contacto.
+- [x] **Responsable legal identificado**: razón social y domicilio en el aviso de privacidad y
+      en los datos estructurados `Organization`. Sin esto el aviso era defectuoso ante la
+      LFPDPPP. En el footer se quitaron el mismo día: ahí sólo va el nombre comercial.
 - [x] **Afirmaciones contractuales ajustadas**: "el código y los datos son tuyos" pasa a "el
       contrato te entrega…"; la respuesta de precio reconoce que son soluciones a la medida y
       explica qué pasa si se amplía el alcance.
