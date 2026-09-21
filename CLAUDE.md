@@ -173,6 +173,14 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
+- [x] **Los recorridos de venta, servidos desde el sitio (2026-09-21).** `public/recorridos/erp.html`
+      y `public/recorridos/crm.html` son dos páginas sueltas, sin dependencias, que explican
+      el ERP y el CRM paso a paso. Van con **noindex** porque se comparten por liga directa,
+      no se buscan en Google. Se abren en <https://alan.loomware-page.pages.dev/recorridos/erp>
+      y `/recorridos/crm` **sin cuenta y desde cualquier celular**, que es lo que no permitía
+      tenerlas sólo como artifacts privados. **Aldo: estas dos páginas entran en el PR**; si
+      prefieres que no se publiquen todavía, se borran del repositorio y se quedan como
+      artifacts. No tocan el código del sitio: son archivos estáticos en `public/`.
 - [x] **Consentimiento de cookies (2026-09-21).** Banda de aviso en las seis páginas, con
       Aceptar y Rechazar. Analytics arranca con el consentimiento **denegado** —Consent Mode en
       `vite.config.js`—, así que **no escribe ninguna cookie hasta que alguien acepta**; no es

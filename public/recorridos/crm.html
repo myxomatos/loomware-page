@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>De la llamada al cierre · CRM | Loomware</title>
+    <meta name="description" content="Seis tratos en veinticuatro días: tres se mueren de silencio y uno se cierra. Qué hace un CRM, paso a paso." />
+    <!-- Material de venta: se comparte por liga directa, no se busca en Google. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#A35C23" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Loomware" />
+    <meta property="og:title" content="De la llamada al cierre · CRM | Loomware" />
+    <meta property="og:description" content="Seis tratos en veinticuatro días: tres se mueren de silencio y uno se cierra. Qué hace un CRM, paso a paso." />
+    <meta property="og:image" content="https://loomware.com.mx/og-image.png" />
+    <meta property="og:locale" content="es_MX" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style>
+      :root {
+        color-scheme: light;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+      body { margin: 0; padding: 0; }
+      img { max-width: 100%; }
+      [hidden] { display: none !important; }
+    </style>
+    <!--
+      ATENCIÓN · ligas del sitio
+      Mientras el PR de la rama "alan" no se mezcle a "main", loomware.com.mx sigue
+      siendo el sitio viejo y /servicios/crm responde 404. Por eso las dos ligas de
+      abajo apuntan al preview de la rama.
+
+      Cuando Aldo mezcle el PR, cambiar estas dos por https://loomware.com.mx:
+        1. la barra de marca (brand__site)
+        2. la liga "formulario del sitio" del cierre (.otras)
+    -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
+    <style>
+      *,*::before,*::after{box-sizing:border-box;}
+
+      :root{
+        /* --- superficie y texto: neutros cálidos, para que el cobre cante --- */
+        --paper:#EEEBE6;
+        --surface:#FFFFFF;
+        --ink:#191A1E;
+        --ink-2:#4E5058;
+        --ink-3:#7A7D86;
+        --rule:#CFC9C0;
+        --rule-soft:#E3DED6;
+
+        --signal:#A35C23;       /* cobre: el dato que el sistema registra */
+        --signal-soft:#F8EDE2;
+        --money:#12643C;        /* verde: lo que ganas */
+        --pain:#6B6F79;         /* gris: así está hoy */
+        --pain-bg:#DFDCD5;      /* franja apagada, separada del papel a simple vista */
+
+        /* --- materiales de la escena: cara superior / izquierda / derecha --- */
+        --grd:#DCD7CE;  --grd2:#E9E5DD;
+        --asf-t:#A8A49C;
+        --line:#F0EDE7;
+        --con-t:#C6C1B8; --con-l:#9B978F; --con-r:#B0ABA3;
+        --rck-t:#D2CEC6; --rck-l:#A5A199; --rck-r:#BDB9B1;
+        --box-t:#E4D5BB; --box-l:#B8A886; --box-r:#D0C0A1;
+        --ofi-t:#E4E0D8; --ofi-l:#B4B0A8; --ofi-r:#CBC7BF;
+        --tra-t:#EBE8E1; --tra-l:#B9B5AD; --tra-r:#D3CFC8;
+        --trk-t:#C7C3BB; --trk-l:#928E86; --trk-r:#ADA9A1;
+        --fk-t:#5A5C63;  --fk-l:#35373C;  --fk-r:#47494F;
+        --pal-t:#C4A173; --pal-l:#8F7349; --pal-r:#AB8B5D;
+        --per-t:#5A6472; --per-l:#333A44; --per-r:#47505C;   /* la gente de la nave */
+        --chs:#33353B;
+        --whl:#191A1E;
+        --shadow:0 1px 0 rgba(25,26,30,.04), 0 12px 28px -20px rgba(25,26,30,.4);
+
+        --mono:"Azeret Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+        --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+      }
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]){
+          --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+          --rule:#3F3930; --rule-soft:#2A2620;
+          --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+          --pain:#8F8878; --pain-bg:#1B1915;
+          /* la escena va más clara que el papel: si no, el dibujo se vuelve lodo */
+          --grd:#221F19; --grd2:#2E2A23;
+          --asf-t:#3D3931; --line:#6A6357;
+          --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+          --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+          --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+          --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+          --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+          --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+          --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+          --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+          --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+          --chs:#141210; --whl:#0C0A08;
+          --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+        }
+      }
+      :root[data-theme="dark"]{
+        --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+        --rule:#3F3930; --rule-soft:#2A2620;
+        --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+        --pain:#8F8878; --pain-bg:#1B1915;
+        --grd:#221F19; --grd2:#2E2A23;
+        --asf-t:#3D3931; --line:#6A6357;
+        --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+        --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+        --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+        --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+        --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+        --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+        --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+        --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+        --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+        --chs:#141210; --whl:#0C0A08;
+        --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+      }
+
+      /* Monoespaciada para todo lo que es dato, etiqueta o título: lectura de máquina.
+         Archivo sólo para el texto corrido, que en mono cansa. */
+      body{
+        background:var(--paper); color:var(--ink);
+        font-family:var(--sans); font-size:14px; line-height:1.5;
+        -webkit-font-smoothing:antialiased; overflow-wrap:break-word;
+      }
+      .wrap{max-width:1180px;margin:0 auto;padding-inline:18px;padding-block:16px 48px;}
+      .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+        font-weight:500;}
+
+      /* ---------- barra de marca ---------- */
+      .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+        padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
+      .brand__id{display:flex;align-items:center;gap:8px;}
+      .brand__id svg{display:block;flex:none;}
+      .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
+        letter-spacing:-.03em;color:var(--ink);}
+      .brand__site{font-family:var(--mono);font-size:11px;color:var(--ink-2);text-decoration:none;
+        border-bottom:1px solid var(--rule);padding-bottom:1px;}
+      .brand__site:hover{color:var(--signal);border-color:currentColor;}
+
+      /* ---------- cabecera ---------- */
+      .mast{display:flex;flex-direction:column;gap:13px;padding-block:20px 17px;
+        border-bottom:1px solid var(--rule);}
+      .eyebrow{color:var(--signal);}
+      h1{font-family:var(--mono);font-weight:700;
+        font-size:clamp(25px,4.6vw,42px);line-height:1.04;letter-spacing:-.03em;
+        text-transform:uppercase;margin:0;text-wrap:balance;}
+      .deck{max-width:78ch;color:var(--ink-2);font-size:14px;margin:0;line-height:1.55;}
+      .deck b{color:var(--ink);font-weight:600;}
+
+      /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
+      .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
+      .antes svg{display:block;width:100%;max-width:620px;height:auto;}
+      .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);max-width:70ch;
+        line-height:1.6;}
+      .dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;}
+      .dg-line{stroke:var(--pain);stroke-width:1;fill:none;opacity:.6;}
+      .dg-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-2);}
+      .dg-arrow{stroke:var(--ink-3);stroke-width:1.5;fill:none;}
+      .dg-erp{fill:var(--surface);stroke:var(--signal);stroke-width:1.5;}
+      .dg-row{fill:var(--signal-soft);}
+      .dg-k{font-family:var(--mono);font-size:9px;fill:var(--signal);letter-spacing:.12em;}
+
+      .specline{display:flex;flex-wrap:wrap;gap:4px 20px;font-family:var(--mono);font-size:10.5px;
+        color:var(--ink-3);font-variant-numeric:tabular-nums;}
+      .specline b{color:var(--signal);font-weight:500;}
+
+      /* ---------- dos columnas ---------- */
+      .cols{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+        gap:30px;margin-top:22px;align-items:start;}
+      .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
+        display:flex;flex-direction:column;gap:8px;min-width:0;}
+
+      /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
+      .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
+        background:var(--surface);border:1px solid var(--rule-soft);
+        border-left:3px solid var(--signal);border-radius:2px;}
+      .readout__k{color:var(--signal);font-size:11px;}
+      .readout__v{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+        font-variant-numeric:tabular-nums;line-height:1.45;}
+
+      .stage{background:var(--surface);border:1px solid var(--rule-soft);
+        border-radius:3px;box-shadow:var(--shadow);padding:5px;}
+      .stage svg{display:block;width:100%;height:auto;}
+
+      .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+        font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
+      .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+        color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
+        border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+      .play:hover{background:var(--signal);color:var(--surface);}
+      .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+      .legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;
+        font-family:var(--mono);font-size:10px;color:var(--ink-3);}
+      .legend li{display:flex;align-items:center;gap:6px;}
+      .sw{width:12px;height:7px;flex:none;border-radius:1px;}
+      .sw--beam{background:repeating-linear-gradient(90deg,var(--signal) 0 4px,transparent 4px 7px);}
+      .sw--sys{background:var(--signal);}
+      .sw--money{background:var(--money);}
+
+      /* expediente: un dato, una sola captura */
+      .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
+        flex-direction:column;gap:7px;}
+      .exp__t{color:var(--ink-3);}
+      .chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+      .chip{display:flex;flex-direction:column;gap:0;padding:4px 8px;border-radius:2px;
+        border:1px solid var(--rule-soft);background:var(--surface);font-family:var(--mono);
+        opacity:.32;transition:opacity .4s ease,border-color .4s ease,background-color .4s ease;min-width:0;}
+      .chip b{font-size:11px;font-weight:500;letter-spacing:-.02em;color:var(--ink-2);line-height:1.5;}
+      .chip span{font-size:9px;color:var(--ink-3);line-height:1.5;}
+      .chip.on{opacity:1;}
+      .chip.now{border-color:var(--signal);background:var(--signal-soft);}
+      .chip.now b{color:var(--signal);}
+      .chip--tot.on{border-color:var(--signal);background:var(--signal);}
+      .chip--tot.on b,.chip--tot.on span{color:var(--surface);}
+
+      /* ---------- pasos ---------- */
+      .steps{display:flex;flex-direction:column;min-width:0;}
+      .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+        padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
+      /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
+         es lo que hace que el recorrido se lea de uno en uno. */
+      .step{display:flex;flex-direction:column;justify-content:center;
+        min-height:clamp(140px,27vh,240px);padding-block:12px;padding-left:14px;
+        border-left:3px solid transparent;cursor:pointer;min-width:0;
+        transition:opacity .35s ease,border-color .35s ease;opacity:.34;}
+      .step.on{opacity:1;border-left-color:var(--signal);}
+      .step:hover{opacity:.7;border-left-color:var(--rule);}
+      .step.on:hover{opacity:1;border-left-color:var(--signal);}
+      .step:focus-visible{outline:2px solid var(--signal);outline-offset:5px;}
+      .step-head{display:flex;align-items:baseline;gap:9px;margin-bottom:8px;flex-wrap:wrap;}
+      .paso{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:-.02em;
+        color:var(--ink-3);line-height:1.5;transition:color .35s ease;}
+      .step.on .paso{color:var(--signal);}
+      .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
+        color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
+        border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
+      .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+        margin:0;color:var(--ink);text-wrap:balance;}
+
+      /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
+      .vs{display:flex;flex-direction:column;gap:1px;border-radius:2px;overflow:hidden;}
+      .vs__row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:11px;
+        padding:8px 10px;align-items:start;}
+      .vs__row p{margin:0;font-size:13px;line-height:1.45;color:var(--ink);}
+      .vs__lbl{line-height:1.75;}
+      .vs__row--hoy{background:var(--pain-bg);border-left:3px solid var(--pain);}
+      .vs__row--hoy .vs__lbl{color:var(--pain);}
+      .vs__row--hoy p{color:var(--ink-2);}
+      .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
+      .vs__row--con .vs__lbl{color:var(--signal);}
+      .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
+      .vs__row--gana .vs__lbl{color:var(--money);}
+      .vs__row--gana p{font-weight:500;}
+
+      /* ---------- secciones de abajo ---------- */
+      .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
+      .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
+        font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
+        text-wrap:balance;color:var(--ink);text-transform:uppercase;}
+      .giros p,.faq p,.costo p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
+
+      /* 320px: da 3 columnas en escritorio y 2 en tablet, y las seis tarjetas
+         de giros y de preguntas llenan las filas sin dejar celdas vacías. */
+      .rejilla{list-style:none;margin:0;padding:0;display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;
+        background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:2px;}
+      .rejilla li{background:var(--surface);padding:11px 13px;display:flex;
+        flex-direction:column;gap:3px;}
+      .rejilla b{font-family:var(--mono);font-size:10.5px;font-weight:500;
+        letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+      .rejilla span{font-size:12.5px;line-height:1.45;color:var(--ink-2);}
+      .rejilla .hoy{font-size:11.5px;line-height:1.45;color:var(--pain);}
+      .rejilla .este{background:var(--signal-soft);}
+      .rejilla .este b{color:var(--signal);}
+      .giros__cierre{margin:14px 0 0 !important;font-size:13.5px;color:var(--ink);}
+
+      /* preguntas que el comprador hace antes de llamar */
+      .faq .rejilla b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+
+      .costo .rejilla{grid-template-columns:minmax(0,1fr);max-width:780px;}
+      .costo .rejilla li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;
+        font-size:12.5px;line-height:1.4;color:var(--ink);}
+      .costo .rejilla b{font-size:10px;color:var(--signal);line-height:1.6;
+        font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
+
+      /* ---------- cierre ---------- */
+      .cierre{margin-top:26px;max-width:640px;padding-left:16px;
+        border-left:3px solid var(--signal);}
+      .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
+      .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+        font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
+        text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
+      .btn svg{flex:none;}
+      .btn:hover{filter:brightness(1.1);}
+      .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+      .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
+        color:var(--ink-3);line-height:1.8;}
+      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;}
+      .cierre .otras a:hover{color:var(--signal);}
+      .cierre .otras .sep{margin-inline:7px;color:var(--rule);}
+
+      .colofon{margin-top:24px;font-family:var(--mono);font-size:10px;color:var(--ink-3);
+        max-width:96ch;line-height:1.7;}
+      .colofon b{color:var(--ink-2);font-weight:500;}
+
+      /* ---------- estado de la escena ---------- */
+      /* Cada elemento del dibujo aparece en el paso que le toca. */
+      .e{opacity:0;transition:opacity .45s ease;}
+      .e.visible{opacity:1;}
+      .carril{fill:var(--pain-bg);}
+      .vida{stroke:var(--ink-3);stroke-width:2.6;fill:none;stroke-linecap:round;}
+      .pto{fill:var(--ink-2);}
+      .muerte{stroke:var(--pain);stroke-width:2.4;stroke-linecap:round;}
+      .rec{fill:none;stroke:var(--signal);stroke-width:2.6;}
+      .gana{fill:var(--money);}
+      .reja{stroke:var(--rule-soft);stroke-width:1;}
+      .eje{font-family:var(--mono);font-size:12px;fill:var(--ink-3);letter-spacing:.04em;}
+      .flecha{fill:var(--signal);}
+      /* El trato que vamos siguiendo va en cobre; los otros cinco, en gris. */
+      .activa .carril{fill:var(--signal-soft);}
+      .activa .vida{stroke:var(--signal);}
+      .activa .pto{fill:var(--signal);}
+
+      .sw--pto{background:var(--ink-2);border-radius:50%;width:9px;height:9px;}
+      .sw--rec{background:transparent;border:2px solid var(--signal);border-radius:50%;width:10px;height:10px;}
+      .sw--mue{background:var(--pain);width:10px;height:2px;transform:rotate(-45deg);}
+
+      @media (prefers-reduced-motion:reduce){
+        .e,.chip,.step{transition:none;}
+        .beam path{animation:none;}
+      }
+
+      @media (max-width:880px){
+        /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
+           los pasos pasan por debajo, igual que en escritorio */
+        .cols{display:block;margin-top:16px;}
+        .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+          background:var(--paper);padding-block:8px;margin-bottom:6px;
+          border-bottom:1px solid var(--rule-soft);}
+        .stage svg{max-height:33vh;}
+        .legend{display:none;}
+        /* en tablet vertical el texto corría a 100 caracteres por renglón */
+        .steps{max-width:660px;}
+        .step{min-height:clamp(120px,22vh,190px);padding-left:11px;opacity:.4;}
+      }
+      @media (max-width:560px){
+        .vs__row,.costo .rejilla li{grid-template-columns:minmax(0,1fr);gap:3px;}
+        .vs__lbl,.costo .rejilla b{line-height:1.4;}
+        .btn{width:100%;justify-content:center;}
+        .gauge{margin-left:0;}
+      }
+    </style>
+  </head>
+  <body>
+<div class="wrap">
+
+  <div class="brand">
+    <span class="brand__id">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="var(--ink)" stroke-width="1.8"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M15.5 8h4v4" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--signal)" stroke-width="2"/>
+        <path d="M15.5 8h4v4" stroke="var(--signal)" stroke-width="2"/>
+      </svg>
+      <span class="brand__name">Loomware</span>
+    </span>
+    <a class="brand__site" href="https://alan.loomware-page.pages.dev" target="_blank" rel="noopener noreferrer">loomware.com.mx</a>
+  </div>
+
+  <header class="mast">
+    <div class="eyebrow lbl">CRM · un ejemplo, paso a paso</div>
+    <h1>De la llamada al cierre</h1>
+    <p class="deck">Un <b>CRM</b> es el lugar donde vive cada oportunidad de venta: con un
+      responsable, un siguiente paso y una fecha. Para verlo seguimos a un prospecto desde que
+      levanta la mano hasta que vuelve a comprar. Seis paradas y <b>una sola ficha</b>.
+      El giro no cambia la idea: abajo está el mismo recorrido en otros cinco.</p>
+
+    <figure class="antes">
+      <svg viewBox="0 0 620 124" role="img"
+           aria-label="A la izquierda, tres canales —WhatsApp, web y llamada— con líneas cruzadas hacia tres lugares distintos: una libreta, un Excel y la memoria de alguien. A la derecha, los mismos tres canales entran a un solo embudo con cinco etapas.">
+        <path class="dg-line" d="M84 16 L138 58"/>
+        <path class="dg-line" d="M84 16 L138 100"/>
+        <path class="dg-line" d="M84 58 L138 16"/>
+        <path class="dg-line" d="M84 58 L138 100"/>
+        <path class="dg-line" d="M84 100 L138 16"/>
+        <path class="dg-line" d="M84 100 L138 58"/>
+        <rect class="dg-box" x="4"   y="6"  width="80" height="20" rx="2"/>
+        <rect class="dg-box" x="4"   y="48" width="80" height="20" rx="2"/>
+        <rect class="dg-box" x="4"   y="90" width="80" height="20" rx="2"/>
+        <text class="dg-t" x="11" y="20">WhatsApp</text>
+        <text class="dg-t" x="11" y="62">Web</text>
+        <text class="dg-t" x="11" y="104">Llamada</text>
+        <rect class="dg-box" x="138" y="6"  width="86" height="20" rx="2"/>
+        <rect class="dg-box" x="138" y="48" width="86" height="20" rx="2"/>
+        <rect class="dg-box" x="138" y="90" width="86" height="20" rx="2"/>
+        <text class="dg-t" x="145" y="20">Una libreta</text>
+        <text class="dg-t" x="145" y="62">Un Excel</text>
+        <text class="dg-t" x="145" y="104">La memoria</text>
+        <path class="dg-arrow" d="M250 62 L290 62"/>
+        <path class="dg-arrow" d="M282 56 L290 62 L282 68"/>
+        <rect class="dg-erp" x="310" y="2" width="304" height="118" rx="3"/>
+        <text class="dg-k" x="322" y="17">UN SOLO EMBUDO</text>
+        <rect class="dg-row" x="320" y="24" width="284" height="15" rx="1"/>
+        <rect class="dg-row" x="320" y="42" width="284" height="15" rx="1"/>
+        <rect class="dg-row" x="320" y="60" width="284" height="15" rx="1"/>
+        <rect class="dg-row" x="320" y="78" width="284" height="15" rx="1"/>
+        <rect class="dg-row" x="320" y="96" width="284" height="15" rx="1"/>
+        <text class="dg-t" x="328" y="35">Prospecto</text>
+        <text class="dg-t" x="328" y="53">Contacto</text>
+        <text class="dg-t" x="328" y="71">Propuesta</text>
+        <text class="dg-t" x="328" y="89">Negociación</text>
+        <text class="dg-t" x="328" y="107">Cierre</text>
+      </svg>
+      <figcaption>Izquierda: tres canales que terminan en tres lugares distintos, y ninguno
+        sabe del otro. Derecha: los mismos tres, en un embudo donde cada trato tiene dueño
+        y fecha. Eso es todo lo que es un CRM.</figcaption>
+    </figure>
+
+    <div class="specline">
+      <span>Canales al mismo embudo <b>WhatsApp · web · llamada</b></span>
+      <span>Cada trato <b>con dueño y fecha</b></span>
+      <span>Se usa <b>desde el celular</b></span>
+      <span>Migración desde Excel <b>incluida</b></span>
+    </div>
+  </header>
+
+  <div class="cols">
+    <div class="figure">
+
+      <div class="readout" aria-live="polite">
+        <span class="readout__k lbl" id="hudK">PROS-0412 · Prospecto nuevo</span>
+        <span class="readout__v" id="hudV">origen WhatsApp · asignado a Karla · siguiente paso en 2 días</span>
+      </div>
+
+      <div class="stage">
+        <svg id="scene" viewBox="0 0 680 300" role="img"
+             aria-label="Línea de tiempo de 24 días con seis tratos de venta, uno por renglón. Cada punto es un contacto con el cliente. Tres de los seis se quedan sin contactos y mueren de silencio; el de arriba recibe un recordatorio del sistema y termina cerrado.">
+          <g id="world"></g>
+        </svg>
+      </div>
+
+      <div class="cap">
+        <span id="stateLabel">01 / 06 · Entra el prospecto</span>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <span>Cifras de ejemplo</span>
+      </div>
+
+      <ul class="legend">
+        <li><span class="sw sw--pto"></span>Un contacto con el cliente</li>
+        <li><span class="sw sw--rec"></span>Recordatorio del sistema</li>
+        <li><span class="sw sw--mue"></span>Se murió de silencio</li>
+        <li><span class="sw sw--money"></span>Cerrado</li>
+      </ul>
+
+      <div class="exp">
+        <div class="exp__t lbl">Ficha del cliente · todo en un solo lugar</div>
+        <ul class="chips" id="chips">
+          <li class="chip" id="c0"><b>PROS-0412</b><span>prospecto</span></li>
+          <li class="chip" id="c1"><b>VIS-0771</b><span>visita</span></li>
+          <li class="chip" id="c2"><b>COT-1180</b><span>cotización</span></li>
+          <li class="chip" id="c3"><b>SEG-0903</b><span>recordatorio</span></li>
+          <li class="chip" id="c4"><b>CIE-0412</b><span>cierre</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 ficha</b><span>con todo el historial</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="steps" id="steps">
+
+      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
+
+<section class="step on" tabindex="0" data-i="0">
+        <div class="step-head"><span class="paso">01</span><h2>Entra el prospecto</h2><span class="gauge">3 canales</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Llega un WhatsApp al celular de un vendedor y ahí se queda; nadie más se entera.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Entre por donde entre —web, WhatsApp o llamada— cae en el embudo con su origen registrado.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Ningún prospecto se queda guardado en el teléfono de una sola persona.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="1">
+        <div class="step-head"><span class="paso">02</span><h2>Primera visita</h2><span class="gauge">VIS-0771</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El vendedor anota en su libreta. Lo que se habló vive en su cabeza y en nadie más.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La visita se registra en la ficha del cliente desde el celular, ahí mismo, al salir.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Si ese vendedor falta, cualquiera retoma el trato con todo el contexto.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="2">
+        <div class="step-head"><span class="paso">03</span><h2>La propuesta</h2><span class="gauge">COT-1180</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>La cotización se arma en Excel y se manda por correo. Después nadie sabe cuál se mandó.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Se cotiza desde el CRM con tu catálogo y tus precios, y queda ligada al trato.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Sabes qué cotizaste, a cuánto y cuándo, sin buscar en el correo de nadie.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="3">
+        <div class="step-head"><span class="paso">04</span><h2>El seguimiento</h2><span class="gauge">5 días sin mover</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>«Luego le marco.» El trato se enfría y a los quince días el cliente ya compró en otro lado.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El sistema avisa a quien le toca y cuándo; los tratos sin actividad se destacan solos.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>El seguimiento deja de depender de quién se acordó ese día.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="4">
+        <div class="step-head"><span class="paso">05</span><h2>El cierre</h2><span class="gauge">cerrado</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Dos vendedores le hablaron al mismo cliente y cada uno le dio un precio distinto.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Cada trato tiene un dueño, una etapa y un siguiente paso, a la vista de todo el equipo.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Cierras sin pelearte por dentro ni quedar mal por fuera.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="5">
+        <div class="step-head"><span class="paso">06</span><h2>El embudo de dirección</h2><span class="gauge">pronóstico</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Para saber cuánto vas a cerrar este mes hay que irle preguntando a cada vendedor.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El pronóstico sale del embudo: cuánto hay, en qué etapa, con quién y de qué canal vino.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Sabes el número del mes sin juntar a nadie, y de dónde salen tus mejores clientes.</p></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="giros">
+    <h2>El mismo recorrido, en otros giros</h2>
+    <p>Dibujamos un vendedor de calle porque ahí el recorrido se ve con los ojos. El CRM no
+      cambia entre un giro y otro; cambia <b>qué es un trato</b> y qué duele hoy.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Un trato es un cliente de ruta: se visita, se cotiza, se surte y se recompra.</span>
+        <span class="hoy">Hoy: el vendedor se va y se lleva la cartera en la cabeza.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Un trato es una cotización técnica: plano, alcance, tiempo de entrega y precio.</span>
+        <span class="hoy">Hoy: se cotiza, se manda por correo y nadie vuelve a preguntar.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Un trato es una licitación o una obra: visita, presupuesto, ajustes y adjudicación.</span>
+        <span class="hoy">Hoy: los ciclos son de meses y el seguimiento se pierde en el camino.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Un trato es una propuesta de servicio: alcance, honorarios y fecha de arranque.</span>
+        <span class="hoy">Hoy: el socio que trae al cliente es el único que sabe en qué va.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Un trato es un cliente mayoreo o un pedido grande que no pasa por el mostrador.</span>
+        <span class="hoy">Hoy: el pedido se aparta por WhatsApp y se olvida el seguimiento.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>Un trato es un paciente o cliente nuevo: primera consulta, plan y reingreso.</span>
+        <span class="hoy">Hoy: el que no volvió a agendar simplemente desaparece.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia qué se le llama trato. No cambia la idea: <b>cada
+      oportunidad con un dueño, un siguiente paso y una fecha.</b> Si tu giro no está en la
+      lista, también aplica: se define en el diagnóstico.</p>
+  </section>
+
+  <section class="faq">
+    <h2>Antes de que preguntes</h2>
+    <p>Las seis dudas que sale todo director antes de sentarse a ver un CRM, contestadas sin
+      rodeos.</p>
+    <ul class="rejilla">
+      <li><b>¿Mis vendedores lo van a usar?</b>
+        <span>Ese es el criterio de éxito del proyecto, no un extra. Por eso el embudo se
+          diseña con ellos, se captura lo mínimo necesario y las primeras semanas se mide
+          la adopción y se quita lo que estorbe.</span></li>
+      <li><b>¿Qué compro exactamente?</b>
+        <span>Un CRM implementado sobre tu proceso de venta real: tus etapas, tus campos,
+          tus reportes, con tus clientes y oportunidades ya cargados. No es una licencia
+          que te entregan y ahí te ves.</span></li>
+      <li><b>¿Se integra con WhatsApp?</b>
+        <span>Sí. Los mensajes de WhatsApp Business pueden registrarse en la ficha del
+          cliente y generar prospectos nuevos, según el alcance que definamos.</span></li>
+      <li><b>¿Puedo migrar lo que tengo en Excel?</b>
+        <span>Sí. La carga inicial de clientes, contactos y oportunidades abiertas es parte
+          del proyecto, no un cobro aparte.</span></li>
+      <li><b>¿Funciona en el celular?</b>
+        <span>Sí, y es donde más se usa: consultar la ficha antes de entrar con el cliente,
+          registrar la visita al salir y recibir los recordatorios del día.</span></li>
+      <li><b>¿Cómo se cotiza?</b>
+        <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
+          cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
+    </ul>
+  </section>
+
+  <section class="costo">
+    <h2>¿Cuánto te está costando hoy?</h2>
+    <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
+      Si no sabes alguna, esa ya es la respuesta.</p>
+    <ul class="rejilla">
+      <li><b>01</b><span>¿Cuántos prospectos de este mes no han recibido una segunda llamada?</span></li>
+      <li><b>02</b><span>¿Cuánto vas a cerrar este mes, y de dónde sale ese número?</span></li>
+      <li><b>03</b><span>Si un vendedor renuncia mañana, ¿qué pasa con sus tratos abiertos?</span></li>
+      <li><b>04</b><span>¿Cuántas veces dos personas le han llamado al mismo cliente?</span></li>
+      <li><b>05</b><span>¿De qué canal salen los clientes que más te dejan?</span></li>
+    </ul>
+  </section>
+
+  <section class="cierre">
+    <h2>Te decimos dónde se están quedando tus ventas</h2>
+    <p>Recorremos tu proceso de venta completo —por dónde entran, quién les da seguimiento, dónde
+      se caen— y te decimos qué conviene resolver primero. Diagnóstico sin costo y sin compromiso.</p>
+    <a class="btn"
+       href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20CRM%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
+       target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      WhatsApp · 55 8096 8928
+    </a>
+    <p class="otras">
+      o llena el <a href="https://alan.loomware-page.pages.dev/servicios/crm" target="_blank" rel="noopener noreferrer">formulario del sitio</a><span class="sep">·</span>correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a>
+    </p>
+  </section>
+
+  <p class="colofon">
+    Los folios y datos de este recorrido son de <b>una operación de ejemplo</b> y sirven para
+    mostrar el flujo. El CRM se ajusta al proceso de venta de cada empresa: el recorrido del
+    tuyo se dibuja en el diagnóstico, con tus etapas.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Lo que mata una venta no es un lugar: es el silencio. Por eso el dibujo es
+     tiempo, no espacio. Veinticuatro días en el eje horizontal y seis tratos,
+     uno por renglón. Cada punto es un contacto con el cliente. */
+  var DIAS = 24, X0 = 42, XD = 25, Y0 = 62, YH = 38, ALTO = 22;
+  function dx(d){ return X0 + (d - 1) * XD; }
+
+  /* puntos: los días en que alguien habló con el cliente.
+     muere: el día en que el trato se apagó por falta de seguimiento.
+     rec:   el día en que el sistema avisa que lleva demasiado quieto. */
+  var TRATOS = [
+    { activa:true, puntos:[1,3,6], rec:11, sigue:[13,17], gana:22 },
+    { puntos:[1,4],        muere:4  },
+    { puntos:[2,5,9,14,20] },
+    { puntos:[3],          muere:3  },
+    { puntos:[7,11,16] },
+    { puntos:[9,11],       muere:11 }
+  ];
+
+  var s = "";
+
+  /* Reja de la semana y días rotulados */
+  [1, 7, 14, 21].forEach(function(d){
+    s += '<line class="reja" x1="' + dx(d) + '" y1="46" x2="' + dx(d) + '" y2="' + (Y0 + 6 * YH - 8) + '"/>';
+    s += '<text class="eje" x="' + (dx(d) - 6) + '" y="36">día ' + d + '</text>';
+  });
+
+  function pto(x, y){ return '<circle class="pto" cx="' + x + '" cy="' + y + '" r="4.6"/>'; }
+  function linea(d1, d2, y){
+    return '<line class="vida" x1="' + dx(d1) + '" y1="' + y + '" x2="' + dx(d2) + '" y2="' + y + '"/>';
+  }
+  function cruz(x, y){
+    var r = 6;
+    return '<g class="muerte"><line x1="' + (x-r) + '" y1="' + (y-r) + '" x2="' + (x+r) + '" y2="' + (y+r) + '"/>' +
+           '<line x1="' + (x+r) + '" y1="' + (y-r) + '" x2="' + (x-r) + '" y2="' + (y+r) + '"/></g>';
+  }
+  /* d = el paso a partir del cual el elemento se ve */
+  function cuando(d, contenido){ return '<g class="e" data-d="' + d + '">' + contenido + '</g>'; }
+
+  TRATOS.forEach(function(tr, n){
+    var y = Y0 + n * YH, cy = y + ALTO / 2, o = "";
+    var apareceCarril = tr.activa ? 0 : 1;
+
+    o += cuando(apareceCarril,
+      '<rect class="carril" x="' + (X0 - 14) + '" y="' + y + '" width="' + (DIAS * XD - 4) + '" height="' + ALTO + '" rx="3"/>');
+
+    if (tr.activa){
+      o += cuando(0, '<path class="flecha" d="M' + (X0-30) + ' ' + (cy-6) + ' L' + (X0-20) + ' ' + cy + ' L' + (X0-30) + ' ' + (cy+6) + ' Z"/>');
+      o += cuando(0, pto(dx(tr.puntos[0]), cy));
+      o += cuando(1, linea(tr.puntos[0], tr.puntos[1], cy) + pto(dx(tr.puntos[1]), cy));
+      o += cuando(2, linea(tr.puntos[1], tr.puntos[2], cy) + pto(dx(tr.puntos[2]), cy));
+      /* El hueco de silencio y el recordatorio que lo rompe */
+      o += cuando(3, '<line class="vida" stroke-dasharray="3 5" x1="' + dx(tr.puntos[2]) + '" y1="' + cy +
+                     '" x2="' + dx(tr.rec) + '" y2="' + cy + '"/>' +
+                     '<circle class="rec" cx="' + dx(tr.rec) + '" cy="' + cy + '" r="6.5"/>');
+      o += cuando(4, linea(tr.rec, tr.sigue[0], cy) + pto(dx(tr.sigue[0]), cy) +
+                     linea(tr.sigue[0], tr.sigue[1], cy) + pto(dx(tr.sigue[1]), cy) +
+                     linea(tr.sigue[1], tr.gana, cy) +
+                     '<circle class="gana" cx="' + dx(tr.gana) + '" cy="' + cy + '" r="6.5"/>');
+    } else {
+      var ps = tr.puntos, contenido = "";
+      for (var k = 0; k < ps.length; k++){
+        if (k) contenido += linea(ps[k-1], ps[k], cy);
+        contenido += pto(dx(ps[k]), cy);
+      }
+      o += cuando(1, contenido);
+      /* Los que se murieron aparecen en el paso del seguimiento: ahí duele. */
+      if (tr.muere) o += cuando(3, cruz(dx(tr.muere) + 18, cy));
+    }
+
+    s += '<g class="pista' + (tr.activa ? ' activa' : '') + '">' + o + '</g>';
+  });
+
+  document.getElementById("world").innerHTML = s;
+
+  /* ---------- estados ---------- */
+  var STATES = [
+    { label:"01 / 06 · Entra el prospecto",
+      k:"PROS-0412 · Prospecto nuevo",
+      v:"día 1 · origen WhatsApp · asignado a Karla · siguiente paso en 2 días" },
+    { label:"02 / 06 · Primera visita",
+      k:"VIS-0771 · Visita registrada",
+      v:"día 3 · notas y siguiente paso capturados desde el celular, al salir" },
+    { label:"03 / 06 · La propuesta",
+      k:"COT-1180 · Cotización ligada",
+      v:"día 6 · $184,500 · vigencia 15 días · queda en la ficha del cliente" },
+    { label:"04 / 06 · El seguimiento",
+      k:"SEG-0903 · 5 días sin movimiento",
+      v:"día 11 · el sistema avisa a Karla · tres tratos del tablero ya se apagaron" },
+    { label:"05 / 06 · El cierre",
+      k:"CIE-0412 · Trato ganado",
+      v:"día 22 · 22 días de ciclo · un solo dueño · origen WhatsApp" },
+    { label:"06 / 06 · El embudo de dirección",
+      k:"6 tratos · 1 ganado · 2 vivos",
+      v:"3 se perdieron por silencio: $247,400 que nadie volvió a tocar" }
+  ];
+
+  var labelEl = document.getElementById("stateLabel");
+  var hudK = document.getElementById("hudK");
+  var hudV = document.getElementById("hudV");
+  var elems = Array.prototype.slice.call(document.querySelectorAll("#world .e"));
+  var chipEls = Array.prototype.slice.call(document.querySelectorAll("#chips .chip"));
+  var totEl = document.getElementById("ctot");
+  var stepEls = Array.prototype.slice.call(document.querySelectorAll(".step"));
+  var ULTIMO = STATES.length - 1;
+  var current = -1;
+
+  function apply(i){
+    if (i === current) return;
+    current = i;
+    var st = STATES[i];
+
+    elems.forEach(function(el){ el.classList.toggle("visible", i >= +el.dataset.d); });
+
+    /* La ficha acumula: en el último paso quedan los cinco registros y el total. */
+    chipEls.forEach(function(el, n){
+      if (el === totEl) return;
+      el.classList.toggle("on", i === ULTIMO || n <= i);
+      el.classList.toggle("now", i !== ULTIMO && n === i);
+    });
+    totEl.classList.toggle("on", i === ULTIMO);
+
+    labelEl.textContent = st.label;
+    hudK.textContent = st.k;
+    hudV.textContent = st.v;
+    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+  }
+
+  apply(0);
+
+  /* El último paso cuya orilla superior ya cruzó la línea de lectura: avanza de uno
+     en uno conforme se baja y nunca brinca. */
+  var LINEA = 0.42;
+  function elegir(){
+    var linea = window.innerHeight * LINEA, idx = 0;
+    for (var n = 0; n < stepEls.length; n++){
+      if (stepEls[n].getBoundingClientRect().top <= linea) idx = n;
+    }
+    apply(idx);
+  }
+  window.addEventListener("scroll", elegir, { passive:true });
+  window.addEventListener("resize", elegir, { passive:true });
+  elegir();
+
+  stepEls.forEach(function(el){
+    el.addEventListener("click", function(){ detener(); apply(Number(el.dataset.i)); });
+    el.addEventListener("keydown", function(ev){
+      if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); detener(); apply(Number(el.dataset.i)); }
+    });
+  });
+
+  /* Reproducción automática: sirve para grabar el recorrido en video sin tocar nada. */
+  var playEl = document.getElementById("play");
+  var timer = null;
+  var suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function irA(i){
+    stepEls[i].scrollIntoView({ behavior: suave ? "smooth" : "auto", block: "center" });
+    apply(i);
+  }
+  function detener(){
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+    playEl.textContent = "▶ Reproducir";
+    playEl.setAttribute("aria-pressed", "false");
+  }
+  playEl.addEventListener("click", function(){
+    if (timer){ detener(); return; }
+    playEl.textContent = "❚❚ Pausar";
+    playEl.setAttribute("aria-pressed", "true");
+    irA(0);
+    timer = setInterval(function(){
+      var n = current + 1;
+      if (n >= STATES.length){ detener(); return; }
+      irA(n);
+    }, 4500);
+  });
+})();
+</script>
+  </body>
+</html>
