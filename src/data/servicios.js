@@ -306,7 +306,7 @@ export const SERVICIOS = [
     h1: 'Software a medida: cuando ningún sistema de catálogo te queda',
     intro: [
       'Hay procesos que ningún software comercial resuelve bien, porque son la forma en que tu empresa compite: cómo cotizas, cómo produces, cómo atiendes. Forzarlos a caber en un sistema genérico significa perder justo lo que te hace distinto.',
-      'Construimos software sobre tu proceso real. Se integra con lo que ya usas, lo entregamos por etapas para que veas avances desde las primeras semanas, y el código y los datos son tuyos.',
+      'Construimos software sobre tu proceso real. Se integra con lo que ya usas, lo entregamos por etapas para que veas avances desde las primeras semanas, y el contrato te entrega el código y los datos.',
     ],
     paraQuien: [
       'Empresas con un proceso central que los sistemas comerciales no cubren o cubren mal.',
@@ -320,7 +320,7 @@ export const SERVICIOS = [
       { titulo: 'Desarrollo por etapas', texto: 'Entregas cada pocas semanas con funcionalidad que ya se puede usar. Nada de esperar meses para ver algo.' },
       { titulo: 'Integraciones', texto: 'Conexión con tu ERP, CRM, banco, facturación, WhatsApp o lo que tu operación necesite.' },
       { titulo: 'Web y móvil', texto: 'Aplicaciones que se usan desde el navegador, el celular o ambos, según dónde ocurre el trabajo.' },
-      { titulo: 'Propiedad y documentación', texto: 'El código fuente, la base de datos y la documentación son tuyos desde el primer día.' },
+      { titulo: 'Propiedad y documentación', texto: 'El contrato te transfiere el código fuente, la base de datos y la documentación. Quedan a tu nombre, sin licencias por usuario.' },
     ],
     proceso: [
       { titulo: 'Diagnóstico', texto: 'Entendemos el proceso, sus excepciones y qué resultado esperas del sistema.' },
@@ -331,7 +331,7 @@ export const SERVICIOS = [
     faq: [
       { p: '¿No es más caro que un sistema comercial?', r: 'A veces sí, a veces no. Un sistema comercial cobra por usuario cada mes, para siempre, y aun así puede no cubrir tu proceso. En el diagnóstico te decimos con franqueza cuál conviene en tu caso.' },
       { p: '¿Cuánto tarda?', r: 'Depende del alcance, y por eso trabajamos por etapas: la primera funcionalidad útil en semanas, y el resto sobre esa base. Nunca meses sin ver nada.' },
-      { p: '¿Qué pasa si después quiero cambiar de proveedor?', r: 'El código, la base de datos y la documentación son tuyos. Cualquier equipo competente puede continuarlo.' },
+      { p: '¿Qué pasa si después quiero cambiar de proveedor?', r: 'El contrato te entrega el código, la base de datos y la documentación. Cualquier equipo competente puede continuar el trabajo sin depender de nosotros.' },
       { p: '¿Lo pueden mantener después?', r: 'Sí. Ofrecemos soporte y evolución continua, sin obligación de contratarlo.' },
     ],
     relacionados: ['apps-moviles', 'automatizacion'],

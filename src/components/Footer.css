@@ -52,6 +52,17 @@
   color: var(--purple-400);
   flex: none;
 }
+.footer__legal {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-5);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: var(--fs-2xs);
+  color: rgba(255, 255, 255, 0.62);
+}
+.footer__legal strong {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 600;
+}
 .footer__bottom {
   display: flex;
   align-items: center;

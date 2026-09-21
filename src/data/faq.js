@@ -9,7 +9,7 @@
 export const FAQ = [
   {
     p: '¿Cuánto cuesta?',
-    r: 'Depende del alcance, y por eso empezamos con un diagnóstico sin costo. Después recibes una propuesta con precio cerrado antes de decidir nada. No cobramos por hora ni hay cargos que aparezcan a medio proyecto.',
+    r: 'Trabajamos soluciones a la medida, así que el precio depende del alcance: por eso empezamos con un diagnóstico sin costo. Después recibes una propuesta con precio cerrado por ese alcance, antes de decidir nada. Si más adelante quieres ampliarlo, se cotiza aparte y lo apruebas tú; nunca aparece un cargo que no hayas autorizado.',
   },
   {
     p: '¿Cuánto tarda una implementación?',

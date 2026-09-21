@@ -24,7 +24,7 @@ const SECCIONES = [
     id: 'responsable',
     titulo: '1. Identidad y domicilio del responsable',
     parrafos: [
-      `${RESPONSABLE}, en adelante "${EMPRESA}", con domicilio en ${DOMICILIO_TXT}, es el responsable del tratamiento de los datos personales que usted proporciona a través del sitio ${DOMINIO.replace('https://', '')} y de los canales de contacto que en él se indican.`,
+      `${RESPONSABLE}, quien opera comercialmente bajo la marca "${EMPRESA}", con domicilio en ${DOMICILIO_TXT}, es el responsable del tratamiento de los datos personales que usted proporciona a través del sitio ${DOMINIO.replace('https://', '')} y de los canales de contacto que en él se indican.`,
     ],
   },
   {

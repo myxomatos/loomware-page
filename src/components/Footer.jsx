@@ -1,6 +1,6 @@
 import Logo from './Logo'
 import Icon from './Icon'
-import { EMAIL, TELEFONOS, CIUDAD, whatsappUrl } from '../data/contacto'
+import { EMAIL, TELEFONOS, CIUDAD, RAZON_SOCIAL, DOMICILIO, whatsappUrl } from '../data/contacto'
 import { SERVICIOS } from '../data/servicios'
 import { CASOS } from '../data/casos'
 import './Footer.css'
@@ -82,6 +82,12 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+        </div>
+
+        <div className="footer__legal">
+          <p>
+            <strong>{RAZON_SOCIAL}</strong> · {DOMICILIO}
+          </p>
         </div>
 
         <div className="footer__bottom">
