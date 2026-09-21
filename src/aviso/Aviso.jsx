@@ -87,8 +87,9 @@ const SECCIONES = [
     id: 'cookies',
     titulo: '7. Cookies y tecnologías de rastreo',
     parrafos: [
-      'El sitio puede utilizar cookies y tecnologías similares para recordar sus preferencias y para medir, de forma agregada y sin identificarle, cómo se utiliza el sitio: páginas vistas, tiempo de permanencia y origen de la visita. Esa información nos sirve para mejorar el contenido.',
-      'Usted puede deshabilitar las cookies desde la configuración de su navegador. El sitio seguirá funcionando; sólo dejaremos de recibir esa información de uso.',
+      'El sitio utiliza cookies de Google Analytics para medir, de forma agregada y sin identificarle, cómo se usa el sitio: páginas vistas, tiempo de permanencia y origen de la visita. Esa información nos sirve para mejorar el contenido. No usamos cookies de publicidad ni de perfilamiento.',
+      'Esas cookies no se instalan hasta que usted las acepta. Al entrar por primera vez aparece un aviso con dos opciones, Aceptar y Rechazar, y mientras no elija ninguna no se escribe nada en su navegador. Su decisión se guarda en su propio equipo.',
+      'Puede cambiar de opinión cuando quiera desde el enlace «Cookies» del pie de página, o borrar las cookies desde la configuración de su navegador. El sitio seguirá funcionando igual; sólo dejaremos de recibir esa información de uso.',
     ],
   },
   {

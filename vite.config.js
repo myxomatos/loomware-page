@@ -25,10 +25,24 @@ export default defineConfig(({ mode }) => {
         tags.push({ tag: 'meta', attrs: { name: 'google-site-verification', content: VITE_GSC_VERIFICATION }, injectTo: 'head' })
       }
       if (VITE_GA_ID) {
+        // El consentimiento arranca denegado. Con analytics_storage en 'denied'
+        // Analytics no escribe ninguna cookie en el navegador; la banda de cookies
+        // (src/components/Cookies.jsx) lo pasa a 'granted' cuando alguien acepta.
+        // Si ya había aceptado en una visita anterior se concede aquí mismo, para
+        // no perder la vista de página mientras React monta.
+        tags.push({
+          tag: 'script',
+          children:
+            "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}" +
+            "var c='denied';try{if(localStorage.getItem('lw-cookies')==='aceptadas')c='granted'}catch(e){}" +
+            "gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied'," +
+            "ad_personalization:'denied',analytics_storage:c});",
+          injectTo: 'head',
+        })
         tags.push({ tag: 'script', attrs: { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${VITE_GA_ID}` }, injectTo: 'head' })
         tags.push({
           tag: 'script',
-          children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${VITE_GA_ID}');`,
+          children: `gtag('js',new Date());gtag('config','${VITE_GA_ID}');`,
           injectTo: 'head',
         })
       }

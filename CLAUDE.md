@@ -70,7 +70,7 @@ Estado al 21 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
       | `RESEND_API_KEY` | Sí | Crear cuenta en <https://resend.com> → API Keys → Create (empieza con `re_`). |
       | `LEAD_TO` | No | Sólo para probar antes de verificar el dominio: el correo dueño de la cuenta de Resend. |
       | `LEAD_FROM` | No | Sólo para probar: `Loomware <onboarding@resend.dev>`. Se borran las dos al verificar el dominio. |
-      | `VITE_GA_ID` | No | ID de medición de Google Analytics 4 (`G-…`). Sin él no se carga nada. Ver "Analítica" abajo. |
+      | `VITE_GA_ID` | No | ID de medición de Google Analytics 4 (`G-…`). Sin él no se carga nada **y la banda de cookies no aparece**, porque sin Analytics el sitio no pone ninguna cookie. Al cargarlo, la banda sale sola. Ver "Analítica" abajo. |
       | `VITE_GSC_VERIFICATION` | No | Código de Search Console (método "etiqueta HTML"), si se verifica por ese método. |
 
       Sin las dos primeras, `/prospectar` responde 500. Sin la tercera, el formulario no envía.
@@ -159,6 +159,14 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
+- [x] **Consentimiento de cookies (2026-09-21).** Banda de aviso en las seis páginas, con
+      Aceptar y Rechazar. Analytics arranca con el consentimiento **denegado** —Consent Mode en
+      `vite.config.js`—, así que **no escribe ninguna cookie hasta que alguien acepta**; no es
+      una banda decorativa. La decisión se guarda en el equipo del visitante y se puede cambiar
+      desde el enlace "Cookies" del pie. Si no hay `VITE_GA_ID` la banda ni aparece, porque
+      entonces el sitio no pone cookies. El aviso de privacidad describe el mecanismo en su
+      sección 7. Verificado a 390, 768, 1024 y 1440 px: aparece siempre, no desborda y no le
+      tapa el botón de WhatsApp.
 - [x] **Responsivo verificado con medición, no a ojo (2026-09-21).** Cinco páginas —inicio,
       servicio, industria, aviso de privacidad y `/prospectar`— por cuatro medidas —celular 390,
       tablet vertical 768, tablet horizontal 1024 y laptop 1440— y en modo claro y oscuro del
