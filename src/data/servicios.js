@@ -85,7 +85,7 @@ export const SERVICIOS = [
     beneficio: { icon: 'clock', label: 'Control total de tu negocio' },
     nombre: 'ERP',
     icon: 'pie-chart',
-    titulo: 'ERP para pymes y manufactura en México | Loomware',
+    titulo: 'ERP para distribuidoras y manufactura | Loomware',
     descripcion:
       'Finanzas, inventario, compras, ventas y facturación en un solo sistema. ERP implementado con tu equipo, con migración de datos y CFDI.',
     h1: 'ERP: finanzas, inventario y operación en un mismo sistema',
@@ -193,7 +193,7 @@ export const SERVICIOS = [
     beneficio: { icon: 'shopping-cart', label: 'Ventas sin recaptura' },
     nombre: 'Comercio en línea',
     icon: 'shopping-cart',
-    titulo: 'Tienda en línea conectada a tu inventario | Loomware',
+    titulo: 'Tienda en línea con inventario conectado | Loomware',
     descripcion:
       'Tienda en línea que vende las 24 horas con inventario, pagos y envíos conectados a tu operación. Para comercios y distribuidoras en México.',
     h1: 'Tienda en línea: vende las 24 horas con tu inventario conectado',
@@ -246,7 +246,7 @@ export const SERVICIOS = [
     beneficio: { icon: 'zap', label: 'Ahorra tiempo y costos' },
     nombre: 'Automatización',
     icon: 'bot',
-    titulo: 'Automatización de procesos para empresas | Loomware',
+    titulo: 'Automatización de procesos para pymes | Loomware',
     descripcion:
       'Que el sistema haga lo repetitivo: capturas, avisos, seguimientos y reportes corren solos con tus reglas. Automatización de procesos para pymes en México.',
     h1: 'Automatización: que el sistema haga lo repetitivo',
@@ -300,7 +300,7 @@ export const SERVICIOS = [
     beneficio: { icon: 'sliders', label: 'Hecho para tu operación' },
     nombre: 'Software a medida',
     icon: 'code',
-    titulo: 'Desarrollo de software a medida en México | Loomware',
+    titulo: 'Software a la medida para empresas | Loomware',
     descripcion:
       'Software construido sobre cómo trabaja tu empresa, integrado con lo que ya usas, entregado por etapas. Desarrollo a medida para pymes en México.',
     h1: 'Software a medida: cuando ningún sistema de catálogo te queda',
@@ -353,7 +353,7 @@ export const SERVICIOS = [
     beneficio: { icon: 'cloud', label: 'Disponible y segura' },
     nombre: 'Infraestructura cloud',
     icon: 'cloud',
-    titulo: 'Infraestructura en la nube para empresas | Loomware',
+    titulo: 'Servidores en la nube administrados | Loomware',
     descripcion:
       'Tus sistemas disponibles, respaldados y seguros, sin comprar servidores. Infraestructura cloud administrada para empresas en México.',
     h1: 'Infraestructura cloud: tu operación disponible, respaldada y segura',
@@ -409,7 +409,7 @@ export const SERVICIOS = [
     beneficio: { icon: 'smartphone', label: 'Tu operación en campo' },
     nombre: 'Apps móviles',
     icon: 'smartphone',
-    titulo: 'Apps móviles para operación en campo | Loomware',
+    titulo: 'App móvil para equipos en campo | Loomware',
     descripcion:
       'Apps para que tu equipo capture en campo —visitas, evidencias, firmas— aunque no haya señal, y la oficina lo vea el mismo día. Desarrollo móvil en México.',
     h1: 'Apps móviles: tu operación en el bolsillo del equipo',

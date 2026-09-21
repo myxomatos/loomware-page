@@ -19,8 +19,14 @@ export default function Industrias() {
               <span className="icon-tile icon-tile--soft">
                 <Icon name={g.icon} size={24} />
               </span>
-              <h3 className="industria__nombre">{g.nombre}</h3>
+              <h3 className="industria__nombre">
+                <a href={`/industrias/${g.id}`}>{g.nombre}</a>
+              </h3>
               <p className="industria__dolor">{g.dolor}</p>
+              <a href={`/industrias/${g.id}`} className="link-arrow industria__ver">
+                Ver cómo lo resolvemos
+                <Icon name="arrow-right" size={14} />
+              </a>
               <div className="industria__solucion">
                 <span className="industria__etiqueta">Lo que suele resolverlo</span>
                 <span className="industria__chips">

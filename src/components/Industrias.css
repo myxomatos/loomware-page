@@ -13,6 +13,15 @@
   font-size: var(--fs-h4);
   margin-top: var(--sp-1);
 }
+.industria__nombre a {
+  transition: color var(--t-base) var(--ease);
+}
+.industria:hover .industria__nombre a {
+  color: var(--purple-600);
+}
+.industria__ver {
+  font-size: var(--fs-xs);
+}
 .industria__dolor {
   font-size: var(--fs-sm);
   line-height: var(--lh-body);

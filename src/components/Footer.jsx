@@ -2,6 +2,7 @@ import Logo from './Logo'
 import Icon from './Icon'
 import { EMAIL, TELEFONOS, CIUDAD, RAZON_SOCIAL, DOMICILIO, whatsappUrl } from '../data/contacto'
 import { SERVICIOS } from '../data/servicios'
+import { INDUSTRIAS } from '../data/industrias'
 import { CASOS } from '../data/casos'
 import './Footer.css'
 
@@ -11,22 +12,24 @@ const COLUMNS = [
     links: SERVICIOS.map((s) => ({ label: s.nombre, href: `/servicios/${s.slug}` })),
   },
   {
+    title: 'Industrias',
+    links: INDUSTRIAS.map((g) => ({ label: g.nombre, href: `/industrias/${g.id}` })),
+  },
+  {
     title: 'Cómo trabajamos',
     links: [
-      { label: 'Diagnóstico sin costo', href: '#contacto' },
-      { label: 'Nuestro proceso', href: '#proceso' },
+      { label: 'Diagnóstico sin costo', href: '/#contacto' },
+      { label: 'Nuestro proceso', href: '/#proceso' },
       { label: 'Integraciones', href: '/servicios/automatizacion' },
       { label: 'Migración a la nube', href: '/servicios/infraestructura-cloud' },
-      { label: 'Soporte y mantenimiento', href: '#faq' },
     ],
   },
   {
     title: 'Empresa',
     links: [
-      { label: 'Quiénes somos', href: '#nosotros' },
-      { label: 'Industrias', href: '#industrias' },
-      ...(CASOS.length ? [{ label: 'Resultados con clientes', href: '#casos' }] : []),
-      { label: 'Preguntas frecuentes', href: '#faq' },
+      { label: 'Quiénes somos', href: '/#nosotros' },
+      ...(CASOS.length ? [{ label: 'Resultados con clientes', href: '/#casos' }] : []),
+      { label: 'Preguntas frecuentes', href: '/#faq' },
       { label: 'Aviso de privacidad', href: '/aviso-de-privacidad' },
     ],
   },

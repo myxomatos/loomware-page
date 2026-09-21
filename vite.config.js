@@ -3,11 +3,13 @@ import react from '@vitejs/plugin-react'
 import { readdirSync } from 'node:fs'
 
 // Una entrada por cada servicios/<slug>.html que genera scripts/generar-servicios.js
-const servicios = Object.fromEntries(
-  readdirSync('servicios')
-    .filter((f) => f.endsWith('.html'))
-    .map((f) => ['servicios/' + f.replace('.html', ''), 'servicios/' + f]),
-)
+const paginasDe = (carpeta) =>
+  Object.fromEntries(
+    readdirSync(carpeta)
+      .filter((f) => f.endsWith('.html'))
+      .map((f) => [carpeta + '/' + f.replace('.html', ''), carpeta + '/' + f]),
+  )
+const servicios = { ...paginasDe('servicios'), ...paginasDe('industrias') }
 
 export default defineConfig(({ mode }) => {
   // DENUE_TOKEN no lleva prefijo VITE_ a propósito: nunca entra al bundle.

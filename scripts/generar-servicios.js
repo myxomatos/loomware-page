@@ -13,11 +13,14 @@ import { writeFileSync, mkdirSync, readdirSync, unlinkSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { SERVICIOS } from '../src/data/servicios.js'
+import { INDUSTRIAS } from '../src/data/industrias.js'
 import { DOMINIO, EMPRESA, EMAIL, TELEFONOS } from '../src/data/contacto.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const carpeta = resolve(raiz, 'servicios')
+const carpetaInd = resolve(raiz, 'industrias')
 mkdirSync(carpeta, { recursive: true })
+mkdirSync(carpetaInd, { recursive: true })
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 
@@ -28,7 +31,7 @@ const ldService = (s) =>
     name: s.nombre,
     serviceType: s.nombre,
     description: s.descripcion,
-    url: `${DOMINIO}/servicios/${s.slug}`,
+    url: s.slug ? `${DOMINIO}/servicios/${s.slug}` : `${DOMINIO}/industrias/${s.id}`,
     areaServed: { '@type': 'Country', name: 'México' },
     provider: {
       '@type': 'Organization',
@@ -50,21 +53,25 @@ const ldFaq = (s) =>
     })),
   })
 
-const plantilla = (s) => `<!DOCTYPE html>
-<html lang="es-MX" data-servicio="${s.slug}">
+const plantilla = (s, tipo = 'servicio') => {
+  const ruta = tipo === 'servicio' ? `servicios/${s.slug}` : `industrias/${s.id}`
+  const attr = tipo === 'servicio' ? `data-servicio="${s.slug}"` : `data-industria="${s.id}"`
+  const entrada = tipo === 'servicio' ? '/src/servicio/main.jsx' : '/src/industria/main.jsx'
+  return `<!DOCTYPE html>
+<html lang="es-MX" ${attr}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${esc(s.titulo)}</title>
     <meta name="description" content="${esc(s.descripcion)}" />
-    <link rel="canonical" href="${DOMINIO}/servicios/${s.slug}" />
+    <link rel="canonical" href="${DOMINIO}/${ruta}" />
     <meta name="theme-color" content="#6338FF" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${EMPRESA}" />
-    <meta property="og:url" content="${DOMINIO}/servicios/${s.slug}" />
+    <meta property="og:url" content="${DOMINIO}/${ruta}" />
     <meta property="og:title" content="${esc(s.titulo)}" />
     <meta property="og:description" content="${esc(s.descripcion)}" />
     <meta property="og:image" content="${DOMINIO}/og-image.png" />
@@ -77,15 +84,16 @@ const plantilla = (s) => `<!DOCTYPE html>
     <meta name="twitter:image" content="${DOMINIO}/og-image.png" />
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 
-    <script type="application/ld+json">${ldService(s)}</script>
-    <script type="application/ld+json">${ldFaq(s)}</script>
+    ${tipo === 'servicio' ? `<script type="application/ld+json">${ldService(s)}</script>
+    <script type="application/ld+json">${ldFaq(s)}</script>` : `<script type="application/ld+json">${ldService(s)}</script>`}
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/servicio/main.jsx"></script>
+    <script type="module" src="${entrada}"></script>
   </body>
 </html>
 `
+}
 
 // Borra páginas de servicios que ya no existen en los datos.
 for (const archivo of readdirSync(carpeta)) {
@@ -102,11 +110,25 @@ for (const s of SERVICIOS) {
 }
 console.log(`${SERVICIOS.length} páginas de servicio generadas`)
 
+for (const archivo of readdirSync(carpetaInd)) {
+  const id = archivo.replace(/.html$/, '')
+  if (archivo.endsWith('.html') && !INDUSTRIAS.some((i) => i.id === id)) {
+    unlinkSync(resolve(carpetaInd, archivo))
+    console.log('  − industrias/' + archivo + ' (ya no está en los datos)')
+  }
+}
+for (const g of INDUSTRIAS) {
+  writeFileSync(resolve(carpetaInd, `${g.id}.html`), plantilla(g, 'industria'))
+  console.log('  ✓ industrias/' + g.id + '.html')
+}
+console.log(`${INDUSTRIAS.length} páginas de industria generadas`)
+
 // sitemap.xml con todo lo indexable. /gracias y /prospectar quedan fuera a propósito.
 const hoy = new Date().toISOString().slice(0, 10)
 const urls = [
   { loc: DOMINIO + '/', prioridad: '1.0', frecuencia: 'monthly' },
   ...SERVICIOS.map((s) => ({ loc: `${DOMINIO}/servicios/${s.slug}`, prioridad: '0.8', frecuencia: 'monthly' })),
+  ...INDUSTRIAS.map((g) => ({ loc: `${DOMINIO}/industrias/${g.id}`, prioridad: '0.7', frecuencia: 'monthly' })),
   { loc: DOMINIO + '/aviso-de-privacidad', prioridad: '0.2', frecuencia: 'yearly' },
 ]
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

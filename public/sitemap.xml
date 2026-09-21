@@ -55,6 +55,42 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://loomware.com.mx/industrias/distribuidoras</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://loomware.com.mx/industrias/manufactura</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://loomware.com.mx/industrias/construccion</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://loomware.com.mx/industrias/despachos</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://loomware.com.mx/industrias/comercio</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://loomware.com.mx/industrias/servicios</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://loomware.com.mx/aviso-de-privacidad</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>yearly</changefreq>
