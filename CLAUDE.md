@@ -41,19 +41,33 @@ Estado al 21 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
 > ERP— ya está terminado. Tres puntos de esta lista lo bloquean y están marcados
 > **[material de venta]**.
 
-### Ruta a producción — Aldo, en este orden
+### Ruta a producción — Aldo, hoy, en este orden
 
-1. **Revisar el preview** <https://alan.loomware-page.pages.dev> en escritorio **y en celular**
-   (abrir el menú, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de
-   servicio, abrir `/prospectar`). Son 40 commits en `alan`, cada uno explica qué y por qué.
-2. **Cargar las variables de Cloudflare** (bloque siguiente). Sin ellas el formulario y
-   `/prospectar` no funcionan aunque el sitio se vea.
-3. **Mezclar el PR** de `alan` a `main`. Alan lo abre en cuanto Aldo confirme que revisó el preview.
-4. **Probar en producción** <https://loomware.com.mx>: enviar el formulario (debe llegar el correo
-   y aterrizar en `/gracias`), entrar a `/prospectar` con la contraseña y hacer una búsqueda.
-5. **Search Console**: dar de alta el dominio y enviar `https://loomware.com.mx/sitemap.xml`.
-   Antes de esto Google no sabe que el sitio existe.
-6. Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
+Son **unas dos horas en una sola sentada**. Los pasos 2 y 3 son los que desbloquean todo lo
+demás: sin ellos el sitio se ve bien pero el formulario no envía y `/prospectar` responde 500.
+El detalle de cada cosa está en los bloques de abajo.
+
+| # | Qué hacer | Dónde | Tiempo |
+| --- | --- | --- | --- |
+| 1 | **Revisar el preview** en escritorio **y en celular** | <https://alan.loomware-page.pages.dev> | 20 min |
+| 2 | **Cargar las 7 variables**, cada una dos veces: *Production* y *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | 25 min |
+| 3 | **Retry deployment** (las variables no se aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último → ⋯ | 2 min |
+| 4 | **Avisarle a Alan** que ya revisaste, para que abra el PR | WhatsApp | 1 min |
+| 5 | **Mezclar el PR** de `alan` a `main` | GitHub | 2 min |
+| 6 | **Probar en producción** | <https://loomware.com.mx> | 15 min |
+| 7 | **Verificar el dominio en Resend** y capturar sus 3 registros DNS | <https://resend.com> y Cloudflare DNS | 20 min |
+| 8 | **Alta en Search Console** y enviar el sitemap | <https://search.google.com/search-console> | 10 min |
+| 9 | **Invitar a Alan a Cloudflare** como Administrator | Manage Account → Members → Invite | 1 min |
+
+**Qué revisar en el paso 1** (son 41 commits en `alan`, cada uno explica qué y por qué): abrir
+el menú en celular, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de
+servicio y a una de industria, y abrir `/prospectar`.
+
+**Qué probar en el paso 6**: enviar el formulario —debe llegar el correo y aterrizar en
+`/gracias`—, entrar a `/prospectar` con la contraseña y hacer una búsqueda, y confirmar que
+**aparece la banda de cookies**, que sale sola en cuanto `VITE_GA_ID` esté cargado.
+
+Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
 
 ### Bloquean funcionalidad ya construida — Aldo
 
