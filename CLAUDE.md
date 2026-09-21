@@ -85,12 +85,22 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 - [ ] **Equipo.** `src/data/equipo.js`: cargo, dos líneas de bio, foto cuadrada (600×600, en
       `public/equipo/`) y LinkedIn de Aldo y de Alan. Las tarjetas aparecen solas cuando una
       persona tiene cargo y foto. Falta también el apellido de Alan.
-- [ ] **Datos legales del aviso de privacidad.** `src/data/contacto.js`: `RAZON_SOCIAL` y
-      `DOMICILIO`. Mientras estén vacíos el aviso dice "Loomware" y "Ciudad de México". Y que
-      alguien con criterio legal lea `/aviso-de-privacidad` antes de producción.
+- [ ] **Que alguien con criterio legal lea `/aviso-de-privacidad`** antes de producción. Los
+      datos del responsable ya están (Aldo Leonel Sánchez López, Laureles #17, Jardines de
+      Atizapán, Estado de México, C.P. 52978, en `src/data/contacto.js`). Si más adelante se
+      constituye una sociedad, se cambia ahí y se actualiza en todo el sitio.
+- [ ] **Revisar que el contrato respalde lo que dice el sitio.** Dos afirmaciones se volvieron
+      obligación contractual: "el contrato te entrega el código, la base de datos y la
+      documentación" (software a medida) y "precio cerrado por ese alcance; si lo amplías, se
+      cotiza aparte y lo apruebas tú". Si el contrato no lo dice, hay que ajustarlo o cambiar
+      el texto del sitio.
 - [ ] **Validar las respuestas de precio, plazos, migración y SAT** en `src/data/faq.js` y en
       cada `faq` de `src/data/servicios.js`. Describen la política de la empresa tal como la
       entendí; si algo no es así, se cambia el texto, no se deja.
+- [ ] **Validar el contenido de las seis páginas de industria** (`src/data/industrias.js`):
+      los síntomas y la forma de resolverlos de distribuidoras, manufactura, construcción,
+      despachos, comercio y clínicas. Están escritos desde lo que suele verse en cada giro; si
+      en alguno no es así, se corrige.
 - [ ] **Validar tres afirmaciones nuevas del inicio**, escritas por Alan y Claude sin confirmar
       con Aldo: (a) el hero dice que atienden *distribuidoras, manufactura y empresas de
       servicios* — es el posicionamiento; (b) la tarjeta de agenda promete *una llamada de 30
@@ -108,12 +118,49 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       llegar a `/gracias` y `click_whatsapp` con el origen; en GA4 hay que marcarlos como
       conversiones.
 
+### De la tercera auditoría, aún abiertos
+
+- [ ] **Logotipos de clientes.** Aldo confirmó que hay clientes satisfechos. Cuando autoricen el
+      uso de su marca: logo en `public/clientes/` y el caso en `src/data/casos.js`. Es lo único
+      que separa a la página de un 9; hoy no hay ninguna prueba de que exista un cliente.
+- [ ] **Precio.** Queda fuera a propósito: hoy todo es a la medida. Si más adelante hay un plan
+      mensual tipo competencia, publicar aunque sea un "desde" sube la conversión y filtra al
+      que nunca iba a comprar. Nota para cuando exista.
+- [ ] **Conversión de bajo compromiso.** Hoy la única forma de dejar datos es el formulario de
+      diagnóstico. Una guía descargable ("Checklist: ¿tu empresa necesita un ERP?") capturaría
+      al que aún no está listo. Pendiente de decidir si se hace.
+- [ ] **Remarketing.** Sin píxel ni audiencias no se puede volver a impactar al 97 % que no
+      convierte en la primera visita. Decidir si entra cuando arranquen con Ads.
+- [ ] **Autoridad para SEO.** Ningún sitio enlaza a loomware.com.mx todavía. Un dominio nuevo
+      tarda de 3 a 6 meses aunque todo esté bien. Acelera: LinkedIn de empresa, directorios de
+      industria, cámaras (Canacintra, Canaco), y que los clientes los mencionen.
+
 ### Decisiones de contenido — Aldo y Alan
 
 - [ ] **Nómina y comercio en línea ya están en el sitio** (tarjeta y página cada uno). Confirmar
       que sí se ofrecen; si no, quitarlos de `src/data/servicios.js` y se van solos de todos lados.
 - [ ] **Hero.** La ilustración es un render 3D genérico. Cuando haya foto real del equipo o de
       un proyecto, conviene reemplazarla: `public/hero_*.png` y `npm run optimizar:imagenes`.
+
+### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
+
+- [x] **Responsable legal identificado**: razón social y domicilio en el aviso de privacidad, en
+      el footer y en los datos estructurados. Sin esto el aviso era defectuoso ante la LFPDPPP.
+- [x] **Afirmaciones contractuales ajustadas**: "el código y los datos son tuyos" pasa a "el
+      contrato te entrega…"; la respuesta de precio reconoce que son soluciones a la medida y
+      explica qué pasa si se amplía el alcance.
+- [x] **Contraste corregido**: el verde de WhatsApp daba 1.98:1 con texto blanco (WCAG AA exige
+      4.5:1). Verde claro sólo para íconos; superficies con texto usan uno de 5.41:1.
+- [x] **Formulario en cada página de servicio e industria**, con el interés precargado y el
+      origen registrado en el correo. Antes el botón sacaba al visitante al inicio: era el
+      error de embudo más caro del sitio y rompía cualquier campaña de Ads.
+- [x] **Fuente recortada**: 83 KB → 1 KB con `npm run fuente:subconjunto`, verificado contra la
+      fuente completa. Era el recurso más pesado de la página.
+- [x] **Seis páginas por industria** en `/industrias/<id>`, con síntomas, solución, servicios
+      que aplican y formulario propio. Sitemap de 10 a 16 URL.
+- [x] **Títulos SEO enfocados**, uno por intención de búsqueda, todos bajo 60 caracteres.
+- [x] **Lighthouse móvil final**: inicio 100 de rendimiento con LCP de 1.3 s y 117 KB (venía de
+      95 / 2.6 s / 198 KB); servicios 97 e industrias 98; accesibilidad 100 en las tres.
 
 ### Resueltas el 2026-09-20 en la rama `alan`, pendientes de que Aldo las verifique
 
