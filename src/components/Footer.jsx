@@ -1,6 +1,6 @@
 import Logo from './Logo'
 import Icon from './Icon'
-import { EMAIL, TELEFONOS, CIUDAD, RAZON_SOCIAL, DOMICILIO, whatsappUrl } from '../data/contacto'
+import { EMAIL, TELEFONOS, CIUDAD, RAZON_SOCIAL, whatsappUrl } from '../data/contacto'
 import { SERVICIOS } from '../data/servicios'
 import { INDUSTRIAS } from '../data/industrias'
 import { CASOS } from '../data/casos'
@@ -45,23 +45,6 @@ export default function Footer() {
             <p className="footer__tagline">
               Tecnología empresarial para crecer con claridad, control y confianza.
             </p>
-          </div>
-
-          {COLUMNS.map((col) => (
-            <nav key={col.title} className="footer__col" aria-label={col.title}>
-              <h3 className="footer__heading">{col.title}</h3>
-              <ul className="footer__links">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <a href={l.href}>{l.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
-
-          <div className="footer__col">
-            <h3 className="footer__heading">Contacto</h3>
             <ul className="footer__links footer__contact">
               <li>
                 <Icon name="mail" size={16} />
@@ -85,16 +68,27 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-        </div>
 
-        <div className="footer__legal">
-          <p>
-            <strong>{RAZON_SOCIAL}</strong> · {DOMICILIO}
-          </p>
+          {COLUMNS.map((col) => (
+            <nav key={col.title} className="footer__col" aria-label={col.title}>
+              <h3 className="footer__heading">{col.title}</h3>
+              <ul className="footer__links">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <a href={l.href}>{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+
         </div>
 
         <div className="footer__bottom">
-          <p>© {new Date().getFullYear()} Loomware. Todos los derechos reservados.</p>
+          <p>
+            © {new Date().getFullYear()} Loomware · {RAZON_SOCIAL}. Todos los derechos
+            reservados.
+          </p>
           <p className="footer__motto">Ideas de hoy. Negocios más grandes mañana.</p>
         </div>
       </div>

@@ -5,14 +5,17 @@
 }
 .footer__grid {
   display: grid;
-  grid-template-columns: minmax(220px, 1.4fr) repeat(4, minmax(0, 1fr));
-  gap: var(--sp-8);
+  grid-template-columns: minmax(230px, 1.2fr) repeat(4, minmax(0, 1fr));
+  gap: var(--sp-10) var(--sp-8);
 }
 .footer__brand {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--sp-4);
+}
+.footer__brand .footer__contact {
+  margin-top: var(--sp-1);
 }
 .footer__tagline {
   font-size: var(--fs-xs);
@@ -51,17 +54,6 @@
 .footer__contact .icon {
   color: var(--purple-400);
   flex: none;
-}
-.footer__legal {
-  margin-top: var(--sp-8);
-  padding-top: var(--sp-5);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: var(--fs-2xs);
-  color: rgba(255, 255, 255, 0.62);
-}
-.footer__legal strong {
-  color: rgba(255, 255, 255, 0.82);
-  font-weight: 600;
 }
 .footer__bottom {
   display: flex;
