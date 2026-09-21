@@ -16,6 +16,11 @@
    Every component reads from these; nothing hardcodes a hex or a px.
    ------------------------------------------------------------------ */
 :root {
+  /* El sitio tiene un solo tema, claro. Declararlo evita que el navegador pinte
+     de oscuro los campos del formulario, las barras y el fondo por omisión
+     cuando el sistema del visitante está en modo oscuro. */
+  color-scheme: light;
+
   /* Brand color */
   --navy-900: #0b1739; /* headings, footer */
   --navy-800: #17135f; /* dark cards */

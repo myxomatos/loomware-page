@@ -31,16 +31,21 @@ Sitio público de Loomware: <https://loomware.com.mx>. React + Vite, desplegado 
 
 Estado al 21 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
-> **La página está en pausa desde el 21 de septiembre de 2026.** Alan cerró su parte: la
-> rama `alan` tiene 38 commits, construye sin errores y el preview está publicado. De aquí en
-> adelante todo lo que falta depende de Aldo, y está en esta lista. Mientras tanto Alan trabaja
-> en el material de venta, que vive fuera del repositorio y no toca el código.
+> **La página está en pausa desde el 21 de septiembre de 2026.** Alan cerró su parte: la rama
+> `alan` construye sin errores, el preview está publicado y el responsivo quedó verificado con
+> medición (ver "Resueltas"). De aquí en adelante todo lo que falta depende de Aldo y está en
+> esta lista.
+>
+> Mientras tanto Alan trabaja el **material de venta**: recorridos visuales, uno por solución,
+> que viven **fuera del repositorio** como artifacts y no tocan el código. El primero —el del
+> ERP— ya está terminado. Tres puntos de esta lista lo bloquean y están marcados
+> **[material de venta]**.
 
 ### Ruta a producción — Aldo, en este orden
 
 1. **Revisar el preview** <https://alan.loomware-page.pages.dev> en escritorio **y en celular**
    (abrir el menú, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de
-   servicio, abrir `/prospectar`). Son 38 commits en `alan`, cada uno explica qué y por qué.
+   servicio, abrir `/prospectar`). Son 40 commits en `alan`, cada uno explica qué y por qué.
 2. **Cargar las variables de Cloudflare** (bloque siguiente). Sin ellas el formulario y
    `/prospectar` no funcionan aunque el sitio se vea.
 3. **Mezclar el PR** de `alan` a `main`. Alan lo abre en cuanto Aldo confirme que revisó el preview.
@@ -94,18 +99,21 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       datos del responsable ya están (Aldo Leonel Sánchez López, Laureles #17, Jardines de
       Atizapán, Estado de México, C.P. 52978, en `src/data/contacto.js`). Si más adelante se
       constituye una sociedad, se cambia ahí y se actualiza en todo el sitio.
-- [ ] **Revisar que el contrato respalde lo que dice el sitio.** Dos afirmaciones se volvieron
-      obligación contractual: "el contrato te entrega el código, la base de datos y la
-      documentación" (software a medida) y "precio cerrado por ese alcance; si lo amplías, se
-      cotiza aparte y lo apruebas tú". Si el contrato no lo dice, hay que ajustarlo o cambiar
-      el texto del sitio.
+- [ ] **Revisar que el contrato respalde lo que dice el sitio** — *[material de venta]*. Dos
+      afirmaciones se volvieron obligación contractual: "el contrato te entrega el código, la
+      base de datos y la documentación" (software a medida) y **"precio cerrado por ese alcance;
+      si lo amplías, se cotiza aparte y lo apruebas tú"**. Si el contrato no lo dice, hay que
+      ajustarlo o cambiar el texto. **Urge más que antes**: la segunda frase ahora también va en
+      el recorrido del ERP que se le manda a prospectos, en la sección "Antes de que preguntes".
 - [ ] **Validar las respuestas de precio, plazos, migración y SAT** en `src/data/faq.js` y en
       cada `faq` de `src/data/servicios.js`. Describen la política de la empresa tal como la
       entendí; si algo no es así, se cambia el texto, no se deja.
-- [ ] **Validar el contenido de las seis páginas de industria** (`src/data/industrias.js`):
-      los síntomas y la forma de resolverlos de distribuidoras, manufactura, construcción,
-      despachos, comercio y clínicas. Están escritos desde lo que suele verse en cada giro; si
-      en alguno no es así, se corrige.
+- [ ] **Validar el contenido de las seis páginas de industria** (`src/data/industrias.js`) —
+      *[material de venta]*. Los síntomas y la forma de resolverlos de distribuidoras,
+      manufactura, construcción, despachos, comercio y clínicas. Están escritos desde lo que
+      suele verse en cada giro; si en alguno no es así, se corrige. **El recorrido del ERP
+      repite un "Hoy" por giro** ("el material se va a la obra sin que nadie lo descuente de
+      ella", "la aseguradora rechaza por datos que no cuadran"): se validan junto con estos.
 - [ ] **Validar tres afirmaciones nuevas del inicio**, escritas por Alan y Claude sin confirmar
       con Aldo: (a) el hero dice que atienden *distribuidoras, manufactura y empresas de
       servicios* — es el posicionamiento; (b) la tarjeta de agenda promete *una llamada de 30
@@ -125,9 +133,11 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### De la tercera auditoría, aún abiertos
 
-- [ ] **Logotipos de clientes.** Aldo confirmó que hay clientes satisfechos. Cuando autoricen el
-      uso de su marca: logo en `public/clientes/` y el caso en `src/data/casos.js`. Es lo único
-      que separa a la página de un 9; hoy no hay ninguna prueba de que exista un cliente.
+- [ ] **Logotipos de clientes** — *[material de venta]*. Aldo confirmó que hay clientes
+      satisfechos. Cuando autoricen el uso de su marca: logo en `public/clientes/` y el caso en
+      `src/data/casos.js`. Es lo único que separa a la página de un 9, y **es también el techo
+      del material de venta**: sin un caso —aunque sea sin nombre, descrito por giro, tamaño y
+      ciudad— ninguna pieza pasa de 8. Hoy no hay ninguna prueba de que exista un cliente.
 - [ ] **Precio.** Queda fuera a propósito: hoy todo es a la medida. Si más adelante hay un plan
       mensual tipo competencia, publicar aunque sea un "desde" sube la conversión y filtra al
       que nunca iba a comprar. Nota para cuando exista.
@@ -149,6 +159,15 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
+- [x] **Responsivo verificado con medición, no a ojo (2026-09-21).** Cinco páginas —inicio,
+      servicio, industria, aviso de privacidad y `/prospectar`— por cuatro medidas —celular 390,
+      tablet vertical 768, tablet horizontal 1024 y laptop 1440— y en modo claro y oscuro del
+      sistema: **20 combinaciones, ninguna con desbordamiento horizontal**, y las medidas salen
+      idénticas en oscuro, o sea que el sitio no se deforma.
+- [x] **`color-scheme: light` declarado** en `src/styles/tokens.css`. El sitio tiene un solo
+      tema; declararlo evita que el navegador pinte de oscuro los campos del formulario, las
+      barras de desplazamiento y el fondo por omisión cuando el visitante trae el sistema en
+      modo oscuro.
 - [x] **Footer limpio**: se quitaron la razón social y el domicilio del pie. Ninguna empresa
       comparable los publica ahí y ensuciaban el renglón; siguen donde la ley los pide, en
       `/aviso-de-privacidad`. También salió el domicilio de la columna de contacto.
