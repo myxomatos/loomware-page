@@ -1,6 +1,6 @@
 import Logo from './Logo'
 import Icon from './Icon'
-import { EMAIL, TELEFONOS, CIUDAD, RAZON_SOCIAL, whatsappUrl } from '../data/contacto'
+import { EMAIL, TELEFONOS, CIUDAD, whatsappUrl } from '../data/contacto'
 import { SERVICIOS } from '../data/servicios'
 import { INDUSTRIAS } from '../data/industrias'
 import { CASOS } from '../data/casos'
@@ -85,10 +85,7 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <p>
-            © {new Date().getFullYear()} Loomware · {RAZON_SOCIAL}. Todos los derechos
-            reservados.
-          </p>
+          <p>© {new Date().getFullYear()} Loomware · Todos los derechos reservados.</p>
           <p className="footer__motto">Ideas de hoy. Negocios más grandes mañana.</p>
         </div>
       </div>
