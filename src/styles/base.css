@@ -173,16 +173,18 @@ h4,
 .section--soft {
   background: var(--bg-soft);
 }
-/* A la izquierda, un solo eje para toda la página. Centrado es la firma de
-   plantilla; alineado a la izquierda se lee editorial y empata con los
-   recorridos, que es hacia donde va la marca. */
+/* Centrado y con medida de lectura. Se probó a la izquierda y funciona sólo
+   cuando el contenido de abajo llena el ancho; en una rejilla de dos tarjetas
+   o sobre un diagrama angosto, el titular quedaba solo con medio metro de aire
+   al lado. El encabezado acompaña a su contenido, y el contenido manda. */
 .section__head {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--sp-3);
-  text-align: left;
-  max-width: 68ch;
+  text-align: center;
+  max-width: 60ch;
+  margin-inline: auto;
   margin-bottom: var(--sp-10);
 }
 .section__subtitle {

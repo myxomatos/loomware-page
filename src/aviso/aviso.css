@@ -13,8 +13,9 @@
   min-height: var(--nav-h);
 }
 .aviso__cuerpo {
+  /* El aviso es un documento: medida de lectura y centrado. */
   max-width: 760px;
-  margin-inline: 0;
+  margin-inline: auto;
   padding-block: var(--sp-12) var(--sp-16);
 }
 .aviso__titulo {

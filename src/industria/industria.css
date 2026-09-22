@@ -17,13 +17,18 @@
 }
 
 /* Soluciones que aplican a este giro */
+/* 960 y no 900: el contenedor come hasta 32 px de margen por lado, y con 900
+   no cabían dos tarjetas de 420 y se apilaban. */
 .ind__servicios {
-  max-width: 100%;
+  max-width: 960px;
 }
+/* `auto-fit` con dos tarjetas las estiraba a media pantalla cada una, con una
+   línea de texto adentro. Con tope, la tarjeta mide lo que su contenido pide. */
 .ind__servicios-lista {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--sp-6);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 420px));
+  justify-content: center;
+  gap: var(--sp-5);
 }
 .ind__servicio {
   transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);

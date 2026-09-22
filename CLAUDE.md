@@ -279,10 +279,20 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       importante que lo demás: quedan **20 · 16 · 15**. Entra **Azeret Mono** —la de los
       recorridos— recortada a 11.9 KB (`npm run fuente:mono`), sólo para etiquetas y cifras.
 
-      **Jerarquía.** Un solo estilo de etiqueta de sección (había dos), todos los encabezados
-      **a la izquierda** —centrado es la firma de plantilla—, tarjetas de solución alineadas
-      igual, radios de siete a **cuatro**, sombras de cinco a **tres y ninguna de color**, y
-      una sola esquina para todos los controles. Botones y campos a 48 px, chips a 44.
+      **Jerarquía.** Un solo estilo de etiqueta de sección (había dos), radios de siete a
+      **cuatro**, sombras de cinco a **tres y ninguna de color**, y una sola esquina para todos
+      los controles. Botones y campos a 48 px, chips a 44.
+
+      **La regla de medida (corregida el mismo día).** Primero se llevó todo a la izquierda, y
+      eso funciona sólo cuando el contenido de abajo llena el ancho: con una rejilla de dos
+      tarjetas o un diagrama angosto, el titular quedaba solo con medio metro de aire al lado.
+      **La regla que vale para toda la página es: un bloque nunca mide más de lo que su
+      contenido necesita, y si mide menos que la página, se centra; el encabezado acompaña a su
+      contenido.** Los bloques de dos columnas que sí llenan —hero, «Quiénes somos», el proceso,
+      las preguntas del inicio— se quedan a la izquierda. Lo demás va centrado y con tope: la
+      lista de soluciones a 920 px, el diagrama de servicio a 900, las preguntas del servicio a
+      820, las soluciones por giro a 960 con tarjetas de 420 como máximo, el aviso a 760, y las
+      rejillas de tarjetas con tope **por tarjeta** para que no se estiren cuando son pocas.
 
       **Imágenes.** El render 3D del hero —que se compra hecho y no decía nada cierto— lo
       sustituye **un dibujo propio que repite el titular**: la maraña de hoy —Excel, WhatsApp,

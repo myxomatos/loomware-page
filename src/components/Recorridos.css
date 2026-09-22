@@ -3,7 +3,8 @@
    dato —cobre, monoespaciada— y el título del recorrido como protagonista. */
 .recorridos__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 320px));
+  justify-content: center;
   gap: var(--sp-4);
   list-style: none;
   margin: 0;

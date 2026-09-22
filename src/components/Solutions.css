@@ -2,6 +2,7 @@
    para las que acompañan. En celular eso baja de ocho pantallas a unas tres. */
 .solutions__grupo {
   margin: 0 0 var(--sp-4);
+  text-align: center;
   font-family: var(--font-mono);
   font-size: var(--fs-2xs);
   font-weight: 500;
@@ -77,11 +78,13 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  /* Una columna, al ancho de las tarjetas de arriba: cinco en rejilla siempre
-     dejan una celda vacía, y más angosta que la rejilla se veía cortada. */
+  /* Una columna: cinco en rejilla siempre dejan una celda vacía. Con medida,
+     porque a 1200 px quedaba medio metro entre el texto y su flecha. */
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
+  max-width: 920px;
+  margin-inline: auto;
 }
 .solution-row {
   display: flex;
