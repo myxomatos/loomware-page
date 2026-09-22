@@ -43,10 +43,6 @@
   flex: none;
   color: var(--purple-500);
 }
-.contact__directo-enlace .contact__directo-wa {
-  --icon-bg: var(--white);
-  color: var(--green-700);
-}
 .contact__directo-enlace:hover {
   color: var(--purple-600);
 }

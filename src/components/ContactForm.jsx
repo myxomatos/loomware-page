@@ -97,7 +97,7 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
             className="contact__directo-enlace"
             onClick={() => clicWhatsApp('formulario')}
           >
-            <Icon name="whatsapp" size={18} strokeWidth={0} className="contact__directo-wa" />
+            <Icon name="message-phone" size={18} />
             <span>
               <strong>WhatsApp</strong> {WHATSAPP.display}
             </span>
