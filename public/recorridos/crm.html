@@ -321,26 +321,60 @@
       .colofon b{color:var(--ink-2);font-weight:500;}
 
       /* ---------- estado de la escena ---------- */
-      /* Cada elemento del dibujo aparece en el paso que le toca. */
+      /* Cada elemento del dibujo aparece en el paso que le toca, y algunos se van. */
       .e{opacity:0;transition:opacity .45s ease;}
       .e.visible{opacity:1;}
-      .carril{fill:var(--pain-bg);}
-      .vida{stroke:var(--ink-3);stroke-width:2.6;fill:none;stroke-linecap:round;}
-      .pto{fill:var(--ink-2);}
-      .muerte{stroke:var(--pain);stroke-width:2.4;stroke-linecap:round;}
-      .rec{fill:none;stroke:var(--signal);stroke-width:2.6;}
-      .gana{fill:var(--money);}
-      .reja{stroke:var(--rule-soft);stroke-width:1;}
-      .eje{font-family:var(--mono);font-size:12px;fill:var(--ink-3);letter-spacing:.04em;}
-      .flecha{fill:var(--signal);}
-      /* El trato que vamos siguiendo va en cobre; los otros cinco, en gris. */
-      .activa .carril{fill:var(--signal-soft);}
-      .activa .vida{stroke:var(--signal);}
-      .activa .pto{fill:var(--signal);}
 
-      .sw--pto{background:var(--ink-2);border-radius:50%;width:9px;height:9px;}
-      .sw--rec{background:transparent;border:2px solid var(--signal);border-radius:50%;width:10px;height:10px;}
-      .sw--mue{background:var(--pain);width:10px;height:2px;transform:rotate(-45deg);}
+      /* El tablero de corcho: madera, corcho, papel, chinches e hilo. */
+      :root{--marco:#8A6A45;--corcho:#E2CFAE;--corcho-pto:#CDB48D;--chinche:#B23A3A;--chinche-2:#2F5D9E;}
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]){--marco:#5C4630;--corcho:#3E3224;--corcho-pto:#4E3F2C;--chinche:#D45C5C;--chinche-2:#5C8AD6;}
+      }
+      :root[data-theme="dark"]{--marco:#5C4630;--corcho:#3E3224;--corcho-pto:#4E3F2C;--chinche:#D45C5C;--chinche-2:#5C8AD6;}
+
+      .marco{fill:var(--marco);}
+      .corcho{fill:var(--corcho);}
+      .corcho-pto{fill:var(--corcho-pto);}
+      .rot{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;fill:var(--surface);}
+      .rot-caja{fill:var(--pain);}
+      .rot-caja--con{fill:var(--signal);}
+
+      .papel{fill:var(--surface);stroke:var(--rule);stroke-width:.8;}
+      .papel--con{stroke:var(--signal);}
+      .t-id{font-family:var(--mono);font-size:8.5px;fill:var(--ink-3);letter-spacing:.04em;}
+      .t-nom{font-family:var(--sans);font-size:9.5px;fill:var(--ink);}
+      .t-monto{font-family:var(--mono);font-size:9.5px;font-weight:700;fill:var(--ink-2);}
+      .t-nota{font-family:var(--mono);font-size:8px;fill:var(--signal);letter-spacing:.03em;}
+      .t-nota--pain{fill:var(--pain);}
+      .chinche{fill:var(--chinche);}
+      .chinche--2{fill:var(--chinche-2);}
+      .chinche-luz{fill:#fff;opacity:.55;}
+
+      /* la tira del calendario, pegada al pie del tablero */
+      .tira{fill:var(--surface);stroke:var(--rule);stroke-width:.8;}
+      .tick{stroke:var(--rule);stroke-width:1;}
+      .dia{font-family:var(--mono);font-size:9px;fill:var(--ink-3);letter-spacing:.03em;}
+
+      /* el hilo: el siguiente paso, con fecha */
+      .hilo{fill:none;stroke:var(--signal);stroke-width:1.6;stroke-linecap:round;}
+      .aviso{fill:none;stroke:var(--signal);stroke-width:2.4;}
+      .aviso-pto{fill:var(--signal);}
+
+      /* la tarjeta que nadie volvió a tocar: cuelga de una sola chinche, sin color */
+      .colgada .papel{fill:var(--pain-bg);stroke:var(--pain);stroke-dasharray:3 2;}
+      .colgada .t-id,.colgada .t-nom,.colgada .t-monto{fill:var(--pain);}
+
+      .sello{fill:none;stroke:var(--money);stroke-width:2;}
+      .sello-t{font-family:var(--mono);font-size:10px;font-weight:700;fill:var(--money);letter-spacing:.12em;}
+      .resumen{fill:var(--pain-bg);stroke:var(--pain);stroke-width:1;}
+      .resumen--con{fill:var(--signal-soft);stroke:var(--signal);}
+      .resumen-t{font-family:var(--mono);font-size:9.5px;font-weight:700;fill:var(--pain);letter-spacing:.03em;}
+      .resumen-t--con{fill:var(--signal);}
+
+      .sw--chinche{background:var(--chinche);border-radius:50%;width:9px;height:9px;}
+      .sw--hilo{background:transparent;border-top:2px solid var(--signal);height:0;}
+      .sw--colgada{background:var(--pain-bg);border:1px dashed var(--pain);height:9px;}
+      .sw--sello{background:transparent;border:2px solid var(--money);height:9px;}
 
       @media (prefers-reduced-motion:reduce){
         .e,.chip,.step{transition:none;}
@@ -355,6 +389,10 @@
           background:var(--paper);padding-block:8px;margin-bottom:6px;
           border-bottom:1px solid var(--rule-soft);}
         .stage svg{max-height:33vh;}
+        /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
+           fijo, la línea de lectura se movería sola y el paso brincaría */
+        .readout__v{min-height:3.05em;}
+        .dia{font-size:13px;}
         .legend{display:none;}
         /* en tablet vertical el texto corría a 100 caracteres por renglón */
         .steps{max-width:660px;}
@@ -393,8 +431,10 @@
     <div class="eyebrow lbl">CRM · un ejemplo, paso a paso</div>
     <h1>De la llamada al cierre</h1>
     <p class="deck">Un <b>CRM</b> es el lugar donde vive cada oportunidad de venta: con un
-      responsable, un siguiente paso y una fecha. Para verlo seguimos a un prospecto desde que
-      levanta la mano hasta que vuelve a comprar. Seis paradas y <b>una sola ficha</b>.
+      responsable, un siguiente paso y una fecha. Para verlo lo dibujamos como el tablero de
+      corcho de una oficina de ventas: cada prospecto es una tarjeta con su chinche, y el
+      seguimiento es <b>un hilo de la tarjeta a una fecha</b>. Seis paradas y <b>una sola
+      ficha</b>.
       El giro no cambia la idea: abajo está el mismo recorrido en otros cinco.</p>
 
     <figure class="antes">
@@ -450,13 +490,13 @@
     <div class="figure">
 
       <div class="readout" aria-live="polite">
-        <span class="readout__k lbl" id="hudK">PROS-0412 · Prospecto nuevo</span>
-        <span class="readout__v" id="hudV">origen WhatsApp · asignado a Karla · siguiente paso en 2 días</span>
+        <span class="readout__k lbl" id="hudK">PROS-0412 · Ferretería · Toluca</span>
+        <span class="readout__v" id="hudV">día 1 · origen WhatsApp · asignado a Karla · hilo al día 3</span>
       </div>
 
       <div class="stage">
-        <svg id="scene" viewBox="0 0 680 300" role="img"
-             aria-label="Línea de tiempo de 24 días con seis tratos de venta, uno por renglón. Cada punto es un contacto con el cliente. Tres de los seis se quedan sin contactos y mueren de silencio; el de arriba recibe un recordatorio del sistema y termina cerrado.">
+        <svg id="scene" viewBox="0 0 680 398" role="img"
+             aria-label="Dos tableros de corcho con seis tarjetas de prospectos cada uno, clavadas con chinches, y una tira de calendario de veinticuatro días al pie. Arriba, como se hace hoy: ninguna tarjeta tiene hilo a una fecha y tres terminan colgando de una sola chinche, sin que nadie las vuelva a tocar. Abajo, con el sistema: cada tarjeta tiene un hilo de cobre a su siguiente fecha, el sistema avisa el día 11 y la primera termina con el sello de ganada.">
           <g id="world"></g>
         </svg>
       </div>
@@ -468,10 +508,10 @@
       </div>
 
       <ul class="legend">
-        <li><span class="sw sw--pto"></span>Un contacto con el cliente</li>
-        <li><span class="sw sw--rec"></span>Recordatorio del sistema</li>
-        <li><span class="sw sw--mue"></span>Se murió de silencio</li>
-        <li><span class="sw sw--money"></span>Cerrado</li>
+        <li><span class="sw sw--chinche"></span>Un prospecto, con su chinche</li>
+        <li><span class="sw sw--hilo"></span>Su siguiente paso, con fecha</li>
+        <li><span class="sw sw--colgada"></span>Nadie la volvió a tocar</li>
+        <li><span class="sw sw--sello"></span>Ganada</li>
       </ul>
 
       <div class="exp">
@@ -569,8 +609,9 @@
 
   <section class="giros">
     <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos un vendedor de calle porque ahí el recorrido se ve con los ojos. El CRM no
-      cambia entre un giro y otro; cambia <b>qué es un trato</b> y qué duele hoy.</p>
+    <p>Dibujamos un tablero de corcho porque ahí el seguimiento se ve con los ojos: la
+      tarjeta que tiene hilo y la que no. El CRM no cambia entre un giro y otro; cambia
+      <b>qué es un trato</b> y qué duele hoy.</p>
     <ul class="rejilla">
       <li class="este"><b>Distribuidoras y mayoristas</b>
         <span>Un trato es un cliente de ruta: se visita, se cotiza, se surte y se recompra.</span>
@@ -664,100 +705,175 @@
 (function(){
   "use strict";
 
-  /* Lo que mata una venta no es un lugar: es el silencio. Por eso el dibujo es
-     tiempo, no espacio. Veinticuatro días en el eje horizontal y seis tratos,
-     uno por renglón. Cada punto es un contacto con el cliente. */
-  var DIAS = 24, X0 = 42, XD = 25, Y0 = 62, YH = 38, ALTO = 22;
-  function dx(d){ return X0 + (d - 1) * XD; }
+  /* Lo que mata una venta es el silencio. El dibujo es el tablero de corcho de
+     una oficina de ventas: cada prospecto es una tarjeta con su chinche, y el
+     seguimiento es un hilo que va de la tarjeta a una fecha del calendario
+     pegado al pie. Arriba, como se hace hoy: tarjetas sin hilo, y tres acaban
+     colgando de una sola chinche. Abajo, con el sistema: cada tarjeta tiene su
+     hilo, y la primera termina con el sello de ganada. */
+  var DIAS = 24;
+  var TX = 16, TW = 648, TH = 168;             // el tablero
+  var Y_HOY = 26, Y_CON = 214;
+  var CX0 = 42, CW = 88, CGAP = 104, CY = 18, CH = 52;   // tarjetas, relativas al tablero
+  var SY = 128, SX0 = 62, SX1 = 632;           // la tira del calendario
+  function sx(d){ return SX0 + (d - 1) * (SX1 - SX0) / (DIAS - 1); }
 
-  /* puntos: los días en que alguien habló con el cliente.
-     muere: el día en que el trato se apagó por falta de seguimiento.
-     rec:   el día en que el sistema avisa que lleva demasiado quieto. */
-  var TRATOS = [
-    { activa:true, puntos:[1,3,6], rec:11, sigue:[13,17], gana:22 },
-    { puntos:[1,4],        muere:4  },
-    { puntos:[2,5,9,14,20] },
-    { puntos:[3],          muere:3  },
-    { puntos:[7,11,16] },
-    { puntos:[9,11],       muere:11 }
+  /* Seis prospectos, descritos por giro y ciudad. `fecha` es el siguiente paso
+     que el sistema les pone; `cae` marca los que hoy nadie vuelve a tocar. */
+  var TARJETAS = [
+    { id:'PROS-0412', nom:'Ferretería · Toluca',    monto:'$184,500', fecha:3,  activa:true },
+    { id:'PROS-0413', nom:'Clínica · CDMX',         monto:'$96,000',  fecha:4,  cae:true },
+    { id:'PROS-0414', nom:'Transportista · Qro.',   monto:'$120,300', fecha:6 },
+    { id:'PROS-0415', nom:'Despacho · Puebla',      monto:'$58,900',  fecha:9,  cae:true },
+    { id:'PROS-0416', nom:'Mueblería · Mérida',     monto:'$142,000', fecha:12 },
+    { id:'PROS-0417', nom:'Lácteos · Jalisco',      monto:'$92,500',  fecha:14, cae:true }
   ];
 
-  var s = "";
-
-  /* Reja de la semana y días rotulados */
-  [1, 7, 14, 21].forEach(function(d){
-    s += '<line class="reja" x1="' + dx(d) + '" y1="46" x2="' + dx(d) + '" y2="' + (Y0 + 6 * YH - 8) + '"/>';
-    s += '<text class="eje" x="' + (dx(d) - 6) + '" y="36">día ' + d + '</text>';
-  });
-
-  function pto(x, y){ return '<circle class="pto" cx="' + x + '" cy="' + y + '" r="4.6"/>'; }
-  function linea(d1, d2, y){
-    return '<line class="vida" x1="' + dx(d1) + '" y1="' + y + '" x2="' + dx(d2) + '" y2="' + y + '"/>';
+  /* d = el paso a partir del cual el elemento se ve; h = el paso en que se va */
+  function cuando(d, contenido, h){
+    return '<g class="e" data-d="' + d + '"' + (h !== undefined ? ' data-h="' + h + '"' : '') + '>' + contenido + '</g>';
   }
-  function cruz(x, y){
-    var r = 6;
-    return '<g class="muerte"><line x1="' + (x-r) + '" y1="' + (y-r) + '" x2="' + (x+r) + '" y2="' + (y+r) + '"/>' +
-           '<line x1="' + (x+r) + '" y1="' + (y-r) + '" x2="' + (x-r) + '" y2="' + (y+r) + '"/></g>';
+  function chinche(x, y, clase){
+    return '<circle class="chinche' + (clase ? ' ' + clase : '') + '" cx="' + x + '" cy="' + y + '" r="4.2"/>' +
+           '<circle class="chinche-luz" cx="' + (x - 1.3) + '" cy="' + (y - 1.3) + '" r="1.3"/>';
   }
-  /* d = el paso a partir del cual el elemento se ve */
-  function cuando(d, contenido){ return '<g class="e" data-d="' + d + '">' + contenido + '</g>'; }
-
-  TRATOS.forEach(function(tr, n){
-    var y = Y0 + n * YH, cy = y + ALTO / 2, o = "";
-    var apareceCarril = tr.activa ? 0 : 1;
-
-    o += cuando(apareceCarril,
-      '<rect class="carril" x="' + (X0 - 14) + '" y="' + y + '" width="' + (DIAS * XD - 4) + '" height="' + ALTO + '" rx="3"/>');
-
-    if (tr.activa){
-      o += cuando(0, '<path class="flecha" d="M' + (X0-30) + ' ' + (cy-6) + ' L' + (X0-20) + ' ' + cy + ' L' + (X0-30) + ' ' + (cy+6) + ' Z"/>');
-      o += cuando(0, pto(dx(tr.puntos[0]), cy));
-      o += cuando(1, linea(tr.puntos[0], tr.puntos[1], cy) + pto(dx(tr.puntos[1]), cy));
-      o += cuando(2, linea(tr.puntos[1], tr.puntos[2], cy) + pto(dx(tr.puntos[2]), cy));
-      /* El hueco de silencio y el recordatorio que lo rompe */
-      o += cuando(3, '<line class="vida" stroke-dasharray="3 5" x1="' + dx(tr.puntos[2]) + '" y1="' + cy +
-                     '" x2="' + dx(tr.rec) + '" y2="' + cy + '"/>' +
-                     '<circle class="rec" cx="' + dx(tr.rec) + '" cy="' + cy + '" r="6.5"/>');
-      o += cuando(4, linea(tr.rec, tr.sigue[0], cy) + pto(dx(tr.sigue[0]), cy) +
-                     linea(tr.sigue[0], tr.sigue[1], cy) + pto(dx(tr.sigue[1]), cy) +
-                     linea(tr.sigue[1], tr.gana, cy) +
-                     '<circle class="gana" cx="' + dx(tr.gana) + '" cy="' + cy + '" r="6.5"/>');
-    } else {
-      var ps = tr.puntos, contenido = "";
-      for (var k = 0; k < ps.length; k++){
-        if (k) contenido += linea(ps[k-1], ps[k], cy);
-        contenido += pto(dx(ps[k]), cy);
-      }
-      o += cuando(1, contenido);
-      /* Los que se murieron aparecen en el paso del seguimiento: ahí duele. */
-      if (tr.muere) o += cuando(3, cruz(dx(tr.muere) + 18, cy));
+  function tablero(y, rotulo, con){
+    var o = '<rect class="marco" x="' + TX + '" y="' + y + '" width="' + TW + '" height="' + TH + '" rx="4"/>' +
+            '<rect class="corcho" x="' + (TX + 8) + '" y="' + (y + 8) + '" width="' + (TW - 16) + '" height="' + (TH - 16) + '" rx="2"/>' +
+            '<rect fill="url(#corcho)" x="' + (TX + 8) + '" y="' + (y + 8) + '" width="' + (TW - 16) + '" height="' + (TH - 16) + '" rx="2"/>';
+    /* el rótulo, como etiqueta clavada en el marco */
+    var w = rotulo.length * 7.4 + 18;
+    o += '<rect class="rot-caja' + (con ? ' rot-caja--con' : '') + '" x="' + (TX + 14) + '" y="' + (y - 9) + '" width="' + w + '" height="18" rx="2"/>' +
+         '<text class="rot" x="' + (TX + 23) + '" y="' + (y + 4) + '">' + rotulo + '</text>';
+    /* la tira del calendario */
+    o += '<rect class="tira" x="' + (SX0 - 16) + '" y="' + (y + SY) + '" width="' + (SX1 - SX0 + 32) + '" height="22" rx="1"/>';
+    for (var d = 1; d <= DIAS; d++){
+      o += '<line class="tick" x1="' + sx(d) + '" y1="' + (y + SY) + '" x2="' + sx(d) + '" y2="' + (y + SY + (d % 7 === 1 ? 9 : 5)) + '"/>';
     }
+    [1, 7, 14, 21].forEach(function(d){
+      o += '<text class="dia" x="' + (sx(d) - 4) + '" y="' + (y + SY + 18) + '">día ' + d + '</text>';
+    });
+    o += chinche(SX0 - 10, y + SY + 11) + chinche(SX1 + 10, y + SY + 11);
+    return o;
+  }
+  /* el papel de una tarjeta, con su texto; `dy` la baja (para las notas) */
+  function papel(x, ty, t, extra){
+    return '<rect class="papel' + (extra || '') + '" x="' + x + '" y="' + ty + '" width="' + CW + '" height="' + CH + '" rx="1"/>' +
+           '<text class="t-id" x="' + (x + 7) + '" y="' + (ty + 14) + '">' + t.id + '</text>' +
+           '<text class="t-nom" x="' + (x + 7) + '" y="' + (ty + 28) + '">' + t.nom + '</text>' +
+           '<text class="t-monto" x="' + (x + 7) + '" y="' + (ty + 43) + '">' + t.monto + '</text>';
+  }
+  function tarjeta(n, y, t, giro){
+    var x = CX0 + n * CGAP, ty = y + CY;
+    return '<g transform="rotate(' + giro + ' ' + (x + CW / 2) + ' ' + ty + ')">' +
+           papel(x, ty, t, t.activa ? ' papel--con' : '') + '</g>' + chinche(x + CW / 2, ty);
+  }
+  /* la misma tarjeta, colgando de su chinche: nadie la volvió a tocar */
+  function colgada(n, y, t){
+    var x = CX0 + n * CGAP, ty = y + CY, px = x + CW / 2;
+    return '<g class="colgada" transform="rotate(16 ' + px + ' ' + ty + ')">' + papel(x, ty, t) + '</g>' + chinche(px, ty);
+  }
+  /* el hilo va del pie de la tarjeta a un día de la tira, con la panza de un hilo real */
+  function hilo(n, y, dia){
+    var x1 = CX0 + n * CGAP + CW / 2, y1 = y + CY + CH, x2 = sx(dia), y2 = y + SY;
+    var cx = (x1 + x2) / 2, cy = (y1 + y2) / 2 + 16;
+    return '<path class="hilo" d="M' + x1 + ' ' + y1 + ' Q' + cx + ' ' + cy + ' ' + x2 + ' ' + y2 + '"/>';
+  }
+  /* una nota clavada bajo la tarjeta; `fila` 0 o 1 para apilar dos */
+  function nota(n, y, texto, pain, fila, ancho){
+    var x = CX0 + n * CGAP + 6, ny = y + CY + CH + 6 + (fila || 0) * 18;
+    return '<rect class="papel" x="' + x + '" y="' + ny + '" width="' + (ancho || CW - 12) + '" height="15" rx="1"/>' +
+           '<text class="t-nota' + (pain ? ' t-nota--pain' : '') + '" x="' + (x + 5) + '" y="' + (ny + 10.5) + '">' + texto + '</text>';
+  }
+  function resumen(y, texto, con){
+    var w = texto.length * 6.4 + 20, x = TX + TW - 14 - w;
+    return '<rect class="resumen' + (con ? ' resumen--con' : '') + '" x="' + x + '" y="' + (y - 9) + '" width="' + w + '" height="18" rx="2"/>' +
+           '<text class="resumen-t' + (con ? ' resumen-t--con' : '') + '" x="' + (x + 10) + '" y="' + (y + 4) + '">' + texto + '</text>';
+  }
 
-    s += '<g class="pista' + (tr.activa ? ' activa' : '') + '">' + o + '</g>';
+  var s = '<defs><pattern id="corcho" width="9" height="9" patternUnits="userSpaceOnUse">' +
+          '<circle class="corcho-pto" cx="2" cy="2" r="1.1"/><circle class="corcho-pto" cx="6.5" cy="6.5" r="1.1"/></pattern></defs>';
+
+  s += tablero(Y_HOY, 'HOY', false) + tablero(Y_CON, 'CON EL SISTEMA', true);
+
+  /* --- Paso 01: entra el prospecto. Arriba, una tarjeta clavada. Abajo, la
+         misma tarjeta ya con hilo a su siguiente fecha. --- */
+  var A = TARJETAS[0];
+  s += cuando(0, tarjeta(0, Y_HOY, A, -2.5));
+  s += cuando(0, tarjeta(0, Y_CON, A, 0));
+  s += cuando(0, hilo(0, Y_CON, A.fecha), 1);
+
+  /* --- Paso 02: la visita. Aparecen los otros cinco; abajo, cada uno con su
+         fecha. Arriba, la visita queda en una nota a lápiz. El hilo de la
+         primera tarjeta se mueve a su nuevo siguiente paso. --- */
+  var otros = '', otrosCon = '', giros = [3, -1.5, 2, -3, 1.5];
+  TARJETAS.slice(1).forEach(function(t, k){
+    var n = k + 1;
+    otros += tarjeta(n, Y_HOY, t, giros[k]);
+    otrosCon += tarjeta(n, Y_CON, t, 0) + hilo(n, Y_CON, t.fecha);
   });
+  s += cuando(1, otros, 3);          // arriba, tres de ellas cambian de forma en el paso 04
+  s += cuando(1, otrosCon);
+  s += cuando(1, nota(0, Y_HOY, 'visita · en la libreta', true));
+  s += cuando(1, nota(0, Y_CON, 'VIS-0771 · día 3'));
+  s += cuando(1, hilo(0, Y_CON, 6), 2);
+
+  /* --- Paso 03: la propuesta. La cotización queda clavada bajo la tarjeta;
+         abajo, ligada al trato y con hilo al día de seguimiento. --- */
+  s += cuando(2, nota(0, Y_HOY, 'cot. por correo', true, 1));
+  s += cuando(2, nota(0, Y_CON, 'COT-1180 · $184,500', false, 1));
+  s += cuando(2, hilo(0, Y_CON, 11), 4);
+
+  /* --- Paso 04: el seguimiento. Arriba, tres tarjetas quedan colgando de su
+         chinche. Abajo, el sistema avisa el día 11. --- */
+  var caidas = '', vivas = '';
+  TARJETAS.slice(1).forEach(function(t, k){
+    var n = k + 1;
+    if (t.cae) caidas += colgada(n, Y_HOY, t);
+    else vivas += tarjeta(n, Y_HOY, t, giros[k]);
+  });
+  s += cuando(3, vivas + caidas);
+  s += cuando(3, '<circle class="aviso" cx="' + sx(11) + '" cy="' + (Y_CON + SY) + '" r="8"/>' +
+                 '<circle class="aviso-pto" cx="' + sx(11) + '" cy="' + (Y_CON + SY) + '" r="2.4"/>' +
+                 '<rect class="papel" x="' + (sx(11) + 10) + '" y="' + (Y_CON + SY - 20) + '" width="118" height="15" rx="1"/>' +
+                 '<text class="t-nota" x="' + (sx(11) + 15) + '" y="' + (Y_CON + SY - 9.5) + '">SEG-0903 · aviso a Karla</text>');
+
+  /* --- Paso 05: el cierre. Abajo, sello de ganada e hilo al día 22. Arriba,
+         dos chinches en la misma tarjeta: dos vendedores, dos precios. --- */
+  s += cuando(4, hilo(0, Y_CON, 22));
+  s += cuando(4, chinche(CX0 + 14, Y_HOY + CY + 4, 'chinche--2') +
+                 nota(0, Y_HOY, '2 vendedores · 2 precios', true, 2, 122));
+  /* el sello cae sobre la esquina de la tarjeta, como un sello de verdad */
+  s += cuando(4, '<g transform="rotate(-12 ' + (CX0 + CW - 20) + ' ' + (Y_CON + CY + 16) + ')">' +
+                 '<rect class="sello" x="' + (CX0 + CW - 52) + '" y="' + (Y_CON + CY + 5) + '" width="60" height="22" rx="2"/>' +
+                 '<text class="sello-t" x="' + (CX0 + CW - 46) + '" y="' + (Y_CON + CY + 21) + '">GANADA</text></g>');
+
+  /* --- Paso 06: el embudo de dirección. Un letrero en cada marco. --- */
+  s += cuando(5, resumen(Y_HOY, '3 de 6 sin tocar · $247,400', false));
+  s += cuando(5, resumen(Y_CON, '6 con fecha · 1 ganada · 5 vivas', true));
 
   document.getElementById("world").innerHTML = s;
 
   /* ---------- estados ---------- */
   var STATES = [
     { label:"01 / 06 · Entra el prospecto",
-      k:"PROS-0412 · Prospecto nuevo",
-      v:"día 1 · origen WhatsApp · asignado a Karla · siguiente paso en 2 días" },
+      k:"PROS-0412 · Ferretería · Toluca",
+      v:"día 1 · origen WhatsApp · asignado a Karla · hilo al día 3" },
     { label:"02 / 06 · Primera visita",
       k:"VIS-0771 · Visita registrada",
-      v:"día 3 · notas y siguiente paso capturados desde el celular, al salir" },
+      v:"día 3 · notas desde el celular, al salir · el hilo se mueve al día 6" },
     { label:"03 / 06 · La propuesta",
       k:"COT-1180 · Cotización ligada",
-      v:"día 6 · $184,500 · vigencia 15 días · queda en la ficha del cliente" },
+      v:"día 6 · $184,500 · vigencia 15 días · hilo al día 11 para dar seguimiento" },
     { label:"04 / 06 · El seguimiento",
       k:"SEG-0903 · 5 días sin movimiento",
-      v:"día 11 · el sistema avisa a Karla · tres tratos del tablero ya se apagaron" },
+      v:"día 11 · el sistema avisa a Karla · arriba, tres tarjetas ya cuelgan" },
     { label:"05 / 06 · El cierre",
       k:"CIE-0412 · Trato ganado",
-      v:"día 22 · 22 días de ciclo · un solo dueño · origen WhatsApp" },
+      v:"día 22 · un solo dueño, un solo precio · arriba, dos chinches en la misma tarjeta" },
     { label:"06 / 06 · El embudo de dirección",
-      k:"6 tratos · 1 ganado · 2 vivos",
-      v:"3 se perdieron por silencio: $247,400 que nadie volvió a tocar" }
+      k:"6 tarjetas · 1 ganada · 5 vivas",
+      v:"arriba, 3 de 6 sin tocar: $247,400 que nadie volvió a ver" }
   ];
 
   var labelEl = document.getElementById("stateLabel");
@@ -775,7 +891,10 @@
     current = i;
     var st = STATES[i];
 
-    elems.forEach(function(el){ el.classList.toggle("visible", i >= +el.dataset.d); });
+    elems.forEach(function(el){
+      var h = el.dataset.h;
+      el.classList.toggle("visible", i >= +el.dataset.d && (h === undefined || i < +h));
+    });
 
     /* La ficha acumula: en el último paso quedan los cinco registros y el total. */
     chipEls.forEach(function(el, n){

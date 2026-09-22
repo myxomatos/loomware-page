@@ -155,7 +155,7 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       MP4 en `public/video/` si pesa menos de ~15 MB.
 - [ ] **Analítica.** Crear la propiedad de Google Analytics 4 y dar de alta
       `loomware.com.mx` en Search Console (por DNS o con `VITE_GSC_VERIFICATION`). Enviar el
-      sitemap: `https://loomware.com.mx/sitemap.xml` —ahora con **19 URLs**—. En GA4 hay que
+      sitemap: `https://loomware.com.mx/sitemap.xml` —ahora con **21 URLs**—. En GA4 hay que
       marcar como conversiones los eventos que el código ya reporta: `generate_lead` al llegar
       a `/gracias` (con `metodo` = formulario o calculadora), `click_whatsapp` con el origen,
       y `calculadora_inicio` cuando alguien empieza a contestar. **Hasta que esto no esté,
@@ -212,16 +212,20 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       El resultado se ve sin pedir nada; el correo se pide después, y el aviso que le llega a
       Loomware trae las respuestas y la cuenta ya hecha. Enlazada desde el pie y desde una banda
       en el inicio, justo antes del formulario. En el sitemap (19 URLs).
-- [x] **Los recorridos, como contenido del sitio (2026-09-21).** Dos páginas que explican el
-      ERP, el CRM y la nómina paso a paso, con un dibujo que cambia mientras se baja. Cada
-      uno tiene su propia forma —una bodega, una línea de tiempo, los días de la quincena—,
-      porque la forma del dibujo tiene que ser la del problema. Se escriben en
-      `recorridos-fuente/<slug>.html`; `scripts/recorridos.js` las empaqueta en
+- [x] **Los recorridos, como contenido del sitio (2026-09-21).** Cuatro páginas que explican
+      el ERP, el CRM, la nómina y el comercio en línea paso a paso, con un dibujo que cambia
+      mientras se baja. Cada uno es **un objeto que el cliente reconoce, no una gráfica**: la
+      bodega con su camión (ERP), un tablero de corcho con hilos a fechas (CRM), la tarjeta de
+      checado que se vuelve recibo (nómina) y un anaquel entre dos celulares (tienda). Se
+      escriben en `recorridos-fuente/<slug>.html`; `scripts/recorridos.js` las empaqueta en
       `public/recorridos/` antes de cada build y `src/data/recorridos.js` dice cuáles hay.
-      **Indexables y en el sitemap** —hoy 20 URLs con nómina incluida—, y cada página de servicio enlaza la
+      **Indexables y en el sitemap** —hoy 21 URLs—, y cada página de servicio enlaza la
       suya con una banda «Ver el recorrido completo», que aparece sola en cuanto un servicio
       tenga el suyo escrito. Se abren sin cuenta desde cualquier celular:
-      <https://alan.loomware-page.pages.dev/recorridos/erp> y `/recorridos/crm`.
+      <https://alan.loomware-page.pages.dev/recorridos/erp>, `/recorridos/crm`,
+      `/recorridos/nomina` y `/recorridos/tienda-en-linea`. Verificados con medición: sin
+      desborde de 390 a 1440 px, texto y escena sin desfase en escritorio y celular, modo
+      claro y oscuro.
       **Aldo: entran en el PR.** Si prefieres que no se publiquen todavía, se quitan de
       `src/data/recorridos.js` y desaparecen solas del sitemap y de las páginas de servicio.
 - [x] **Consentimiento de cookies (2026-09-21).** Banda de aviso en las seis páginas, con

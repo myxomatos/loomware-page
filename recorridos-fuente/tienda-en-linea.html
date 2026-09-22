@@ -286,29 +286,69 @@
   .colofon b{color:var(--ink-2);font-weight:500;}
 
   /* ---------- estado de la escena ---------- */
-  /* Cada elemento del dibujo aparece en el paso que le toca. */
+  /* Cada elemento del dibujo aparece en el paso que le toca, y algunos se van. */
   .e{opacity:0;transition:opacity .45s ease;}
   .e.visible{opacity:1;}
-  .panel{fill:var(--surface);stroke:var(--rule-soft);stroke-width:1;}
-  .reja{stroke:var(--rule-soft);stroke-width:1;}
-  .eje{font-family:var(--mono);font-size:12px;fill:var(--ink-3);letter-spacing:.04em;}
-  .eje--panel{fill:var(--ink-2);font-weight:500;}
-  .eje--dato{fill:var(--pain);font-weight:700;}
-  .eje--con{fill:var(--signal);}
-  /* Lo que hay: línea firme. Lo que publica la tienda: punteada, porque es una copia. */
-  .linea{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
-  .linea--real{stroke:var(--ink-2);}
-  .linea--tienda{stroke:var(--pain);stroke-dasharray:5 4;}
-  .linea--con{stroke:var(--signal);stroke-width:3;}
-  .punto--real{fill:var(--ink-2);}
-  .punto--tienda{fill:var(--surface);stroke:var(--pain);stroke-width:2;}
-  .punto--con{fill:var(--signal);}
-  /* El hueco entre las dos líneas: producto que se vende sin existir. */
-  .fantasma{fill:var(--pain-bg);stroke:var(--pain);stroke-width:1;stroke-dasharray:3 3;}
-  .cruz line{stroke:var(--pain);stroke-width:2.5;stroke-linecap:round;}
-  .anillo{fill:none;stroke:var(--money);stroke-width:2.5;}
-  .resumen{fill:var(--pain-bg);stroke:var(--pain);stroke-width:1;}
-  .resumen--con{fill:var(--signal-soft);stroke:var(--signal);}
+
+  /* El anaquel: madera, cajas de cartón y una etiqueta de cobre en las apartadas. */
+  :root{--madera:#B08A5C;--madera-2:#8F6E45;--carton:#E4D5BB;--carton-2:#C9B48E;--cinta:#B8A886;}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){--madera:#6A5033;--madera-2:#4E3A24;--carton:#8A7350;--carton-2:#6C5A3A;--cinta:#53452C;}
+  }
+  :root[data-theme="dark"]{--madera:#6A5033;--madera-2:#4E3A24;--carton:#8A7350;--carton-2:#6C5A3A;--cinta:#53452C;}
+
+  .poste{fill:var(--madera-2);}
+  .tabla{fill:var(--madera);}
+  .caja{fill:var(--carton);stroke:var(--carton-2);stroke-width:.8;}
+  .cinta{stroke:var(--cinta);stroke-width:1.2;}
+  .apartada{fill:var(--signal);}
+  .t-anaquel{font-family:var(--mono);font-size:9.5px;font-weight:700;fill:var(--ink-2);letter-spacing:.08em;}
+  .t-cuenta{font-family:var(--mono);font-size:9px;fill:var(--ink-3);letter-spacing:.03em;}
+  .paquete{fill:var(--carton);stroke:var(--carton-2);stroke-width:.8;}
+  .guia{fill:var(--surface);stroke:var(--signal);stroke-width:.8;}
+
+  /* Los dos celulares: el de la tienda de hoy y el que lee el anaquel. */
+  .cel{fill:var(--ink);}
+  .cel--con{fill:var(--signal);}
+  .pantalla{fill:var(--surface);}
+  .rot{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;fill:var(--surface);}
+  .rot-caja{fill:var(--pain);}
+  .rot-caja--con{fill:var(--signal);}
+  .p-hora{font-family:var(--mono);font-size:8px;fill:var(--ink-3);letter-spacing:.04em;}
+  .p-hora--fuerte{fill:var(--ink-2);font-weight:700;}
+  .p-foto{fill:var(--paper);stroke:var(--rule);stroke-width:.8;}
+  .p-nom{font-family:var(--sans);font-size:10px;font-weight:600;fill:var(--ink);}
+  .p-sku{font-family:var(--mono);font-size:8px;fill:var(--ink-3);}
+  .p-precio{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--ink);}
+  .p-stock{font-family:var(--mono);font-size:9.5px;font-weight:700;fill:var(--ink-2);}
+  .p-stock--pain{fill:var(--pain);}
+  .p-stock--con{fill:var(--signal);}
+  .p-nota{font-family:var(--mono);font-size:7.5px;fill:var(--pain);letter-spacing:.02em;}
+  .p-boton{fill:var(--pain);}
+  .p-boton--con{fill:var(--signal);}
+  .p-boton--agotado{fill:var(--pain-bg);}
+  .p-boton-t{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--surface);letter-spacing:.1em;text-anchor:middle;}
+  .p-boton-t--agotado{fill:var(--pain);}
+  .p-raya{stroke:var(--rule-soft);stroke-width:1;}
+  .p-tit{font-family:var(--mono);font-size:7.5px;fill:var(--ink-3);letter-spacing:.12em;}
+  .p-fila{font-family:var(--mono);font-size:8.5px;fill:var(--ink-2);}
+  .p-fila--pain{fill:var(--pain);font-weight:700;}
+  .p-fila--con{fill:var(--signal);font-weight:700;}
+  .p-fila--money{fill:var(--money);font-weight:700;}
+  .p-globo{fill:var(--pain-bg);stroke:var(--pain);stroke-width:.8;}
+
+  /* lo que une el anaquel con cada celular */
+  .liga{fill:none;stroke-width:1.8;stroke-linecap:round;}
+  .liga--pain{stroke:var(--pain);stroke-dasharray:4 3;}
+  .liga--con{stroke:var(--signal);}
+  .t-liga{font-family:var(--mono);font-size:8px;letter-spacing:.03em;text-anchor:middle;}
+  .t-liga--pain{fill:var(--pain);}
+  .t-liga--con{fill:var(--signal);}
+
+  .sw--caja{background:var(--carton);border:1px solid var(--carton-2);height:10px;}
+  .sw--apartada{background:var(--carton);border:1px solid var(--carton-2);border-top:3px solid var(--signal);height:10px;}
+  .sw--sin{background:transparent;color:var(--pain);width:auto;height:auto;font-weight:700;}
+  .sw--guia{background:var(--surface);border:1px solid var(--signal);height:10px;}
 
   @media (prefers-reduced-motion:reduce){
     .e,.chip,.step{transition:none;}
@@ -322,6 +362,10 @@
       background:var(--paper);padding-block:8px;margin-bottom:6px;
       border-bottom:1px solid var(--rule-soft);}
     .stage svg{max-height:33vh;}
+    /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
+       fijo, la línea de lectura se movería sola y el paso brincaría */
+    .readout__v{min-height:3.05em;}
+    .t-anaquel{font-size:13px;}
     /* El dibujo se encoge a un tercio: los rótulos de los ejes crecen para seguir legibles. */
     .eje{font-size:17px;}
     .eje--dato{font-size:15px;}
@@ -421,12 +465,12 @@
 
       <div class="readout" aria-live="polite">
         <span class="readout__k lbl" id="hudK">PED-W-2041 · Pedido en línea</span>
-        <span class="readout__v" id="hudV">día 3, 11:40 pm · 4 pzas · existencia 40 → 36 en los dos lados</span>
+        <span class="readout__v" id="hudV">11:40 pm · 4 pzas · derecha: apartadas en el anaquel · izquierda: se capturan mañana</span>
       </div>
 
       <div class="stage">
-        <svg id="scene" viewBox="0 0 680 338" role="img"
-             aria-label="Dos gráficas de catorce días del mismo producto. Arriba, como se hace hoy: la existencia real del almacén baja con cada venta de mostrador, pero la que publica la tienda en línea se queda arriba; el hueco entre las dos es producto que se vende sin existir, y el día 12 una promoción vende ocho piezas que no hay. Abajo, con un sistema: una sola línea, y la promoción se detiene en cero.">
+        <svg id="scene" viewBox="0 0 680 362" role="img"
+             aria-label="En medio, un anaquel con cuarenta cajas del mismo producto. A los lados, dos celulares que lo venden al mismo tiempo. El de la izquierda es la tienda de hoy: publica un número copiado a mano, sigue diciendo treinta y seis cuando en el anaquel quedan doce, toma veinte pedidos en la promoción y ocho se quedan sin producto, con su factura pedida por WhatsApp y su devolución. El de la derecha lee el anaquel: publica doce cuando hay doce, dice agotado en la pieza trece, cobra con factura enviada y manda los dieciséis paquetes con guía y rastreo.">
           <g id="world"></g>
         </svg>
       </div>
@@ -438,10 +482,10 @@
       </div>
 
       <ul class="legend">
-        <li><span class="sw sw--real"></span>Lo que hay en el almacén</li>
-        <li><span class="sw sw--tienda"></span>Lo que publica la tienda hoy</li>
-        <li><span class="sw sw--fantasma"></span>Se vende sin existir</li>
-        <li><span class="sw sw--con"></span>Con un sistema</li>
+        <li><span class="sw sw--caja"></span>Una pieza en el anaquel</li>
+        <li><span class="sw sw--apartada"></span>Apartada por un pedido en línea</li>
+        <li><span class="sw sw--sin"></span>✕ Pedido sin producto</li>
+        <li><span class="sw sw--guia"></span>Con guía y rastreo</li>
       </ul>
 
       <div class="exp">
@@ -645,91 +689,152 @@
 (function(){
   "use strict";
 
-  /* Un mismo producto, catorce días, dos gráficas. Arriba como se hace hoy: la
-     existencia real baja con cada venta de mostrador y la que publica la tienda
-     se queda arriba; el hueco entre las dos es producto que se vende sin existir.
-     Abajo con un sistema: una sola línea, y la promoción se detiene en cero. */
-  var X0 = 48, XD = 44, DIAS = 14;
-  var PANEL = 104, Y_HOY = 44, Y_CON = 192, MAX = 40;
+  /* Una tienda en línea vende lo que dice su pantalla, no lo que hay en el
+     anaquel. Por eso el dibujo es un anaquel con cuarenta cajas del mismo
+     producto y dos celulares que lo venden al mismo tiempo. El de la
+     izquierda es la tienda de hoy: publica un número copiado a mano. El de la
+     derecha lee el anaquel. Las cajas se van del anaquel con cada venta; lo
+     que cada pantalla dice después de eso es toda la historia. */
+  var CEL = { w:160, h:322, y:24 }, CEL_HOY = 32, CEL_CON = 488;
+  var AN = { x:252, y:44, w:176 };                 // el anaquel
+  var TABLAS = [104, 168, 232, 296];               // altura de cada tabla
+  var CAJA = { w:15, h:26, paso:17.4 };
 
-  function dx(d){ return X0 + (d - 1) * XD; }
-  function dy(y0, v){ return y0 + PANEL - (v / MAX) * PANEL; }
-
-  /* [día, existencia]. Real = lo que hay. Tienda = lo que publica la página hoy. */
-  var REAL   = [[1,40],[3,36],[6,24],[9,12],[12,0],[14,0]];
-  var TIENDA = [[1,40],[3,36],[6,36],[9,36],[12,16],[14,24]];
-
-  function ruta(pts, y0, hasta){
-    return pts.filter(function(p){ return p[0] <= hasta; })
-              .map(function(p, i){ return (i ? 'L' : 'M') + dx(p[0]) + ' ' + dy(y0, p[1]); }).join(' ');
+  /* d = el paso a partir del cual el elemento se ve; h = el paso en que se va */
+  function cuando(d, contenido, h){
+    return '<g class="e" data-d="' + d + '"' + (h !== undefined ? ' data-h="' + h + '"' : '') + '>' + contenido + '</g>';
   }
-  function pto(d, v, y0, clase){
-    return '<circle class="' + clase + '" cx="' + dx(d) + '" cy="' + dy(y0, v) + '" r="4.6"/>';
+  function rotulo(x, y, texto, con){
+    var w = texto.length * 7.4 + 18;
+    return '<rect class="rot-caja' + (con ? ' rot-caja--con' : '') + '" x="' + x + '" y="' + (y - 9) + '" width="' + w + '" height="18" rx="2"/>' +
+           '<text class="rot" x="' + (x + 9) + '" y="' + (y + 4) + '">' + texto + '</text>';
   }
-  function cuando(d, contenido){ return '<g class="e" data-d="' + d + '">' + contenido + '</g>'; }
 
-  var s = "";
+  /* --- el anaquel y sus cuarenta cajas --- */
+  var s = '<rect class="poste" x="' + AN.x + '" y="' + AN.y + '" width="6" height="' + (TABLAS[3] - AN.y + 8) + '"/>' +
+          '<rect class="poste" x="' + (AN.x + AN.w - 6) + '" y="' + AN.y + '" width="6" height="' + (TABLAS[3] - AN.y + 8) + '"/>';
+  TABLAS.forEach(function(ty){
+    s += '<rect class="tabla" x="' + AN.x + '" y="' + ty + '" width="' + AN.w + '" height="7" rx="1"/>';
+  });
+  s += '<text class="t-anaquel" x="' + (AN.x + 2) + '" y="' + (AN.y - 10) + '">ANAQUEL · A-4120</text>';
 
-  /* Marco de cada panel, reja de días y ejes */
-  [Y_HOY, Y_CON].forEach(function(y0){
-    s += '<rect class="panel" x="' + (X0 - 14) + '" y="' + (y0 - 6) + '" width="' + ((DIAS - 1) * XD + 28) + '" height="' + (PANEL + 12) + '" rx="3"/>';
-    [40, 20, 0].forEach(function(v){
-      s += '<line class="reja" x1="' + (X0 - 6) + '" y1="' + dy(y0, v) + '" x2="' + dx(DIAS) + '" y2="' + dy(y0, v) + '"/>';
-      s += '<text class="eje" x="' + (X0 - 12) + '" y="' + (dy(y0, v) + 4) + '" text-anchor="end">' + v + '</text>';
+  /* caja n: tabla = n / 10, lugar = n % 10. Se dibuja parada sobre su tabla. */
+  function caja(n, apartada){
+    var t = Math.floor(n / 10), k = n % 10;
+    var x = AN.x + 9 + k * CAJA.paso, y = TABLAS[t] - CAJA.h;
+    var o = '<rect class="caja" x="' + x + '" y="' + y + '" width="' + CAJA.w + '" height="' + CAJA.h + '" rx="1"/>' +
+            '<line class="cinta" x1="' + (x + CAJA.w / 2) + '" y1="' + y + '" x2="' + (x + CAJA.w / 2) + '" y2="' + (y + CAJA.h) + '"/>';
+    /* la etiqueta de cobre: una banda al frente, que se vea aunque la caja sea chica */
+    if (apartada) o += '<rect class="apartada" x="' + (x + 1.5) + '" y="' + (y + 9) + '" width="' + (CAJA.w - 3) + '" height="7" rx="1"/>';
+    return o;
+  }
+  /* Qué le pasa a cada caja: 24 se venden en mostrador (paso 02), 4 se apartan
+     con el pedido de la noche (paso 01), 12 con la promoción (paso 03), y las
+     16 apartadas salen con guía (paso 05). */
+  var MOSTRADOR = [], NOCHE = [36, 37, 38, 39], PROMO = [];
+  for (var n = 0; n < 24; n++) MOSTRADOR.push(n);
+  for (var m = 24; m < 36; m++) PROMO.push(m);
+  s += cuando(0, MOSTRADOR.map(function(n){ return caja(n); }).join(''), 1);
+  s += cuando(0, NOCHE.map(function(n){ return caja(n, true); }).join(''), 4);
+  s += cuando(0, PROMO.map(function(n){ return caja(n); }).join(''), 2);
+  s += cuando(2, PROMO.map(function(n){ return caja(n, true); }).join(''), 4);
+
+  /* la cuenta real, bajo el anaquel */
+  function cuenta(texto){ return '<text class="t-cuenta" x="' + (AN.x + 2) + '" y="' + (TABLAS[3] + 22) + '">' + texto + '</text>'; }
+  s += cuando(0, cuenta('40 en anaquel · 4 apartadas'), 1);
+  s += cuando(1, cuenta('16 en anaquel · 4 apartadas'), 2);
+  s += cuando(2, cuenta('16 en anaquel · 16 apartadas'), 4);
+  s += cuando(4, cuenta('0 en anaquel · 16 con guía'));
+
+  /* los paquetes con guía, al pie del anaquel */
+  var py = TABLAS[3] + 34, paquetes = '';
+  [0, 1, 2].forEach(function(k){
+    var x = AN.x + 10 + k * 34;
+    paquetes += '<rect class="paquete" x="' + x + '" y="' + py + '" width="28" height="20" rx="1"/>' +
+                '<rect class="guia" x="' + (x + 5) + '" y="' + (py + 5) + '" width="18" height="9" rx="1"/>';
+  });
+  paquetes += '<text class="t-cuenta" x="' + (AN.x + 116) + '" y="' + (py + 14) + '">GUÍA 8837…</text>';
+  s += cuando(4, paquetes);
+
+  /* lo que une el anaquel con cada celular */
+  var ly = 150;
+  s += '<path class="liga liga--pain" d="M' + (CEL_HOY + CEL.w + 4) + ' ' + ly + ' L' + (AN.x - 8) + ' ' + ly + '"/>' +
+       '<text class="t-liga t-liga--pain" x="' + ((CEL_HOY + CEL.w + AN.x) / 2) + '" y="' + (ly - 8) + '">número</text>' +
+       '<text class="t-liga t-liga--pain" x="' + ((CEL_HOY + CEL.w + AN.x) / 2) + '" y="' + (ly + 13) + '">copiado</text>' +
+       '<path class="liga liga--con" d="M' + (AN.x + AN.w + 8) + ' ' + ly + ' L' + (CEL_CON - 4) + ' ' + ly + '"/>' +
+       '<text class="t-liga t-liga--con" x="' + ((AN.x + AN.w + CEL_CON) / 2) + '" y="' + (ly - 8) + '">lee el</text>' +
+       '<text class="t-liga t-liga--con" x="' + ((AN.x + AN.w + CEL_CON) / 2) + '" y="' + (ly + 13) + '">anaquel</text>';
+
+  /* --- los dos celulares --- */
+  function celular(x, con){
+    return '<rect class="cel' + (con ? ' cel--con' : '') + '" x="' + x + '" y="' + CEL.y + '" width="' + CEL.w + '" height="' + CEL.h + '" rx="16"/>' +
+           '<rect class="pantalla" x="' + (x + 7) + '" y="' + (CEL.y + 9) + '" width="' + (CEL.w - 14) + '" height="' + (CEL.h - 18) + '" rx="10"/>';
+  }
+  s += celular(CEL_HOY, false) + celular(CEL_CON, true);
+  s += rotulo(CEL_HOY + 10, CEL.y, 'HOY', false) + rotulo(CEL_CON + 10, CEL.y, 'CON EL SISTEMA', true);
+
+  /* La pantalla de un momento: hora, producto, existencia, botón y la lista de
+     abajo. Cada paso tiene su pantalla completa; así ninguna se confunde. */
+  function pantalla(x, con, p){
+    var sx = x + 16, sy = CEL.y + 22, o = '';
+    o += '<text class="p-hora" x="' + sx + '" y="' + (sy + 6) + '">tienda</text>' +
+         '<text class="p-hora p-hora--fuerte" x="' + (x + CEL.w - 16) + '" y="' + (sy + 6) + '" text-anchor="end">' + p.hora + '</text>';
+    o += '<rect class="p-foto" x="' + sx + '" y="' + (sy + 16) + '" width="34" height="34" rx="3"/>' +
+         '<rect class="caja" x="' + (sx + 9) + '" y="' + (sy + 25) + '" width="16" height="16" rx="1"/>' +
+         '<line class="cinta" x1="' + (sx + 17) + '" y1="' + (sy + 25) + '" x2="' + (sx + 17) + '" y2="' + (sy + 41) + '"/>' +
+         '<text class="p-nom" x="' + (sx + 42) + '" y="' + (sy + 28) + '">Bocina BT</text>' +
+         '<text class="p-sku" x="' + (sx + 42) + '" y="' + (sy + 39) + '">A-4120</text>' +
+         '<text class="p-precio" x="' + (sx + 42) + '" y="' + (sy + 52) + '">$1,290</text>';
+    o += '<text class="p-stock' + (p.tono ? ' p-stock--' + p.tono : '') + '" x="' + sx + '" y="' + (sy + 70) + '">' + p.stock + '</text>';
+    if (p.nota) o += '<text class="p-nota" x="' + sx + '" y="' + (sy + 81) + '">' + p.nota + '</text>';
+    var by = sy + 88, agotado = p.boton === 'AGOTADO';
+    o += '<rect class="p-boton' + (agotado ? ' p-boton--agotado' : con ? ' p-boton--con' : '') + '" x="' + sx + '" y="' + by + '" width="' + (CEL.w - 32) + '" height="20" rx="4"/>' +
+         '<text class="p-boton-t' + (agotado ? ' p-boton-t--agotado' : '') + '" x="' + (x + CEL.w / 2) + '" y="' + (by + 13.5) + '">' + p.boton + '</text>';
+    var fy = by + 34;
+    o += '<line class="p-raya" x1="' + sx + '" y1="' + (fy - 14) + '" x2="' + (x + CEL.w - 16) + '" y2="' + (fy - 14) + '"/>' +
+         '<text class="p-tit" x="' + sx + '" y="' + fy + '">' + p.titulo + '</text>';
+    p.filas.forEach(function(f, i){
+      var y = fy + 15 + i * 14;
+      if (f[1] === 'globo'){
+        o += '<rect class="p-globo" x="' + sx + '" y="' + (y - 10) + '" width="' + (f[0].length * 4.9 + 12) + '" height="14" rx="7"/>' +
+             '<text class="p-fila" x="' + (sx + 6) + '" y="' + y + '">' + f[0] + '</text>';
+      } else {
+        o += '<text class="p-fila' + (f[1] ? ' p-fila--' + f[1] : '') + '" x="' + sx + '" y="' + y + '">' + f[0] + '</text>';
+      }
     });
-  });
-  [1, 6, 12, 14].forEach(function(d){
-    var fin = d === DIAS;   // el último rótulo se alinea a la derecha para no salirse del marco
-    s += '<text class="eje" x="' + (fin ? dx(d) + 8 : dx(d) - 6) + '" y="' + (Y_CON + PANEL + 26) + '"' +
-         (fin ? ' text-anchor="end"' : '') + '>día ' + d + '</text>';
-  });
-  s += '<text class="eje eje--panel" x="' + (X0 - 14) + '" y="' + (Y_HOY - 12) + '">HOY · dos existencias</text>';
-  s += '<text class="eje eje--panel" x="' + (X0 - 14) + '" y="' + (Y_CON - 12) + '">CON UN SISTEMA · una existencia</text>';
-
-  /* --- Paso 01: el pedido de la noche. Las dos líneas bajan juntas. --- */
-  s += cuando(0, '<path class="linea linea--real" d="' + ruta(REAL, Y_HOY, 3) + '"/>' +
-                 '<path class="linea linea--tienda" d="' + ruta(TIENDA, Y_HOY, 3) + '"/>' +
-                 pto(3, 36, Y_HOY, 'punto punto--real') +
-                 '<path class="linea linea--con" d="' + ruta(REAL, Y_CON, 3) + '"/>' +
-                 pto(3, 36, Y_CON, 'punto punto--con'));
-
-  /* --- Paso 02: el mostrador vende y las líneas se separan. El hueco es fantasma. --- */
-  s += cuando(1, '<polygon class="fantasma" points="' +
-                   dx(3) + ',' + dy(Y_HOY, 36) + ' ' + dx(6) + ',' + dy(Y_HOY, 36) + ' ' + dx(9) + ',' + dy(Y_HOY, 36) + ' ' +
-                   dx(9) + ',' + dy(Y_HOY, 12) + ' ' + dx(6) + ',' + dy(Y_HOY, 24) + ' ' + dx(3) + ',' + dy(Y_HOY, 36) + '"/>' +
-                 '<path class="linea linea--real" d="' + ruta(REAL, Y_HOY, 9) + '"/>' +
-                 '<path class="linea linea--tienda" d="' + ruta(TIENDA, Y_HOY, 9) + '"/>' +
-                 pto(9, 12, Y_HOY, 'punto punto--real') + pto(9, 36, Y_HOY, 'punto punto--tienda') +
-                 '<path class="linea linea--con" d="' + ruta(REAL, Y_CON, 9) + '"/>' +
-                 pto(9, 12, Y_CON, 'punto punto--con'));
-
-  /* --- Paso 03: la promoción vende 20 donde hay 12. Ocho piezas fantasma. --- */
-  s += cuando(2, '<polygon class="fantasma" points="' +
-                   dx(9) + ',' + dy(Y_HOY, 36) + ' ' + dx(12) + ',' + dy(Y_HOY, 16) + ' ' + dx(12) + ',' + dy(Y_HOY, 0) + ' ' + dx(9) + ',' + dy(Y_HOY, 12) + '"/>' +
-                 '<path class="linea linea--real" d="' + ruta(REAL, Y_HOY, 12) + '"/>' +
-                 '<path class="linea linea--tienda" d="' + ruta(TIENDA, Y_HOY, 12) + '"/>' +
-                 '<g class="cruz"><line x1="' + (dx(12)-7) + '" y1="' + (dy(Y_HOY,0)-7) + '" x2="' + (dx(12)+7) + '" y2="' + (dy(Y_HOY,0)+7) + '"/>' +
-                 '<line x1="' + (dx(12)+7) + '" y1="' + (dy(Y_HOY,0)-7) + '" x2="' + (dx(12)-7) + '" y2="' + (dy(Y_HOY,0)+7) + '"/></g>' +
-                 '<path class="linea linea--con" d="' + ruta(REAL, Y_CON, 12) + '"/>' +
-                 pto(12, 0, Y_CON, 'punto punto--con'));
-
-  /* --- Paso 04: el cobro y la factura, en el panel de abajo. --- */
-  s += cuando(3, '<circle class="anillo" cx="' + dx(12) + '" cy="' + dy(Y_CON, 0) + '" r="10"/>');
-
-  /* --- Paso 05: la guía y las ocho devoluciones que regresan a la tienda. --- */
-  s += cuando(4, '<path class="linea linea--tienda" d="M' + dx(12) + ' ' + dy(Y_HOY, 16) + ' L' + dx(14) + ' ' + dy(Y_HOY, 24) + '"/>' +
-                 pto(14, 24, Y_HOY, 'punto punto--tienda') +
-                 '<path class="linea linea--real" d="M' + dx(12) + ' ' + dy(Y_HOY, 0) + ' L' + dx(14) + ' ' + dy(Y_HOY, 0) + '"/>' +
-                 '<path class="linea linea--con" d="M' + dx(12) + ' ' + dy(Y_CON, 0) + ' L' + dx(14) + ' ' + dy(Y_CON, 0) + '"/>');
-
-  /* --- Paso 06: el tablero. Arriba sigue el hueco; abajo, nada que devolver. --- */
-  /* El total va en la esquina baja izquierda: es la única zona vacía en los dos paneles. */
-  function total(y0, texto, clase){
-    var x = dx(1) + 6, y = y0 + PANEL - 34;
-    return '<rect class="resumen' + clase + '" x="' + x + '" y="' + y + '" width="118" height="22" rx="2"/>' +
-           '<text class="eje eje--dato' + clase.replace('resumen--con', 'eje--con') + '" x="' + (x + 8) + '" y="' + (y + 15) + '">' + texto + '</text>';
+    return o;
   }
-  s += cuando(5, total(Y_HOY, '8 sin existir', '') + total(Y_CON, '0 sin existir', ' resumen--con'));
+
+  var HOY = [
+    { hora:'11:40 pm', stock:'Disponibles: 36', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · 4 pzas'], ['se captura mañana', 'pain'], ['a mano, en el sistema', 'pain']] },
+    { hora:'día 9', stock:'Disponibles: 36', tono:'pain', nota:'número de hace una semana', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · capturado'], ['mostrador vendió 24', 'pain'], ['la tienda no se enteró', 'pain']] },
+    { hora:'día 12 · PROMO', stock:'Disponibles: 36', tono:'pain', nota:'en el anaquel hay 12', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS · 20',
+      filas:[['12 con producto'], ['8 sin producto ✕', 'pain'], ['PED-W-2058 ✕', 'pain'], ['PED-W-2061 ✕', 'pain'], ['PED-W-2064 ✕ …', 'pain']] },
+    { hora:'día 12', stock:'Disponibles: 36', tono:'pain', boton:'AGREGAR AL CARRITO', titulo:'COBRO',
+      filas:[['20 pagos en la pasarela'], ['por conciliar a mano', 'pain'], ['«¿y mi factura?»', 'globo'], ['×8 por WhatsApp', 'pain']] },
+    { hora:'día 14', stock:'Disponibles: 36', tono:'pain', boton:'AGREGAR AL CARRITO', titulo:'ENVÍOS',
+      filas:[['12 guías copiadas a mano'], ['8 devoluciones', 'pain'], ['8 disculpas', 'pain'], ['8 reembolsos', 'pain']] },
+    { hora:'cierre de mes', stock:'Disponibles: 36', tono:'pain', boton:'AGREGAR AL CARRITO', titulo:'CANAL EN LÍNEA',
+      filas:[['ventas: 20'], ['devoluciones: 8', 'pain'], ['margen: se desconoce', 'pain'], ['costo de envío: ?', 'pain']] }
+  ];
+  var CON = [
+    { hora:'11:40 pm', stock:'Disponibles: 36', tono:'con', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · 4 pzas'], ['4 apartadas ✓', 'con'], ['surtible al amanecer', 'con']] },
+    { hora:'día 9', stock:'Disponibles: 12', tono:'con', nota:'una sola existencia', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · surtido ✓'], ['mostrador −24', 'con'], ['la tienda publica 12', 'con']] },
+    { hora:'día 12 · PROMO', stock:'Disponibles: 0', tono:'con', nota:'se vendieron las 12', boton:'AGOTADO', titulo:'PEDIDOS · 12',
+      filas:[['12 con producto ✓', 'con'], ['0 sin producto', 'con'], ['pieza 13: «agotado»', 'con']] },
+    { hora:'día 12', stock:'Disponibles: 0', tono:'con', boton:'AGOTADO', titulo:'COBRO',
+      filas:[['12 pagos aprobados ✓', 'con'], ['aplicados a su pedido'], ['CFDI B-771 enviado ✓', 'con'], ['datos fiscales: cliente']] },
+    { hora:'día 14', stock:'Disponibles: 0', tono:'con', boton:'AGOTADO', titulo:'ENVÍOS',
+      filas:[['GUÍA 8837 · rastreo ✓', 'con'], ['16 paquetes en camino'], ['el cliente rastrea solo'], ['devoluciones: 0', 'money']] },
+    { hora:'cierre de mes', stock:'Disponibles: 0', tono:'con', boton:'AGOTADO', titulo:'CANAL EN LÍNEA',
+      filas:[['ventas: 16'], ['devoluciones: 0', 'money'], ['margen real ✓', 'money'], ['envío ya descontado ✓', 'money']] }
+  ];
+  HOY.forEach(function(p, i){ s += cuando(i, pantalla(CEL_HOY, false, p), i + 1); });
+  CON.forEach(function(p, i){ s += cuando(i, pantalla(CEL_CON, true, p), i + 1); });
 
   document.getElementById("world").innerHTML = s;
 
@@ -737,22 +842,22 @@
   var STATES = [
     { label:"01 / 06 · El pedido de la noche",
       k:"PED-W-2041 · Pedido en línea",
-      v:"día 3, 11:40 pm · 4 pzas · existencia 40 → 36 en los dos lados" },
+      v:"11:40 pm · 4 pzas · derecha: apartadas en el anaquel · izquierda: se capturan mañana" },
     { label:"02 / 06 · Dos existencias",
       k:"SKU A-4120 · 36 publicadas, 12 reales",
-      v:"día 9 · el mostrador vendió 24 y la tienda no se enteró" },
+      v:"día 9 · el mostrador vendió 24 · la pantalla de hoy no se enteró; la otra publica 12" },
     { label:"03 / 06 · La promoción",
       k:"PROMO-09 · 20 vendidas, 12 existían",
-      v:"día 12 · 8 clientes pagaron producto que no hay" },
+      v:"día 12 · izquierda: 8 pedidos sin producto · derecha: «agotado» en la pieza 13" },
     { label:"04 / 06 · El cobro y la factura",
-      k:"CFDI B-771 · Timbrado al cliente",
-      v:"pago aplicado a su pedido · datos fiscales capturados por el cliente" },
+      k:"CFDI B-771 · Enviado al cliente",
+      v:"pago aplicado a su pedido · CFDI enviado al cliente · izquierda: 8 facturas por WhatsApp" },
     { label:"05 / 06 · La guía y la devolución",
       k:"GUÍA 8837 · Con rastreo",
-      v:"día 14 · hoy: 8 devoluciones con disculpa · con sistema: cero" },
+      v:"día 14 · 16 paquetes con rastreo y cero devoluciones · izquierda: 8 devoluciones" },
     { label:"06 / 06 · El tablero por canal",
       k:"Canal en línea · Margen real",
-      v:"ventas, devoluciones y costo de envío por canal, ya descontados" }
+      v:"ventas, devoluciones y costo de envío por canal · izquierda: dos cifras sin conocer" }
   ];
 
   var labelEl = document.getElementById("stateLabel");
@@ -770,7 +875,10 @@
     current = i;
     var st = STATES[i];
 
-    elems.forEach(function(el){ el.classList.toggle("visible", i >= +el.dataset.d); });
+    elems.forEach(function(el){
+      var h = el.dataset.h;
+      el.classList.toggle("visible", i >= +el.dataset.d && (h === undefined || i < +h));
+    });
 
     chipEls.forEach(function(el, n){
       if (el === totEl) return;
