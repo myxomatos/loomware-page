@@ -66,7 +66,7 @@ const plantilla = (s, tipo = 'servicio') => {
     <title>${esc(s.titulo)}</title>
     <meta name="description" content="${esc(s.descripcion)}" />
     <link rel="canonical" href="${DOMINIO}/${ruta}" />
-    <meta name="theme-color" content="#6338FF" />
+    <meta name="theme-color" content="#5326D9" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
