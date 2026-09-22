@@ -155,7 +155,7 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       MP4 en `public/video/` si pesa menos de ~15 MB.
 - [ ] **Analítica.** Crear la propiedad de Google Analytics 4 y dar de alta
       `loomware.com.mx` en Search Console (por DNS o con `VITE_GSC_VERIFICATION`). Enviar el
-      sitemap: `https://loomware.com.mx/sitemap.xml` —ahora con **23 URLs**—. En GA4 hay que
+      sitemap: `https://loomware.com.mx/sitemap.xml` —ahora con **24 URLs**—. En GA4 hay que
       marcar como conversiones los eventos que el código ya reporta: `generate_lead` al llegar
       a `/gracias` (con `metodo` = formulario o calculadora), `click_whatsapp` con el origen,
       y `calculadora_inicio` cuando alguien empieza a contestar. **Hasta que esto no esté,
@@ -212,21 +212,23 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       El resultado se ve sin pedir nada; el correo se pide después, y el aviso que le llega a
       Loomware trae las respuestas y la cuenta ya hecha. Enlazada desde el pie y desde una banda
       en el inicio, justo antes del formulario. En el sitemap (19 URLs).
-- [x] **Los recorridos, como contenido del sitio (2026-09-21).** Seis páginas que explican
-      el ERP, el CRM, la nómina, el comercio en línea, la automatización y el software a medida
-      paso a paso, con un dibujo que cambia
+- [x] **Los recorridos, como contenido del sitio (2026-09-21).** Siete páginas que explican
+      el ERP, el CRM, la nómina, el comercio en línea, la automatización, el software a medida y
+      la infraestructura cloud paso a paso, con un dibujo que cambia
       mientras se baja. Cada uno es **un objeto que el cliente reconoce, no una gráfica**: la
       bodega con su camión (ERP), un tablero de corcho con hilos a fechas (CRM), la tarjeta de
       checado que se vuelve recibo (nómina), un anaquel entre dos celulares (tienda) y una
       oficina con tubo neumático, como el del banco (automatización) y dos maniquíes de sastre,
-      el traje de talla única contra el traje a medida (software a medida). Se
+      el traje de talla única contra el traje a medida (software a medida) y el cuartito del
+      servidor de la oficina contra la operación en otro lado (cloud). Se
       escriben en `recorridos-fuente/<slug>.html`; `scripts/recorridos.js` las empaqueta en
       `public/recorridos/` antes de cada build y `src/data/recorridos.js` dice cuáles hay.
-      **Indexables y en el sitemap** —hoy 23 URLs—, y cada página de servicio enlaza la
+      **Indexables y en el sitemap** —hoy 24 URLs—, y cada página de servicio enlaza la
       suya con una banda «Ver el recorrido completo», que aparece sola en cuanto un servicio
       tenga el suyo escrito. Se abren sin cuenta desde cualquier celular:
       <https://alan.loomware-page.pages.dev/recorridos/erp>, `/recorridos/crm`,
-      `/recorridos/nomina`, `/recorridos/tienda-en-linea`, `/recorridos/automatizacion` y `/recorridos/software-a-medida`.
+      `/recorridos/nomina`, `/recorridos/tienda-en-linea`, `/recorridos/automatizacion`, `/recorridos/software-a-medida` y
+      `/recorridos/infraestructura-cloud`.
       En el inicio, cada solución con recorrido lleva su enlace «Paso a paso», también las de la
       lista compacta. Verificados con medición: sin
       desborde de 390 a 1440 px, texto y escena sin desfase en escritorio y celular, modo

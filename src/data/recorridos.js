@@ -57,6 +57,15 @@ export const RECORRIDOS = [
       'Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu proceso, por etapas, integrado y con el código a tu nombre.',
   },
   {
+    slug: 'infraestructura-cloud',
+    servicio: 'infraestructura-cloud',
+    titulo: 'Del cuarto del servidor a cualquier lugar',
+    resumen:
+      'Una semana de tu empresa dos veces: con el servidor en el cuartito de la oficina, y con la operación viviendo en otro lado, disponible desde donde estés.',
+    descripcion:
+      'Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída vigilada, los accesos por persona y la oficina sin cuartito del servidor.',
+  },
+  {
     slug: 'tienda-en-linea',
     servicio: 'tienda-en-linea',
     titulo: 'Del carrito a la puerta',
