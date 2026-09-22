@@ -784,9 +784,6 @@
   }
   window.addEventListener("scroll", elegir, { passive:true });
   window.addEventListener("resize", elegir, { passive:true });
-  ["wheel", "touchstart"].forEach(function(ev){
-    window.addEventListener(ev, function(){ if (timer) detener(); }, { passive:true });
-  });
   elegir();
 
   stepEls.forEach(function(el){
@@ -824,6 +821,11 @@
       if (n >= STATES.length){ detener(); return; }
       irA(n);
     }, 4500);
+  });
+
+  /* Si la persona toma el control, la reproducción se detiene sola. */
+  ["wheel", "touchstart"].forEach(function(ev){
+    window.addEventListener(ev, function(){ detener(); }, { passive:true });
   });
 })();
 </script>

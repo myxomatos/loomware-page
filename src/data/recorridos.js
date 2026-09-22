@@ -29,6 +29,15 @@ export const RECORRIDOS = [
     descripcion:
       'Recorrido paso a paso de un CRM: de dónde entra el prospecto, la visita, la cotización, el seguimiento que nadie da y el cierre.',
   },
+  {
+    slug: 'nomina',
+    servicio: 'nomina',
+    titulo: 'De la checada al recibo',
+    resumen:
+      'Una quincena completa, día por día: cuándo llega cada incidencia, cuándo se calcula y cuándo cae el dinero.',
+    descripcion:
+      'Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega.',
+  },
 ]
 
 export const recorridoDeServicio = (slug) => RECORRIDOS.find((r) => r.servicio === slug)

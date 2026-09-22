@@ -198,10 +198,12 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       Loomware trae las respuestas y la cuenta ya hecha. Enlazada desde el pie y desde una banda
       en el inicio, justo antes del formulario. En el sitemap (19 URLs).
 - [x] **Los recorridos, como contenido del sitio (2026-09-21).** Dos páginas que explican el
-      ERP y el CRM paso a paso, con un dibujo que cambia mientras se baja. Se escriben en
+      ERP, el CRM y la nómina paso a paso, con un dibujo que cambia mientras se baja. Cada
+      uno tiene su propia forma —una bodega, una línea de tiempo, los días de la quincena—,
+      porque la forma del dibujo tiene que ser la del problema. Se escriben en
       `recorridos-fuente/<slug>.html`; `scripts/recorridos.js` las empaqueta en
       `public/recorridos/` antes de cada build y `src/data/recorridos.js` dice cuáles hay.
-      **Indexables y en el sitemap** —de 16 a 18 URLs—, y cada página de servicio enlaza la
+      **Indexables y en el sitemap** —hoy 20 URLs con nómina incluida—, y cada página de servicio enlaza la
       suya con una banda «Ver el recorrido completo», que aparece sola en cuanto un servicio
       tenga el suyo escrito. Se abren sin cuenta desde cualquier celular:
       <https://alan.loomware-page.pages.dev/recorridos/erp> y `/recorridos/crm`.
