@@ -239,7 +239,10 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       3. **La descripción de búsqueda pasó de 178 a 155 caracteres** —Google corta en ~155— y
          ninguna de las 14 páginas generadas pasa del límite.
       4. **Los ocho recorridos se ven en la primera pantalla**, bajo el hero. Son lo único que
-         ningún competidor tiene y había que bajar media página para encontrarlos.
+         ningún competidor tiene y había que bajar media página para encontrarlos. Como quedaron
+         arriba, **el «paso a paso» salió de las tarjetas de soluciones**: tenerlo en los dos
+         lugares de la misma página partía la atención. Cada tarjeta vuelve a una sola acción y
+         cada renglón de la lista, a un solo enlace.
       5. **Tipografía de titular propia: Archivo**, de Omnibus-Type (Buenos Aires), la misma del
          texto de los recorridos. Recortada y con el eje variable fijo en 700 pesa **7.7 KB**
          (`npm run fuente:titulares`). Inter se queda en el cuerpo y Azeret Mono en etiquetas y
