@@ -117,15 +117,20 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
 
 Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
-- [ ] **Prueba social — falta la autorización de GT-SHOP y falta el número.** El 2026-09-22
-      entró el primer caso real: GT-SHOP (Grafeno Tech Shop, cámaras y equipo de seguridad),
-      con su tienda en línea sobre Shopify, y con eso la sección «Clientes» ya se muestra en
-      el inicio. Quedan dos cosas, las dos de Aldo: **(a)** pedirle a GT-SHOP que autorice el
-      uso de su marca —es la regla que el propio `src/data/casos.js` documenta; sin
-      autorización se vacían `logo` y `cliente` y el caso se queda descrito por giro—, y
-      **(b)** una medición real que reemplace el `resultado`, que hoy dice sólo lo
-      verificable. Ayudaría además el **archivo original del logotipo** (PNG o SVG): el de hoy
-      salió de una foto de pantalla y el dibujo de arriba quedó tenue.
+- [ ] **Casos de éxito — el visto bueno de Eduardo Díaz.** El 2026-09-22 entró el primer
+      caso real: **GT-SHOP**, de **Eduardo Díaz** —venta, instalación y mantenimiento de
+      cámaras y equipo de seguridad—, con su tienda sobre Shopify y el ecosistema alrededor:
+      catálogo, pago, envío, factura y devolución en un mismo flujo, con la instalación y el
+      mantenimiento como parte de la venta. La sección ya se muestra en el inicio, firmada
+      con una frase de Eduardo.
+
+      Falta que **Eduardo apruebe dos cosas antes de producción**: la **cita tal como está
+      escrita** —es su palabra, no la nuestra; la línea es `cita` en `src/data/casos.js`— y
+      el **uso de su marca**, que es la regla que ese mismo archivo documenta; sin ella se
+      vacían `logo` y `cliente` y el caso se queda descrito por giro. Suma, si lo tiene: el
+      **archivo original del logotipo** (PNG o SVG), porque el de hoy salió de una foto de
+      pantalla y el dibujo de arriba quedó tenue, y una **medición real** —pedidos, tiempo de
+      entrega, devoluciones— que reemplace el `resultado`, que hoy dice sólo lo verificable.
 - [ ] **Equipo.** `src/data/equipo.js`: cargo, dos líneas de bio, foto cuadrada (600×600, en
       `public/equipo/`) y LinkedIn de Aldo y de Alan. Las tarjetas aparecen solas cuando una
       persona tiene cargo y foto. Falta también el apellido de Alan.
