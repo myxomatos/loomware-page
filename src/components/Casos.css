@@ -10,6 +10,34 @@
   gap: var(--sp-5);
   padding: var(--sp-6);
 }
+
+/* Un solo caso: se reparte en dos columnas en cuanto hay ancho para las dos.
+   Apilado ocupaba una pantalla y media de texto en una columna de 440 px. */
+.casos__grid--uno {
+  grid-template-columns: minmax(0, 940px);
+}
+@media (min-width: 900px) {
+  .casos__grid--uno .caso {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    grid-template-areas:
+      "quien qué"
+      "cita qué";
+    align-content: start;
+    gap: var(--sp-6) var(--sp-8);
+    padding: var(--sp-8);
+  }
+  .casos__grid--uno .caso__head {
+    grid-area: quien;
+  }
+  .casos__grid--uno .caso__cita {
+    grid-area: cita;
+    align-self: start;
+  }
+  .casos__grid--uno .caso__detalle {
+    grid-area: qué;
+  }
+}
 .caso__head {
   display: flex;
   flex-direction: column;
@@ -53,20 +81,36 @@
   color: var(--text-900);
   font-weight: 600;
 }
+/* La cita cierra la tarjeta y es lo que más convence, así que se lee como
+   titular: tipografía de titular, tamaño de entrada y al color del texto
+   fuerte. En cursiva y en gris chico —como estaba— se leía como pie de
+   página. La regla es cobre, no morada: el morado ya lo trae el bloque de
+   resultado justo arriba y dos moradas seguidas se anulan. */
 .caso__cita {
   margin: 0;
-  padding-left: var(--sp-4);
-  border-left: 3px solid var(--purple-400);
-  font-size: var(--fs-sm);
-  font-style: italic;
-  color: var(--text-600);
-}
-.caso__cita footer {
-  margin-top: var(--sp-2);
-  font-size: var(--fs-xs);
-  font-style: normal;
-  font-weight: 600;
+  padding-left: var(--sp-5);
+  border-left: 3px solid var(--copper-500);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: var(--lh-snug);
   color: var(--text-900);
+  text-wrap: pretty;
+}
+.caso__cita p {
+  margin: 0;
+}
+/* Quién lo dijo, como la firma de un crédito: monoespaciada y en cobre, igual
+   que las etiquetas de dato del resto de la página. Firmada se puede
+   comprobar; sin nombre sería una frase nuestra. */
+.caso__cita footer {
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--copper-500);
 }
 
 /* El logotipo del cliente: un solo tono, a media altura de una línea de

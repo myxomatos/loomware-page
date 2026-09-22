@@ -1,11 +1,15 @@
 /*
- * Casos reales para la sección "Resultados con clientes". La sección y el
- * enlace del footer aparecen sólo cuando este arreglo tiene al menos un caso.
+ * Casos de éxito. La sección `#casos` y el enlace del footer aparecen sólo
+ * cuando este arreglo tiene al menos un caso.
  *
  * Reglas: nada inventado ni redondeado hacia arriba. Si el cliente no autoriza
  * su nombre, se describe por giro, tamaño y ciudad ("Distribuidora de 45
  * empleados en Ecatepec") y se deja `cliente` vacío. Los resultados deben
  * ser medibles y haberse medido de verdad.
+ *
+ * La cita va **con el nombre de quien la dijo**, y se publica sólo con su
+ * visto bueno: es su palabra, no la nuestra. Un caso firmado por el dueño
+ * pesa más que tres párrafos escritos por nosotros.
  *
  * Campos:
  *   cliente      nombre comercial, o '' si es anónimo
@@ -17,24 +21,23 @@
  *                medición, se describe lo que sí es verificable y se deja el
  *                número para cuando exista. Jamás una cifra estimada.
  *   logo         ruta en public/clientes/, sólo con autorización de marca
- *   sitio        URL pública del cliente, opcional
- *   cita, autor  frase textual y quién la dijo, opcionales
+ *   cita, autor  frase textual y quién la dijo, aprobadas por esa persona
  *
  * Para preparar un logotipo: `node scripts/logo-cliente.js <origen> <destino>`.
  */
 export const CASOS = [
   {
     cliente: 'GT-SHOP',
-    descripcion: 'Grafeno Tech Shop · venta de cámaras y equipo de seguridad',
+    descripcion: 'Venta, instalación y mantenimiento de cámaras y equipo de seguridad',
     servicio: 'Comercio en línea',
     reto:
-      'Vender en línea su catálogo de cámaras y equipo de seguridad sin montar una operación aparte de la del mostrador.',
+      'Quien compra una cámara también espera que se la instalen y le den mantenimiento. Vender en línea tenía que sostener las tres cosas con la misma operación.',
     solucion:
-      'Tienda en línea sobre Shopify, con el catálogo, los pagos y los envíos conectados en un mismo flujo.',
+      'Tienda en línea sobre Shopify y el ecosistema completo alrededor: catálogo, pago, envío, factura y devolución en un mismo flujo, con la instalación y el mantenimiento como parte de la venta.',
     resultado:
-      'La tienda opera en línea: el catálogo se publica desde un solo lugar y cada pedido entra con su pago y su envío.',
+      'Un pedido entra y sale completo —se cobra, se entrega, se instala, se factura y, si hace falta, se devuelve— dentro del mismo sistema.',
     logo: '/clientes/gt-shop.png',
-    cita: '',
-    autor: '',
+    cita: 'Vendemos la cámara, la instalamos y le damos mantenimiento. Ahora todo eso es una sola venta.',
+    autor: 'Eduardo Díaz · GT-SHOP',
   },
 ]

@@ -30,7 +30,7 @@ const COLUMNS = [
     title: 'Empresa',
     links: [
       { label: 'Quiénes somos', href: '/#nosotros' },
-      ...(CASOS.length ? [{ label: 'Resultados con clientes', href: '/#casos' }] : []),
+      ...(CASOS.length ? [{ label: 'Casos de éxito', href: '/#casos' }] : []),
       { label: 'Preguntas frecuentes', href: '/#faq' },
       { label: 'Aviso de privacidad', href: '/aviso-de-privacidad' },
     ],

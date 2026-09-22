@@ -3,8 +3,11 @@ import { CASOS } from '../data/casos'
 import './Casos.css'
 
 /*
- * Prueba social. No renderiza nada hasta que src/data/casos.js tenga al menos
+ * Casos de éxito. No renderiza nada hasta que src/data/casos.js tenga al menos
  * un caso real; el footer también oculta su enlace mientras tanto.
+ *
+ * La cita cierra la tarjeta y va firmada: la frase del dueño convence más que
+ * cualquier párrafo nuestro, y firmada se puede comprobar.
  */
 export default function Casos() {
   if (CASOS.length === 0) return null
@@ -14,13 +17,16 @@ export default function Casos() {
       <div className="container">
         <header className="section__head">
           <span className="eyebrow">Clientes</span>
-          <h2>Empresas que ya operan así</h2>
+          <h2>Casos de éxito</h2>
           <p className="section__subtitle">
-            Qué se construyó y qué cambió. Su marca aparece aquí porque ellos lo autorizaron.
+            Qué se construyó, qué cambió y lo que dice quien lo opera todos los días.
           </p>
         </header>
 
-        <ul className="casos__grid">
+        {/* Con un solo caso, la tarjeta angosta dejaba media pantalla en blanco y
+            estiraba el texto a diez renglones. Con uno solo se abre a dos columnas:
+            quién es y qué dijo a la izquierda, qué se hizo a la derecha. */}
+        <ul className={`casos__grid${CASOS.length === 1 ? ' casos__grid--uno' : ''}`}>
           {CASOS.map((c) => (
             <li key={c.descripcion} className="card caso">
               <div className="caso__head">
