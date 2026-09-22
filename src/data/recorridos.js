@@ -48,6 +48,15 @@ export const RECORRIDOS = [
       'Recorrido paso a paso de la automatización de procesos: el pedido que llega por WhatsApp, la captura, el pago que libera, el aviso al cliente, la alerta de existencia y el reporte del lunes que se arma solo.',
   },
   {
+    slug: 'software-a-medida',
+    servicio: 'software-a-medida',
+    titulo: 'De la talla única a tu medida',
+    resumen:
+      'Tu proceso de cotización en la sastrería: las medidas, el patrón, la primera prueba, los ajustes, las conexiones y el patrón a tu nombre.',
+    descripcion:
+      'Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu proceso, por etapas, integrado y con el código a tu nombre.',
+  },
+  {
     slug: 'tienda-en-linea',
     servicio: 'tienda-en-linea',
     titulo: 'Del carrito a la puerta',
