@@ -39,6 +39,15 @@ export const RECORRIDOS = [
       'Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega.',
   },
   {
+    slug: 'automatizacion',
+    servicio: 'automatizacion',
+    titulo: 'Del WhatsApp al reporte del lunes',
+    resumen:
+      'Un solo pedido por cinco escritorios, dos veces: llevado a mano de uno a otro, o por un tubo neumático que lo lleva solo en segundos.',
+    descripcion:
+      'Recorrido paso a paso de la automatización de procesos: el pedido que llega por WhatsApp, la captura, el pago que libera, el aviso al cliente, la alerta de existencia y el reporte del lunes que se arma solo.',
+  },
+  {
     slug: 'tienda-en-linea',
     servicio: 'tienda-en-linea',
     titulo: 'Del carrito a la puerta',
