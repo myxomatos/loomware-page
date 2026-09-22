@@ -38,6 +38,15 @@ export const RECORRIDOS = [
     descripcion:
       'Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega.',
   },
+  {
+    slug: 'tienda-en-linea',
+    servicio: 'tienda-en-linea',
+    titulo: 'Del carrito a la puerta',
+    resumen:
+      'Un solo producto durante dos semanas, en el mostrador y en la página al mismo tiempo: cuánto hay, cuánto publica la tienda y qué pasa cuando dejan de coincidir.',
+    descripcion:
+      'Recorrido paso a paso de una tienda en línea conectada a la operación: el pedido de la noche, una sola existencia, la promoción que se detiene en cero, cobro con CFDI, guía con rastreo y margen por canal.',
+  },
 ]
 
 export const recorridoDeServicio = (slug) => RECORRIDOS.find((r) => r.servicio === slug)

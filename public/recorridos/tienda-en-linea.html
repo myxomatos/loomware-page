@@ -3,25 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>De la checada al recibo · Nómina | Loomware</title>
-    <meta name="description" content="Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega." />
-    <link rel="canonical" href="https://loomware.com.mx/recorridos/nomina" />
+    <title>Del carrito a la puerta · Comercio en línea | Loomware</title>
+    <meta name="description" content="Recorrido paso a paso de una tienda en línea conectada a la operación: el pedido de la noche, una sola existencia, la promoción que se detiene en cero, cobro con CFDI, guía con rastreo y margen por canal." />
+    <link rel="canonical" href="https://loomware.com.mx/recorridos/tienda-en-linea" />
     <meta name="theme-color" content="#A35C23" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Loomware" />
-    <meta property="og:url" content="https://loomware.com.mx/recorridos/nomina" />
-    <meta property="og:title" content="De la checada al recibo · Nómina | Loomware" />
-    <meta property="og:description" content="Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega." />
+    <meta property="og:url" content="https://loomware.com.mx/recorridos/tienda-en-linea" />
+    <meta property="og:title" content="Del carrito a la puerta · Comercio en línea | Loomware" />
+    <meta property="og:description" content="Recorrido paso a paso de una tienda en línea conectada a la operación: el pedido de la noche, una sola existencia, la promoción que se detiene en cero, cobro con CFDI, guía con rastreo y margen por canal." />
     <meta property="og:image" content="https://loomware.com.mx/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="De la checada al recibo · Nómina | Loomware" />
-    <meta name="twitter:description" content="Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega." />
+    <meta name="twitter:title" content="Del carrito a la puerta · Comercio en línea | Loomware" />
+    <meta name="twitter:description" content="Recorrido paso a paso de una tienda en línea conectada a la operación: el pedido de la noche, una sola existencia, la promoción que se detiene en cero, cobro con CFDI, guía con rastreo y margen por canal." />
     <meta name="twitter:image" content="https://loomware.com.mx/og-image.png" />
 
     <style>
@@ -38,7 +38,7 @@
     <!--
       ATENCIÓN · ligas del sitio
       Mientras el PR de la rama "alan" no se mezcle a "main", loomware.com.mx sigue
-      siendo el sitio viejo y /servicios/nomina responde 404. Por eso las dos ligas de
+      siendo el sitio viejo y /servicios/tienda-en-linea responde 404. Por eso las dos ligas de
       abajo apuntan al preview de la rama.
 
       Cuando Aldo mezcle el PR, cambiar estas dos por https://loomware.com.mx:
@@ -207,9 +207,10 @@
         font-family:var(--mono);font-size:10px;color:var(--ink-3);}
       .legend li{display:flex;align-items:center;gap:6px;}
       .sw{width:12px;height:7px;flex:none;border-radius:1px;}
-      .sw--beam{background:repeating-linear-gradient(90deg,var(--signal) 0 4px,transparent 4px 7px);}
-      .sw--sys{background:var(--signal);}
-      .sw--money{background:var(--money);}
+      .sw--real{background:var(--ink-2);}
+      .sw--tienda{background:transparent;border-top:2px dashed var(--pain);height:0;}
+      .sw--fantasma{background:var(--pain-bg);border:1px solid var(--pain);}
+      .sw--con{background:var(--signal);}
 
       /* expediente: un dato, una sola captura */
       .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
@@ -324,24 +325,29 @@
       /* Cada elemento del dibujo aparece en el paso que le toca. */
       .e{opacity:0;transition:opacity .45s ease;}
       .e.visible{opacity:1;}
-      .carril--hoy{fill:var(--pain-bg);}
-      .carril--con{fill:var(--signal-soft);}
-      .bloque.es-hoy,.punto.es-hoy{fill:var(--pain);}
-      .bloque.es-con,.punto.es-con{fill:var(--signal);}
-      /* Lo que cae del otro lado del cierre se marca distinto: eso es llegar tarde. */
-      .bloque.es-tarde,.punto.es-tarde{fill:none;stroke:var(--pain);stroke-width:2;stroke-dasharray:4 3;}
+      .panel{fill:var(--surface);stroke:var(--rule-soft);stroke-width:1;}
       .reja{stroke:var(--rule-soft);stroke-width:1;}
-      .cierre{stroke:var(--ink-2);stroke-width:2;stroke-dasharray:5 4;}
       .eje{font-family:var(--mono);font-size:12px;fill:var(--ink-3);letter-spacing:.04em;}
-      .eje--cierre{fill:var(--ink-2);}
-
-      .sw--hoy{background:var(--pain);}
-      .sw--con{background:var(--signal);}
-      .sw--tarde{background:transparent;border:2px dashed var(--pain);height:10px;}
+      .eje--panel{fill:var(--ink-2);font-weight:500;}
+      .eje--dato{fill:var(--pain);font-weight:700;}
+      .eje--con{fill:var(--signal);}
+      /* Lo que hay: línea firme. Lo que publica la tienda: punteada, porque es una copia. */
+      .linea{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+      .linea--real{stroke:var(--ink-2);}
+      .linea--tienda{stroke:var(--pain);stroke-dasharray:5 4;}
+      .linea--con{stroke:var(--signal);stroke-width:3;}
+      .punto--real{fill:var(--ink-2);}
+      .punto--tienda{fill:var(--surface);stroke:var(--pain);stroke-width:2;}
+      .punto--con{fill:var(--signal);}
+      /* El hueco entre las dos líneas: producto que se vende sin existir. */
+      .fantasma{fill:var(--pain-bg);stroke:var(--pain);stroke-width:1;stroke-dasharray:3 3;}
+      .cruz line{stroke:var(--pain);stroke-width:2.5;stroke-linecap:round;}
+      .anillo{fill:none;stroke:var(--money);stroke-width:2.5;}
+      .resumen{fill:var(--pain-bg);stroke:var(--pain);stroke-width:1;}
+      .resumen--con{fill:var(--signal-soft);stroke:var(--signal);}
 
       @media (prefers-reduced-motion:reduce){
         .e,.chip,.step{transition:none;}
-        .beam path{animation:none;}
       }
 
       @media (max-width:880px){
@@ -352,6 +358,9 @@
           background:var(--paper);padding-block:8px;margin-bottom:6px;
           border-bottom:1px solid var(--rule-soft);}
         .stage svg{max-height:33vh;}
+        /* El dibujo se encoge a un tercio: los rótulos de los ejes crecen para seguir legibles. */
+        .eje{font-size:17px;}
+        .eje--dato{font-size:15px;}
         .legend{display:none;}
         /* en tablet vertical el texto corría a 100 caracteres por renglón */
         .steps{max-width:660px;}
@@ -387,55 +396,59 @@
   </div>
 
   <header class="mast">
-    <div class="eyebrow lbl">Nómina · un ejemplo, paso a paso</div>
-    <h1>De la checada al recibo</h1>
-    <p class="deck">La nómina es el único proceso de la empresa con una <b>fecha que no se
-      mueve</b>. Para verlo seguimos una quincena completa, día por día: cuándo llega cada
-      incidencia, cuándo se calcula, cuándo se timbra y cuándo cae el dinero. Seis paradas y
-      <b>un solo cálculo</b>. El giro no cambia la idea: abajo está el mismo recorrido en
-      otros cinco.</p>
+    <div class="eyebrow lbl">Comercio en línea · un ejemplo, paso a paso</div>
+    <h1>Del carrito a la puerta</h1>
+    <p class="deck">Una tienda en línea desconectada de la operación <b>vende lo que ya no
+      hay</b>. Para verlo seguimos un solo producto durante dos semanas, en el mostrador y en
+      la página al mismo tiempo: cuánto hay de verdad, cuánto publica la tienda, y qué pasa
+      cuando las dos cifras dejan de coincidir. Seis paradas y <b>una sola existencia</b>.
+      El giro no cambia la idea: abajo está el mismo recorrido en otros cinco.</p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
-           aria-label="A la izquierda, tres canales por los que hoy llegan las incidencias —WhatsApp, una libreta y el correo— con líneas cruzadas hacia un solo Excel. A la derecha, un cálculo del que salen el CFDI, el archivo del banco, el recibo, la póliza y los acumulados.">
-        <path class="dg-line" d="M84 16 L136 60"/>
-        <path class="dg-line" d="M84 58 L136 60"/>
-        <path class="dg-line" d="M84 100 L136 60"/>
-        <path class="dg-line" d="M84 16 L136 52"/>
-        <path class="dg-line" d="M84 100 L136 68"/>
+           aria-label="A la izquierda, tres lugares con su propio inventario —el mostrador, la tienda en línea y el sistema— que se copian a mano y no coinciden. A la derecha, una sola existencia de la que leen la tienda, el mostrador, la facturación y la paquetería.">
+        <path class="dg-line" d="M84 16 L136 58"/>
+        <path class="dg-line" d="M84 58 L136 16"/>
+        <path class="dg-line" d="M84 58 L136 100"/>
+        <path class="dg-line" d="M84 100 L136 58"/>
+        <path class="dg-line" d="M84 16 L136 100"/>
         <rect class="dg-box" x="4"   y="6"  width="80" height="20" rx="2"/>
         <rect class="dg-box" x="4"   y="48" width="80" height="20" rx="2"/>
         <rect class="dg-box" x="4"   y="90" width="80" height="20" rx="2"/>
-        <text class="dg-t" x="11" y="20">WhatsApp</text>
-        <text class="dg-t" x="11" y="62">La libreta</text>
-        <text class="dg-t" x="11" y="104">El correo</text>
+        <text class="dg-t" x="11" y="20">Mostrador</text>
+        <text class="dg-t" x="11" y="62">Tienda web</text>
+        <text class="dg-t" x="11" y="104">El sistema</text>
+        <rect class="dg-box" x="136" y="6"  width="86" height="20" rx="2"/>
         <rect class="dg-box" x="136" y="48" width="86" height="20" rx="2"/>
-        <text class="dg-t" x="143" y="62">Un Excel</text>
+        <rect class="dg-box" x="136" y="90" width="86" height="20" rx="2"/>
+        <text class="dg-t" x="143" y="20">Existencia A</text>
+        <text class="dg-t" x="143" y="62">Existencia B</text>
+        <text class="dg-t" x="143" y="104">Existencia C</text>
         <path class="dg-arrow" d="M248 62 L288 62"/>
         <path class="dg-arrow" d="M280 56 L288 62 L280 68"/>
         <rect class="dg-erp" x="308" y="2" width="306" height="118" rx="3"/>
-        <text class="dg-k" x="320" y="17">UN SOLO CÁLCULO</text>
+        <text class="dg-k" x="320" y="17">UNA SOLA EXISTENCIA</text>
         <rect class="dg-row" x="318" y="24" width="286" height="15" rx="1"/>
         <rect class="dg-row" x="318" y="42" width="286" height="15" rx="1"/>
         <rect class="dg-row" x="318" y="60" width="286" height="15" rx="1"/>
         <rect class="dg-row" x="318" y="78" width="286" height="15" rx="1"/>
         <rect class="dg-row" x="318" y="96" width="286" height="15" rx="1"/>
-        <text class="dg-t" x="326" y="35">CFDI de nómina timbrado</text>
-        <text class="dg-t" x="326" y="53">Archivo de dispersión del banco</text>
-        <text class="dg-t" x="326" y="71">Recibo de cada colaborador</text>
-        <text class="dg-t" x="326" y="89">Póliza para el despacho</text>
-        <text class="dg-t" x="326" y="107">Acumulados del año</text>
+        <text class="dg-t" x="326" y="35">La tienda publica lo que hay</text>
+        <text class="dg-t" x="326" y="53">El mostrador descuenta lo mismo</text>
+        <text class="dg-t" x="326" y="71">El pago entra a contabilidad</text>
+        <text class="dg-t" x="326" y="89">La factura sale sola al cliente</text>
+        <text class="dg-t" x="326" y="107">La guía se genera con rastreo</text>
       </svg>
-      <figcaption>Izquierda: las incidencias llegan por tres lados y alguien las teclea en un
-        Excel. Derecha: un cálculo del que salen las cinco cosas, sin volver a capturar.
-        Eso es todo lo que es un sistema de nómina.</figcaption>
+      <figcaption>Izquierda: tres lugares con su propio número del mismo producto, copiados a
+        mano. Derecha: una existencia de la que leen todos. Eso es todo lo que es una tienda
+        en línea conectada.</figcaption>
     </figure>
 
     <div class="specline">
-      <span>Cálculo con <b>ISR · IMSS · INFONAVIT</b></span>
-      <span>Timbrado <b>CFDI 4.0 por PAC</b></span>
-      <span>Dispersión <b>en el formato de tu banco</b></span>
-      <span>Arranque <b>en paralelo</b></span>
+      <span>Catálogo <b>desde tu sistema</b></span>
+      <span>Pagos <b>tarjeta · SPEI · tiendas</b></span>
+      <span>Guías <b>con rastreo</b></span>
+      <span>CFDI <b>sin que te escriban</b></span>
     </div>
   </header>
 
@@ -443,38 +456,39 @@
     <div class="figure">
 
       <div class="readout" aria-live="polite">
-        <span class="readout__k lbl" id="hudK">INC-118 · Incidencias</span>
-        <span class="readout__v" id="hudV">días 1 al 14 · faltas, horas extra, incapacidades y préstamos</span>
+        <span class="readout__k lbl" id="hudK">PED-W-2041 · Pedido en línea</span>
+        <span class="readout__v" id="hudV">día 3, 11:40 pm · 4 pzas · existencia 40 → 36 en los dos lados</span>
       </div>
 
       <div class="stage">
-        <svg id="scene" viewBox="0 0 680 270" role="img"
-             aria-label="Los dieciocho días alrededor de una quincena, en dos carriles. Arriba, cómo se hace hoy: nada pasa hasta el día 14 y después todo se apila contra el cierre, con la dispersión cayendo tarde y un reclamo el día 18. Abajo, con un sistema: las incidencias se reparten a lo largo de la quincena y el día 15 sólo queda timbrar y dispersar.">
+        <svg id="scene" viewBox="0 0 680 338" role="img"
+             aria-label="Dos gráficas de catorce días del mismo producto. Arriba, como se hace hoy: la existencia real del almacén baja con cada venta de mostrador, pero la que publica la tienda en línea se queda arriba; el hueco entre las dos es producto que se vende sin existir, y el día 12 una promoción vende ocho piezas que no hay. Abajo, con un sistema: una sola línea, y la promoción se detiene en cero.">
           <g id="world"></g>
         </svg>
       </div>
 
       <div class="cap">
-        <span id="stateLabel">01 / 06 · Las incidencias</span>
+        <span id="stateLabel">01 / 06 · El pedido de la noche</span>
         <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
         <span>Cifras de ejemplo</span>
       </div>
 
       <ul class="legend">
-        <li><span class="sw sw--hoy"></span>Como se hace hoy</li>
+        <li><span class="sw sw--real"></span>Lo que hay en el almacén</li>
+        <li><span class="sw sw--tienda"></span>Lo que publica la tienda hoy</li>
+        <li><span class="sw sw--fantasma"></span>Se vende sin existir</li>
         <li><span class="sw sw--con"></span>Con un sistema</li>
-        <li><span class="sw sw--tarde"></span>Después del cierre</li>
       </ul>
 
       <div class="exp">
-        <div class="exp__t lbl">La quincena · todo sale del mismo cálculo</div>
+        <div class="exp__t lbl">El pedido · una sola existencia para todos</div>
         <ul class="chips" id="chips">
-          <li class="chip" id="c0"><b>INC-118</b><span>incidencias</span></li>
-          <li class="chip" id="c1"><b>CAL-Q18</b><span>cálculo</span></li>
-          <li class="chip" id="c2"><b>CFDI-N</b><span>timbrado</span></li>
-          <li class="chip" id="c3"><b>DISP-04</b><span>dispersión</span></li>
-          <li class="chip" id="c4"><b>REC-118</b><span>recibos</span></li>
-          <li class="chip chip--tot" id="ctot"><b>1 cálculo</b><span>del que sale todo</span></li>
+          <li class="chip" id="c0"><b>PED-W-2041</b><span>pedido</span></li>
+          <li class="chip" id="c1"><b>SKU A-4120</b><span>existencia</span></li>
+          <li class="chip" id="c2"><b>PROMO-09</b><span>promoción</span></li>
+          <li class="chip" id="c3"><b>CFDI B-771</b><span>factura</span></li>
+          <li class="chip" id="c4"><b>GUÍA 8837</b><span>envío</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 existencia</b><span>para todos los canales</span></li>
         </ul>
       </div>
 
@@ -485,86 +499,86 @@
       <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
 
       <section class="step on" tabindex="0" data-i="0">
-        <div class="step-head"><span class="paso">01</span><h2>Las incidencias</h2><span class="gauge">días 1 al 14</span></div>
+        <div class="step-head"><span class="paso">01</span><h2>El pedido de la noche</h2><span class="gauge">11:40 pm</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Las faltas, las horas extra y los préstamos se avisan por WhatsApp y llegan todos
-              juntos el día 14, cuando ya no hay tiempo de preguntar.</p></div>
+            <p>Llega a las once de la noche, nadie lo ve hasta la mañana y alguien lo teclea en
+              el sistema a mano.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Cada incidencia se registra el día que pasa, con quien la autoriza, y ya está
-              contada cuando llega el cierre.</p></div>
+            <p>Entra al sistema a las 11:40, descuenta la existencia en ese instante y ya
+              amanece surtible.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Dejas de perseguir a los jefes de área el último día.</p></div>
+            <p>Vendes de noche sin que nadie tenga que estar despierto.</p></div>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="1">
-        <div class="step-head"><span class="paso">02</span><h2>El cierre de la quincena</h2><span class="gauge">día 14</span></div>
+        <div class="step-head"><span class="paso">02</span><h2>Dos existencias del mismo producto</h2><span class="gauge">36 vs 12</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Alguien de Recursos Humanos pide las incidencias, espera, vuelve a pedirlas y
-              teclea lo que le mandaron.</p></div>
+            <p>El mostrador vende 24 piezas en una semana. La tienda en línea sigue publicando
+              36, porque nadie le avisó.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El cierre no pide nada: lo que se registró en catorce días ya está adentro, y se
-              ve qué falta antes de calcular.</p></div>
+            <p>Mostrador y tienda descuentan de la misma existencia: la página publica 12
+              porque hay 12.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>La quincena deja de depender de que todos contesten a tiempo.</p></div>
+            <p>Un solo inventario para todos los canales, sin capturarlo dos veces.</p></div>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="2">
-        <div class="step-head"><span class="paso">03</span><h2>El cálculo</h2><span class="gauge">ISR · IMSS</span></div>
+        <div class="step-head"><span class="paso">03</span><h2>La promoción</h2><span class="gauge">8 sin producto</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Un Excel con fórmulas que alguien movió hace meses. Si el ISR no cuadra, se busca
-              a mano el renglón que está mal.</p></div>
+            <p>La promoción vende 20 piezas en línea. Hay 12. Ocho clientes pagaron algo que
+              no existe.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Calcula percepciones, deducciones, ISR, IMSS e INFONAVIT con las tablas vigentes,
-              y deja el historial de quién cambió qué.</p></div>
+            <p>La promoción vende 12 y la página dice «agotado» en la pieza 13. Lo que no hay,
+              no se vende.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>El costo de la nómina se conoce antes de dispersar, no después.</p></div>
+            <p>Cada venta en línea es una venta que sí puedes entregar.</p></div>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>El timbrado</h2><span class="gauge">CFDI 4.0</span></div>
+        <div class="step-head"><span class="paso">04</span><h2>El cobro y la factura</h2><span class="gauge">CFDI 4.0</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Se timbra a la carrera el mismo día. Si el PAC rechaza un recibo, ya no hay margen
-              para corregirlo.</p></div>
+            <p>El pago cae en la pasarela y alguien lo concilia después. El cliente pide su
+              factura por WhatsApp y se la hacen a mano.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El CFDI de nómina sale del mismo cálculo, colaborador por colaborador, con
-              cancelaciones y sustituciones cuando hacen falta.</p></div>
+            <p>El pago entra a contabilidad con su pedido, y el cliente captura sus datos
+              fiscales y recibe su CFDI sin escribirte.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Lo timbrado es exactamente lo calculado, sin una segunda captura.</p></div>
+            <p>Cero pedidos por conciliar y cero facturas por WhatsApp.</p></div>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="4">
-        <div class="step-head"><span class="paso">05</span><h2>La dispersión</h2><span class="gauge">día 15</span></div>
+        <div class="step-head"><span class="paso">05</span><h2>La guía y la devolución</h2><span class="gauge">8 devueltos</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El archivo del banco se arma aparte, se teclea otra vez y a veces cae un día
-              tarde. La gente pregunta.</p></div>
+            <p>Se genera la guía aparte, se copia el número al cliente, y los ocho pedidos sin
+              producto se devuelven uno por uno, con disculpa.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El archivo de dispersión se genera del mismo cálculo que se timbró, en el formato
-              de tu banco.</p></div>
+            <p>La guía se genera sola con rastreo para el cliente. No hay ocho devoluciones
+              porque no hubo ocho ventas fantasma.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Pagas el día que dijiste, y lo pagado cuadra con lo timbrado.</p></div>
+            <p>El cliente rastrea su paquete solo, y tú no pides disculpas.</p></div>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>El reclamo</h2><span class="gauge">día 18</span></div>
+        <div class="step-head"><span class="paso">06</span><h2>El tablero por canal</h2><span class="gauge">margen real</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>«Me faltó mi bono.» Alguien abre el Excel de la quincena pasada a buscar qué
-              pasó, y la quincena nueva ya empezó.</p></div>
+            <p>Se sabe cuánto se vendió en línea. No se sabe cuánto dejó, ni cuánto costó
+              devolver lo que no había.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Cada colaborador entra a su portal, ve su recibo timbrado y sus históricos sin
-              pedírselos a nadie.</p></div>
+            <p>Ventas, margen y devoluciones por canal, con el costo real de envío ya
+              descontado.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Recursos Humanos deja de ser un buscador de recibos.</p></div>
+            <p>Sabes si la tienda en línea te deja dinero, no solo si vende.</p></div>
         </div>
       </section>
 
@@ -573,53 +587,54 @@
 
   <section class="giros">
     <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos una quincena porque la fecha es la misma para todos. Lo que cambia entre un
-      giro y otro es <b>qué hay que contar</b> antes de calcular.</p>
+    <p>Dibujamos un producto en mostrador y en línea porque ahí el desfase se ve con los ojos.
+      Lo que cambia entre un giro y otro es <b>qué se vende en línea</b> y qué duele hoy.</p>
     <ul class="rejilla">
-      <li><b>Distribuidoras y mayoristas</b>
-        <span>Hay que contar comisiones por venta cobrada y viáticos de ruta.</span>
-        <span class="hoy">Hoy: la comisión se calcula aparte y llega después del cierre.</span></li>
-      <li class="este"><b>Manufactura y talleres</b>
-        <span>Hay que contar turnos, horas extra, prima dominical y destajo por pieza.</span>
-        <span class="hoy">Hoy: el reloj checador y la nómina son dos mundos que no se hablan.</span></li>
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Un portal donde el cliente de mayoreo pide con sus precios, ve su estado de cuenta y repite pedidos.</span>
+        <span class="hoy">Hoy: el pedido llega por WhatsApp y alguien lo captura.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Un catálogo de refacciones o producto terminado con existencia real y tiempo de entrega.</span>
+        <span class="hoy">Hoy: se cotiza por correo lo que ya está en catálogo.</span></li>
       <li><b>Constructoras y servicios en campo</b>
-        <span>Hay que contar cuadrillas por obra, altas y bajas frecuentes y horas por frente.</span>
-        <span class="hoy">Hoy: se dan de alta al IMSS tarde y el costo por obra no se sabe.</span></li>
+        <span>Un portal para que las cuadrillas pidan material a obra contra existencia.</span>
+        <span class="hoy">Hoy: el material se pide por teléfono y se anota en una libreta.</span></li>
       <li><b>Despachos y consultorías</b>
-        <span>Hay que contar bonos por proyecto entregado y esquemas mixtos.</span>
-        <span class="hoy">Hoy: cada socio lleva su propio criterio en su propia hoja.</span></li>
+        <span>Un portal de clientes para contratar servicios y descargar entregables y facturas.</span>
+        <span class="hoy">Hoy: cada entregable se manda por correo y se vuelve a pedir.</span></li>
       <li><b>Comercio y retail</b>
-        <span>Hay que contar rotación alta, turnos partidos y comisiones por sucursal.</span>
-        <span class="hoy">Hoy: quien entró a media quincena se calcula a mano.</span></li>
+        <span>La tienda en línea con el mismo inventario que las sucursales, y recoger en tienda.</span>
+        <span class="hoy">Hoy: se vende en línea lo que ya se acabó en la sucursal.</span></li>
       <li><b>Clínicas y servicios profesionales</b>
-        <span>Hay que contar guardias, honorarios y personal de base mezclado.</span>
-        <span class="hoy">Hoy: dos esquemas de pago conviviendo en el mismo Excel.</span></li>
+        <span>Agenda y pago en línea, con el expediente y la factura ligados a la cita.</span>
+        <span class="hoy">Hoy: se agenda por WhatsApp y se cobra en la recepción.</span></li>
     </ul>
-    <p class="giros__cierre">Cambia qué se cuenta. No cambia la idea: <b>un solo cálculo del
-      que salen el timbrado, el banco y el recibo.</b> Si tu giro no está en la lista, también
-      aplica: se define en el diagnóstico.</p>
+    <p class="giros__cierre">Cambia qué se vende. No cambia la idea: <b>la tienda es parte de
+      tu operación, no un negocio aparte que hay que alimentar a mano.</b> Si tu giro no está
+      en la lista, también aplica: se define en el diagnóstico.</p>
   </section>
 
   <section class="faq">
     <h2>Antes de que preguntes</h2>
-    <p>Las seis dudas que sale todo director antes de mover la nómina de lugar, contestadas
-      sin rodeos.</p>
+    <p>Las seis dudas que sale todo director antes de abrir o rehacer su tienda en línea,
+      contestadas sin rodeos.</p>
     <ul class="rejilla">
-      <li><b>¿Cumple con el SAT y el IMSS?</b>
-        <span>Sí. Calcula conforme a las tablas vigentes, timbra CFDI 4.0 de nómina por un PAC
-          autorizado y genera los reportes para el SUA y la declaración anual.</span></li>
-      <li><b>¿Puedo seguir con mi despacho contable?</b>
-        <span>Sí. El sistema le entrega los acumulados y las pólizas que necesita. Varios
-          clientes lo usan para dejar de pagar el cálculo y conservar la asesoría.</span></li>
-      <li><b>¿Qué pasa con las quincenas que ya corrí este año?</b>
-        <span>Se cargan los acumulados del año en curso, para que el ISR y las prestaciones se
-          calculen bien desde la primera nómina en el sistema.</span></li>
-      <li><b>¿Y si se equivoca la primera vez?</b>
-        <span>Por eso el arranque corre una o dos quincenas <b>en paralelo</b> con tu método
-          actual, hasta que los dos resultados coincidan peso por peso.</span></li>
+      <li><b>¿Ya tengo tienda y capturo cada pedido a mano?</b>
+        <span>Eso es exactamente lo que se resuelve: se conecta la tienda al inventario, la
+          facturación y la contabilidad para que cada pedido entre solo, con su origen.</span></li>
+      <li><b>¿Qué compro exactamente?</b>
+        <span>Una tienda que es parte de tu operación: catálogo desde tu sistema, pagos,
+          envíos y factura conectados. No una plantilla que después hay que alimentar a mano.</span></li>
+      <li><b>¿Con qué se cobra?</b>
+        <span>Tarjeta, transferencia SPEI, meses sin intereses y pago en tiendas de
+          conveniencia, con los procesadores que operan en México.</span></li>
+      <li><b>¿Y la factura al cliente?</b>
+        <span>El cliente captura sus datos fiscales en la compra y recibe su CFDI. Nadie de
+          tu equipo tiene que hacerla ni contestarle.</span></li>
       <li><b>¿Cuánto tarda?</b>
-        <span>La configuración es cuestión de semanas: colaboradores, salarios, prestaciones,
-          conceptos y el timbrado con tu PAC. El arranque se amarra a un cierre de quincena.</span></li>
+        <span>Depende del tamaño del catálogo y de qué haya que conectar. El diseño y la
+          integración son cuestión de semanas, y el lanzamiento se hace con compras reales de
+          prueba antes de abrir.</span></li>
       <li><b>¿Cómo se cotiza?</b>
         <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
           cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
@@ -631,34 +646,33 @@
     <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
       Si no sabes alguna, esa ya es la respuesta.</p>
     <ul class="rejilla">
-      <li><b>01</b><span>¿Cuántos días al mes dedica alguien a correr la nómina?</span></li>
-      <li><b>02</b><span>¿Cuántos recibos se han tenido que cancelar y volver a timbrar este año?</span></li>
-      <li><b>03</b><span>¿Qué pasa con la quincena si esa persona se enferma?</span></li>
-      <li><b>04</b><span>¿Sabes el costo de nómina por área antes de dispersar?</span></li>
-      <li><b>05</b><span>¿Cuántas veces al mes te piden un recibo de meses anteriores?</span></li>
+      <li><b>01</b><span>¿Cuántos pedidos en línea al mes se cancelan porque no había producto?</span></li>
+      <li><b>02</b><span>¿Cuántas personas capturan a mano los pedidos de la tienda en tu sistema?</span></li>
+      <li><b>03</b><span>¿Cuántas facturas al mes te piden por WhatsApp los clientes de la tienda?</span></li>
+      <li><b>04</b><span>¿Sabes cuánto te cuesta cada envío, con devoluciones incluidas?</span></li>
+      <li><b>05</b><span>¿Sabes si la tienda en línea te deja margen, o solo que vende?</span></li>
     </ul>
   </section>
 
   <section class="cierre">
-    <h2>Te decimos dónde se está yendo la quincena</h2>
-    <p>Revisamos tu esquema completo —tipos de contrato, prestaciones, incidencias y cómo
-      dispersas hoy— y te decimos qué conviene resolver primero. Diagnóstico sin costo y sin
-      compromiso.</p>
+    <h2>Te decimos dónde se están yendo tus ventas en línea</h2>
+    <p>Revisamos tu catálogo, tus canales de venta y cómo operas envíos y cobranza, y te
+      decimos qué conviene resolver primero. Diagnóstico sin costo y sin compromiso.</p>
     <a class="btn"
-       href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20n%C3%B3mina%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
+       href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20comercio%20en%20l%C3%ADnea%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
        target="_blank" rel="noopener noreferrer">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
       WhatsApp · 55 8096 8928
     </a>
     <p class="otras">
-      <span class="par">o llena el <a href="https://alan.loomware-page.pages.dev/servicios/nomina" target="_blank" rel="noopener noreferrer">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
+      <span class="par">o llena el <a href="https://alan.loomware-page.pages.dev/servicios/tienda-en-linea" target="_blank" rel="noopener noreferrer">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
     </p>
   </section>
 
   <p class="colofon">
-    Los días y folios de este recorrido son de <b>una quincena de ejemplo</b> y sirven para
-    mostrar el flujo. El sistema se ajusta al esquema de cada empresa: el recorrido del tuyo
-    se dibuja en el diagnóstico, con tus conceptos.
+    Las cifras y folios de este recorrido son de <b>un producto de ejemplo</b> y sirven para
+    mostrar el flujo. La tienda se ajusta al catálogo y a la operación de cada empresa: el
+    recorrido de la tuya se dibuja en el diagnóstico, con tus productos.
   </p>
 
 </div>
@@ -667,86 +681,114 @@
 (function(){
   "use strict";
 
-  /* La nómina es el único proceso con una fecha que no se mueve. Por eso el dibujo
-     son los días alrededor del cierre, en dos carriles: arriba como se hace hoy
-     —todo apilado contra el día 15— y abajo repartido a lo largo de la quincena. */
-  var DIAS = 18, X0 = 46, XD = 34;
-  var Y_HOY = 78, Y_CON = 168, ALTO = 30;
-  var CIERRE = 16;   // la línea del cierre va al terminar el día 15
+  /* Un mismo producto, catorce días, dos gráficas. Arriba como se hace hoy: la
+     existencia real baja con cada venta de mostrador y la que publica la tienda
+     se queda arriba; el hueco entre las dos es producto que se vende sin existir.
+     Abajo con un sistema: una sola línea, y la promoción se detiene en cero. */
+  var X0 = 48, XD = 44, DIAS = 14;
+  var PANEL = 104, Y_HOY = 44, Y_CON = 192, MAX = 40;
 
   function dx(d){ return X0 + (d - 1) * XD; }
+  function dy(y0, v){ return y0 + PANEL - (v / MAX) * PANEL; }
+
+  /* [día, existencia]. Real = lo que hay. Tienda = lo que publica la página hoy. */
+  var REAL   = [[1,40],[3,36],[6,24],[9,12],[12,0],[14,0]];
+  var TIENDA = [[1,40],[3,36],[6,36],[9,36],[12,16],[14,24]];
+
+  function ruta(pts, y0, hasta){
+    return pts.filter(function(p){ return p[0] <= hasta; })
+              .map(function(p, i){ return (i ? 'L' : 'M') + dx(p[0]) + ' ' + dy(y0, p[1]); }).join(' ');
+  }
+  function pto(d, v, y0, clase){
+    return '<circle class="' + clase + '" cx="' + dx(d) + '" cy="' + dy(y0, v) + '" r="4.6"/>';
+  }
+  function cuando(d, contenido){ return '<g class="e" data-d="' + d + '">' + contenido + '</g>'; }
 
   var s = "";
 
-  /* Días rotulados y la línea del cierre, que es lo que no se mueve */
-  [1, 8, 15, 18].forEach(function(d){
-    s += '<line class="reja" x1="' + dx(d) + '" y1="52" x2="' + dx(d) + '" y2="' + (Y_CON + ALTO + 10) + '"/>';
-    s += '<text class="eje" x="' + (dx(d) - 6) + '" y="42">día ' + d + '</text>';
+  /* Marco de cada panel, reja de días y ejes */
+  [Y_HOY, Y_CON].forEach(function(y0){
+    s += '<rect class="panel" x="' + (X0 - 14) + '" y="' + (y0 - 6) + '" width="' + ((DIAS - 1) * XD + 28) + '" height="' + (PANEL + 12) + '" rx="3"/>';
+    [40, 20, 0].forEach(function(v){
+      s += '<line class="reja" x1="' + (X0 - 6) + '" y1="' + dy(y0, v) + '" x2="' + dx(DIAS) + '" y2="' + dy(y0, v) + '"/>';
+      s += '<text class="eje" x="' + (X0 - 12) + '" y="' + (dy(y0, v) + 4) + '" text-anchor="end">' + v + '</text>';
+    });
   });
-  s += '<line class="cierre" x1="' + dx(CIERRE) + '" y1="46" x2="' + dx(CIERRE) + '" y2="' + (Y_CON + ALTO + 14) + '"/>';
-  s += '<text class="eje eje--cierre" x="' + (dx(CIERRE) - 10) + '" y="' + (Y_CON + ALTO + 30) + '">cierre</text>';
+  [1, 6, 12, 14].forEach(function(d){
+    var fin = d === DIAS;   // el último rótulo se alinea a la derecha para no salirse del marco
+    s += '<text class="eje" x="' + (fin ? dx(d) + 8 : dx(d) - 6) + '" y="' + (Y_CON + PANEL + 26) + '"' +
+         (fin ? ' text-anchor="end"' : '') + '>día ' + d + '</text>';
+  });
+  s += '<text class="eje eje--panel" x="' + (X0 - 14) + '" y="' + (Y_HOY - 12) + '">HOY · dos existencias</text>';
+  s += '<text class="eje eje--panel" x="' + (X0 - 14) + '" y="' + (Y_CON - 12) + '">CON UN SISTEMA · una existencia</text>';
 
-  /* Los dos carriles */
-  s += '<rect class="carril carril--hoy" x="' + (X0 - 16) + '" y="' + Y_HOY + '" width="' + (DIAS * XD - 6) + '" height="' + ALTO + '" rx="3"/>';
-  s += '<rect class="carril carril--con" x="' + (X0 - 16) + '" y="' + Y_CON + '" width="' + (DIAS * XD - 6) + '" height="' + ALTO + '" rx="3"/>';
+  /* --- Paso 01: el pedido de la noche. Las dos líneas bajan juntas. --- */
+  s += cuando(0, '<path class="linea linea--real" d="' + ruta(REAL, Y_HOY, 3) + '"/>' +
+                 '<path class="linea linea--tienda" d="' + ruta(TIENDA, Y_HOY, 3) + '"/>' +
+                 pto(3, 36, Y_HOY, 'punto punto--real') +
+                 '<path class="linea linea--con" d="' + ruta(REAL, Y_CON, 3) + '"/>' +
+                 pto(3, 36, Y_CON, 'punto punto--con'));
 
-  function bloque(d1, d2, y, clase){
-    return '<rect class="bloque ' + clase + '" x="' + dx(d1) + '" y="' + (y + 5) + '" width="' +
-           ((d2 - d1) * XD) + '" height="' + (ALTO - 10) + '" rx="2"/>';
+  /* --- Paso 02: el mostrador vende y las líneas se separan. El hueco es fantasma. --- */
+  s += cuando(1, '<polygon class="fantasma" points="' +
+                   dx(3) + ',' + dy(Y_HOY, 36) + ' ' + dx(6) + ',' + dy(Y_HOY, 36) + ' ' + dx(9) + ',' + dy(Y_HOY, 36) + ' ' +
+                   dx(9) + ',' + dy(Y_HOY, 12) + ' ' + dx(6) + ',' + dy(Y_HOY, 24) + ' ' + dx(3) + ',' + dy(Y_HOY, 36) + '"/>' +
+                 '<path class="linea linea--real" d="' + ruta(REAL, Y_HOY, 9) + '"/>' +
+                 '<path class="linea linea--tienda" d="' + ruta(TIENDA, Y_HOY, 9) + '"/>' +
+                 pto(9, 12, Y_HOY, 'punto punto--real') + pto(9, 36, Y_HOY, 'punto punto--tienda') +
+                 '<path class="linea linea--con" d="' + ruta(REAL, Y_CON, 9) + '"/>' +
+                 pto(9, 12, Y_CON, 'punto punto--con'));
+
+  /* --- Paso 03: la promoción vende 20 donde hay 12. Ocho piezas fantasma. --- */
+  s += cuando(2, '<polygon class="fantasma" points="' +
+                   dx(9) + ',' + dy(Y_HOY, 36) + ' ' + dx(12) + ',' + dy(Y_HOY, 16) + ' ' + dx(12) + ',' + dy(Y_HOY, 0) + ' ' + dx(9) + ',' + dy(Y_HOY, 12) + '"/>' +
+                 '<path class="linea linea--real" d="' + ruta(REAL, Y_HOY, 12) + '"/>' +
+                 '<path class="linea linea--tienda" d="' + ruta(TIENDA, Y_HOY, 12) + '"/>' +
+                 '<g class="cruz"><line x1="' + (dx(12)-7) + '" y1="' + (dy(Y_HOY,0)-7) + '" x2="' + (dx(12)+7) + '" y2="' + (dy(Y_HOY,0)+7) + '"/>' +
+                 '<line x1="' + (dx(12)+7) + '" y1="' + (dy(Y_HOY,0)-7) + '" x2="' + (dx(12)-7) + '" y2="' + (dy(Y_HOY,0)+7) + '"/></g>' +
+                 '<path class="linea linea--con" d="' + ruta(REAL, Y_CON, 12) + '"/>' +
+                 pto(12, 0, Y_CON, 'punto punto--con'));
+
+  /* --- Paso 04: el cobro y la factura, en el panel de abajo. --- */
+  s += cuando(3, '<circle class="anillo" cx="' + dx(12) + '" cy="' + dy(Y_CON, 0) + '" r="10"/>');
+
+  /* --- Paso 05: la guía y las ocho devoluciones que regresan a la tienda. --- */
+  s += cuando(4, '<path class="linea linea--tienda" d="M' + dx(12) + ' ' + dy(Y_HOY, 16) + ' L' + dx(14) + ' ' + dy(Y_HOY, 24) + '"/>' +
+                 pto(14, 24, Y_HOY, 'punto punto--tienda') +
+                 '<path class="linea linea--real" d="M' + dx(12) + ' ' + dy(Y_HOY, 0) + ' L' + dx(14) + ' ' + dy(Y_HOY, 0) + '"/>' +
+                 '<path class="linea linea--con" d="M' + dx(12) + ' ' + dy(Y_CON, 0) + ' L' + dx(14) + ' ' + dy(Y_CON, 0) + '"/>');
+
+  /* --- Paso 06: el tablero. Arriba sigue el hueco; abajo, nada que devolver. --- */
+  /* El total va en la esquina baja izquierda: es la única zona vacía en los dos paneles. */
+  function total(y0, texto, clase){
+    var x = dx(1) + 6, y = y0 + PANEL - 34;
+    return '<rect class="resumen' + clase + '" x="' + x + '" y="' + y + '" width="118" height="22" rx="2"/>' +
+           '<text class="eje eje--dato' + clase.replace('resumen--con', 'eje--con') + '" x="' + (x + 8) + '" y="' + (y + 15) + '">' + texto + '</text>';
   }
-  function punto(d, y, clase){
-    return '<circle class="punto ' + clase + '" cx="' + (dx(d) + XD / 2) + '" cy="' + (y + ALTO / 2) + '" r="5"/>';
-  }
-  /* d = el paso a partir del cual el elemento se ve */
-  function cuando(d, contenido){ return '<g class="e" data-d="' + d + '">' + contenido + '</g>'; }
-
-  /* Paso 01 · las incidencias: hoy llegan todas el día 14; con el sistema, el día que pasan */
-  s += cuando(0, [2, 4, 5, 7, 9, 11, 13].map(function(d){ return punto(d, Y_CON, 'es-con'); }).join(''));
-  s += cuando(0, [13.55, 13.75, 13.95, 14.15, 14.35, 14.55, 14.75].map(function(d){
-    return '<circle class="punto es-hoy" cx="' + dx(d) + '" cy="' + (Y_HOY + ALTO / 2) + '" r="5"/>';
-  }).join(''));
-
-  /* Paso 02 · el cierre */
-  s += cuando(1, bloque(14, 14.7, Y_HOY, 'es-hoy'));
-  s += cuando(1, punto(14, Y_CON, 'es-con'));
-
-  /* Paso 03 · el cálculo */
-  s += cuando(2, bloque(14.7, 15.5, Y_HOY, 'es-hoy'));
-  s += cuando(2, bloque(14.2, 14.7, Y_CON, 'es-con'));
-
-  /* Paso 04 · el timbrado, que hoy alcanza a raspar el cierre */
-  s += cuando(3, bloque(15.5, 15.95, Y_HOY, 'es-hoy'));
-  s += cuando(3, punto(14.8, Y_CON, 'es-con'));
-
-  /* Paso 05 · la dispersión: hoy cae del otro lado de la línea */
-  s += cuando(4, bloque(16.1, 16.7, Y_HOY, 'es-tarde'));
-  s += cuando(4, punto(15, Y_CON, 'es-con'));
-
-  /* Paso 06 · el reclamo. Abajo no aparece nada, y ese vacío es el argumento. */
-  s += cuando(5, punto(18, Y_HOY, 'es-tarde'));
+  s += cuando(5, total(Y_HOY, '8 sin existir', '') + total(Y_CON, '0 sin existir', ' resumen--con'));
 
   document.getElementById("world").innerHTML = s;
 
   /* ---------- estados ---------- */
   var STATES = [
-    { label:"01 / 06 · Las incidencias",
-      k:"INC-118 · Incidencias",
-      v:"días 1 al 14 · faltas, horas extra, incapacidades y préstamos" },
-    { label:"02 / 06 · El cierre de la quincena",
-      k:"Cierre · día 14",
-      v:"38 colaboradores · 12 incidencias · 2 por autorizar" },
-    { label:"03 / 06 · El cálculo",
-      k:"CAL-Q18 · Cálculo corrido",
-      v:"percepciones, deducciones, ISR, IMSS e INFONAVIT con las tablas vigentes" },
-    { label:"04 / 06 · El timbrado",
-      k:"CFDI-N · 38 de 38 timbrados",
-      v:"CFDI 4.0 de nómina por PAC autorizado · sin una segunda captura" },
-    { label:"05 / 06 · La dispersión",
-      k:"DISP-04 · Archivo del banco",
-      v:"día 15 · generado del mismo cálculo que se timbró" },
-    { label:"06 / 06 · El reclamo",
-      k:"REC-118 · Portal del colaborador",
-      v:"cada quien ve su recibo timbrado y sus históricos, sin pedirlos" }
+    { label:"01 / 06 · El pedido de la noche",
+      k:"PED-W-2041 · Pedido en línea",
+      v:"día 3, 11:40 pm · 4 pzas · existencia 40 → 36 en los dos lados" },
+    { label:"02 / 06 · Dos existencias",
+      k:"SKU A-4120 · 36 publicadas, 12 reales",
+      v:"día 9 · el mostrador vendió 24 y la tienda no se enteró" },
+    { label:"03 / 06 · La promoción",
+      k:"PROMO-09 · 20 vendidas, 12 existían",
+      v:"día 12 · 8 clientes pagaron producto que no hay" },
+    { label:"04 / 06 · El cobro y la factura",
+      k:"CFDI B-771 · Timbrado al cliente",
+      v:"pago aplicado a su pedido · datos fiscales capturados por el cliente" },
+    { label:"05 / 06 · La guía y la devolución",
+      k:"GUÍA 8837 · Con rastreo",
+      v:"día 14 · hoy: 8 devoluciones con disculpa · con sistema: cero" },
+    { label:"06 / 06 · El tablero por canal",
+      k:"Canal en línea · Margen real",
+      v:"ventas, devoluciones y costo de envío por canal, ya descontados" }
   ];
 
   var labelEl = document.getElementById("stateLabel");

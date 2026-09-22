@@ -14,6 +14,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { RECORRIDOS } from '../src/data/recorridos.js'
+import { servicioPorSlug } from '../src/data/servicios.js'
 import { DOMINIO, EMPRESA } from '../src/data/contacto.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -31,7 +32,10 @@ for (const r of RECORRIDOS) {
   const cuerpo = fuente.slice(corte + '</style>'.length).trim()
 
   const url = `${DOMINIO}/recorridos/${r.slug}`
-  const titulo = `${r.titulo} · ${r.servicio.toUpperCase()} | ${EMPRESA}`
+  // El nombre del servicio tal como lo dice el sitio: "Nómina", no "NOMINA".
+  const servicio = servicioPorSlug(r.servicio)
+  if (!servicio) throw new Error(`recorridos: el servicio "${r.servicio}" no existe en servicios.js`)
+  const titulo = `${r.titulo} · ${servicio.nombre} | ${EMPRESA}`
 
   const pagina = `<!DOCTYPE html>
 <html lang="es-MX">
