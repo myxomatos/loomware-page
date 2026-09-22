@@ -103,6 +103,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://loomware.com.mx/calculadora</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://loomware.com.mx/aviso-de-privacidad</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>yearly</changefreq>

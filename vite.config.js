@@ -59,6 +59,7 @@ export default defineConfig(({ mode }) => {
           prospectar: 'prospectar.html',
           gracias: 'gracias.html',
           aviso: 'aviso-de-privacidad.html',
+          calculadora: 'calculadora.html',
           ...servicios,
         },
       },

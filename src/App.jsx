@@ -4,6 +4,7 @@ import Challenge from './components/Challenge'
 import Solutions from './components/Solutions'
 import Industrias from './components/Industrias'
 import Casos from './components/Casos'
+import BandaCalculadora from './components/BandaCalculadora'
 import Needs from './components/Needs'
 import Process from './components/Process'
 import Nosotros from './components/Nosotros'
@@ -25,6 +26,7 @@ export default function App() {
         <Solutions />
         <Industrias />
         <Casos />
+        <BandaCalculadora />
         <Needs />
         <Process />
         <Nosotros />

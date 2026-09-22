@@ -19,6 +19,7 @@ const COLUMNS = [
   {
     title: 'Cómo trabajamos',
     links: [
+      { label: '¿Cuánto te cuesta tu Excel?', href: '/calculadora' },
       { label: 'Diagnóstico sin costo', href: '/#contacto' },
       { label: 'Nuestro proceso', href: '/#proceso' },
       { label: 'Integraciones', href: '/servicios/automatizacion' },

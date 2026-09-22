@@ -131,6 +131,7 @@ const urls = [
   ...SERVICIOS.map((s) => ({ loc: `${DOMINIO}/servicios/${s.slug}`, prioridad: '0.8', frecuencia: 'monthly' })),
   ...INDUSTRIAS.map((g) => ({ loc: `${DOMINIO}/industrias/${g.id}`, prioridad: '0.7', frecuencia: 'monthly' })),
   ...RECORRIDOS.map((r) => ({ loc: `${DOMINIO}/recorridos/${r.slug}`, prioridad: '0.7', frecuencia: 'yearly' })),
+  { loc: DOMINIO + '/calculadora', prioridad: '0.8', frecuencia: 'monthly' },
   { loc: DOMINIO + '/aviso-de-privacidad', prioridad: '0.2', frecuencia: 'yearly' },
 ]
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

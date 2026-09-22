@@ -71,6 +71,20 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
 
 ### Bloquean funcionalidad ya construida — Aldo
 
+- [ ] **Dar de alta el perfil de Google Business.** <https://business.google.com>, media hora y
+      gratis. Es lo único que mete a Loomware en el mapa cuando alguien busca «software
+      empresarial cerca de mí» o «ERP CDMX». Un dominio nuevo tarda de tres a seis meses en
+      posicionar; el perfil de negocio aparece en días. Sin esto, el SEO sólo puede llegar por
+      la vía lenta.
+
+- [ ] **Validar los dos supuestos de la calculadora.** `/calculadora` le enseña a un prospecto
+      un número en pesos sacado de sus propias respuestas. Toda la cuenta se hace con lo que él
+      contesta salvo dos cosas, y las dos se enseñan en pantalla: **1.35 de prestaciones** sobre
+      el sueldo bruto y **176 horas al mes**. Si a tu criterio alguno no aplica, se cambia en
+      `src/data/calculadora.js` y se actualiza solo. Es el único lugar del sitio donde
+      ponemos una cifra que no es del cliente.
+
+
 - [ ] **Cargar las variables en Cloudflare.** Workers & Pages → `loomware-page` → Settings →
       **Variables and Secrets** → Add. Cada una hay que capturarla **dos veces**: una en
       *Production* y otra en *Preview*; el preview de cada rama es un entorno distinto. Al
@@ -141,9 +155,11 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       MP4 en `public/video/` si pesa menos de ~15 MB.
 - [ ] **Analítica.** Crear la propiedad de Google Analytics 4 y dar de alta
       `loomware.com.mx` en Search Console (por DNS o con `VITE_GSC_VERIFICATION`). Enviar el
-      sitemap: `https://loomware.com.mx/sitemap.xml`. El código ya reporta `generate_lead` al
-      llegar a `/gracias` y `click_whatsapp` con el origen; en GA4 hay que marcarlos como
-      conversiones.
+      sitemap: `https://loomware.com.mx/sitemap.xml` —ahora con **19 URLs**—. En GA4 hay que
+      marcar como conversiones los eventos que el código ya reporta: `generate_lead` al llegar
+      a `/gracias` (con `metodo` = formulario o calculadora), `click_whatsapp` con el origen,
+      y `calculadora_inicio` cuando alguien empieza a contestar. **Hasta que esto no esté,
+      todo lo que agreguemos al sitio es a ciegas: no vamos a saber qué funcionó.**
 
 ### De la tercera auditoría, aún abiertos
 
@@ -173,6 +189,14 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
+- [x] **Calculadora «¿Cuánto te cuesta tu Excel?» (2026-09-21).** `/calculadora`: seis
+      preguntas de un toque y el número se mueve solo conforme se contesta. Entrega dos cifras
+      separadas —lo que se va al mes en capturar el mismo dato más de una vez, y cuánto dinero
+      trae detenido facturar tarde— **y enseña la cuenta completa**, para que cualquiera la
+      pueda revisar. Si alguien captura una sola vez, le dice que no tiene ese problema.
+      El resultado se ve sin pedir nada; el correo se pide después, y el aviso que le llega a
+      Loomware trae las respuestas y la cuenta ya hecha. Enlazada desde el pie y desde una banda
+      en el inicio, justo antes del formulario. En el sitemap (19 URLs).
 - [x] **Los recorridos, como contenido del sitio (2026-09-21).** Dos páginas que explican el
       ERP y el CRM paso a paso, con un dibujo que cambia mientras se baja. Se escriben en
       `recorridos-fuente/<slug>.html`; `scripts/recorridos.js` las empaqueta en
