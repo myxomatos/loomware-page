@@ -151,6 +151,11 @@
      columnas el título quedaba flotando a un lado de su propia lista. */
   max-width: 820px;
 }
+/* El encabezado de esta sección respira como el de cualquier otra; dentro de un
+   bloque angosto, el margen de abajo se ajusta para no abrir de más. */
+.servicio__faq-inner .section__head {
+  margin-bottom: var(--sp-8);
+}
 
 /* Cierre */
 .servicio__relacionados {

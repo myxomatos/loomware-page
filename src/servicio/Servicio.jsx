@@ -157,7 +157,7 @@ export default function Servicio({ slug }) {
 
         <section className="section section--soft servicio__faq">
           <div className="container servicio__faq-inner">
-            <header>
+            <header className="section__head">
               <h2>Preguntas sobre {s.nombre}</h2>
             </header>
             <div className="faq__lista">
