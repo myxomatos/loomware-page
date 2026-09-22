@@ -61,20 +61,36 @@ export default function Solutions() {
 
         <p className="solutions__grupo">Y todo lo que las acompaña</p>
         <ul className="solutions__lista">
-          {RESTO.map((s) => (
-            <li key={s.slug} id={`solucion-${s.slug}`}>
-              <a href={`/servicios/${s.slug}`} className="solution-row">
-                <span className="icon-tile icon-tile--sm icon-tile--soft">
-                  <Icon name={s.icon} size={18} />
-                </span>
-                <span className="solution-row__texto">
-                  <strong>{s.nombre}</strong>
-                  <span>{s.resumen}</span>
-                </span>
-                <Icon name="arrow-right" size={16} className="solution-row__flecha" />
-              </a>
-            </li>
-          ))}
+          {RESTO.map((s) => {
+            const recorrido = recorridoDeServicio(s.slug)
+            return (
+              <li key={s.slug} id={`solucion-${s.slug}`} className="solution-row">
+                <a href={`/servicios/${s.slug}`} className="solution-row__link">
+                  <span className="icon-tile icon-tile--sm icon-tile--soft">
+                    <Icon name={s.icon} size={18} />
+                  </span>
+                  <span className="solution-row__texto">
+                    <strong>{s.nombre}</strong>
+                    <span>{s.resumen}</span>
+                  </span>
+                </a>
+                {/* El recorrido, si existe, va como segunda acción: enlaces anidados no se puede. */}
+                {recorrido && (
+                  <a href={`/recorridos/${recorrido.slug}`} className="solution-row__paso">
+                    Paso a paso
+                    <Icon name="arrow-right" size={14} />
+                  </a>
+                )}
+                <a
+                  href={`/servicios/${s.slug}`}
+                  className="solution-row__flecha"
+                  aria-label={`Ver ${s.nombre}`}
+                >
+                  <Icon name="arrow-right" size={16} />
+                </a>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </section>

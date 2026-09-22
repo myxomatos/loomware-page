@@ -95,7 +95,6 @@
   display: flex;
   align-items: center;
   gap: var(--sp-4);
-  height: 100%;
   padding: var(--sp-4) var(--sp-5);
   background: var(--white);
   border: 1px solid var(--border);
@@ -106,8 +105,33 @@
   border-color: var(--purple-400);
   transform: translateY(-2px);
 }
+.solution-row__link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex: 1;
+  min-width: 0;
+}
 .solution-row .icon-tile {
   flex: none;
+}
+/* El recorrido, como píldora al lado del texto */
+.solution-row__paso {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-1) var(--sp-3);
+  border: 1px solid var(--purple-100);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  color: var(--purple-500);
+  white-space: nowrap;
+  transition: background var(--t-base) var(--ease);
+}
+.solution-row__paso:hover {
+  background: var(--purple-50);
 }
 .solution-row__texto {
   display: flex;
@@ -125,7 +149,7 @@
 }
 .solution-row__flecha {
   flex: none;
-  margin-left: auto;
+  display: inline-flex;
   color: var(--purple-500);
 }
 
@@ -136,5 +160,21 @@
   }
   .solution__link {
     padding: var(--sp-6) var(--sp-5) var(--sp-3);
+  }
+}
+
+/* En celular la píldora baja debajo del texto, alineada con él */
+@media (max-width: 599px) {
+  .solution-row {
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-3);
+  }
+  .solution-row__link {
+    flex-basis: calc(100% - 16px - var(--sp-3));
+  }
+  /* La flecha se queda en el primer renglón; la píldora baja al segundo */
+  .solution-row__paso {
+    order: 3;
+    margin-left: calc(32px + var(--sp-4));
   }
 }
