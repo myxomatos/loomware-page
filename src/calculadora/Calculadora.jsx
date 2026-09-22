@@ -11,7 +11,7 @@ import './calculadora.css'
 /*
  * La cuenta se actualiza en cuanto se contesta cada pregunta: ver el número
  * moverse es la mitad del argumento. El correo se pide al final y sólo para
- * mandar el desglose; el resultado se enseña sin pedir nada a cambio.
+ * mandar el desglose; el resultado se enseña primero.
  */
 const ENDPOINT = '/api/contacto'
 
@@ -97,9 +97,9 @@ export default function Calculadora() {
           <span className="eyebrow">Con tus propios números</span>
           <h1>¿Cuánto te cuesta tu Excel?</h1>
           <p className="lead">
-            Seis preguntas. No estimamos lo que vas a ahorrar —eso nadie lo sabe todavía—:
-            calculamos lo que hoy se va en capturar el mismo dato más de una vez, y cuánto
-            dinero trae detenido facturar tarde. La cuenta completa queda a la vista.
+            Seis preguntas de un toque. Calculamos con tus números lo que hoy se va en capturar
+            el mismo dato más de una vez, y cuánto dinero trae detenido facturar tarde. La cuenta
+            completa queda a la vista para que la revises.
           </p>
         </div>
 
@@ -139,8 +139,8 @@ export default function Calculadora() {
 
               {!res && (
                 <p className="calc__espera">
-                  El número aparece en cuanto contestes las seis. Nada se envía a ningún lado
-                  hasta que tú lo decidas.
+                  El número aparece en cuanto contestes las seis. Tus respuestas se quedan en
+                  esta pantalla.
                 </p>
               )}
 
@@ -149,11 +149,8 @@ export default function Calculadora() {
                   {res.capturaUnaVez ? (
                     <div className="calc__cifra calc__cifra--bien">
                       <span className="calc__etq">Recaptura</span>
-                      <strong>Nada</strong>
-                      <p>
-                        Capturas una sola vez. Eso ya está bien y no hay nada que ahorrar por
-                        este lado.
-                      </p>
+                      <strong>$0</strong>
+                      <p>Capturas una sola vez. Ese lado ya lo tienes resuelto.</p>
                     </div>
                   ) : (
                     <div className="calc__cifra">
@@ -201,13 +198,13 @@ export default function Calculadora() {
                       )}
                     </ul>
                     <p className="calc__nota">
-                      Los únicos dos supuestos son el {FACTOR_PRESTACIONES} de prestaciones y las{' '}
+                      Solo dos valores son nuestros: el {FACTOR_PRESTACIONES} de prestaciones y las{' '}
                       {HORAS_MES} horas al mes. Todo lo demás lo contestaste tú.
                     </p>
                   </details>
 
                   <form className="calc__form" onSubmit={enviar}>
-                    <p className="calc__form-titulo">Te mandamos el desglose y qué se puede bajar</p>
+                    <p className="calc__form-titulo">Recibe el desglose y cómo bajarlo</p>
                     <label className="visually-hidden" htmlFor="c-nombre">Nombre</label>
                     <input id="c-nombre" className="field" name="nombre" placeholder="Nombre"
                       required minLength={2} value={datos.nombre} onChange={onChange} autoComplete="name" />
@@ -235,7 +232,7 @@ export default function Calculadora() {
                     )}
                     <button type="submit" className="btn btn--primary btn--block"
                       disabled={estado === 'enviando'}>
-                      {estado === 'enviando' ? 'Enviando…' : 'Mándame el desglose'}
+                      {estado === 'enviando' ? 'Enviando…' : 'Recibir el desglose'}
                     </button>
                     <a
                       className="calc__wa"

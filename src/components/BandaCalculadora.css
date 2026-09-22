@@ -32,7 +32,6 @@
 }
 .banda-calc .btn {
   flex: none;
-  background: var(--white);
 }
 @media (max-width: 640px) {
   .banda-calc .btn {
