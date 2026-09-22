@@ -12,7 +12,9 @@ import './ContactForm.css'
 const ENDPOINT = '/api/contacto'
 const FALLBACK_EMAIL = EMAIL
 
-const INITIAL = { nombre: '', empresa: '', correo: '', telefono: '', necesidad: '', acepta: false }
+/* Tres campos. El de contacto acepta un WhatsApp o un correo, y el servidor
+   distingue cuál es por la arroba. */
+const INITIAL = { nombre: '', contacto: '', necesidad: '', acepta: false }
 
 const BENEFITS = [
   'Análisis de tus canales y procesos',
@@ -21,12 +23,10 @@ const BENEFITS = [
 ]
 
 function buildMailto(values, interes) {
-  const subject = `Solicitud de diagnóstico — ${values.empresa || values.nombre}`
+  const subject = `Solicitud de diagnóstico — ${values.nombre}`
   const lines = [
     `Nombre: ${values.nombre}`,
-    `Empresa: ${values.empresa}`,
-    `Correo: ${values.correo}`,
-    `WhatsApp / teléfono: ${values.telefono}`,
+    `WhatsApp o correo: ${values.contacto}`,
     interes ? `Interés principal: ${interes}` : null,
     '',
     'Necesidad:',
@@ -148,62 +148,32 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
           onChange={onChange}
         />
 
-        <label className="visually-hidden" htmlFor="f-empresa">
-          Empresa
+        {/* Un solo campo de contacto: la gente escribe lo que prefiere que le
+            contesten, y el servidor reconoce cuál es por la arroba. */}
+        <label className="visually-hidden" htmlFor="f-contacto">
+          WhatsApp o correo
         </label>
         <input
-          id="f-empresa"
+          id="f-contacto"
           className="field"
           type="text"
-          name="empresa"
-          placeholder="Empresa"
-          autoComplete="organization"
+          name="contacto"
+          placeholder="WhatsApp o correo"
+          autoComplete="email tel"
           required
-          value={values.empresa}
-          onChange={onChange}
-        />
-
-        <label className="visually-hidden" htmlFor="f-correo">
-          Correo corporativo
-        </label>
-        <input
-          id="f-correo"
-          className="field"
-          type="email"
-          name="correo"
-          placeholder="Correo corporativo"
-          autoComplete="email"
-          inputMode="email"
-          required
-          value={values.correo}
-          onChange={onChange}
-        />
-
-        <label className="visually-hidden" htmlFor="f-telefono">
-          WhatsApp o teléfono
-        </label>
-        <input
-          id="f-telefono"
-          className="field"
-          type="tel"
-          name="telefono"
-          placeholder="WhatsApp o teléfono"
-          autoComplete="tel"
-          inputMode="tel"
-          required
-          minLength={8}
-          value={values.telefono}
+          minLength={6}
+          value={values.contacto}
           onChange={onChange}
         />
 
         <label className="visually-hidden" htmlFor="f-necesidad">
-          Cuéntanos brevemente tu necesidad
+          Qué quieres resolver
         </label>
         <textarea
           id="f-necesidad"
           className="field"
           name="necesidad"
-          placeholder="Cuéntanos brevemente tu necesidad"
+          placeholder="¿Qué quieres resolver?"
           rows={3}
           maxLength={1000}
           value={values.necesidad}

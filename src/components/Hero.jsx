@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Icon from './Icon'
 import VideoModal from './VideoModal'
 import { VIDEO_URL } from '../data/video'
+import { RECORRIDOS } from '../data/recorridos'
+import { servicioPorSlug } from '../data/servicios'
 import { rastrear } from '../lib/analytics'
 import './Hero.css'
 
@@ -31,27 +33,35 @@ export default function Hero() {
             donde hoy hay Excel, WhatsApp y programas que no se hablan entre sí.
           </p>
 
+          {/* Dos acciones y sólo dos: una que compromete y otra que no pide nada.
+              La calculadora entrega una cifra sin un solo dato del visitante, y
+              es la única puerta por la que entra quien todavía está mirando. */}
           <div className="hero__actions">
             <a href="#contacto" className="btn btn--primary">
               Solicitar diagnóstico
               <Icon name="arrow-right" size={18} />
             </a>
-            {VIDEO_URL ? (
-              <button type="button" className="btn btn--outline hero__video" onClick={abrirVideo}>
-                <span className="btn__play">
-                  <Icon name="play" size={12} />
-                </span>
-                Ver cómo funciona
-                <span className="hero__video-nota">1 min</span>
-              </button>
-            ) : (
-              /* Sin video no se promete video: el botón dice a dónde lleva de verdad. */
-              <a href="#proceso" className="btn btn--outline">
-                Cómo trabajamos
-                <Icon name="arrow-right" size={18} />
-              </a>
-            )}
+            <a
+              href="/calculadora"
+              className="btn btn--outline hero__calc"
+              onClick={() => rastrear('calculadora_desde_hero', { origen: 'hero' })}
+            >
+              ¿Cuánto te cuesta tu Excel?
+              <span className="hero__calc-nota">2 min · con tus números</span>
+            </a>
           </div>
+
+          {/* El video, cuando exista, entra como tercera opción discreta: no le
+              quita el lugar a la puerta de compromiso cero. */}
+          {VIDEO_URL && (
+            <button type="button" className="hero__video" onClick={abrirVideo}>
+              <span className="btn__play">
+                <Icon name="play" size={12} />
+              </span>
+              Ver cómo funciona
+              <span className="hero__video-nota">1 min</span>
+            </button>
+          )}
 
           <ul className="hero__highlights" aria-label="Beneficios">
             {HIGHLIGHTS.map((h) => (
@@ -61,6 +71,27 @@ export default function Hero() {
               </li>
             ))}
           </ul>
+
+          {/* Los ocho recorridos son lo único que ningún competidor tiene, y
+              estaban a media página de distancia. Aquí se ven de entrada. */}
+          <nav className="hero__recorridos" aria-label="Recorridos paso a paso">
+            <span className="hero__recorridos-tit">Ve cómo funciona, paso a paso</span>
+            <ul>
+              {RECORRIDOS.map((r) => {
+                const s = servicioPorSlug(r.servicio)
+                return (
+                  <li key={r.slug}>
+                    <a
+                      href={`/recorridos/${r.slug}`}
+                      onClick={() => rastrear('recorrido_desde_hero', { recorrido: r.slug })}
+                    >
+                      {s ? s.nombre : r.titulo}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
         </div>
 
         <figure className="hero__media">

@@ -2,7 +2,11 @@
  * Cloudflare Pages Function: recibe el formulario de diagnóstico y lo manda
  * por correo usando Resend (https://resend.com).
  *
- *   POST /api/contacto   { nombre, empresa, correo, telefono, necesidad, interes }
+ *   POST /api/contacto   { nombre, contacto, necesidad, interes, origen, acepta }
+ *
+ * `contacto` es un solo campo: si trae arroba se guarda como correo y si no,
+ * como teléfono. Se sigue aceptando la forma larga { empresa, correo, telefono }
+ * que manda la calculadora.
  *
  * Variables en Cloudflare → Settings → Environment variables (Production y Preview):
  *   RESEND_API_KEY  llave de Resend. Guárdala como "Secret", no como texto plano.
@@ -23,6 +27,7 @@ const json = (body, status = 200) =>
   })
 
 const clean = (v) => String(v ?? '').trim().slice(0, MAX_LEN)
+const esCorreo = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
 const escape = (v) =>
   clean(v).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c])
 
@@ -39,29 +44,38 @@ export async function onRequestPost({ request, env }) {
   // Honeypot: los bots llenan todos los campos; la persona nunca ve este.
   if (clean(body._gotcha)) return json({ ok: true })
 
+  // Un solo campo de contacto: con arroba es correo, sin ella es teléfono.
+  const contacto = clean(body.contacto)
   const lead = {
     nombre: clean(body.nombre),
     empresa: clean(body.empresa),
-    correo: clean(body.correo),
-    telefono: clean(body.telefono),
+    correo: clean(body.correo) || (esCorreo(contacto) ? contacto : ''),
+    telefono: clean(body.telefono) || (contacto && !esCorreo(contacto) ? contacto : ''),
     necesidad: clean(body.necesidad),
     interes: clean(body.interes),
     origen: clean(body.origen),
   }
 
-  const faltantes = ['nombre', 'empresa', 'correo', 'telefono'].filter((k) => !lead[k])
-  if (faltantes.length) return json({ error: `Faltan datos: ${faltantes.join(', ')}` }, 400)
+  if (!lead.nombre) return json({ error: 'Falta tu nombre' }, 400)
+  // Con arroba la intención es clara: si el correo está mal escrito, se dice,
+  // en vez de guardarlo como si fuera un teléfono.
+  if (contacto.includes('@') && !esCorreo(contacto)) {
+    return json({ error: 'El correo no parece válido' }, 400)
+  }
+  if (!lead.correo && !lead.telefono) {
+    return json({ error: 'Déjanos un WhatsApp o un correo para contestarte' }, 400)
+  }
   // El consentimiento se valida aquí y no sólo en el navegador (LFPDPPP).
   if (body.acepta !== true) return json({ error: 'Es necesario aceptar el aviso de privacidad' }, 400)
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.correo)) {
+  if (lead.correo && !esCorreo(lead.correo)) {
     return json({ error: 'El correo no parece válido' }, 400)
   }
 
   const filas = [
     ['Nombre', lead.nombre],
-    ['Empresa', lead.empresa],
-    ['Correo', lead.correo],
-    ['WhatsApp / teléfono', lead.telefono],
+    ['Empresa', lead.empresa || '—'],
+    ['Correo', lead.correo || '—'],
+    ['WhatsApp / teléfono', lead.telefono || '—'],
     ['Interés principal', lead.interes || '—'],
     ['Llegó desde', lead.origen || 'Inicio'],
     ['Necesidad', lead.necesidad || '—'],
@@ -84,7 +98,9 @@ export async function onRequestPost({ request, env }) {
           .join('')}
       </table>
       <p style="margin:16px 0 0;font-size:13px">
-        Responde a este correo para contestarle directamente a ${escape(lead.nombre)}.
+        ${lead.correo
+          ? `Responde a este correo para contestarle directamente a ${escape(lead.nombre)}.`
+          : `${escape(lead.nombre)} dejó WhatsApp: contéstale al ${escape(lead.telefono)}.`}
       </p>
     </div>`
 
@@ -97,8 +113,9 @@ export async function onRequestPost({ request, env }) {
     body: JSON.stringify({
       from: env.LEAD_FROM || DEFAULT_FROM,
       to: (env.LEAD_TO || DEFAULT_TO).split(',').map((s) => s.trim()).filter(Boolean),
-      reply_to: lead.correo,
-      subject: `Diagnóstico${lead.origen && lead.origen !== 'Inicio' ? ' · ' + lead.origen : ''} — ${lead.empresa} (${lead.nombre})`,
+      // Sin correo no hay a quién responderle: se contesta por WhatsApp.
+      ...(lead.correo ? { reply_to: lead.correo } : {}),
+      subject: `Diagnóstico${lead.origen && lead.origen !== 'Inicio' ? ' · ' + lead.origen : ''} — ${lead.empresa || lead.nombre}${lead.empresa ? ` (${lead.nombre})` : ''}`,
       text: texto,
       html,
     }),

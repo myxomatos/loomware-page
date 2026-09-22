@@ -17,7 +17,9 @@ const ENDPOINT = '/api/contacto'
 
 export default function Calculadora() {
   const [r, setR] = useState({})
-  const [datos, setDatos] = useState({ nombre: '', empresa: '', correo: '', acepta: false })
+  // Dos campos: la cuenta ya viaja en el mensaje, así que sólo falta a quién
+  // contestarle. Pedir la empresa aquí era un campo de más.
+  const [datos, setDatos] = useState({ nombre: '', correo: '', acepta: false })
   const [estado, setEstado] = useState('idle')
   const [error, setError] = useState('')
 
@@ -57,7 +59,6 @@ export default function Calculadora() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           ...datos,
-          telefono: 'No proporcionado (calculadora)',
           necesidad: resumen,
           interes: 'Calculadora',
           origen: 'Calculadora',
@@ -208,9 +209,6 @@ export default function Calculadora() {
                     <label className="visually-hidden" htmlFor="c-nombre">Nombre</label>
                     <input id="c-nombre" className="field" name="nombre" placeholder="Nombre"
                       required minLength={2} value={datos.nombre} onChange={onChange} autoComplete="name" />
-                    <label className="visually-hidden" htmlFor="c-empresa">Empresa</label>
-                    <input id="c-empresa" className="field" name="empresa" placeholder="Empresa"
-                      required value={datos.empresa} onChange={onChange} autoComplete="organization" />
                     <label className="visually-hidden" htmlFor="c-correo">Correo</label>
                     <input id="c-correo" className="field" type="email" name="correo"
                       placeholder="Correo" required value={datos.correo} onChange={onChange}

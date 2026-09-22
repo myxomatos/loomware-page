@@ -164,14 +164,20 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### De la tercera auditoría, aún abiertos
 
-- [ ] **Logotipos de clientes** — *[material de venta]*. Aldo confirmó que hay clientes
+- [ ] **Logotipos de clientes — movimiento 06 del estudio comparativo.** Los 22 sitios medidos
+      tienen prueba social: Holded dice «más de 900 000 usuarios», Alegra «#1 en México», Nubank
+      «100 millones de clientes», y todos enseñan logos o testimonios. Aldo confirmó que hay clientes
       satisfechos. Cuando autoricen el uso de su marca: logo en `public/clientes/` y el caso en
       `src/data/casos.js`. Es lo único que separa a la página de un 9, y **es también el techo
       del material de venta**: sin un caso —aunque sea sin nombre, descrito por giro, tamaño y
       ciudad— ninguna pieza pasa de 8. Hoy no hay ninguna prueba de que exista un cliente.
-- [ ] **Precio.** Queda fuera a propósito: hoy todo es a la medida. Si más adelante hay un plan
-      mensual tipo competencia, publicar aunque sea un "desde" sube la conversión y filtra al
-      que nunca iba a comprar. Nota para cuando exista.
+- [ ] **Precio — movimiento 05 del estudio comparativo.** El 22 de septiembre de 2026 se midieron
+      22 sitios de cinco continentes y **los 22 publican precio**: Xero abre su navegación con
+      «Pricing», Bind pone «Precios» de segundo y un botón «Ver planes» junto al de demo, Alegra
+      dice «Planes». Nosotros no decimos nada, y el que quiere saber si esto es para una empresa
+      de su tamaño se va a averiguarlo con quien sí se lo dice. **No hace falta una lista**: basta
+      un rango, un «desde» o una franja por tipo de proyecto. Es hoy el pendiente de mayor impacto
+      en conversión y sólo Aldo puede decidirlo.
 - [ ] **Conversión de bajo compromiso.** Hoy la única forma de dejar datos es el formulario de
       diagnóstico. Una guía descargable ("Checklist: ¿tu empresa necesita un ERP?") capturaría
       al que aún no está listo. Pendiente de decidir si se hace.
@@ -207,6 +213,42 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
+- [x] **Estudio comparativo contra 24 referentes, y los cinco movimientos que salieron
+      (2026-09-22, sexta auditoría).** Se midieron 25 sitios de cinco continentes con el mismo
+      procedimiento —Stripe, Linear, Vercel, Notion, HubSpot, Qonto, Personio, Typeform, Pipedrive,
+      Holded, Nubank, Alegra, Bind ERP, Clip, Siigo, Zoho, Razorpay, Flutterwave, Yoco, Xero,
+      Canva, Atlassian y nosotros—. El estudio completo está en
+      <https://claude.ai/artifact/MoSn3kdnN4acpzk3bbs5t8>.
+
+      **Dónde quedamos:** **primer lugar de los 22 medibles en velocidad** (298 ms al primer byte,
+      **1 script** contra los 79 de Stripe y los 98 de Pipedrive, 926 nodos contra 2 890 de Stripe),
+      arriba en estructura y accesibilidad, y con las URLs más limpias del grupo. A la par en
+      titular —9 palabras, la mediana es 8— y en color: se confirmó con píxeles que **los cinco
+      competidores de software para pymes son azul, turquesa o cian** (Bind `#0078C0`, Holded
+      `#1860F0`, Xero `#000060`, Alegra `#30ABA9`, Yoco `#00A9E0`), así que el morado es el
+      único de la categoría.
+
+      **Lo que se cambió a raíz del estudio:**
+      1. **La calculadora subió a la primera pantalla** como segunda acción. Ninguno de los 22 pide
+         una llamada como acción principal: todos tienen una puerta de compromiso cero, y la
+         nuestra vivía después del formulario.
+      2. **El formulario bajó de cinco campos a tres** —nombre, un WhatsApp o correo, y qué quiere
+         resolver—. La Function acepta ahora un solo campo de contacto y distingue por la arroba
+         si es correo o teléfono; sigue aceptando la forma larga que manda la calculadora, que a su
+         vez bajó de tres campos a dos. Validación probada con seis casos.
+      3. **La descripción de búsqueda pasó de 178 a 155 caracteres** —Google corta en ~155— y
+         ninguna de las 14 páginas generadas pasa del límite.
+      4. **Los ocho recorridos se ven en la primera pantalla**, bajo el hero. Son lo único que
+         ningún competidor tiene y había que bajar media página para encontrarlos.
+      5. **Tipografía de titular propia: Archivo**, de Omnibus-Type (Buenos Aires), la misma del
+         texto de los recorridos. Recortada y con el eje variable fijo en 700 pesa **7.7 KB**
+         (`npm run fuente:titulares`). Inter se queda en el cuerpo y Azeret Mono en etiquetas y
+         cifras: tres tipografías, tres oficios. Es la capa que tienen Xero (National 2), Yoco
+         (Sharp Grotesk) y Vercel (Geist), y que nos faltaba.
+
+      Medido después de los cinco: la portada pesa **106 KB** —seguimos por debajo de cualquiera
+      del grupo— y no hay desbordamiento en tres páginas por tres medidas. Los movimientos 05
+      (precio) y 06 (un caso real) son decisiones de Aldo y están arriba en su lista.
 - [x] **Sistema visual rehecho (2026-09-22, quinta auditoría: color, tipografía y jerarquía).**
       La página se veía bien pero se veía **de 2020**, y no se parecía en nada a los recorridos,
       que son lo mejor diseñado que tiene Loomware. Se corrigió de raíz, con medición:

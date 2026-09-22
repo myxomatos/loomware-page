@@ -144,7 +144,7 @@ export const SERVICIOS = [
     icon: 'user-check',
     titulo: 'Sistema de nómina con timbrado CFDI | Loomware',
     descripcion:
-      'Cálculo de nómina, timbrado de CFDI 4.0 y dispersión bancaria en un proceso que corre solo y deja rastro. Para empresas mexicanas de 10 a 300 colaboradores.',
+      'Cálculo de nómina, timbrado de CFDI 4.0 y dispersión bancaria en un proceso que corre solo. Para empresas mexicanas de 10 a 300 colaboradores.',
     h1: 'Nómina: cálculo, timbrado y dispersión sin hojas de cálculo',
     intro: [
       'La nómina en Excel funciona hasta que deja de funcionar: una fórmula que alguien movió, un cálculo de ISR que no cuadra con el timbrado, una incidencia que se capturó dos veces. Y cada quincena, la misma persona dedicando días a lo mismo.',

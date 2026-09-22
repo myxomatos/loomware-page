@@ -83,6 +83,18 @@ button {
 }
 
 /* Typography scale — every heading in the page uses one of these */
+/* Los titulares van en Archivo; el cuerpo se queda en Inter, donde es
+   imbatible, y las etiquetas en Azeret Mono. Tres tipografías, tres oficios. */
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
+  font-family: var(--font-display);
+}
 h1,
 .h1 {
   font-size: var(--fs-h1);
