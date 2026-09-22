@@ -2,11 +2,12 @@
    para las que acompañan. En celular eso baja de ocho pantallas a unas tres. */
 .solutions__grupo {
   margin: 0 0 var(--sp-4);
+  font-family: var(--font-mono);
   font-size: var(--fs-2xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: var(--ls-caps);
   text-transform: uppercase;
-  color: var(--text-500);
+  color: var(--copper-500);
 }
 .solutions__grid + .solutions__grupo {
   margin-top: var(--sp-10);
@@ -30,11 +31,11 @@
 .solution__link {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   gap: var(--sp-3);
   flex: 1;
-  padding: var(--sp-8) var(--sp-5) var(--sp-4);
+  padding: var(--sp-6) var(--sp-5) var(--sp-4);
   border-radius: inherit;
 }
 .solution .icon-tile {
@@ -45,18 +46,17 @@
 }
 .solution__text {
   font-size: var(--fs-sm);
-  max-width: 28ch;
+  max-width: 32ch;
 }
 .solution__tag {
   margin-top: auto;
   white-space: normal;
-  text-align: center;
+  text-align: left;
 }
 
 /* Dos acciones: el recorrido paso a paso —si existe— manda; "Ver más" acompaña. */
 .solution__acciones {
   display: flex;
-  justify-content: center;
   gap: var(--sp-5);
   padding: 0 var(--sp-5) var(--sp-6);
 }

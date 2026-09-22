@@ -110,7 +110,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--sp-4) var(--sp-1);
-  font-size: var(--fs-lg);
+  font-size: var(--fs-h3);
   font-weight: 600;
   color: var(--text-900);
   border-bottom: 1px solid var(--border);

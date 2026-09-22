@@ -19,6 +19,7 @@
 /* Soluciones que aplican a este giro */
 .ind__servicios {
   max-width: 900px;
+  margin-inline: 0;
 }
 .ind__servicios-lista {
   display: grid;

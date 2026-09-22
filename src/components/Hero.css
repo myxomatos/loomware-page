@@ -37,11 +37,14 @@
 .hero__media {
   margin: 0;
 }
+/* El dibujo isométrico va sobre papel, no sobre una tarjeta con sombra:
+   es una ilustración, no una captura de pantalla. */
 .hero__media img {
   width: 100%;
   height: auto;
-  border-radius: var(--r-2xl);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--r-lg);
+  background: var(--bg-soft);
+  padding: var(--sp-5);
 }
 
 @media (max-width: 991px) {
@@ -94,7 +97,7 @@
 }
 .hero__video-nota {
   padding: 2px 8px;
-  border-radius: var(--r-pill);
+  border-radius: var(--r-md);
   background: var(--purple-100);
   color: var(--purple-600);
   font-size: var(--fs-2xs);

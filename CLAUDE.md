@@ -183,6 +183,12 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Decisiones de contenido — Aldo y Alan
 
+- [ ] **El logo ya no lleva degradado** (2026-09-22). La flecha pasa de morado→rosa→rojo a
+      **morado sólido `#5326D9`**, en el sitio, el favicon y la tarjeta social. Si el logo
+      está en otros lados —WhatsApp Business, firma de correo, tarjetas, plantillas de
+      cotización, redes—, hay que actualizarlo ahí también o la marca se ve en dos versiones.
+      El archivo vive en `src/components/Logo.jsx` y `public/favicon.svg`; si Aldo necesita
+      PNG o SVG suelto para mandar a alguien, se exporta en un minuto.
 - [ ] **Confirmar cuáles son las soluciones "de entrada", o si van las ocho parejas.** El
       inicio muestra tres tarjetas completas bajo "Por donde suelen empezar" —las marcadas con
       `entrada: true` en `src/data/servicios.js`: **CRM, ERP y Nómina**— y las otras cinco en
@@ -194,11 +200,51 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       cinco pantallas en celular). Si ve otra puerta de entrada, es cambiar una bandera.
 - [ ] **Nómina y comercio en línea ya están en el sitio** (tarjeta y página cada uno). Confirmar
       que sí se ofrecen; si no, quitarlos de `src/data/servicios.js` y se van solos de todos lados.
-- [ ] **Hero.** La ilustración es un render 3D genérico. Cuando haya foto real del equipo o de
-      un proyecto, conviene reemplazarla: `public/hero_*.png` y `npm run optimizar:imagenes`.
+- [ ] **Hero.** La ilustración ya es propia: la nave isométrica del recorrido del ERP,
+      exportada a SVG (`npm run hero:dibujo`). Si más adelante hay **foto real** del equipo o
+      de un proyecto, sigue siendo mejor que cualquier dibujo: se cambia el `<img>` de
+      `src/components/Hero.jsx` y se optimiza con `npm run optimizar:imagenes`.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
+- [x] **Sistema visual rehecho (2026-09-22, quinta auditoría: color, tipografía y jerarquía).**
+      La página se veía bien pero se veía **de 2020**, y no se parecía en nada a los recorridos,
+      que son lo mejor diseñado que tiene Loomware. Se corrigió de raíz, con medición:
+
+      **Color.** Había cinco acentos peleando. Ahora hay una ley de una línea, escrita en
+      `src/styles/tokens.css`: **morado = marca y acción · cobre = dato · rojo = error ·
+      verde = sólo WhatsApp**. El botón principal era rojo —que en software significa peligro,
+      y dejaba al formulario sin color para fallar— y ahora es morado `#5326D9`, dos puntos
+      menos de saturación que el anterior y **7.93:1** de contraste contra 5.93:1. El cobre
+      `#A35C23` de los recorridos entra como color del dato: etiquetas de sección y números
+      de paso. Se retiró el degradado morado→rosa→rojo del titular **y del logo**: era la firma
+      de la ola de 2019.
+
+      **Contraste.** Los tres fallos medidos quedaron cerrados: el borde de los campos del
+      formulario pasó de **1.22:1 a 3.17:1** (WCAG 1.4.11 —antes el campo se leía como texto
+      flotando—), el texto apagado de 4.42:1 a **5.29:1** sobre fondo suave, y las cifras sobre
+      placa de cobre a 5.66:1. **18 pares de color medidos, cero fallos.**
+
+      **Tipografía.** Titulares de peso 800 a **700** (800 era gritar) y el interlineado
+      cerrado sólo arriba de 768 px, porque en celular los acentos tocaban la línea de arriba.
+      La escala tenía cinco tamaños en cinco píxeles (20·18·17·16·15) y nada se veía más
+      importante que lo demás: quedan **20 · 16 · 15**. Entra **Azeret Mono** —la de los
+      recorridos— recortada a 11.9 KB (`npm run fuente:mono`), sólo para etiquetas y cifras.
+
+      **Jerarquía.** Un solo estilo de etiqueta de sección (había dos), todos los encabezados
+      **a la izquierda** —centrado es la firma de plantilla—, tarjetas de solución alineadas
+      igual, radios de siete a **cuatro**, sombras de cinco a **tres y ninguna de color**, y
+      una sola esquina para todos los controles. Botones y campos a 48 px, chips a 44.
+
+      **Imágenes.** El render 3D del hero —que se compra hecho y no decía nada cierto— lo
+      sustituye **la nave isométrica del recorrido del ERP**, exportada a SVG con
+      `npm run hero:dibujo`: es nuestra, es nítida a cualquier tamaño y pesa **4 KB contra
+      40**. Se borraron 1.76 MB de PNG y WebP que ya no se usan. La tarjeta social se
+      redibujó con el sistema nuevo (`npm run og:imagen`): **381 KB → 54 KB**.
+
+      **Resultado medido:** la portada baja **100.7 KB** contra los 117 KB de antes, aun
+      sumando la fuente nueva. Sin desbordamiento horizontal en cinco páginas por cuatro
+      medidas —390, 768, 1024 y 1440— y los ocho recorridos intactos.
 - [x] **Inicio más corto y con jerarquía (2026-09-21, cuarta auditoría).** En celular la
       portada medía 18.6 pantallas; ahora **14.7**. Las ocho soluciones van en dos niveles
       —tres tarjetas de entrada con «Ver paso a paso» al recorrido, cinco en lista compacta—;

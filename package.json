@@ -12,7 +12,10 @@
     "share": "cloudflared tunnel --url http://localhost:5173",
     "optimizar:imagenes": "node scripts/optimizar-imagenes.js",
     "fuente:subconjunto": "node scripts/subconjunto-fuente.js",
-    "generar:recorridos": "node scripts/recorridos.js"
+    "generar:recorridos": "node scripts/recorridos.js",
+    "fuente:mono": "node scripts/subconjunto-mono.js",
+    "hero:dibujo": "node scripts/hero-dibujo.js",
+    "og:imagen": "node scripts/og-imagen.js"
   },
   "dependencies": {
     "react": "^18.3.1",

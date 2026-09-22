@@ -86,7 +86,7 @@ button {
 h1,
 .h1 {
   font-size: var(--fs-h1);
-  font-weight: 800;
+  font-weight: 700;
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
   color: var(--text-900);
@@ -94,10 +94,20 @@ h1,
 h2,
 .h2 {
   font-size: var(--fs-h2);
-  font-weight: 800;
+  font-weight: 700;
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
   color: var(--text-900);
+}
+/* El interlineado cerrado sólo cuando el titular es grande: en celular, a
+   1.05, los acentos de «Á» y «ó» tocan la línea de arriba. */
+@media (min-width: 768px) {
+  h1,
+  .h1,
+  h2,
+  .h2 {
+    line-height: var(--lh-display);
+  }
 }
 h3,
 .h3 {
@@ -109,13 +119,13 @@ h3,
 }
 h4,
 .h4 {
-  font-size: var(--fs-h4);
+  font-size: var(--fs-body);
   font-weight: 700;
   line-height: var(--lh-snug);
   color: var(--text-900);
 }
 .lead {
-  font-size: var(--fs-lg);
+  font-size: var(--fs-h3);
   line-height: var(--lh-body);
   color: var(--text-600);
 }
@@ -128,11 +138,11 @@ h4,
 .text-muted {
   color: var(--text-500);
 }
+/* Antes era el degradado morado→rosa→rojo. Se retiró: era la firma de la ola
+   de 2019 y le restaba autoridad al titular. La clase se conserva porque la
+   usan el hero y los títulos de sección. */
 .text-gradient {
-  background: var(--grad-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--purple-500);
 }
 
 /* Layout */
@@ -148,14 +158,16 @@ h4,
 .section--soft {
   background: var(--bg-soft);
 }
+/* A la izquierda, un solo eje para toda la página. Centrado es la firma de
+   plantilla; alineado a la izquierda se lee editorial y empata con los
+   recorridos, que es hacia donde va la marca. */
 .section__head {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--sp-3);
-  text-align: center;
-  max-width: 640px;
-  margin-inline: auto;
+  text-align: left;
+  max-width: 68ch;
   margin-bottom: var(--sp-10);
 }
 .section__subtitle {
@@ -164,22 +176,24 @@ h4,
 }
 
 /* Eyebrow — the small uppercase label above a heading */
+/* Un solo estilo para toda la página: etiqueta monoespaciada en cobre, sin
+   píldora. El cobre es el color del dato, y una etiqueta de sección es
+   justamente eso: la coordenada de dónde estás. Es cómo abre cada recorrido. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  padding: 6px 12px;
-  border-radius: var(--r-pill);
+  gap: var(--sp-2);
+  font-family: var(--font-mono);
   font-size: var(--fs-2xs);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: var(--ls-caps);
   text-transform: uppercase;
-  line-height: 1;
-  color: var(--white);
-  background: var(--navy-900);
+  line-height: 1.2;
+  color: var(--copper-500);
 }
+/* Se conserva por compatibilidad con el marcado; ya pinta igual. */
 .eyebrow--purple {
-  color: var(--purple-500);
-  background: var(--purple-100);
+  color: var(--copper-500);
 }
 
 /* Buttons — one base, three variants, two sizes */
@@ -188,7 +202,7 @@ h4,
   align-items: center;
   justify-content: center;
   gap: var(--sp-2);
-  min-height: 46px;
+  min-height: 48px;
   padding: 0 var(--sp-6);
   border-radius: var(--r-md);
   border: 1.5px solid transparent;
@@ -214,15 +228,21 @@ h4,
 .btn .icon {
   flex: none;
 }
+/* El botón principal es morado, no rojo: en software el rojo significa error
+   y peligro, y gastarlo en la acción más importante dejaba a la marca sin
+   color propio y al formulario sin color para fallar. */
 .btn--primary {
   color: var(--white);
-  background: var(--red-500);
-  border-color: var(--red-500);
-  box-shadow: var(--shadow-red);
+  background: var(--purple-500);
+  border-color: var(--purple-500);
 }
 .btn--primary:hover {
-  background: var(--red-600);
-  border-color: var(--red-600);
+  background: var(--purple-600);
+  border-color: var(--purple-600);
+}
+.btn--primary:active {
+  background: var(--purple-700);
+  border-color: var(--purple-700);
 }
 .btn--outline {
   color: var(--purple-500);
@@ -232,10 +252,12 @@ h4,
 .btn--outline:hover {
   color: var(--white);
   background: var(--purple-500);
-  box-shadow: var(--shadow-purple);
 }
+/* Se conserva la clase por el marcado; ya usa la misma esquina que el resto.
+   Un botón de 12 px junto a una píldora de 999 px, en la misma fila del hero,
+   eran dos lenguajes a veinte píxeles de distancia. */
 .btn--pill {
-  border-radius: var(--r-pill);
+  border-radius: var(--r-md);
 }
 .btn--sm {
   min-height: 40px;
@@ -275,9 +297,9 @@ h4,
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 var(--sp-4);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-md);
   border: 1px solid var(--border);
   background: var(--white);
   font-size: var(--fs-xs);
@@ -301,7 +323,6 @@ button.chip:hover {
   color: var(--white);
   background: var(--purple-500);
   border-color: var(--purple-500);
-  box-shadow: var(--shadow-purple);
 }
 .chip[aria-pressed='true'] .icon {
   color: inherit;
@@ -317,7 +338,7 @@ button.chip:hover {
 .card {
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: var(--r-xl);
+  border-radius: var(--r-lg);
   box-shadow: var(--shadow-sm);
 }
 .card--dark {
@@ -371,11 +392,13 @@ button.chip:hover {
 }
 
 /* Form fields */
+/* El borde medía 1.22:1 contra el blanco: el campo se leía como texto
+   flotando, no como algo donde escribir. --border-input da 3.17:1. */
 .field {
   width: 100%;
-  min-height: 44px;
-  padding: 10px 14px;
-  border: 1px solid var(--border);
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-input);
   border-radius: var(--r-sm);
   background: var(--white);
   font-size: var(--fs-sm);
@@ -393,7 +416,7 @@ button.chip:hover {
 .field:focus {
   outline: none;
   border-color: var(--purple-500);
-  box-shadow: 0 0 0 3px rgba(99, 56, 255, 0.18);
+  box-shadow: 0 0 0 3px rgba(83, 38, 217, 0.2);
 }
 .field:user-invalid,
 .field[aria-invalid='true'] {

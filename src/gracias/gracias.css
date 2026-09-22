@@ -19,7 +19,7 @@
   padding: var(--sp-12) var(--sp-10);
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
+  border-radius: var(--r-lg);
   box-shadow: var(--shadow-lg);
 }
 
@@ -51,7 +51,7 @@
   margin-top: var(--sp-1);
 }
 .gracias__lead {
-  font-size: var(--fs-lg);
+  font-size: var(--fs-h3);
   line-height: var(--lh-body);
   max-width: 34ch;
 }

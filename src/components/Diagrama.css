@@ -6,7 +6,7 @@
   padding: var(--sp-8);
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: var(--r-xl);
+  border-radius: var(--r-lg);
   box-shadow: var(--shadow-md);
 }
 .dg__titulo {
@@ -40,7 +40,7 @@
   color: var(--white);
   background: var(--purple-500);
   border-color: var(--purple-500);
-  box-shadow: var(--shadow-purple);
+  box-shadow: var(--shadow-md);
 }
 .dg-nodo__texto {
   font-size: var(--fs-xs);

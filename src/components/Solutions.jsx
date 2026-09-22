@@ -19,9 +19,10 @@ export default function Solutions() {
     <section id="soluciones" className="section section--soft solutions">
       <div className="container">
         <header className="section__head">
-          <h2>Nuestras soluciones</h2>
+          <h2>Soluciones que se hablan entre sí</h2>
           <p className="section__subtitle">
-            Tecnología conectada para cada área crítica de tu operación.
+            Cada una resuelve un área, y todas escriben en el mismo lugar. Así el dato se
+            captura una vez y aparece donde tiene que aparecer.
           </p>
         </header>
 

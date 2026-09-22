@@ -10,7 +10,7 @@
   padding: var(--sp-6);
 }
 .industria__nombre {
-  font-size: var(--fs-h4);
+  font-size: var(--fs-body);
   margin-top: var(--sp-1);
 }
 .industria__nombre a {

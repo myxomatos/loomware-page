@@ -244,7 +244,7 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
 
         <p className="contact__note">
           <Icon name="lock" size={13} />
-          Tu información está segura. No enviamos spam.
+          Tus datos se usan sólo para contestarte.
         </p>
 
       </form>

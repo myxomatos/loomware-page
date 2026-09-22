@@ -64,23 +64,18 @@ export default function Hero() {
         </div>
 
         <figure className="hero__media">
-          {/* WebP por tamaño de pantalla; el PNG queda como respaldo. Las mismas
-              reglas de media están precargadas en index.html. */}
-          <picture>
-            <source media="(max-width: 767px)" type="image/webp" srcSet="/hero-mobile.webp" />
-            <source media="(max-width: 1199px)" type="image/webp" srcSet="/hero-tablet.webp" />
-            <source type="image/webp" srcSet="/hero-desktop.webp" />
-            <source media="(max-width: 767px)" srcSet="/hero_mobile-1400w.png" />
-            <source media="(max-width: 1199px)" srcSet="/hero_tablet-1400w.png" />
-            <img
-              src="/hero_desktop-1400w.png"
-              width="1400"
-              height="1050"
-              alt="Ecosistema tecnológico Loomware: CRM, ERP, automatización, integraciones y cloud conectados en una sola plataforma"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </picture>
+          {/* El dibujo es nuestro: la misma nave isométrica del recorrido del ERP,
+              exportada a SVG. Sustituye al render 3D de catálogo —que no decía
+              nada cierto de Loomware— y pesa 4 KB comprimido contra 40 del WebP.
+              Se genera con `npm run hero:dibujo`. */}
+          <img
+            src="/hero-operacion.svg"
+            width="744"
+            height="462"
+            alt="Vista isométrica de una distribuidora: el camión en el andén, los racks del almacén, la mesa de surtido y la oficina, unidos por una línea al sistema"
+            fetchpriority="high"
+            decoding="async"
+          />
         </figure>
       </div>
       {VIDEO_URL && <VideoModal abierto={video} onCerrar={() => setVideo(false)} />}
