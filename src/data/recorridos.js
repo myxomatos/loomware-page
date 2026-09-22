@@ -66,6 +66,15 @@ export const RECORRIDOS = [
       'Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída vigilada, los accesos por persona y la oficina sin cuartito del servidor.',
   },
   {
+    slug: 'apps-moviles',
+    servicio: 'apps-moviles',
+    titulo: 'Del campo a la oficina, el mismo día',
+    resumen:
+      'La ruta de un técnico durante un día, con sus seis visitas en el mapa y lo que la oficina sabe de cada una a cada hora: con la libreta, y con la app que captura donde ocurre el trabajo.',
+    descripcion:
+      'Recorrido paso a paso de una app de campo: las visitas del día, la captura en el lugar con foto y firma, la zona sin señal que sincroniza sola, la evidencia con hora y GPS, el avance en tiempo real y el cierre el mismo día.',
+  },
+  {
     slug: 'tienda-en-linea',
     servicio: 'tienda-en-linea',
     titulo: 'Del carrito a la puerta',

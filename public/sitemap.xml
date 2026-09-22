@@ -127,6 +127,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://loomware.com.mx/recorridos/apps-moviles</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://loomware.com.mx/recorridos/tienda-en-linea</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>yearly</changefreq>
