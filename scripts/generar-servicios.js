@@ -14,6 +14,7 @@ import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { SERVICIOS } from '../src/data/servicios.js'
 import { INDUSTRIAS } from '../src/data/industrias.js'
+import { RECORRIDOS } from '../src/data/recorridos.js'
 import { DOMINIO, EMPRESA, EMAIL, TELEFONOS } from '../src/data/contacto.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -129,6 +130,7 @@ const urls = [
   { loc: DOMINIO + '/', prioridad: '1.0', frecuencia: 'monthly' },
   ...SERVICIOS.map((s) => ({ loc: `${DOMINIO}/servicios/${s.slug}`, prioridad: '0.8', frecuencia: 'monthly' })),
   ...INDUSTRIAS.map((g) => ({ loc: `${DOMINIO}/industrias/${g.id}`, prioridad: '0.7', frecuencia: 'monthly' })),
+  ...RECORRIDOS.map((r) => ({ loc: `${DOMINIO}/recorridos/${r.slug}`, prioridad: '0.7', frecuencia: 'yearly' })),
   { loc: DOMINIO + '/aviso-de-privacidad', prioridad: '0.2', frecuencia: 'yearly' },
 ]
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

@@ -91,6 +91,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://loomware.com.mx/recorridos/erp</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://loomware.com.mx/recorridos/crm</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://loomware.com.mx/aviso-de-privacidad</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>yearly</changefreq>

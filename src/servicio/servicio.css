@@ -202,3 +202,39 @@
     align-items: flex-start;
   }
 }
+
+/* Banda del recorrido: la versión larga de "cómo funciona", en su propia página.
+   Sólo aparece en los servicios que ya tienen uno escrito. */
+.servicio__recorrido-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+.servicio__recorrido-texto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  max-width: 58ch;
+}
+.servicio__recorrido-texto .eyebrow {
+  /* en columna flex el distintivo se estira; que abrace su texto */
+  align-self: flex-start;
+}
+.servicio__recorrido-texto h2 {
+  margin: 0;
+}
+.servicio__recorrido-texto p {
+  margin: 0;
+  color: var(--text-600);
+}
+.servicio__recorrido .btn {
+  flex: none;
+}
+@media (max-width: 640px) {
+  .servicio__recorrido .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

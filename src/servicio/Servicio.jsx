@@ -5,6 +5,7 @@ import WhatsAppButton from '../components/WhatsAppButton'
 import Diagrama from '../components/Diagrama'
 import ContactForm from '../components/ContactForm'
 import { servicioPorSlug, SERVICIOS } from '../data/servicios'
+import { recorridoDeServicio } from '../data/recorridos'
 import { whatsappUrl } from '../data/contacto'
 import '../components/Faq.css'
 import './servicio.css'
@@ -29,6 +30,7 @@ export default function Servicio({ slug }) {
 
   const mensajeWa = `Hola, vi la página de ${s.nombre} en loomware.com.mx y me interesa un diagnóstico para mi empresa.`
   const relacionados = s.relacionados.map(servicioPorSlug).filter(Boolean)
+  const recorrido = recorridoDeServicio(s.slug)
 
   return (
     <>
@@ -107,6 +109,22 @@ export default function Servicio({ slug }) {
                 <h2>Cómo funciona</h2>
               </header>
               <Diagrama d={s.diagrama} />
+            </div>
+          </section>
+        )}
+
+        {recorrido && (
+          <section className="section section--soft servicio__recorrido">
+            <div className="container servicio__recorrido-inner">
+              <div className="servicio__recorrido-texto">
+                <span className="eyebrow">Recorrido paso a paso</span>
+                <h2 className="h3">{recorrido.titulo}</h2>
+                <p>{recorrido.resumen}</p>
+              </div>
+              <a href={`/recorridos/${recorrido.slug}`} className="btn btn--primary">
+                Ver el recorrido completo
+                <Icon name="arrow-right" size={18} />
+              </a>
             </div>
           </section>
         )}
