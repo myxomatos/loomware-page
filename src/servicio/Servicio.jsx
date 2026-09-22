@@ -6,7 +6,6 @@ import Diagrama from '../components/Diagrama'
 import ContactForm from '../components/ContactForm'
 import { servicioPorSlug, SERVICIOS } from '../data/servicios'
 import { recorridoDeServicio } from '../data/recorridos'
-import { whatsappUrl } from '../data/contacto'
 import '../components/Faq.css'
 import './servicio.css'
 
@@ -75,15 +74,6 @@ export default function Servicio({ slug }) {
                 <a href="#contacto" className="btn btn--primary">
                   Solicitar diagnóstico
                   <Icon name="arrow-right" size={18} />
-                </a>
-                <a
-                  href={whatsappUrl(mensajeWa)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn--whatsapp-outline"
-                >
-                  <Icon name="whatsapp" size={20} strokeWidth={0} />
-                  Escríbenos por WhatsApp
                 </a>
               </div>
             </div>
@@ -213,7 +203,7 @@ export default function Servicio({ slug }) {
       </main>
 
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton mensaje={mensajeWa} origen={`flotante · ${s.nombre}`} />
     </>
   )
 }

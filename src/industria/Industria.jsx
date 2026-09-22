@@ -5,7 +5,6 @@ import WhatsAppButton from '../components/WhatsAppButton'
 import ContactForm from '../components/ContactForm'
 import { industriaPorId, INDUSTRIAS } from '../data/industrias'
 import { servicioPorSlug } from '../data/servicios'
-import { whatsappUrl } from '../data/contacto'
 import '../servicio/servicio.css'
 import './industria.css'
 
@@ -72,15 +71,6 @@ export default function Industria({ id }) {
                 <a href="#contacto" className="btn btn--primary">
                   Solicitar diagnóstico
                   <Icon name="arrow-right" size={18} />
-                </a>
-                <a
-                  href={whatsappUrl(mensajeWa)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn--whatsapp-outline"
-                >
-                  <Icon name="whatsapp" size={20} strokeWidth={0} />
-                  Escríbenos por WhatsApp
                 </a>
               </div>
             </div>
@@ -159,7 +149,7 @@ export default function Industria({ id }) {
       </main>
 
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton mensaje={mensajeWa} origen={`flotante · ${g.nombre}`} />
     </>
   )
 }

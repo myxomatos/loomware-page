@@ -40,31 +40,6 @@
   }
 }
 
-/* Botón de WhatsApp dentro de la página (hero, formulario) */
-.btn--whatsapp {
-  --icon-bg: var(--green-700);
-  color: var(--white);
-  background: var(--green-700);
-  border-color: var(--green-700);
-  box-shadow: 0 8px 20px rgba(15, 122, 64, 0.28);
-}
-.btn--whatsapp:hover {
-  background: var(--green-800);
-  border-color: var(--green-800);
-}
-.btn--whatsapp-outline {
-  --icon-bg: var(--white);
-  color: var(--green-700);
-  background: var(--white);
-  border-color: var(--green-700);
-}
-.btn--whatsapp-outline .icon {
-  color: var(--green-700);
-}
-.btn--whatsapp-outline:hover {
-  background: #f0fdf4;
-}
-
 /*
  * En celular la banda de cookies ocupa todo el ancho de abajo y taparía este
  * botón. Mientras el visitante no decida, el botón se aparta.
