@@ -68,3 +68,18 @@
   font-weight: 600;
   color: var(--text-900);
 }
+
+/* El logotipo del cliente: un solo tono, a media altura de una línea de
+   titular, y con aire abajo para que no se pegue al distintivo del servicio.
+   Va primero en la tarjeta porque es lo que da la prueba. */
+.caso__logo {
+  display: block;
+  /* El logotipo es un conjunto vertical —dibujo arriba, palabra abajo—: a 40 px
+     la palabra quedaba ilegible. */
+  height: 76px;
+  width: auto;
+  max-width: 220px;
+  margin-bottom: var(--sp-4);
+  object-fit: contain;
+  object-position: left center;
+}

@@ -13,9 +13,10 @@ export default function Casos() {
     <section id="casos" className="section section--soft casos">
       <div className="container">
         <header className="section__head">
-          <h2>Resultados con clientes</h2>
+          <span className="eyebrow">Clientes</span>
+          <h2>Empresas que ya operan así</h2>
           <p className="section__subtitle">
-            Lo que cambió en empresas como la tuya después de trabajar con nosotros.
+            Qué se construyó y qué cambió. Su marca aparece aquí porque ellos lo autorizaron.
           </p>
         </header>
 
@@ -23,6 +24,18 @@ export default function Casos() {
           {CASOS.map((c) => (
             <li key={c.descripcion} className="card caso">
               <div className="caso__head">
+                {/* El logotipo va en un solo tono, para que acompañe sin competir
+                    con la marca de la casa. Sólo aparece si el cliente autorizó
+                    el uso de su marca. */}
+                {c.logo && (
+                  <img
+                    className="caso__logo"
+                    src={c.logo}
+                    alt={c.cliente ? `Logotipo de ${c.cliente}` : 'Logotipo del cliente'}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
                 <span className="chip chip--soft">{c.servicio}</span>
                 <p className="caso__quien">
                   {c.cliente ? <strong>{c.cliente}</strong> : null}

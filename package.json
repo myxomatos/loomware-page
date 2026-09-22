@@ -16,7 +16,8 @@
     "fuente:mono": "node scripts/subconjunto-mono.js",
     "hero:dibujo": "node scripts/hero-dibujo.js",
     "og:imagen": "node scripts/og-imagen.js",
-    "fuente:titulares": "node scripts/subconjunto-titulares.js"
+    "fuente:titulares": "node scripts/subconjunto-titulares.js",
+    "logo:cliente": "node scripts/logo-cliente.js"
   },
   "dependencies": {
     "react": "^18.3.1",

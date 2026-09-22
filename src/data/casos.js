@@ -7,16 +7,34 @@
  * empleados en Ecatepec") y se deja `cliente` vacío. Los resultados deben
  * ser medibles y haberse medido de verdad.
  *
- * Ejemplo de la forma esperada (borrar al capturar el primero real):
- * {
- *   cliente: '',                         // nombre comercial, o '' si es anónimo
- *   descripcion: 'Distribuidora de 45 empleados en Ecatepec',
- *   servicio: 'ERP',                     // CRM, ERP, Nómina, Automatización…
- *   reto: 'Inventario en tres hojas de Excel que no coincidían entre sí.',
- *   solucion: 'ERP con inventario en tiempo real y facturación conectada.',
- *   resultado: 'Cierre de mes de 9 días a 2. Cero diferencias de inventario en 6 meses.',
- *   cita: '',                            // frase textual del cliente, opcional
- *   autor: '',                           // 'Nombre, Cargo', si hay cita
- * }
+ * Campos:
+ *   cliente      nombre comercial, o '' si es anónimo
+ *   descripcion  giro, tamaño y ciudad
+ *   servicio     CRM, ERP, Nómina, Comercio en línea…
+ *   reto         qué había antes
+ *   solucion     qué se construyó
+ *   resultado    qué cambió. Medible cuando se midió; si todavía no hay
+ *                medición, se describe lo que sí es verificable y se deja el
+ *                número para cuando exista. Jamás una cifra estimada.
+ *   logo         ruta en public/clientes/, sólo con autorización de marca
+ *   sitio        URL pública del cliente, opcional
+ *   cita, autor  frase textual y quién la dijo, opcionales
+ *
+ * Para preparar un logotipo: `node scripts/logo-cliente.js <origen> <destino>`.
  */
-export const CASOS = []
+export const CASOS = [
+  {
+    cliente: 'GT-SHOP',
+    descripcion: 'Grafeno Tech Shop · venta de cámaras y equipo de seguridad',
+    servicio: 'Comercio en línea',
+    reto:
+      'Vender en línea su catálogo de cámaras y equipo de seguridad sin montar una operación aparte de la del mostrador.',
+    solucion:
+      'Tienda en línea sobre Shopify, con el catálogo, los pagos y los envíos conectados en un mismo flujo.',
+    resultado:
+      'La tienda opera en línea: el catálogo se publica desde un solo lugar y cada pedido entra con su pago y su envío.',
+    logo: '/clientes/gt-shop.png',
+    cita: '',
+    autor: '',
+  },
+]
