@@ -97,13 +97,17 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
             className="contact__directo-enlace"
             onClick={() => clicWhatsApp('formulario')}
           >
-            <Icon name="message-phone" size={18} />
+            <span className="icon-tile icon-tile--sm icon-tile--soft">
+              <Icon name="message-phone" size={16} />
+            </span>
             <span>
               <strong>WhatsApp</strong> {WHATSAPP.display}
             </span>
           </a>
           <a href={`mailto:${EMAIL}`} className="contact__directo-enlace">
-            <Icon name="mail" size={18} />
+            <span className="icon-tile icon-tile--sm icon-tile--soft">
+              <Icon name="mail" size={16} />
+            </span>
             <span>
               <strong>Correo</strong> {EMAIL}
             </span>
