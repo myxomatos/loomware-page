@@ -1,0 +1,99 @@
+/* Ocho tarjetas iguales, en rejilla que se acomoda sola: cuatro en escritorio,
+   dos en tablet, una en celular. Cada una lleva la solución en la etiqueta de
+   dato —cobre, monoespaciada— y el título del recorrido como protagonista. */
+.recorridos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--sp-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recorrido {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  height: 100%;
+  padding: var(--sp-5);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition:
+    border-color var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease),
+    box-shadow var(--t-base) var(--ease);
+}
+.recorrido:hover {
+  border-color: var(--copper-500);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.recorrido__sol {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--copper-500);
+}
+.recorrido__titulo {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
+  color: var(--text-900);
+  text-wrap: balance;
+}
+/* El pie se empuja abajo para que las ocho tarjetas cierren a la misma altura
+   aunque los títulos midan distinto. */
+.recorrido__pie {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: auto;
+  padding-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-500);
+  transition: gap var(--t-base) var(--ease);
+}
+.recorrido__pie .icon {
+  color: var(--copper-500);
+}
+.recorrido:hover .recorrido__pie {
+  gap: var(--sp-3);
+}
+
+/* En celular las ocho tarjetas se apilan y cuestan pantalla y media. Aquí cada
+   una se vuelve un renglón compacto: etiqueta y título a la izquierda, flecha
+   a la derecha, y el conteo de pasos se retira —ya lo dice la sección—. */
+@media (max-width: 599px) {
+  .recorrido {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--sp-1) var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+  }
+  .recorrido__sol {
+    grid-column: 1;
+  }
+  .recorrido__titulo {
+    grid-column: 1;
+    font-size: var(--fs-body);
+  }
+  .recorrido__pie {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+    padding: 0;
+  }
+  .recorrido__pasos {
+    display: none;
+  }
+}

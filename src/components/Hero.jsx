@@ -2,8 +2,6 @@ import { useState } from 'react'
 import Icon from './Icon'
 import VideoModal from './VideoModal'
 import { VIDEO_URL } from '../data/video'
-import { RECORRIDOS } from '../data/recorridos'
-import { servicioPorSlug } from '../data/servicios'
 import { rastrear } from '../lib/analytics'
 import './Hero.css'
 
@@ -71,27 +69,6 @@ export default function Hero() {
               </li>
             ))}
           </ul>
-
-          {/* Los ocho recorridos son lo único que ningún competidor tiene, y
-              estaban a media página de distancia. Aquí se ven de entrada. */}
-          <nav className="hero__recorridos" aria-label="Recorridos paso a paso">
-            <span className="hero__recorridos-tit">Ve cómo funciona, paso a paso</span>
-            <ul>
-              {RECORRIDOS.map((r) => {
-                const s = servicioPorSlug(r.servicio)
-                return (
-                  <li key={r.slug}>
-                    <a
-                      href={`/recorridos/${r.slug}`}
-                      onClick={() => rastrear('recorrido_desde_hero', { recorrido: r.slug })}
-                    >
-                      {s ? s.nombre : r.titulo}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
         </div>
 
         <figure className="hero__media">

@@ -238,11 +238,14 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
          vez bajó de tres campos a dos. Validación probada con seis casos.
       3. **La descripción de búsqueda pasó de 178 a 155 caracteres** —Google corta en ~155— y
          ninguna de las 14 páginas generadas pasa del límite.
-      4. **Los ocho recorridos se ven en la primera pantalla**, bajo el hero. Son lo único que
-         ningún competidor tiene y había que bajar media página para encontrarlos. Como quedaron
-         arriba, **el «paso a paso» salió de las tarjetas de soluciones**: tenerlo en los dos
-         lugares de la misma página partía la atención. Cada tarjeta vuelve a una sola acción y
-         cada renglón de la lista, a un solo enlace.
+      4. **Los ocho recorridos tienen su propia sección**, justo debajo del hero
+         (`src/components/Recorridos.jsx`, se alimenta sola de `src/data/recorridos.js`). Primero
+         fueron ocho enlaces subrayados al pie del hero, y ahí se perdían dos cosas: no se
+         entendía qué era un recorrido, y se tiraba lo mejor que tienen, que son **sus títulos**
+         —«Del andén al cobro» dice más que «ERP», porque «ERP» ya está en toda la página—. Ahora
+         son ocho tarjetas con la solución como etiqueta de dato y el título de protagonista.
+         Como quedaron arriba, **el «paso a paso» salió de las tarjetas de soluciones**: tenerlo
+         en dos lugares de la misma página partía la atención.
       5. **Tipografía de titular propia: Archivo**, de Omnibus-Type (Buenos Aires), la misma del
          texto de los recorridos. Recortada y con el eje variable fijo en 700 pesa **7.7 KB**
          (`npm run fuente:titulares`). Inter se queda en el cuerpo y Azeret Mono en etiquetas y
