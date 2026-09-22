@@ -85,11 +85,11 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  /* Una columna: cinco en rejilla siempre dejan una celda vacía. */
+  /* Una columna, al ancho de las tarjetas de arriba: cinco en rejilla siempre
+     dejan una celda vacía, y más angosta que la rejilla se veía cortada. */
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
-  max-width: 760px;
 }
 .solution-row {
   display: flex;

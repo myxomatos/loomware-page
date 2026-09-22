@@ -59,9 +59,10 @@ El detalle de cada cosa está en los bloques de abajo.
 | 8 | **Alta en Search Console** y enviar el sitemap | <https://search.google.com/search-console> | 10 min |
 | 9 | **Invitar a Alan a Cloudflare** como Administrator | Manage Account → Members → Invite | 1 min |
 
-**Qué revisar en el paso 1** (son 41 commits en `alan`, cada uno explica qué y por qué): abrir
-el menú en celular, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de
-servicio y a una de industria, y abrir `/prospectar`.
+**Qué revisar en el paso 1** (cada commit en `alan` explica qué y por qué): abrir el menú en
+celular, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de servicio y
+a una de industria, abrir `/prospectar`, y **recorrer dos de los ocho «Paso a paso» desde el
+inicio en celular** (por ejemplo ERP y nómina): son la pieza que se le manda al prospecto.
 
 **Qué probar en el paso 6**: enviar el formulario —debe llegar el correo y aterrizar en
 `/gracias`—, entrar a `/prospectar` con la contraseña y hacer una búsqueda, y confirmar que
@@ -182,12 +183,15 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Decisiones de contenido — Aldo y Alan
 
-- [ ] **Confirmar cuáles son las soluciones "de entrada".** El inicio ya no muestra ocho
-      tarjetas iguales: las marcadas con `entrada: true` en `src/data/servicios.js` —hoy
-      **CRM, ERP y Nómina**— van con tarjeta completa bajo "Por donde suelen empezar", y las
-      otras cinco en lista bajo "Y todo lo que las acompaña". Alan las eligió porque son las
-      tres con recorrido y las de dolor más amplio. Si Aldo ve otra puerta de entrada, es
-      cambiar una bandera y el inicio se reacomoda solo.
+- [ ] **Confirmar cuáles son las soluciones "de entrada", o si van las ocho parejas.** El
+      inicio muestra tres tarjetas completas bajo "Por donde suelen empezar" —las marcadas con
+      `entrada: true` en `src/data/servicios.js`: **CRM, ERP y Nómina**— y las otras cinco en
+      lista bajo "Y todo lo que las acompaña", cada renglón con su «Paso a paso». Alan lo dejó
+      así porque ocho tarjetas iguales eran ocho pantallas en celular y no decían por dónde
+      arrancar; las tres de entrada son las de dolor más amplio. **Ahora las ocho tienen
+      recorrido**, así que la duda es de jerarquía, no de contenido: si Aldo prefiere las ocho
+      parejas, se marca `entrada: true` en todas y el inicio se reacomoda solo (y crece unas
+      cinco pantallas en celular). Si ve otra puerta de entrada, es cambiar una bandera.
 - [ ] **Nómina y comercio en línea ya están en el sitio** (tarjeta y página cada uno). Confirmar
       que sí se ofrecen; si no, quitarlos de `src/data/servicios.js` y se van solos de todos lados.
 - [ ] **Hero.** La ilustración es un render 3D genérico. Cuando haya foto real del equipo o de
