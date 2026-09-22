@@ -304,7 +304,10 @@
       .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
       .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
         color:var(--ink-3);line-height:1.8;}
-      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;}
+      /* El correo no se parte a media dirección: se baja entero. */
+      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+        overflow-wrap:normal;word-break:normal;white-space:nowrap;}
+      .cierre .otras .par{display:inline;}
       .cierre .otras a:hover{color:var(--signal);}
       .cierre .otras .sep{margin-inline:7px;color:var(--rule);}
 
@@ -346,6 +349,9 @@
         .vs__row,.costo .rejilla li{grid-template-columns:minmax(0,1fr);gap:3px;}
         .vs__lbl,.costo .rejilla b{line-height:1.4;}
         .btn{width:100%;justify-content:center;}
+        /* En celular cada forma de contacto va en su propio renglón. */
+        .cierre .otras .par{display:block;}
+        .cierre .otras .sep{display:none;}
         .gauge{margin-left:0;}
       }
     </style>
@@ -631,7 +637,7 @@
       WhatsApp · 55 8096 8928
     </a>
     <p class="otras">
-      o llena el <a href="https://alan.loomware-page.pages.dev/servicios/erp" target="_blank" rel="noopener noreferrer">formulario del sitio</a><span class="sep">·</span>correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a>
+      <span class="par">o llena el <a href="https://alan.loomware-page.pages.dev/servicios/erp" target="_blank" rel="noopener noreferrer">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
     </p>
   </section>
 
@@ -853,16 +859,29 @@
 
   apply(0);
 
-  /* El último paso cuya orilla superior ya cruzó la línea de lectura. Avanza de uno
-     en uno conforme se baja y nunca brinca, que es lo que pasaba con IntersectionObserver
-     cuando varios pasos cortos caían juntos en la misma franja. */
-  var LINEA = 0.42;
+  /* El paso que se está leyendo es el que tiene el centro más cerca de la línea de
+     lectura, no el último que la cruzó por arriba: con esa regla la escena iba
+     siempre un paso atrasada respecto al texto. */
+  var reproduciendo = false;
+  var figuraEl = document.querySelector(".figure");
 
   function elegir(){
-    var linea = window.innerHeight * LINEA;
-    var idx = 0;
-    for (var i = 0; i < stepEls.length; i++){
-      if (stepEls[i].getBoundingClientRect().top <= linea) idx = i;
+    if (reproduciendo) return;          // mientras reproduce, manda el reproductor
+    /* En escritorio se lee a media pantalla. En celular el dibujo se queda pegado
+       arriba, así que la lectura es el centro de lo que queda debajo de él: se
+       calcula del dibujo mismo, no con una fracción a ojo. */
+    var alto = window.innerHeight, linea = alto * 0.5;
+    if (window.innerWidth <= 880 && figuraEl){
+      linea = (Math.max(figuraEl.getBoundingClientRect().bottom, 0) + alto) / 2;
+    }
+    var idx = 0, cerca = Infinity, dentro = false;
+    for (var n = 0; n < stepEls.length; n++){
+      var r = stepEls[n].getBoundingClientRect();
+      if (r.top <= linea && r.bottom >= linea){ idx = n; dentro = true; break; }
+      if (!dentro){
+        var d = Math.min(Math.abs(r.top - linea), Math.abs(r.bottom - linea));
+        if (d < cerca){ cerca = d; idx = n; }
+      }
     }
     apply(idx);
   }
@@ -871,6 +890,9 @@
      solo si el paso cambió, así que no hay trabajo de más al desplazar. */
   window.addEventListener("scroll", elegir, { passive:true });
   window.addEventListener("resize", elegir, { passive:true });
+  ["wheel", "touchstart"].forEach(function(ev){
+    window.addEventListener(ev, function(){ if (timer) detener(); }, { passive:true });
+  });
   elegir();
 
   stepEls.forEach(function(el){
@@ -893,11 +915,13 @@
     if (!timer) return;
     clearInterval(timer);
     timer = null;
+    reproduciendo = false;
     playEl.textContent = "▶ Reproducir";
     playEl.setAttribute("aria-pressed", "false");
   }
   playEl.addEventListener("click", function(){
     if (timer){ detener(); return; }
+    reproduciendo = true;
     playEl.textContent = "❚❚ Pausar";
     playEl.setAttribute("aria-pressed", "true");
     irA(0);
