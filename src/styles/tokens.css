@@ -80,6 +80,10 @@
   --border: #e6e8f2; /* filete decorativo de tarjeta */
   --border-strong: #d5d9e8;
   --border-input: #8a90a6; /* borde de campo — 3.17:1, WCAG 1.4.11 */
+  /* Placa neutra para los íconos que sólo acompañan. Lleva la temperatura del
+     papel, nunca un gris puro: es lo que separa a un sistema caro de uno
+     genérico. El morado se reserva para lo que se pica. */
+  --tile-soft: #eeebe4;
   --bg-page: #ffffff;
   --bg-soft: #f5f3ef; /* papel cálido, el de los recorridos aclarado */
   --white: #ffffff;

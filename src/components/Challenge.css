@@ -89,7 +89,7 @@
 .flow__arrow {
   display: grid;
   place-items: center;
-  color: var(--purple-400);
+  color: var(--text-500);
 }
 .flow__core {
   width: 100%;

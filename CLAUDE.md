@@ -237,10 +237,23 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       una sola esquina para todos los controles. Botones y campos a 48 px, chips a 44.
 
       **Imágenes.** El render 3D del hero —que se compra hecho y no decía nada cierto— lo
-      sustituye **la nave isométrica del recorrido del ERP**, exportada a SVG con
-      `npm run hero:dibujo`: es nuestra, es nítida a cualquier tamaño y pesa **4 KB contra
-      40**. Se borraron 1.76 MB de PNG y WebP que ya no se usan. La tarjeta social se
-      redibujó con el sistema nuevo (`npm run og:imagen`): **381 KB → 54 KB**.
+      sustituye **un dibujo propio que repite el titular**: la maraña de hoy —Excel, WhatsApp,
+      correo, papel, un sistema viejo, todos unidos por líneas cruzadas— contra un solo sistema
+      donde las cinco áreas escriben lo mismo. Se genera con `npm run hero:dibujo` desde la
+      paleta del sitio, pesa **5 KB contra 40** y es nítido a cualquier tamaño. Se borraron
+      1.76 MB de PNG y WebP que ya no se usan. La tarjeta social se redibujó con el sistema
+      nuevo (`npm run og:imagen`): **381 KB → 54 KB**.
+
+      **Segunda pasada (mismo día).** Tres cosas que sólo se ven con la página armada: el
+      morado estaba **en todas partes** —placas de ícono, palomitas, flechas, nodos— y la regla
+      que siguen Vercel, Linear y Stripe es que el color de marca vive en lo que se pica y en
+      un acento por pantalla, no de fondo en cada tarjeta: las placas decorativas pasaron a un
+      **neutro cálido** `#EEEBE4` (nunca un gris puro) y las palomitas al cobre. Los
+      encabezados a la izquierda dejaban **medio metro de aire** cuando el contenido de abajo
+      era angosto: en las páginas de servicio, las preguntas pasaron a **dos columnas** —título
+      a la izquierda, lista a la derecha— y el diagrama abarca el ancho, en vez de volver a
+      centrar. Y el dibujo del hero se rehízo **al tamaño en que se muestra**: a 760 px de
+      lienzo las etiquetas llegaban a 7 px en pantalla.
 
       **Resultado medido:** la portada baja **100.7 KB** contra los 117 KB de antes, aun
       sumando la fuente nueva. Sin desbordamiento horizontal en cinco páginas por cuatro

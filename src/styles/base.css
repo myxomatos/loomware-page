@@ -363,7 +363,14 @@ button.chip:hover {
   height: 32px;
   border-radius: var(--r-sm);
 }
+/* Decorativa: acompaña un texto y no se pica. Va en neutro cálido para que el
+   morado signifique algo cuando aparece. */
 .icon-tile--soft {
+  color: var(--text-600);
+  background: var(--tile-soft);
+}
+/* Para el ícono que sí es el acento de su bloque. */
+.icon-tile--acento {
   color: var(--purple-500);
   background: var(--purple-100);
 }
@@ -385,10 +392,11 @@ button.chip:hover {
   font-size: var(--fs-xs);
   line-height: var(--lh-snug);
 }
+/* La palomita confirma un hecho: es dato, no acción. */
 .check-list .icon {
   flex: none;
   margin-top: 1px;
-  color: var(--purple-500);
+  color: var(--copper-600);
 }
 
 /* Form fields */

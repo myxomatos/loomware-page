@@ -69,7 +69,7 @@ export default function Process() {
         </div>
 
         <aside className="card schedule">
-          <span className="icon-tile icon-tile--soft schedule__icon">
+          <span className="icon-tile icon-tile--acento schedule__icon">
             <Icon name="calendar" size={26} />
           </span>
           <h3 className="schedule__title">Agenda tu diagnóstico</h3>

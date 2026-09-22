@@ -70,7 +70,7 @@
   height: 2px;
   min-width: 20px;
   margin: 31px var(--sp-2) 0;
-  background: linear-gradient(90deg, var(--purple-400), var(--purple-100));
+  background: linear-gradient(90deg, var(--border-strong), var(--border));
   position: relative;
 }
 .dg__flecha::after {
@@ -80,8 +80,8 @@
   top: -4px;
   width: 9px;
   height: 9px;
-  border-top: 2px solid var(--purple-400);
-  border-right: 2px solid var(--purple-400);
+  border-top: 2px solid var(--border-strong);
+  border-right: 2px solid var(--border-strong);
   transform: rotate(45deg);
 }
 
@@ -162,7 +162,7 @@
     min-width: 0;
     flex: none;
     margin: var(--sp-1) 0;
-    background: linear-gradient(180deg, var(--purple-400), var(--purple-100));
+    background: linear-gradient(180deg, var(--border-strong), var(--border));
   }
   .dg__flecha::after {
     right: -4px;

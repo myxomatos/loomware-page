@@ -64,15 +64,15 @@ export default function Hero() {
         </div>
 
         <figure className="hero__media">
-          {/* El dibujo es nuestro: la misma nave isométrica del recorrido del ERP,
-              exportada a SVG. Sustituye al render 3D de catálogo —que no decía
-              nada cierto de Loomware— y pesa 4 KB comprimido contra 40 del WebP.
-              Se genera con `npm run hero:dibujo`. */}
+          {/* El dibujo es nuestro y dice lo mismo que el titular: la maraña de hoy
+              —Excel, WhatsApp, correo, papel— contra un solo sistema. Se genera con
+              `npm run hero:dibujo` desde la paleta del sitio; pesa 5 KB y es nítido
+              a cualquier tamaño. */}
           <img
             src="/hero-operacion.svg"
-            width="744"
-            height="462"
-            alt="Vista isométrica de una distribuidora: el camión en el andén, los racks del almacén, la mesa de surtido y la oficina, unidos por una línea al sistema"
+            width="580"
+            height="400"
+            alt="A la izquierda, cinco herramientas sueltas —Excel, WhatsApp, correo, papel y un sistema viejo— unidas por líneas cruzadas. A la derecha, un solo sistema donde ventas, almacén, compras, contabilidad y dirección escriben y leen lo mismo"
             fetchpriority="high"
             decoding="async"
           />
