@@ -83,7 +83,7 @@ await sharp(conAlfa)
   .resize({ height: 200 - margen * 2, fit: 'inside', withoutEnlargement: true })
   .extend({ top: margen, bottom: margen, left: margen, right: margen, background: { r: 0, g: 0, b: 0, alpha: 0 } })
   // Un solo tono y transparencia: con paleta el archivo baja a una fracción.
-  .png({ compressionLevel: 9, palette: true, colours: 32 })
+  .png({ compressionLevel: 9, palette: true, colours: 16 })
   .toFile(destino)
 
 const m = await sharp(destino).metadata()
