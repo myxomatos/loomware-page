@@ -26,8 +26,8 @@ export default function App() {
         <Solutions />
         <Industrias />
         <Casos />
-        <BandaCalculadora />
         <Needs />
+        <BandaCalculadora />
         <Process />
         <Nosotros />
         <Faq />

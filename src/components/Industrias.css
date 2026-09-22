@@ -62,8 +62,47 @@
   }
 }
 @media (max-width: 599px) {
+  /* En celular la tarjeta se vuelve un renglón: ícono a la izquierda, nombre y
+     dolor a la derecha. Suelta las fichas de soluciones y el enlace largo, que
+     ya están en la página de cada giro. Seis renglones en vez de seis pantallas. */
   .industrias__grid {
     grid-template-columns: 1fr;
-    gap: var(--sp-4);
+    gap: var(--sp-3);
+  }
+  .industria {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--sp-3);
+    row-gap: var(--sp-1);
+    padding: var(--sp-4);
+  }
+  .industria .icon-tile {
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+  .industria__nombre {
+    margin: 0;
+    font-size: var(--fs-body);
+  }
+  .industria__dolor {
+    margin: 0;
+    font-size: var(--fs-xs);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .industria__ver,
+  .industria__solucion {
+    display: none;
+  }
+  /* Con el enlace largo oculto, el nombre extiende su área de toque a todo el renglón. */
+  .industria {
+    position: relative;
+  }
+  .industria__nombre a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
   }
 }

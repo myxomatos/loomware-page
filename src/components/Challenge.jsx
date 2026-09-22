@@ -2,37 +2,31 @@ import Icon from './Icon'
 import Logo from './Logo'
 import './Challenge.css'
 
+/* Tres dolores, no cinco: "falta de visibilidad" y "sistemas que no se integran"
+   ya están dichos en los otros. Nadie lee doce viñetas en la segunda sección. */
 const PAINS = [
   'Información dispersa',
   'Procesos manuales y lentos',
-  'Falta de visibilidad del negocio',
-  'Sistemas que no se integran',
   'Decisiones sin datos confiables',
 ]
 
 const INPUTS = [
   { icon: 'message-circle', label: 'WhatsApp', tone: 'green' },
   { icon: 'globe', label: 'Web / Formularios' },
-  { icon: 'instagram', label: 'Redes sociales' },
   { icon: 'mail', label: 'Correo / Llamadas' },
   { icon: 'file-spreadsheet', label: 'Excel y archivos' },
-  { icon: 'database', label: 'Otros sistemas' },
 ]
 
 const CORE = [
   'Captura y centraliza',
   'Integra y automatiza',
-  'Unifica tu operación',
   'Convierte datos en acción',
-  'Se adapta a tu negocio',
 ]
 
 const RESULTS = [
   { icon: 'target', label: 'Cada prospecto con dueño y fecha' },
-  { icon: 'refresh-cw', label: 'Cero seguimientos olvidados' },
-  { icon: 'list-checks', label: 'Lo repetitivo corre solo' },
   { icon: 'activity', label: 'Inventario real, no el de ayer' },
-  { icon: 'lightbulb', label: 'Reportes que se arman solos' },
+  { icon: 'list-checks', label: 'Lo repetitivo corre solo' },
   { icon: 'trending-up', label: 'Sabes cuánto vas a cerrar' },
 ]
 

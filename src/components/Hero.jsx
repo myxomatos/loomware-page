@@ -45,11 +45,10 @@ export default function Hero() {
                 <span className="hero__video-nota">1 min</span>
               </button>
             ) : (
-              <a href="#proceso" className="btn btn--outline hero__video">
-                <span className="btn__play">
-                  <Icon name="play" size={12} />
-                </span>
-                Ver cómo funciona
+              /* Sin video no se promete video: el botón dice a dónde lleva de verdad. */
+              <a href="#proceso" className="btn btn--outline">
+                Cómo trabajamos
+                <Icon name="arrow-right" size={18} />
               </a>
             )}
           </div>

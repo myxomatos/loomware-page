@@ -1,9 +1,26 @@
+/* Dos niveles: tarjetas completas para las soluciones de entrada, lista compacta
+   para las que acompañan. En celular eso baja de ocho pantallas a unas tres. */
+.solutions__grupo {
+  margin: 0 0 var(--sp-4);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-500);
+}
+.solutions__grid + .solutions__grupo {
+  margin-top: var(--sp-10);
+}
+
+/* ---------- tarjetas de entrada ---------- */
 .solutions__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--sp-5);
 }
 .solution {
+  display: flex;
+  flex-direction: column;
   transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
 }
 .solution:hover {
@@ -16,8 +33,8 @@
   align-items: center;
   text-align: center;
   gap: var(--sp-3);
-  height: 100%;
-  padding: var(--sp-8) var(--sp-5) var(--sp-6);
+  flex: 1;
+  padding: var(--sp-8) var(--sp-5) var(--sp-4);
   border-radius: inherit;
 }
 .solution .icon-tile {
@@ -35,36 +52,89 @@
   white-space: normal;
   text-align: center;
 }
+
+/* Dos acciones: el recorrido paso a paso —si existe— manda; "Ver más" acompaña. */
+.solution__acciones {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-5);
+  padding: 0 var(--sp-5) var(--sp-6);
+}
+.solution__paso,
 .solution__more {
   display: inline-flex;
   align-items: center;
   gap: var(--sp-1);
-  margin-top: var(--sp-1);
   font-size: var(--fs-xs);
   font-weight: 600;
-  color: var(--purple-500);
   transition: gap var(--t-base) var(--ease);
 }
-.solution:hover .solution__more {
+.solution__paso {
+  color: var(--purple-500);
+}
+.solution__more {
+  color: var(--text-500);
+}
+.solution__paso:hover,
+.solution__more:hover {
   gap: var(--sp-2);
 }
 
-@media (max-width: 1199px) {
-  .solutions__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+/* ---------- las que acompañan ---------- */
+.solutions__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Una columna: cinco en rejilla siempre dejan una celda vacía. */
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-width: 760px;
 }
+.solution-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  height: 100%;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+}
+.solution-row:hover {
+  border-color: var(--purple-400);
+  transform: translateY(-2px);
+}
+.solution-row .icon-tile {
+  flex: none;
+}
+.solution-row__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.solution-row__texto strong {
+  font-size: var(--fs-body);
+  color: var(--text-900);
+}
+.solution-row__texto span {
+  font-size: var(--fs-xs);
+  color: var(--text-600);
+}
+.solution-row__flecha {
+  flex: none;
+  margin-left: auto;
+  color: var(--purple-500);
+}
+
 @media (max-width: 899px) {
-  .solutions__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 599px) {
   .solutions__grid {
     grid-template-columns: 1fr;
     gap: var(--sp-4);
   }
   .solution__link {
-    padding: var(--sp-6) var(--sp-5);
+    padding: var(--sp-6) var(--sp-5) var(--sp-3);
   }
 }

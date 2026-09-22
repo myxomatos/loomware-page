@@ -14,6 +14,7 @@
 export const SERVICIOS = [
   {
     slug: 'crm',
+    entrada: true, // por donde suele empezar un cliente: tarjeta completa en el inicio
     diagrama: {
       tipo: 'flujo',
       titulo: 'El camino de cada oportunidad',
@@ -68,6 +69,7 @@ export const SERVICIOS = [
 
   {
     slug: 'erp',
+    entrada: true, // por donde suele empezar un cliente: tarjeta completa en el inicio
     diagrama: {
       tipo: 'hub',
       titulo: 'Un núcleo, todas las áreas',
@@ -124,6 +126,7 @@ export const SERVICIOS = [
 
   {
     slug: 'nomina',
+    entrada: true, // por donde suele empezar un cliente: tarjeta completa en el inicio
     diagrama: {
       tipo: 'flujo',
       titulo: 'De la asistencia al recibo',

@@ -84,9 +84,14 @@
   .footer {
     padding-block: var(--sp-10) var(--sp-5);
   }
+  /* La marca a lo ancho y las columnas de enlaces de dos en dos: a una columna el
+     pie medía pantalla y media. */
   .footer__grid {
-    grid-template-columns: 1fr;
-    gap: var(--sp-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-6) var(--sp-4);
+  }
+  .footer__grid > :first-child {
+    grid-column: 1 / -1;
   }
   .footer__bottom {
     flex-direction: column;

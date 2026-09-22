@@ -182,6 +182,12 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Decisiones de contenido — Aldo y Alan
 
+- [ ] **Confirmar cuáles son las soluciones "de entrada".** El inicio ya no muestra ocho
+      tarjetas iguales: las marcadas con `entrada: true` en `src/data/servicios.js` —hoy
+      **CRM, ERP y Nómina**— van con tarjeta completa bajo "Por donde suelen empezar", y las
+      otras cinco en lista bajo "Y todo lo que las acompaña". Alan las eligió porque son las
+      tres con recorrido y las de dolor más amplio. Si Aldo ve otra puerta de entrada, es
+      cambiar una bandera y el inicio se reacomoda solo.
 - [ ] **Nómina y comercio en línea ya están en el sitio** (tarjeta y página cada uno). Confirmar
       que sí se ofrecen; si no, quitarlos de `src/data/servicios.js` y se van solos de todos lados.
 - [ ] **Hero.** La ilustración es un render 3D genérico. Cuando haya foto real del equipo o de
@@ -189,6 +195,15 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
+- [x] **Inicio más corto y con jerarquía (2026-09-21, cuarta auditoría).** En celular la
+      portada medía 18.6 pantallas; ahora **14.7**. Las ocho soluciones van en dos niveles
+      —tres tarjetas de entrada con «Ver paso a paso» al recorrido, cinco en lista compacta—;
+      industrias en celular es un renglón por giro con todo el renglón tocable; el pie va en
+      dos columnas. «El desafío» bajó de 22 viñetas a 14 quitando las repetidas. La banda de
+      la calculadora pasó **después** del formulario: al que sí quiere llamar ya no se le
+      atraviesa. El botón del hero dice «Cómo trabajamos» mientras no haya video, y volverá a
+      decir «Ver cómo funciona» con el símbolo de reproducir en cuanto `src/data/video.js`
+      tenga URL. Dos íconos que quedaron sin uso salieron del catálogo.
 - [x] **Calculadora «¿Cuánto te cuesta tu Excel?» (2026-09-21).** `/calculadora`: seis
       preguntas de un toque y el número se mueve solo conforme se contesta. Entrega dos cifras
       separadas —lo que se va al mes en capturar el mismo dato más de una vez, y cuánto dinero
