@@ -117,10 +117,15 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
 
 Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
-- [ ] **Prueba social.** `src/data/casos.js` está vacío y la sección "Resultados con clientes" no
-      aparece hasta que tenga un caso. Formato en el mismo archivo. Regla: nada inventado ni
-      redondeado; si el cliente no autoriza su nombre, se describe por giro, tamaño y ciudad.
-      Con un solo caso real ya se muestra.
+- [ ] **Prueba social — falta la autorización de GT-SHOP y falta el número.** El 2026-09-22
+      entró el primer caso real: GT-SHOP (Grafeno Tech Shop, cámaras y equipo de seguridad),
+      con su tienda en línea sobre Shopify, y con eso la sección «Clientes» ya se muestra en
+      el inicio. Quedan dos cosas, las dos de Aldo: **(a)** pedirle a GT-SHOP que autorice el
+      uso de su marca —es la regla que el propio `src/data/casos.js` documenta; sin
+      autorización se vacían `logo` y `cliente` y el caso se queda descrito por giro—, y
+      **(b)** una medición real que reemplace el `resultado`, que hoy dice sólo lo
+      verificable. Ayudaría además el **archivo original del logotipo** (PNG o SVG): el de hoy
+      salió de una foto de pantalla y el dibujo de arriba quedó tenue.
 - [ ] **Equipo.** `src/data/equipo.js`: cargo, dos líneas de bio, foto cuadrada (600×600, en
       `public/equipo/`) y LinkedIn de Aldo y de Alan. Las tarjetas aparecen solas cuando una
       persona tiene cargo y foto. Falta también el apellido de Alan.
@@ -166,11 +171,13 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 
 - [ ] **Logotipos de clientes — movimiento 06 del estudio comparativo.** Los 22 sitios medidos
       tienen prueba social: Holded dice «más de 900 000 usuarios», Alegra «#1 en México», Nubank
-      «100 millones de clientes», y todos enseñan logos o testimonios. Aldo confirmó que hay clientes
-      satisfechos. Cuando autoricen el uso de su marca: logo en `public/clientes/` y el caso en
-      `src/data/casos.js`. Es lo único que separa a la página de un 9, y **es también el techo
-      del material de venta**: sin un caso —aunque sea sin nombre, descrito por giro, tamaño y
-      ciudad— ninguna pieza pasa de 8. Hoy no hay ninguna prueba de que exista un cliente.
+      «100 millones de clientes», y todos enseñan logos o testimonios. El 2026-09-22 entró el
+      primero de Loomware, GT-SHOP, sujeto a su autorización (ver «Prueba social» arriba).
+      Para los que sigan: el logotipo se prepara con `npm run logo:cliente <origen> <destino>`,
+      que lo deja transparente y en el tono neutro de la página, para que ninguna marca de
+      cliente compita con la de Loomware; el caso se escribe en `src/data/casos.js`. **Un caso
+      es el techo del material de venta**: con uno solo, cada pieza ya puede apoyarse en algo
+      real; con dos o tres, la página llega al 9.
 - [ ] **Precio — movimiento 05 del estudio comparativo.** El 22 de septiembre de 2026 se midieron
       22 sitios de cinco continentes y **los 22 publican precio**: Xero abre su navegación con
       «Pricing», Bind pone «Precios» de segundo y un botón «Ver planes» junto al de demo, Alegra
