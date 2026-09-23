@@ -169,6 +169,23 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       si lo amplías, se cotiza aparte y lo apruebas tú"**. Si el contrato no lo dice, hay que
       ajustarlo o cambiar el texto. **Urge más que antes**: la segunda frase ahora también va en
       el recorrido del ERP que se le manda a prospectos, en la sección "Antes de que preguntes".
+
+- [ ] **Y cuatro afirmaciones más, que pesan más que esas dos: las de seguridad.** Al revisar
+      el tema de ciberseguridad salió que **Loomware ya la vende**, aunque no la llame así. La
+      página de Infraestructura Cloud promete hoy, en `src/data/servicios.js`:
+
+      - «Datos cifrados»
+      - «Cifrado, accesos por rol y persona, autenticación de dos factores y registro de quién
+        entró a qué»
+      - «Respaldo automático diario, retención definida y **pruebas periódicas de restauración**»
+      - «**Monitoreo**, respaldos, actualizaciones y soporte **continuos**»
+
+      Eso es un contrato de seguridad administrada escrito en la página, y es distinto en
+      naturaleza a todo lo demás: si un ERP falla el cliente pierde tiempo, pero si falla la
+      seguridad **Loomware es quien dijo que estaba protegida**. «Monitoreo continuo» es una
+      obligación permanente y «pruebas de restauración» es algo que alguien puede exigir que
+      se demuestre. O el contrato lo cubre con su alcance y sus límites, o el texto se ajusta a
+      lo que sí se hace. Es lo más urgente de este bloque.
 - [ ] **Validar las respuestas de precio, plazos, migración y SAT** en `src/data/faq.js` y en
       cada `faq` de `src/data/servicios.js`. Describen la política de la empresa tal como la
       entendí; si algo no es así, se cambia el texto, no se deja.
@@ -226,6 +243,16 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       hasta arriba del inicio: el navegador buscaba la sección antes de que React la dibujara.
       `src/lib/ancla.js` espera a que exista y entonces va. Era el único camino al formulario
       desde cualquier página que no fuera el inicio.
+
+- [ ] **Cuando el PR se mezcle, los artifacts de WhatsApp van al dominio.** Cada archivo de
+      `recorridos-fuente/` lleva dos enlaces absolutos al preview de la rama —la marca de
+      arriba y «formulario del sitio» del cierre— porque mientras `main` no tenga esto,
+      loomware.com.mx es el sitio viejo y `/servicios/erp` responde 404. **La página del sitio
+      ya no los usa**: `scripts/recorridos.js` la arma con el logotipo enlazado al inicio, sin
+      la etiqueta del dominio y con «formulario del sitio» apuntando a `/#contacto`. Lo que
+      falta es la otra mitad: el artifact suelto que se manda por WhatsApp sigue llevando al
+      preview. Al mezclar, cambiar los dos enlaces de los ocho archivos a
+      `https://loomware.com.mx` y volver a publicar los artifacts.
 
 - [ ] **La sección 06 del estudio sigue abierta entera: la página no enseña nada.** Medido hoy:
       **2 imágenes y 0 rostros** en toda la portada. Xero abre con la foto de una panadera real
@@ -295,6 +322,54 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       exportada a SVG (`npm run hero:dibujo`). Si más adelante hay **foto real** del equipo o
       de un proyecto, sigue siendo mejor que cualquier dibujo: se cambia el `<img>` de
       `src/components/Hero.jsx` y se optimiza con `npm run optimizar:imagenes`.
+
+### Resueltas el 2026-09-22 (recorrido de la página, URL por URL)
+
+- [x] **Los dos encabezados de seguridad que faltaban.** El sitio mandaba cuatro de los seis
+      que importan; faltaban **HSTS** y **Content-Security-Policy**, los dos más pesados. De
+      los sitios del estudio, Stripe y Bind mandan los seis; Xero y Alegra, menos que nosotros.
+      La CSP no se puede escribir a mano porque el sitio tiene scripts en línea —el de
+      consentimiento y el de cada recorrido— y autorizarlos con `'unsafe-inline'` sería dejar
+      pasar cualquier script inyectado, que es justo lo que la política existe para impedir.
+      `scripts/encabezados.js` corre después del build, saca el hash de cada script en línea y
+      escribe `dist/_headers`; cuando un script cambia, su hash cambia solo. Probada
+      inyectándola como `meta` en seis páginas: cero violaciones, y repetido con `VITE_GA_ID`
+      cargado para confirmar que Analytics tampoco se rompe.
+
+- [x] **El botón «Diagnóstico» volvía al inicio en vez de ir al formulario.** Un enlace
+      `/#contacto` carga el inicio y el navegador busca la sección antes de que React la
+      dibuje. `src/lib/ancla.js` espera a que exista. Era el único camino al formulario desde
+      cualquier página que no fuera el inicio.
+
+- [x] **Un solo botón de diagnóstico a la vista.** Contados en la página armada: seis en el
+      inicio y cuatro en cada servicio, y dos se veían al mismo tiempo a ciento cincuenta
+      píxeles —el de la barra y el del hero—. Ahora el de la barra cede la primera pantalla y
+      toma el relevo cuando el del hero sale (`src/lib/ctaNavbar.js`, usado por las tres
+      barras). Salieron además la banda morada «Hagamos crecer tu negocio juntos» y la banda de
+      la calculadora del final: la calculadora vive en el hero desde el movimiento 01 y
+      repetirla catorce pantallas abajo ya no agregaba nada. Quedan dos caminos a ella, el hero
+      y el pie.
+
+- [x] **El recorrido se siente parte del sitio.** El mismo archivo sirve para la página y para
+      el artifact de WhatsApp, y traía lo que necesita un artifact suelto. En la versión del
+      sitio, el empaquetador ahora enlaza el logotipo al inicio —antes no llevaba a ningún
+      lado—, quita la etiqueta «loomware.com.mx» del dominio en el que ya estás, y manda
+      «formulario del sitio» a `/#contacto` en la misma pestaña, en vez de abrir otra pestaña
+      en la página del servicio. La fuente se queda intacta.
+
+- [x] **El inicio, de 18.6 a 14.0 pantallas en celular**, y con más texto que antes: salió «El
+      desafío» —contaba con un diagrama lo mismo que ya dibuja el hero— y sus cuatro frases
+      concretas reemplazaron a las genéricas del bloque «Impacto». Los recorridos enseñan su
+      resumen, que ya estaba escrito y el inicio no usaba: **1 995 palabras en el DOM**, arriba
+      de las 1 964 de Bind.
+
+- [x] **Detalles del recorrido por URL:** fuera «gratuito» del botón de enviar; el titular de
+      industrias pasó de dos oraciones en tres renglones a una en dos; y el logotipo de la
+      pantalla de contraseña de `/prospectar`, que era el único del sitio que no llevaba a
+      ningún lado, ya va al inicio.
+
+- [x] **GT-SHOP, el primer caso real**, firmado por Eduardo Díaz. Pendiente su visto bueno,
+      arriba en la lista de Aldo.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
