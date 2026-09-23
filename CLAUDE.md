@@ -200,15 +200,32 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
 ### Pendientes de Alan — de la segunda pasada del estudio (2026-09-22)
 
 Hasta hoy esta lista no existía y todo aparecía como responsabilidad de Aldo. Al volver a medir
-la página contra los veintidós sitios salieron tres cosas que son nuestras. Ninguna bloquea a
-las de Aldo; se pueden trabajar en paralelo.
+la página contra los veintidós sitios salieron cosas que son nuestras. Ninguna bloquea a las de
+Aldo; se pueden trabajar en paralelo. **Tres se cerraron el mismo 22 de septiembre** y quedan
+tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que construimos.
 
-- [ ] **El inicio volvió a crecer en celular: 16.3 pantallas.** La cuarta auditoría lo había
-      bajado de 18.6 a **14.7**, y las dos secciones nuevas —los ocho recorridos bajo el hero y
-      los casos de éxito— lo subieron a **16.3**. Las dos valen lo que ocupan, así que no se
-      trata de quitarlas: se trata de recuperar el espacio en otro lado. Los candidatos, por
-      tamaño: «El desafío» (14 viñetas), el proceso y las preguntas del inicio, que repiten
-      cosas que ya están en las páginas de servicio. Medir antes y después con el mismo método.
+- [x] **El inicio vuelve a 14.8 pantallas en celular (2026-09-22).** Había subido a 16.3 al
+      entrar los recorridos y los casos. Se quitó **«El desafío»**: contaba con un diagrama lo
+      mismo que ya dibuja el hero —las herramientas sueltas y el «un solo sistema»—, costaba
+      1 303 px con unas sesenta palabras, y sus cuatro resultados eran los mismos cuatro del
+      bloque «Impacto». Sus frases, que eran las concretas, se quedaron ahí y reemplazaron a
+      las genéricas.
+
+- [x] **El texto indexable sube a 1 995 palabras (2026-09-22)**, arriba de las 1 964 de Bind.
+      Cada recorrido tenía un resumen escrito en `src/data/recorridos.js` que el inicio no
+      usaba; ahora se lee en su tarjeta, y se retira en celular para no volver a alargar la
+      portada —sigue en el documento, que es lo que lee un buscador—.
+
+      **Corrección de método:** la cifra de 1 432 palabras que reporté contra las 1 964 de Bind
+      no era comparable. `innerText` deja fuera las respuestas plegadas de las preguntas
+      frecuentes —405 palabras— y un buscador sí las lee. Para comparar hay que medir con
+      `textContent`. La portada nunca estuvo tan abajo como dije.
+
+- [x] **El botón «Diagnóstico» vuelve a llevar al formulario (2026-09-22).** Desde la
+      calculadora, el aviso, `/gracias` o el pie, un enlace `/#contacto` dejaba al visitante
+      hasta arriba del inicio: el navegador buscaba la sección antes de que React la dibujara.
+      `src/lib/ancla.js` espera a que exista y entonces va. Era el único camino al formulario
+      desde cualquier página que no fuera el inicio.
 
 - [ ] **La sección 06 del estudio sigue abierta entera: la página no enseña nada.** Medido hoy:
       **2 imágenes y 0 rostros** en toda la portada. Xero abre con la foto de una panadera real
