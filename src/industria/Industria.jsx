@@ -142,7 +142,7 @@ export default function Industria({ id }) {
               interes={g.nombre}
               origen={g.nombre}
               titulo={`Diagnóstico para ${g.nombre.toLowerCase()}`}
-              intro={`Revisamos tu operación, te decimos dónde se está yendo el tiempo y qué conviene resolver primero. Sin costo y sin compromiso.`}
+              intro={`Revisamos tu operación, te decimos dónde se está yendo el tiempo y qué conviene resolver primero. La primera llamada es sin costo y sin compromiso.`}
             />
           </div>
         </section>

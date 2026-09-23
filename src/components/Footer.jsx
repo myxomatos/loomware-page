@@ -20,7 +20,7 @@ const COLUMNS = [
     title: 'Cómo trabajamos',
     links: [
       { label: '¿Cuánto te cuesta tu Excel?', href: '/calculadora' },
-      { label: 'Diagnóstico sin costo', href: '/#contacto' },
+      { label: 'Solicitar diagnóstico', href: '/#contacto' },
       { label: 'Nuestro proceso', href: '/#proceso' },
       { label: 'Integraciones', href: '/servicios/automatizacion' },
       { label: 'Migración a la nube', href: '/servicios/infraestructura-cloud' },
@@ -89,14 +89,19 @@ export default function Footer() {
         <div className="footer__bottom">
           <p>
             © {new Date().getFullYear()} Loomware · Todos los derechos reservados.
-            {' · '}
-            <button
-              type="button"
-              className="footer__cookies"
-              onClick={() => window.dispatchEvent(new Event(ABRIR))}
-            >
-              Cookies
-            </button>
+            {/* Sin Analytics no hay cookies ni banda que reabrir: el botón no haría nada. */}
+            {typeof window.gtag === 'function' && (
+              <>
+                {' · '}
+                <button
+                  type="button"
+                  className="footer__cookies"
+                  onClick={() => window.dispatchEvent(new Event(ABRIR))}
+                >
+                  Cookies
+                </button>
+              </>
+            )}
           </p>
           <p className="footer__motto">Ideas de hoy. Negocios más grandes mañana.</p>
         </div>

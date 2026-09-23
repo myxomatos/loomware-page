@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Icon from './Icon'
 import { RECORRIDOS } from '../data/recorridos'
 import { servicioPorSlug } from '../data/servicios'
@@ -14,8 +15,26 @@ import './Recorridos.css'
  *
  * La lista sale de src/data/recorridos.js: cuando se escriba uno nuevo,
  * aparece aquí solo.
+ *
+ * Cada recorrido regresa al inicio con /#recorrido-<slug>. El navegador busca
+ * ese id antes de que React pinte la sección, así que aquí se hace el salto a
+ * mano y la tarjeta de la que viene el visitante queda resaltada.
  */
+const PREFIJO = '#recorrido-'
+
 export default function Recorridos() {
+  const [destacado, setDestacado] = useState(null)
+
+  useEffect(() => {
+    const { hash } = window.location
+    if (!hash.startsWith(PREFIJO)) return
+    const li = document.getElementById(hash.slice(1))
+    if (!li) return
+    li.scrollIntoView({ block: 'center' })
+    li.querySelector('a')?.focus({ preventScroll: true })
+    setDestacado(hash.slice(PREFIJO.length))
+  }, [])
+
   if (!RECORRIDOS.length) return null
 
   return (
@@ -34,10 +53,10 @@ export default function Recorridos() {
           {RECORRIDOS.map((r) => {
             const s = servicioPorSlug(r.servicio)
             return (
-              <li key={r.slug}>
+              <li key={r.slug} id={`recorrido-${r.slug}`}>
                 <a
                   href={`/recorridos/${r.slug}`}
-                  className="recorrido"
+                  className={`recorrido${destacado === r.slug ? ' recorrido--destacado' : ''}`}
                   onClick={() => rastrear('recorrido_desde_inicio', { recorrido: r.slug })}
                 >
                   <span className="recorrido__sol">{s ? s.nombre : r.servicio}</span>

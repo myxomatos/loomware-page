@@ -36,14 +36,10 @@
       [hidden] { display: none !important; }
     </style>
     <!--
-      ATENCIÓN · ligas del sitio
-      Mientras el PR de la rama "alan" no se mezcle a "main", loomware.com.mx sigue
-      siendo el sitio viejo y /servicios/erp responde 404. Por eso las dos ligas de
-      abajo apuntan al preview de la rama.
-
-      Cuando Aldo mezcle el PR, cambiar estas dos por https://loomware.com.mx:
-        1. la barra de marca (brand__site)
-        2. la liga "formulario del sitio" del cierre (.otras)
+      Ligas del sitio: relativas y en la misma pestaña, para que funcionen igual en
+      producción y en el preview de cada rama.
+        1. la barra de marca (brand__site) regresa al inicio, a la tarjeta de este recorrido
+        2. la liga "formulario del sitio" del cierre (.otras) lleva al formulario de su servicio
     -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
@@ -368,7 +364,7 @@
     <span class="brand__id">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="var(--ink)" stroke-width="1.8"/>
+        <path d="M19 19H4.8a2.8 2.8 0 1 1 .05-5.6 4 4 0 0 1 4.58-5.31A5 5 0 0 1 19 11a4 4 0 0 1 0 8Z" stroke="var(--ink)" stroke-width="1.8"/>
         <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--paper)" stroke-width="4.6"/>
         <path d="M15.5 8h4v4" stroke="var(--paper)" stroke-width="4.6"/>
         <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--signal)" stroke-width="2"/>
@@ -376,7 +372,7 @@
       </svg>
       <span class="brand__name">Loomware</span>
     </span>
-    <a class="brand__site" href="https://alan.loomware-page.pages.dev" target="_blank" rel="noopener noreferrer">loomware.com.mx</a>
+    <a class="brand__site" href="/#recorrido-erp">loomware.com.mx</a>
   </div>
 
   <header class="mast">
@@ -634,7 +630,7 @@
   <section class="cierre">
     <h2>Te decimos dónde se está yendo el dinero</h2>
     <p>Recorremos tu operación completa —qué se compra, cómo se almacena, cómo se vende y cómo se
-      cobra— y te decimos qué conviene resolver primero. Diagnóstico sin costo y sin compromiso.</p>
+      cobra— y te decimos qué conviene resolver primero. La primera llamada es sin costo y sin compromiso.</p>
     <a class="btn"
        href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
        target="_blank" rel="noopener noreferrer">
@@ -642,7 +638,7 @@
       WhatsApp · 55 8096 8928
     </a>
     <p class="otras">
-      <span class="par">o llena el <a href="https://alan.loomware-page.pages.dev/servicios/erp" target="_blank" rel="noopener noreferrer">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
+      <span class="par">o llena el <a href="/servicios/erp#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
     </p>
   </section>
 

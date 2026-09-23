@@ -21,7 +21,7 @@ export const INDUSTRIAS = [
 
     titulo: 'ERP y CRM para distribuidoras en México | Loomware',
     descripcion:
-      'Sistemas para distribuidoras y mayoristas: inventario real, pedidos sin recaptura, cobranza con seguimiento y facturación CFDI. Diagnóstico sin costo.',
+      'Sistemas para distribuidoras y mayoristas: inventario real, pedidos sin recaptura, cobranza con seguimiento y facturación CFDI. Llamada sin costo.',
     h1: 'Sistemas para distribuidoras: el inventario que dice el sistema es el que hay',
     intro: [
       'En una distribuidora todo pasa por el inventario, y cuando el inventario no es confiable, todo lo demás se contagia: se vende lo que no hay, se compra lo que sobra y el cliente se entera antes que tú.',
@@ -64,7 +64,7 @@ export const INDUSTRIAS = [
 
     titulo: 'ERP para manufactura y talleres en México | Loomware',
     descripcion:
-      'Órdenes de producción, materiales, costo real por lote y facturación en un solo sistema. Para talleres y manufactura en México. Diagnóstico sin costo.',
+      'Órdenes de producción, materiales, costo real por lote y facturación en un solo sistema. Para talleres y manufactura en México. Llamada sin costo.',
     h1: 'Sistemas para manufactura: saber el costo real antes del cierre de mes',
     intro: [
       'En un taller la orden de producción suele vivir en papel o en un pizarrón. Funciona mientras son pocas órdenes; cuando crecen, nadie sabe con certeza qué se está produciendo, con qué material y a qué costo.',
@@ -150,7 +150,7 @@ export const INDUSTRIAS = [
 
     titulo: 'CRM para despachos y consultorías | Loomware',
     descripcion:
-      'Cartera de clientes que no depende de la agenda de cada socio: historial, seguimientos y renovaciones con responsable y fecha. Diagnóstico sin costo.',
+      'Cartera de clientes que no depende de la agenda de cada socio: historial, seguimientos y renovaciones con responsable y fecha. Llamada sin costo.',
     h1: 'Sistemas para despachos: que la cartera no viva en la cabeza de cada socio',
     intro: [
       'En un despacho el activo son las relaciones, y las relaciones suelen vivir en la agenda personal de cada socio: su celular, su correo, su memoria. Funciona hasta que alguien se va de vacaciones, se enferma o deja la firma.',
@@ -193,7 +193,7 @@ export const INDUSTRIAS = [
 
     titulo: 'Sistemas para comercio: tienda y mostrador | Loomware',
     descripcion:
-      'Un solo inventario para mostrador y tienda en línea, con pagos, envíos y facturación conectados. Para comercios en México. Diagnóstico sin costo.',
+      'Un solo inventario para mostrador y tienda en línea, con pagos, envíos y facturación conectados. Para comercios en México. Llamada sin costo.',
     h1: 'Sistemas para comercio: un solo inventario para el mostrador y la tienda en línea',
     intro: [
       'Vender en línea y en piso con dos inventarios distintos crea un problema que el cliente descubre antes que tú: compra algo que ya no hay, o deja de comprar algo que sí tenías.',

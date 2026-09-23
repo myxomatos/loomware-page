@@ -7,7 +7,7 @@ const PRINCIPIOS = [
   {
     icon: 'search',
     title: 'Primero entendemos, luego proponemos',
-    text: 'Cada proyecto empieza con un diagnóstico sin costo. No vendemos un sistema antes de saber cómo opera tu empresa.',
+    text: 'Cada proyecto empieza con un diagnóstico. No vendemos un sistema antes de saber cómo opera tu empresa.',
   },
   {
     icon: 'users',

@@ -77,7 +77,7 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
         <h3 className="contact__title">{titulo || 'Lleva tu negocio al siguiente nivel'}</h3>
         <p className="text-xs">
           {intro ||
-            'Recibe un diagnóstico sin costo y descubre cómo podemos ayudarte a crecer con más control y eficiencia.'}
+            'Agenda una llamada sin costo y descubre cómo podemos ayudarte a crecer con más control y eficiencia.'}
         </p>
         <ul className="check-list">
           {BENEFITS.map((b) => (
@@ -209,7 +209,7 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
           className="btn btn--primary btn--block"
           disabled={status === 'sending'}
         >
-          {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico gratuito'}
+          {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico'}
         </button>
 
         <p className="contact__note">

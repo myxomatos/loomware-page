@@ -98,3 +98,26 @@
     display: none;
   }
 }
+
+/* La tarjeta del recorrido del que regresa el visitante: borde cobre que se
+   desvanece en unos segundos, para que sepa dónde quedó sin que se quede marcada. */
+.recorrido--destacado {
+  animation: recorrido-destacado 3.5s var(--ease) both;
+}
+@keyframes recorrido-destacado {
+  0%,
+  60% {
+    border-color: var(--copper-500);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--copper-500) 25%, transparent);
+  }
+  100% {
+    border-color: var(--border);
+    box-shadow: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .recorrido--destacado {
+    animation: none;
+    border-color: var(--copper-500);
+  }
+}

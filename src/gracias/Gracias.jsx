@@ -16,8 +16,8 @@ const PASOS = [
   },
   {
     icon: 'calendar',
-    title: 'Agendamos tu diagnóstico',
-    text: 'Sin costo y sin compromiso, en la fecha que mejor te acomode.',
+    title: 'Agendamos una llamada',
+    text: 'La primera llamada es sin costo y sin compromiso, en la fecha que mejor te acomode.',
   },
 ]
 

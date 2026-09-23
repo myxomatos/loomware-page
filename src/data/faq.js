@@ -9,7 +9,7 @@
 export const FAQ = [
   {
     p: '¿Cuánto cuesta?',
-    r: 'Trabajamos soluciones a la medida, así que el precio depende del alcance: por eso empezamos con un diagnóstico sin costo. Después recibes una propuesta con precio cerrado por ese alcance, antes de decidir nada. Si más adelante quieres ampliarlo, se cotiza aparte y lo apruebas tú; nunca aparece un cargo que no hayas autorizado.',
+    r: 'Trabajamos soluciones a la medida, así que el precio depende del alcance: por eso empezamos con una llamada sin costo y un diagnóstico a precio competitivo. Después recibes una propuesta con precio cerrado por ese alcance, antes de decidir nada. Si más adelante quieres ampliarlo, se cotiza aparte y lo apruebas tú; nunca aparece un cargo que no hayas autorizado.',
   },
   {
     p: '¿Cuánto tarda una implementación?',

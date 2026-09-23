@@ -72,7 +72,7 @@ export default function Process() {
           <span className="icon-tile icon-tile--acento schedule__icon">
             <Icon name="calendar" size={26} />
           </span>
-          <h3 className="schedule__title">Agenda tu diagnóstico</h3>
+          <h3 className="schedule__title">Agenda una llamada</h3>
           <p className="text-xs">Una llamada de 30 minutos, sin costo, para entender tu operación.</p>
           <a className="btn btn--outline btn--sm" {...scheduleProps}>
             Agendar ahora
