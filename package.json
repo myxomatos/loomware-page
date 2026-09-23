@@ -20,7 +20,8 @@
     "logo:cliente": "node scripts/logo-cliente.js",
     "postbuild": "node scripts/encabezados.js",
     "encabezados": "node scripts/encabezados.js",
-    "recorridos:escenas": "node scripts/escenas.js"
+    "recorridos:escenas": "node scripts/escenas.js",
+    "hero:sistema": "node scripts/hero-sistema.js"
   },
   "dependencies": {
     "react": "^18.3.1",

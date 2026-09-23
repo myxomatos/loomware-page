@@ -1,7 +1,14 @@
 /*
- * Dibuja el hero: public/hero-operacion.svg.
+ * Dibuja public/hero-operacion.svg: la maraña de hoy contra un solo sistema.
  *
  *   npm run hero:dibujo
+ *
+ * **Ya no es el hero.** Desde el 22 de septiembre de 2026 la portada enseña la
+ * pantalla del sistema (`scripts/hero-sistema.js`), porque eso es lo que hacen
+ * Bind, Holded, Alegra y Xero y era la mayor diferencia que quedaba contra
+ * ellos. Este dibujo se queda porque alimenta **la tarjeta social**
+ * (`scripts/og-imagen.js`), que es donde su idea funciona mejor: se lee de un
+ * vistazo y en miniatura, que es como se ve un enlace compartido.
  *
  * Qué muestra y por qué: el titular dice «Excel, WhatsApp y programas que no se
  * hablan entre sí», y esto es exactamente eso —la maraña de hoy a la izquierda

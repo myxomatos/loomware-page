@@ -72,18 +72,29 @@ export default function Hero() {
         </div>
 
         <figure className="hero__media">
-          {/* El dibujo es nuestro y dice lo mismo que el titular: la maraña de hoy
-              —Excel, WhatsApp, correo, papel— contra un solo sistema. Se genera con
-              `npm run hero:dibujo` desde la paleta del sitio; pesa 5 KB y es nítido
-              a cualquier tamaño. */}
+          {/* La pantalla del sistema, con sus ocho módulos en la barra lateral.
+              Bind, Holded, Alegra y Xero enseñan el suyo en la portada y nosotros
+              no enseñábamos ninguno: era la mayor diferencia que quedaba contra
+              ellos. Se genera con `npm run hero:sistema` desde la paleta del
+              sitio; pesa 11 KB y es nítido a cualquier tamaño.
+
+              No es la pantalla de un cliente —lo que construimos es de quien lo
+              pagó— y lo dice adentro, en su esquina. Y donde iría el nombre de un
+              cliente van renglones, no razones sociales inventadas. */}
+          {/* Dos formas del mismo dibujo: en celular la barra lateral no cabe y
+              el texto caería a 7 px, así que ahí va una versión con los módulos
+              en pestañas y menos piezas. El navegador descarga sólo una. */}
+          <picture>
+            <source media="(max-width: 599px)" srcSet="/hero-sistema-movil.svg" width="390" height="330" />
           <img
-            src="/hero-operacion.svg"
+            src="/hero-sistema.svg"
             width="580"
             height="400"
-            alt="A la izquierda, cinco herramientas sueltas —Excel, WhatsApp, correo, papel y un sistema viejo— unidas por líneas cruzadas. A la derecha, un solo sistema donde ventas, almacén, compras, contabilidad y dirección escriben y leen lo mismo"
+            alt="Pantalla de ejemplo de un sistema Loomware: a la izquierda los ocho módulos —CRM, ERP, nómina, comercio en línea, automatización, software a medida, infraestructura cloud y apps móviles— y a la derecha el de ERP abierto, con el dinero por cobrar, el inventario, los pedidos del día y la facturación por semana"
             fetchpriority="high"
             decoding="async"
           />
+          </picture>
         </figure>
       </div>
       {VIDEO_URL && <VideoModal abierto={video} onCerrar={() => setVideo(false)} />}
