@@ -9,7 +9,6 @@ import Needs from './components/Needs'
 import Process from './components/Process'
 import Nosotros from './components/Nosotros'
 import Faq from './components/Faq'
-import CtaBand from './components/CtaBand'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 
@@ -31,7 +30,6 @@ export default function App() {
         <Process />
         <Nosotros />
         <Faq />
-        <CtaBand />
       </main>
       <Footer />
       <WhatsAppButton />

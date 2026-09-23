@@ -408,12 +408,21 @@
         .gauge{margin-left:0;}
       }
     </style>
+
+    <style>
+      /* El logotipo es un enlace al inicio sólo en la versión del sitio, así que
+         su estilo vive aquí y no en la fuente: sin subrayado ni azul de enlace,
+         y con una señal al pasar encima para que se note que lleva a algún lado. */
+      .brand__id { color: inherit; text-decoration: none; border-radius: 6px; }
+      .brand__id:hover .brand__name { color: var(--signal); }
+      .brand__id:focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
+    </style>
   </head>
   <body>
 <div class="wrap">
 
   <div class="brand">
-    <span class="brand__id">
+    <a class="brand__id" href="/" aria-label="Ir al inicio de Loomware">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
         <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="var(--ink)" stroke-width="1.8"/>
@@ -423,8 +432,7 @@
         <path d="M15.5 8h4v4" stroke="var(--signal)" stroke-width="2"/>
       </svg>
       <span class="brand__name">Loomware</span>
-    </span>
-    <a class="brand__site" href="https://alan.loomware-page.pages.dev" target="_blank" rel="noopener noreferrer">loomware.com.mx</a>
+    </a>
   </div>
 
   <header class="mast">
@@ -689,7 +697,7 @@
       WhatsApp · 55 8096 8928
     </a>
     <p class="otras">
-      <span class="par">o llena el <a href="https://alan.loomware-page.pages.dev/servicios/crm" target="_blank" rel="noopener noreferrer">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
+      <span class="par">o llena el <a href="/#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
     </p>
   </section>
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import Icon from "./Icon";
+import { useCtaOculta, propsCta } from "../lib/ctaNavbar";
 import "./Navbar.css";
 
 const NAV_LINKS = [
@@ -14,6 +15,8 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // El hero ya trae su propio «Solicitar diagnóstico»; mientras se vea, éste cede.
+  const ctaOculta = useCtaOculta();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -62,10 +65,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <a
-            href="#contacto"
-            className="btn btn--outline btn--pill btn--sm nav__cta"
-          >
+          <a href="#contacto" {...propsCta(ctaOculta)}>
             Diagnóstico
             <Icon name="arrow-right" size={16} />
           </a>

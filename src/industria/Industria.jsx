@@ -7,12 +7,15 @@ import { industriaPorId, INDUSTRIAS } from '../data/industrias'
 import { servicioPorSlug } from '../data/servicios'
 import '../servicio/servicio.css'
 import './industria.css'
+import { useCtaOculta, propsCta } from '../lib/ctaNavbar'
 
 /*
  * Página de una industria. El id viene del atributo data-industria que el
  * generador escribe en <html>, así que el mismo componente sirve para las seis.
  */
 export default function Industria({ id }) {
+  // El hero de esta página ya trae su «Solicitar diagnóstico».
+  const ctaOculta = useCtaOculta()
   const g = industriaPorId(id)
   if (!g) {
     return (
@@ -47,7 +50,7 @@ export default function Industria({ id }) {
               </a>
             ))}
           </nav>
-          <a href="#contacto" className="btn btn--outline btn--pill btn--sm">
+          <a href="#contacto" {...propsCta(ctaOculta)}>
             Diagnóstico
             <Icon name="arrow-right" size={16} />
           </a>
