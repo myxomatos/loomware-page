@@ -270,12 +270,16 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       está en blanco: las dos personas existen pero sin cargo ni foto, y la tarjeta sólo aparece
       cuando tiene las dos cosas. Está en la lista de Aldo, en "Datos que faltan".
 
-- [ ] **Texto indexable por debajo de los competidores directos, y bajando.** La portada tiene
-      **1 432 palabras** contra 1 964 de Bind, 2 573 de Siigo y 3 378 de Alegra —y el estudio la
-      había medido en 1 536, o sea que bajó al acortar—. Para un dominio nuevo el texto es la
-      vía lenta pero segura del posicionamiento. La solución no es inflar la portada: es
-      material que responda preguntas de búsqueda, que es lo que hoy no existe. Los ocho
-      recorridos ya suman por su cuenta.
+- [ ] **Falta material que responda preguntas de búsqueda.** La portada ya está a la par
+      —1 995 palabras contra 1 964 de Bind, ver arriba—, pero eso no es lo que decide el
+      posicionamiento de un dominio nuevo: lo decide tener páginas que contesten lo que la
+      gente escribe en Google. Hoy el sitio tiene 25 URLs y **ninguna es de ese tipo**: son
+      servicios, industrias, recorridos y herramientas, todas escritas para quien ya llegó.
+      Falta lo que se busca antes de llegar —«cuánto cuesta implementar un ERP en México»,
+      «cómo migrar de Excel a un sistema», «qué pide el SAT para facturar»—. Ojo: varias de
+      esas respuestas son política de la empresa y **necesitan el visto bueno de Aldo antes de
+      publicarse**, igual que las de `src/data/faq.js`. Alegra tiene 3 378 palabras en su
+      portada y un blog detrás; la portada no es donde se gana esto.
 
 ### De la tercera auditoría, aún abiertos
 
