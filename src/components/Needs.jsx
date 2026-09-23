@@ -12,26 +12,31 @@ const NEEDS = [
   { id: 'automatizar', icon: 'settings', label: 'Automatizar procesos' },
 ]
 
+/* Cuatro resultados concretos. Antes decían «Más oportunidades atendidas» y
+   «Más visibilidad operativa», que es lo que dice cualquier sitio de software
+   empresarial. Estas cuatro frases venían de la sección «El desafío», que
+   contaba lo mismo más abajo y con mejores palabras; al quitarla, se quedan
+   aquí, que es donde el visitante ya está decidiendo si escribe. */
 const IMPACT = [
   {
-    icon: 'bar-chart',
-    title: 'Más oportunidades atendidas',
-    text: 'Convierte más leads en clientes.',
+    icon: 'target',
+    title: 'Cada prospecto con dueño y fecha',
+    text: 'Cada oportunidad tiene responsable y siguiente paso, a la vista de todos.',
   },
   {
-    icon: 'user',
-    title: 'Mayor seguimiento comercial',
-    text: 'Da visibilidad total a tu equipo.',
+    icon: 'activity',
+    title: 'Inventario real, al minuto',
+    text: 'Lo que dice el sistema es lo que hay en el piso.',
   },
   {
-    icon: 'clock',
-    title: 'Menos tareas manuales',
-    text: 'Tu equipo se enfoca en lo que realmente importa.',
+    icon: 'list-checks',
+    title: 'Lo repetitivo corre solo',
+    text: 'Tu equipo dedica el día a lo que sí decide.',
   },
   {
-    icon: 'pie-chart',
-    title: 'Más visibilidad operativa',
-    text: 'Toma decisiones con datos reales.',
+    icon: 'trending-up',
+    title: 'Sabes cuánto vas a cerrar',
+    text: 'Decides con el número de hoy y con la cuenta a la vista.',
   },
 ]
 

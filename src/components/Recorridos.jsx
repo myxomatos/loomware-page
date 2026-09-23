@@ -42,6 +42,10 @@ export default function Recorridos() {
                 >
                   <span className="recorrido__sol">{s ? s.nombre : r.servicio}</span>
                   <span className="recorrido__titulo">{r.titulo}</span>
+                  {/* El resumen ya estaba escrito en src/data/recorridos.js y el inicio no lo
+                      usaba. Se esconde en celular —ocho resúmenes eran media pantalla más— pero
+                      sigue en el documento, que es lo que lee un buscador. */}
+                  <span className="recorrido__resumen">{r.resumen}</span>
                   <span className="recorrido__pie">
                     <span className="recorrido__pasos">6 pasos</span>
                     <Icon name="arrow-right" size={14} />

@@ -1,6 +1,5 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Challenge from './components/Challenge'
 import Recorridos from './components/Recorridos'
 import Solutions from './components/Solutions'
 import Industrias from './components/Industrias'
@@ -24,7 +23,6 @@ export default function App() {
       <main id="contenido">
         <Hero />
         <Recorridos />
-        <Challenge />
         <Solutions />
         <Industrias />
         <Casos />

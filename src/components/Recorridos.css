@@ -48,6 +48,13 @@
   color: var(--text-900);
   text-wrap: balance;
 }
+.recorrido__resumen {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--text-500);
+  text-wrap: pretty;
+}
+
 /* El pie se empuja abajo para que las ocho tarjetas cierren a la misma altura
    aunque los títulos midan distinto. */
 .recorrido__pie {
@@ -95,6 +102,11 @@
     padding: 0;
   }
   .recorrido__pasos {
+    display: none;
+  }
+  /* En celular cada recorrido es un renglón de un toque; el resumen lo
+     convertiría en tarjeta y serían cinco pantallas de lista. */
+  .recorrido__resumen {
     display: none;
   }
 }
