@@ -1,35 +1,45 @@
 /*
- * Dibuja el hero: la pantalla del sistema. Dos archivos, uno por forma.
+ * Dibuja el hero: la pantalla de inicio del sistema. Dos archivos, uno por forma.
  *
  *   npm run hero:sistema
- *     → public/hero-sistema.svg        580×400, para escritorio
- *     → public/hero-sistema-movil.svg  390×330, para celular
+ *     → public/hero-sistema.svg        580×440, para escritorio
+ *     → public/hero-sistema-movil.svg  390×360, para celular
  *
  * Qué muestra y por qué. Bind, Holded, Alegra y Xero enseñan su sistema en la
- * portada; el estudio comparativo lo marcó como nuestra mayor pobreza visual.
- * Esto es esa pantalla: **un solo sistema con sus ocho módulos**, que es
- * literalmente lo que vende Loomware —«soluciones que se hablan entre sí»—, y
- * el de ERP abierto con sus cifras, su tabla y su gráfica.
+ * portada; el estudio comparativo lo marcó como la mayor diferencia que quedaba
+ * contra ellos.
  *
- * Las dos reglas que gobiernan este dibujo:
+ * La primera versión abría un solo módulo —el ERP— y dejaba a los otros siete
+ * como nombres en una lista. Ésta enseña **el inicio del sistema, donde cada uno
+ * de los ocho módulos pone su propio recuadro**: el embudo del CRM, el dinero
+ * por cobrar del ERP, la dispersión de la nómina, los pedidos de la tienda, los
+ * flujos que corren solos, el módulo a medida en producción, la disponibilidad
+ * de la nube y los técnicos en ruta. Es lo que de verdad ve alguien al abrir un
+ * sistema de ocho módulos, y de paso dice en una imagen lo que el sitio dice en
+ * palabras: que son ocho piezas de una sola cosa.
+ *
+ * Las dos reglas que lo gobiernan:
  *
  * 1. **No se enseña la pantalla de un cliente.** No se puede y no se debe: lo
  *    que Loomware construye es de quien lo pagó. Así que es una pantalla de
- *    ejemplo, y lo dice adentro, en su propia esquina. Igual que los recorridos
- *    dicen «cifras de ejemplo».
+ *    ejemplo y lo dice adentro, en su esquina, igual que los recorridos dicen
+ *    «cifras de ejemplo».
  *
  * 2. **Los nombres de cliente no se inventan.** Donde iría una razón social van
- *    renglones grises: un nombre falso en una portada se lee como un cliente
- *    real. Además así se ve de verdad una demostración pública de un sistema con
+ *    renglones grises. Un nombre falso en una portada se lee como un cliente
+ *    real; y así se ve de verdad una demostración pública de un sistema con
  *    datos de terceros, o sea que el dibujo dice algo cierto sobre cómo
- *    trabajamos. Los folios, los estados y los montos sí van escritos, porque no
- *    identifican a nadie.
+ *    trabajamos. Las cifras y los estados sí van escritos: no identifican a
+ *    nadie.
+ *
+ * Sin fecha en la barra: una fecha escrita envejece la imagen el día que pasa.
+ * En su lugar va el selector de periodo, que es lo que trae cualquier sistema.
  *
  * Por qué dos archivos. El de escritorio se muestra a ~535 px y el de celular a
- * ~358. Si se usara el mismo, en celular la barra lateral caería a 7 px y no se
- * leería nada; la versión de celular cambia la barra por una fila de módulos,
- * baja de tres cifras a dos y de cuatro renglones a tres. El navegador descarga
- * sólo uno, porque el `<picture>` del hero elige por ancho.
+ * ~345. Con el mismo, en celular la barra lateral caería a 7 px y no se leería;
+ * la versión de celular cambia la rejilla por una lista, que es como se ve un
+ * sistema en un teléfono, y conserva los ocho módulos con su cifra. El navegador
+ * descarga sólo uno, porque el `<picture>` del hero elige por ancho.
  *
  * Va por código para que la paleta salga de los mismos valores que el sitio: si
  * el morado o el cobre cambian, se corre otra vez.
@@ -51,7 +61,7 @@ const C = {
   cobre: '#a35c23',
   cobreSuave: '#f6ebe0',
   verde: '#12643c',
-  verdeSuave: '#e3f0e9',
+  verdeSuave: '#dcefe5',
   papel: '#f5f3ef',
   blanco: '#ffffff',
   filete: '#e0ddd5',
@@ -61,37 +71,32 @@ const C = {
   mono: "'Azeret Mono',ui-monospace,SFMono-Regular,Menlo,monospace",
 }
 
+/*
+ * Los ocho módulos y lo que cada uno pone en el inicio.
+ *   nombre  como lo llama el sitio (barra lateral)
+ *   corto   para la etiqueta del recuadro, que es angosta
+ *   cifra   el dato grande
+ *   pie     qué es esa cifra
+ *   figura  el dibujito de la derecha del recuadro
+ */
 const MODULOS = [
-  'CRM',
-  'ERP',
-  'Nómina',
-  'Comercio en línea',
-  'Automatización',
-  'Software a medida',
-  'Infraestructura cloud',
-  'Apps móviles',
-]
-const ACTIVO = 1 // ERP: es el módulo abierto
-
-/* En el teléfono los nombres van cortos, como en cualquier sistema: con los
-   largos, la segunda fila de pestañas se salía y «Apps móviles» quedaba fuera
-   del lienzo. Los nombres completos siguen en el texto alternativo. */
-const MODULOS_CORTOS = [
-  'CRM',
-  'ERP',
-  'Nómina',
-  'Comercio',
-  'Automatización',
-  'A medida',
-  'Cloud',
-  'Apps',
+  { nombre: 'CRM', corto: 'CRM', cifra: '18', pie: 'tratos abiertos', figura: 'embudo' },
+  { nombre: 'ERP', corto: 'ERP', cifra: '$184,500', pie: 'por cobrar', figura: 'barras' },
+  { nombre: 'Nómina', corto: 'NÓMINA', cifra: '42', pie: 'en la dispersión', figura: 'avance' },
+  { nombre: 'Comercio en línea', corto: 'COMERCIO', cifra: '37', pie: 'pedidos hoy', figura: 'linea' },
+  { nombre: 'Automatización', corto: 'AUTOMATIZACIÓN', cifra: '6', pie: 'flujos corriendo', figura: 'flujo' },
+  { nombre: 'Software a medida', corto: 'A MEDIDA', cifra: 'v2.4', pie: 'módulo de rutas', figura: 'sello' },
+  { nombre: 'Infraestructura cloud', corto: 'CLOUD', cifra: '99.9%', pie: 'disponibilidad', figura: 'dias' },
+  { nombre: 'Apps móviles', corto: 'APPS', cifra: '12', pie: 'técnicos en ruta', figura: 'checks' },
 ]
 
 const ALT =
-  'Pantalla de ejemplo de un sistema Loomware: los ocho módulos —CRM, ERP, ' +
-  'nómina, comercio en línea, automatización, software a medida, infraestructura ' +
-  'cloud y apps móviles— y el de ERP abierto, con el dinero por cobrar, el ' +
-  'inventario, los pedidos del día y la facturación por semana.'
+  'Pantalla de ejemplo del inicio de un sistema Loomware: los ocho módulos —CRM, ' +
+  'ERP, nómina, comercio en línea, automatización, software a medida, ' +
+  'infraestructura cloud y apps móviles— cada uno con su propio dato: tratos ' +
+  'abiertos, dinero por cobrar, gente en la dispersión, pedidos del día, flujos ' +
+  'corriendo, el módulo a medida en producción, la disponibilidad y los técnicos ' +
+  'en ruta.'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
 
@@ -112,11 +117,6 @@ const caja = (x, y, w, h, o = {}) =>
   (o.stroke ? ` stroke="${o.stroke}" stroke-width="${o.sw || 1}"` : '') +
   '/>'
 
-/* Renglón simulado: da la forma del contenido sin inventar contenido. Es lo que
-   va donde iría el nombre de un cliente. */
-const renglon = (x, y, w, o = 1) =>
-  `<rect x="${x}" y="${y}" width="${w}" height="5" rx="2.5" fill="${C.gris}" opacity="${o}"/>`
-
 /* La marca, dibujada como en el logotipo del sitio. */
 const marca = (x, y, e) =>
   `<g transform="translate(${x} ${y}) scale(${e})">` +
@@ -125,184 +125,203 @@ const marca = (x, y, e) =>
   `<path d="M15.5 8h4v4" fill="none" stroke="${C.morado}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
   '</g>'
 
-const FILAS = [
-  ['OC-1182', 96, 'Surtido', C.verde, C.verdeSuave, '$12,480'],
-  ['OC-1183', 124, 'En ruta', C.morado, C.moradoSuave, '$8,950'],
-  ['OC-1184', 78, 'Por surtir', C.cobre, C.cobreSuave, '$23,100'],
-  ['OC-1185', 110, 'Facturado', C.apagado, '#eeebe4', '$5,640'],
-]
-const ALTURAS = [18, 26, 22, 31, 27, 36, 33, 42]
+/*
+ * Las figuritas de cada recuadro. Todas caben en una caja de 58×34 y se dibujan
+ * desde su esquina superior izquierda, para poder acomodarlas sin pensar.
+ */
+function figura(tipo, x, y) {
+  const g = []
+  switch (tipo) {
+    case 'embudo': // CRM: cuatro etapas que se angostan
+      ;[56, 42, 30, 17].forEach((w, i) => {
+        g.push(
+          `<rect x="${x}" y="${y + i * 9}" width="${w}" height="6" rx="3" fill="${i === 3 ? C.morado : C.filete2}"/>`,
+        )
+      })
+      break
+    case 'barras': // ERP: seis semanas de facturación
+      ;[10, 16, 13, 21, 18, 26].forEach((h, i) => {
+        g.push(
+          `<rect x="${x + i * 10}" y="${y + 32 - h}" width="7" height="${h}" rx="2" fill="${i >= 4 ? C.morado : C.filete2}"/>`,
+        )
+      })
+      break
+    case 'avance': // Nómina: el cálculo, terminado
+      g.push(`<rect x="${x}" y="${y + 10}" width="56" height="7" rx="3.5" fill="${C.filete}"/>`)
+      g.push(`<rect x="${x}" y="${y + 10}" width="56" height="7" rx="3.5" fill="${C.verde}"/>`)
+      g.push(texto(x, y + 30, 'cálculo listo', { tam: 7.5, color: C.verde }))
+      break
+    case 'linea': // Comercio: la curva del día
+      g.push(
+        `<polyline points="${x},${y + 28} ${x + 11},${y + 20} ${x + 22},${y + 24} ${x + 33},${y + 12} ${x + 44},${y + 16} ${x + 55},${y + 5}" fill="none" stroke="${C.morado}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+      )
+      g.push(`<circle cx="${x + 55}" cy="${y + 5}" r="2.6" fill="${C.morado}"/>`)
+      break
+    case 'flujo': // Automatización: tres pasos encadenados
+      ;[0, 1, 2].forEach((i) => {
+        const cx = x + 6 + i * 23
+        g.push(`<circle cx="${cx}" cy="${y + 16}" r="5" fill="${C.moradoSuave}" stroke="${C.morado}" stroke-width="1.4"/>`)
+        if (i < 2) {
+          g.push(
+            `<line x1="${cx + 6}" y1="${y + 16}" x2="${cx + 16}" y2="${y + 16}" stroke="${C.filete2}" stroke-width="1.6" stroke-dasharray="2 2"/>`,
+          )
+        }
+      })
+      break
+    case 'sello': // A medida: el estado del módulo
+      g.push(caja(x, y + 8, 58, 17, { r: 8.5, fill: C.verdeSuave }))
+      g.push(texto(x + 29, y + 20, 'en producción', { tam: 7.5, peso: 600, color: C.verde, centro: true }))
+      break
+    case 'dias': // Cloud: siete días en verde
+      ;[0, 1, 2, 3, 4, 5, 6].forEach((i) => {
+        g.push(`<rect x="${x + i * 8.6}" y="${y + 12}" width="6" height="12" rx="1.6" fill="${C.verde}" opacity="${0.55 + i * 0.07}"/>`)
+      })
+      break
+    case 'checks': // Apps: visitas cerradas
+      ;[0, 1, 2].forEach((i) => {
+        const yy = y + 5 + i * 11
+        g.push(
+          `<path d="M${x} ${yy + 3}l2.6 2.6L${x + 8} ${yy - 1}" fill="none" stroke="${i === 2 ? C.filete2 : C.verde}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+        )
+        g.push(`<rect x="${x + 14}" y="${yy}" width="${[40, 32, 26][i]}" height="4.5" rx="2.25" fill="${C.gris}"/>`)
+      })
+      break
+    default:
+      break
+  }
+  return g.join('')
+}
 
 const envolver = (w, h, partes) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" ` +
   `role="img" aria-label="${esc(ALT)}">${partes.join('')}</svg>`
 
-/* ====================================================== escritorio: 580×400 === */
+/* ====================================================== escritorio: 580×420 === */
 function escritorio() {
   const W = 580
-  const H = 400
+  // 440 y no 420: con 420 el último renglón de recuadros se salía nueve píxeles
+  // del marco. La ventana mide lo que su contenido necesita.
+  const H = 440
   const p = []
 
   // Sombra corta y baja: la ventana se despega del papel sin parecer que flota.
-  p.push(`<rect x="8" y="18" width="564" height="376" rx="16" fill="${C.tinta}" opacity="0.06"/>`)
-  p.push(caja(2, 8, 576, 380, { r: 16, stroke: C.filete }))
+  p.push(`<rect x="8" y="18" width="564" height="416" rx="16" fill="${C.tinta}" opacity="0.06"/>`)
+  p.push(caja(2, 8, 576, 420, { r: 16, stroke: C.filete }))
 
+  /* --- barra superior --- */
   p.push('<path d="M2 24a16 16 0 0 1 16-16h544a16 16 0 0 1 16 16v20H2Z" fill="#faf9f6"/>')
   p.push(`<line x1="2" y1="44" x2="578" y2="44" stroke="${C.filete}" stroke-width="1"/>`)
   p.push(marca(18, 17, 0.82))
   p.push(texto(44, 31, 'Loomware', { tam: 13, peso: 700, color: C.tinta }))
-  p.push(caja(452, 16, 110, 20, { r: 10, fill: C.papel, stroke: C.filete }))
-  p.push(texto(507, 30, 'Septiembre 2026', { tam: 9.5, mono: true, color: C.apagado, fin: true }))
 
-  // --- barra lateral: ancha lo necesario para «Infraestructura cloud» ---
-  const SB = 168
-  p.push(`<path d="M2 44h${SB - 2}v344H18a16 16 0 0 1-16-16Z" fill="${C.papel}"/>`)
-  p.push(`<line x1="${SB}" y1="44" x2="${SB}" y2="388" stroke="${C.filete}" stroke-width="1"/>`)
-  p.push(texto(18, 66, 'MÓDULOS', { tam: 8.5, mono: true, peso: 500, ls: 1.4, color: C.cobre }))
-
-  MODULOS.forEach((m, i) => {
-    const y = 80 + i * 30
-    if (i === ACTIVO) {
-      p.push(caja(8, y - 13, SB - 18, 26, { r: 7, fill: C.moradoSuave }))
-      p.push(`<rect x="8" y="${y - 13}" width="3" height="26" rx="1.5" fill="${C.morado}"/>`)
-    }
-    p.push(`<circle cx="24" cy="${y}" r="3" fill="${i === ACTIVO ? C.morado : C.filete2}"/>`)
+  // Selector de periodo en vez de una fecha: una fecha escrita envejece el día
+  // que pasa, y esto es lo que trae cualquier sistema.
+  const PERIODOS = ['Hoy', 'Semana', 'Mes']
+  p.push(caja(438, 15, 124, 21, { r: 10.5, fill: C.papel, stroke: C.filete }))
+  let px = 440
+  PERIODOS.forEach((t, i) => {
+    const w = i === 0 ? 34 : i === 1 ? 50 : 34
+    if (i === 0) p.push(caja(px, 17, w, 17, { r: 8.5, fill: C.blanco, stroke: C.filete }))
     p.push(
-      texto(36, y + 4, m, {
-        tam: 11.5,
-        peso: i === ACTIVO ? 600 : 400,
-        color: i === ACTIVO ? C.morado : C.texto,
+      texto(px + w / 2, 29, t, {
+        tam: 9,
+        peso: i === 0 ? 600 : 400,
+        color: i === 0 ? C.tinta : C.apagado,
+        centro: true,
       }),
     )
+    px += w + 2
   })
 
-  p.push(`<line x1="16" y1="336" x2="${SB - 16}" y2="336" stroke="${C.filete}" stroke-width="1"/>`)
-  p.push(texto(18, 356, 'Un solo sistema.', { tam: 10.5, peso: 600, color: C.tinta }))
-  p.push(texto(18, 371, 'Todos escriben aquí.', { tam: 10.5, color: C.apagado }))
+  /* --- barra lateral: los ocho módulos con su nombre completo --- */
+  const SB = 168
+  p.push(`<path d="M2 44h${SB - 2}v384H18a16 16 0 0 1-16-16Z" fill="${C.papel}"/>`)
+  p.push(`<line x1="${SB}" y1="44" x2="${SB}" y2="428" stroke="${C.filete}" stroke-width="1"/>`)
 
-  // --- cuerpo ---
+  // «Inicio» es lo que está abierto: es la pantalla que se está viendo.
+  p.push(caja(8, 56, SB - 18, 26, { r: 7, fill: C.moradoSuave }))
+  p.push(`<rect x="8" y="56" width="3" height="26" rx="1.5" fill="${C.morado}"/>`)
+  p.push(`<circle cx="24" cy="69" r="3" fill="${C.morado}"/>`)
+  p.push(texto(36, 73, 'Inicio', { tam: 11.5, peso: 600, color: C.morado }))
+
+  p.push(texto(18, 104, 'MÓDULOS', { tam: 8.5, mono: true, peso: 500, ls: 1.4, color: C.cobre }))
+  MODULOS.forEach((m, i) => {
+    const y = 122 + i * 29
+    p.push(`<circle cx="24" cy="${y}" r="3" fill="${C.filete2}"/>`)
+    p.push(texto(36, y + 4, m.nombre, { tam: 11.5, color: C.texto }))
+  })
+
+  p.push(`<line x1="16" y1="374" x2="${SB - 16}" y2="374" stroke="${C.filete}" stroke-width="1"/>`)
+  p.push(texto(18, 394, 'Un solo sistema.', { tam: 10.5, peso: 600, color: C.tinta }))
+  p.push(texto(18, 408, 'Todos escriben aquí.', { tam: 10.5, color: C.apagado }))
+
+  /* --- el inicio: un recuadro por módulo --- */
   const X = SB + 18
   const FIN = 562
-  p.push(texto(X, 70, 'ERP · Distribuidora', { tam: 14, peso: 700, color: C.tinta }))
+  p.push(texto(X, 72, 'Inicio', { tam: 14, peso: 700, color: C.tinta }))
   // La etiqueta que impide el malentendido: esto no es la pantalla de un cliente.
-  p.push(caja(FIN - 118, 58, 118, 17, { r: 8.5, fill: C.cobreSuave }))
-  p.push(texto(FIN - 59, 70, 'PANTALLA DE EJEMPLO', { tam: 7.5, mono: true, peso: 500, ls: 0.6, color: C.cobre, centro: true }))
+  p.push(caja(FIN - 118, 60, 118, 17, { r: 8.5, fill: C.cobreSuave }))
+  p.push(
+    texto(FIN - 59, 72, 'PANTALLA DE EJEMPLO', {
+      tam: 7.5, mono: true, peso: 500, ls: 0.6, color: C.cobre, centro: true,
+    }),
+  )
 
-  const TARJETAS = [
-    ['POR COBRAR', '$184,500', '14 vencidas', C.cobre],
-    ['INVENTARIO', '1,248 pzas', '3 por resurtir', C.apagado],
-    ['PEDIDOS HOY', '37', '+18% vs ayer', C.verde],
-  ]
-  const ancho = (FIN - X - 24) / 3
-  TARJETAS.forEach(([lbl, cifra, pie, colorPie], i) => {
-    const x = X + i * (ancho + 12)
-    p.push(caja(x, 88, ancho, 64, { r: 10, stroke: C.filete }))
-    p.push(texto(x + 12, 106, lbl, { tam: 8.5, mono: true, peso: 500, ls: 0.8, color: C.cobre }))
-    p.push(texto(x + 12, 130, cifra, { tam: 19, peso: 700, color: C.tinta }))
-    p.push(texto(x + 12, 144, pie, { tam: 9, color: colorPie }))
+  const COLS = 2
+  const GX = 10
+  const GY = 9
+  const ancho = (FIN - X - GX) / COLS
+  const alto = 75
+  MODULOS.forEach((m, i) => {
+    const cx = X + (i % COLS) * (ancho + GX)
+    const cy = 90 + Math.floor(i / COLS) * (alto + GY)
+    p.push(caja(cx, cy, ancho, alto, { r: 10, stroke: C.filete }))
+    p.push(texto(cx + 13, cy + 18, m.corto, { tam: 7.5, mono: true, peso: 500, ls: 0.8, color: C.cobre }))
+    p.push(texto(cx + 13, cy + 42, m.cifra, { tam: 17, peso: 700, color: C.tinta }))
+    p.push(texto(cx + 13, cy + 57, m.pie, { tam: 8.5, color: C.apagado }))
+    p.push(figura(m.figura, cx + ancho - 71, cy + 20))
   })
-
-  const enc = { tam: 8.5, mono: true, peso: 500, ls: 0.8, color: C.cobre }
-  p.push(texto(X, 180, 'FOLIO', enc))
-  p.push(texto(X + 74, 180, 'CLIENTE', enc))
-  p.push(texto(X + 216, 180, 'ESTADO', enc))
-  p.push(texto(FIN, 180, 'MONTO', { ...enc, fin: true }))
-  p.push(`<line x1="${X}" y1="188" x2="${FIN}" y2="188" stroke="${C.filete}" stroke-width="1"/>`)
-
-  FILAS.forEach(([folio, anchoNombre, estado, colorEstado, fondoEstado, monto], i) => {
-    const y = 208 + i * 26
-    if (i % 2 === 1) p.push(caja(X - 8, y - 13, FIN - X + 16, 24, { r: 6, fill: '#fafaf8' }))
-    p.push(texto(X, y + 4, folio, { tam: 11, mono: true, color: C.texto }))
-    p.push(renglon(X + 74, y, anchoNombre, 0.9))
-    p.push(caja(X + 216, y - 9, 64, 17, { r: 8.5, fill: fondoEstado }))
-    p.push(texto(X + 248, y + 3, estado, { tam: 8.5, peso: 600, color: colorEstado, centro: true }))
-    p.push(texto(FIN, y + 4, monto, { tam: 11, mono: true, color: C.tinta, fin: true }))
-  })
-
-  p.push(texto(X, 336, 'FACTURADO POR SEMANA', enc))
-  const BASE = 376
-  ALTURAS.forEach((h, i) => {
-    const x = X + i * 34
-    const reciente = i >= ALTURAS.length - 2
-    p.push(
-      `<rect x="${x}" y="${BASE - h}" width="20" height="${h}" rx="3" fill="${reciente ? C.morado : C.filete2}"${reciente ? '' : ' opacity="0.85"'}/>`,
-    )
-  })
-  p.push(`<line x1="${X}" y1="${BASE}" x2="${FIN}" y2="${BASE}" stroke="${C.filete}" stroke-width="1"/>`)
 
   return envolver(W, H, p)
 }
 
-/* ========================================================== celular: 390×330 === */
+/* ========================================================== celular: 390×360 === */
 function celular() {
   const W = 390
-  const H = 330
+  const H = 360
   const p = []
   const X = 18
   const FIN = 372
 
-  p.push(`<rect x="6" y="12" width="378" height="314" rx="14" fill="${C.tinta}" opacity="0.06"/>`)
-  p.push(caja(2, 4, 386, 318, { r: 14, stroke: C.filete }))
+  p.push(`<rect x="6" y="12" width="378" height="344" rx="14" fill="${C.tinta}" opacity="0.06"/>`)
+  p.push(caja(2, 4, 386, 348, { r: 14, stroke: C.filete }))
 
   p.push('<path d="M2 18a14 14 0 0 1 14-14h358a14 14 0 0 1 14 14v18H2Z" fill="#faf9f6"/>')
   p.push(`<line x1="2" y1="36" x2="388" y2="36" stroke="${C.filete}" stroke-width="1"/>`)
   p.push(marca(14, 10, 0.78))
   p.push(texto(38, 24, 'Loomware', { tam: 12.5, peso: 700, color: C.tinta }))
-  p.push(caja(FIN - 108, 10, 108, 18, { r: 9, fill: C.papel, stroke: C.filete }))
-  p.push(texto(FIN - 54, 23, 'Septiembre 2026', { tam: 9, mono: true, color: C.apagado, centro: true }))
+  p.push(caja(FIN - 96, 11, 96, 18, { r: 9, fill: C.papel, stroke: C.filete }))
+  p.push(caja(FIN - 94, 13, 30, 14, { r: 7, fill: C.blanco, stroke: C.filete }))
+  p.push(texto(FIN - 79, 23, 'Hoy', { tam: 8.5, peso: 600, color: C.tinta, centro: true }))
+  p.push(texto(FIN - 42, 23, 'Semana', { tam: 8.5, color: C.apagado, centro: true }))
 
-  /* Los módulos, en fila: en un teléfono un sistema se navega por pestañas, no
-     por barra lateral, y así los ocho nombres caben legibles en dos renglones. */
-  const FILA1 = [0, 1, 2, 3]
-  const FILA2 = [4, 5, 6, 7]
-  let x = X
-  FILA1.forEach((i) => {
-    const t = MODULOS_CORTOS[i]
-    const w = 13 + t.length * 6.1
-    const act = i === ACTIVO
-    p.push(caja(x, 48, w, 21, { r: 10.5, fill: act ? C.moradoSuave : C.papel, stroke: act ? C.moradoSuave : C.filete }))
-    p.push(texto(x + w / 2, 62, t, { tam: 10, peso: act ? 600 : 400, color: act ? C.morado : C.texto, centro: true }))
-    x += w + 7
-  })
-  x = X
-  FILA2.forEach((i) => {
-    const t = MODULOS_CORTOS[i]
-    const w = 13 + t.length * 6.1
-    p.push(caja(x, 75, w, 21, { r: 10.5, fill: C.papel, stroke: C.filete }))
-    p.push(texto(x + w / 2, 89, t, { tam: 10, color: C.texto, centro: true }))
-    x += w + 7
-  })
+  p.push(texto(X, 60, 'Inicio', { tam: 13.5, peso: 700, color: C.tinta }))
+  p.push(caja(FIN - 112, 49, 112, 16, { r: 8, fill: C.cobreSuave }))
+  p.push(
+    texto(FIN - 56, 60, 'PANTALLA DE EJEMPLO', {
+      tam: 7.5, mono: true, peso: 500, ls: 0.5, color: C.cobre, centro: true,
+    }),
+  )
 
-  p.push(texto(X, 122, 'ERP · Distribuidora', { tam: 13.5, peso: 700, color: C.tinta }))
-  p.push(caja(FIN - 112, 111, 112, 16, { r: 8, fill: C.cobreSuave }))
-  p.push(texto(FIN - 56, 122, 'PANTALLA DE EJEMPLO', { tam: 7.5, mono: true, peso: 500, ls: 0.5, color: C.cobre, centro: true }))
-
-  /* Dos cifras, no tres: en un teléfono la tercera se vuelve ilegible. */
-  const TARJETAS = [
-    ['POR COBRAR', '$184,500', '14 vencidas', C.cobre],
-    ['PEDIDOS HOY', '37', '+18% vs ayer', C.verde],
-  ]
-  const ancho = (FIN - X - 12) / 2
-  TARJETAS.forEach(([lbl, cifra, pie, colorPie], i) => {
-    const cx = X + i * (ancho + 12)
-    p.push(caja(cx, 136, ancho, 62, { r: 10, stroke: C.filete }))
-    p.push(texto(cx + 12, 154, lbl, { tam: 8.5, mono: true, peso: 500, ls: 0.8, color: C.cobre }))
-    p.push(texto(cx + 12, 178, cifra, { tam: 20, peso: 700, color: C.tinta }))
-    p.push(texto(cx + 12, 192, pie, { tam: 9, color: colorPie }))
-  })
-
-  const enc = { tam: 8.5, mono: true, peso: 500, ls: 0.8, color: C.cobre }
-  p.push(texto(X, 222, 'FOLIO', enc))
-  p.push(texto(X + 78, 222, 'CLIENTE', enc))
-  p.push(texto(FIN, 222, 'MONTO', { ...enc, fin: true }))
-  p.push(`<line x1="${X}" y1="230" x2="${FIN}" y2="230" stroke="${C.filete}" stroke-width="1"/>`)
-
-  FILAS.slice(0, 3).forEach(([folio, anchoNombre, , , , monto], i) => {
-    const y = 250 + i * 26
-    if (i % 2 === 1) p.push(caja(X - 8, y - 13, FIN - X + 16, 24, { r: 6, fill: '#fafaf8' }))
-    p.push(texto(X, y + 4, folio, { tam: 11, mono: true, color: C.texto }))
-    p.push(renglon(X + 78, y, Math.min(anchoNombre, 150), 0.9))
-    p.push(texto(FIN, y + 4, monto, { tam: 11, mono: true, color: C.tinta, fin: true }))
+  /* En un teléfono un sistema se ve como lista, no como rejilla: los ocho
+     módulos, cada uno con su cifra, uno por renglón. */
+  MODULOS.forEach((m, i) => {
+    const y = 84 + i * 33
+    if (i % 2 === 1) p.push(caja(X - 8, y, FIN - X + 16, 29, { r: 7, fill: '#fafaf8' }))
+    p.push(`<circle cx="${X + 5}" cy="${y + 15}" r="3" fill="${i === 0 ? C.morado : C.filete2}"/>`)
+    p.push(texto(X + 18, y + 19, m.nombre, { tam: 11.5, color: C.texto }))
+    p.push(texto(FIN - 66, y + 19, m.cifra, { tam: 12, peso: 700, color: C.tinta, fin: true }))
+    p.push(texto(FIN, y + 19, m.pie, { tam: 8.5, color: C.apagado, fin: true }))
   })
 
   return envolver(W, H, p)

@@ -85,11 +85,11 @@ export default function Hero() {
               el texto caería a 7 px, así que ahí va una versión con los módulos
               en pestañas y menos piezas. El navegador descarga sólo una. */}
           <picture>
-            <source media="(max-width: 599px)" srcSet="/hero-sistema-movil.svg" width="390" height="330" />
+            <source media="(max-width: 599px)" srcSet="/hero-sistema-movil.svg" width="390" height="360" />
           <img
             src="/hero-sistema.svg"
             width="580"
-            height="400"
+            height="440"
             alt="Pantalla de ejemplo de un sistema Loomware: a la izquierda los ocho módulos —CRM, ERP, nómina, comercio en línea, automatización, software a medida, infraestructura cloud y apps móviles— y a la derecha el de ERP abierto, con el dinero por cobrar, el inventario, los pedidos del día y la facturación por semana"
             fetchpriority="high"
             decoding="async"
