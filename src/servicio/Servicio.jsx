@@ -6,6 +6,7 @@ import Diagrama from '../components/Diagrama'
 import ContactForm from '../components/ContactForm'
 import { servicioPorSlug, SERVICIOS } from '../data/servicios'
 import { recorridoDeServicio } from '../data/recorridos'
+import { centrarActual } from '../lib/centrarActual'
 import '../components/Faq.css'
 import './servicio.css'
 
@@ -38,7 +39,7 @@ export default function Servicio({ slug }) {
           <a href="/" aria-label="Loomware — inicio">
             <Logo />
           </a>
-          <nav className="servicio__nav-links" aria-label="Servicios">
+          <nav className="servicio__nav-links" aria-label="Servicios" ref={centrarActual}>
             {SERVICIOS.map((o) => (
               <a
                 key={o.slug}

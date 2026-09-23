@@ -11,22 +11,31 @@
 .servicio__nav-inner {
   display: flex;
   align-items: center;
-  gap: var(--sp-6);
+  gap: var(--sp-4);
   min-height: var(--nav-h);
+}
+.servicio__nav-inner > a {
+  flex: none;
 }
 .servicio__nav-links {
   display: flex;
   gap: var(--sp-1);
+  min-width: 0;
   margin-inline: auto;
   overflow-x: auto;
   scrollbar-width: none;
+}
+/* Si la tira no cabe (tablet, laptop chica), las orillas se desvanecen para
+   avisar que sigue de lado; la clase la pone centrarActual. */
+.servicio__nav-links.desborda {
+  mask-image: linear-gradient(to right, transparent, #000 var(--sp-4), #000 calc(100% - var(--sp-4)), transparent);
 }
 .servicio__nav-links::-webkit-scrollbar {
   display: none;
 }
 .servicio__nav-links a {
   flex: none;
-  padding: 6px 10px;
+  padding: 6px 8px;
   border-radius: var(--r-md);
   font-size: var(--fs-2xs);
   font-weight: 600;
@@ -195,6 +204,19 @@
   }
 }
 @media (max-width: 599px) {
+  /* En celular la barra se queda con la nube sola: con el nombre, la tira de
+     servicios apenas enseñaba dos opciones y media y pasaba por debajo del
+     logo. El enlace conserva su aria-label, así que sigue diciendo a dónde va. */
+  .servicio__nav .brand__name {
+    display: none;
+  }
+  .servicio__nav-inner {
+    gap: var(--sp-3);
+  }
+  .servicio__nav-links {
+    margin-inline: 0;
+    padding-inline: var(--sp-3);
+  }
   .servicio__grid,
   .servicio__pasos {
     grid-template-columns: 1fr;

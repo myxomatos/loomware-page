@@ -5,6 +5,7 @@ import WhatsAppButton from '../components/WhatsAppButton'
 import ContactForm from '../components/ContactForm'
 import { industriaPorId, INDUSTRIAS } from '../data/industrias'
 import { servicioPorSlug } from '../data/servicios'
+import { centrarActual } from '../lib/centrarActual'
 import '../servicio/servicio.css'
 import './industria.css'
 
@@ -35,7 +36,7 @@ export default function Industria({ id }) {
           <a href="/" aria-label="Loomware — inicio">
             <Logo />
           </a>
-          <nav className="servicio__nav-links" aria-label="Industrias">
+          <nav className="servicio__nav-links" aria-label="Industrias" ref={centrarActual}>
             {INDUSTRIAS.map((o) => (
               <a
                 key={o.id}
