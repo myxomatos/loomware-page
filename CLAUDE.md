@@ -254,16 +254,21 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       preview. Al mezclar, cambiar los dos enlaces de los ocho archivos a
       `https://loomware.com.mx` y volver a publicar los artifacts.
 
-- [ ] **La sección 06 del estudio sigue abierta entera: la página no enseña nada.** Medido hoy:
-      **2 imágenes y 0 rostros** en toda la portada. Xero abre con la foto de una panadera real
-      en su obrador y encima un pedazo de su sistema con una factura pagada; Bind carga 44
-      imágenes; Holded 45. Nosotros tenemos el dibujo del hero y el logotipo de GT-SHOP. Es, ya
-      con el caso adentro, **la mayor diferencia que queda contra el grupo de arriba**, y a
-      diferencia del precio, buena parte se puede resolver sin decisión de Aldo: los ocho
-      recorridos ya tienen escenas propias, dibujadas por nosotros, y ninguna se asoma al
-      inicio. Enseñar una sola —la bodega con su camión— al lado del titular cambiaría la
-      primera pantalla. Los rostros sí dependen de Aldo (`src/data/equipo.js` está en blanco:
-      las dos personas existen pero sin cargo ni foto, así que las tarjetas no salen).
+- [x] **La portada ya enseña lo que construimos (2026-09-22).** La sección 06 del estudio
+      decía que cargábamos **una imagen contra las 44 de Bind**. Las ocho escenas de los
+      recorridos —la bodega con su camión, el tablero de corcho, la tarjeta de checado, los dos
+      maniquíes de sastre— ya existían y sólo vivían dentro de su propia página; ahora el primer
+      paso de cada una se ve en su tarjeta del inicio. Se sacan con
+      `npm run recorridos:escenas`, que le pide a un navegador que dibuje la escena y hornea en
+      cada elemento el estilo calculado, porque los colores viven en reglas CSS de la página y
+      una copia cruda sale negra. **En escritorio: 10 imágenes y 131.7 KB.** En celular no se
+      dibujan —serían diecisiete kilobytes tirados donde más pesan— y la portada se queda igual,
+      en 114 KB y 14.0 pantallas.
+
+- [ ] **Faltan los rostros, y ésos sí dependen de Aldo.** Xero abre con la foto de una panadera
+      real en su obrador. Nosotros seguimos en **cero rostros**, porque `src/data/equipo.js`
+      está en blanco: las dos personas existen pero sin cargo ni foto, y la tarjeta sólo aparece
+      cuando tiene las dos cosas. Está en la lista de Aldo, en "Datos que faltan".
 
 - [ ] **Texto indexable por debajo de los competidores directos, y bajando.** La portada tiene
       **1 432 palabras** contra 1 964 de Bind, 2 573 de Siigo y 3 378 de Alegra —y el estudio la
