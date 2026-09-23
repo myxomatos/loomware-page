@@ -209,7 +209,7 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
           className="btn btn--primary btn--block"
           disabled={status === 'sending'}
         >
-          {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico gratuito'}
+          {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico'}
         </button>
 
         <p className="contact__note">
