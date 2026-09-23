@@ -19,7 +19,8 @@
     "fuente:titulares": "node scripts/subconjunto-titulares.js",
     "logo:cliente": "node scripts/logo-cliente.js",
     "postbuild": "node scripts/encabezados.js",
-    "encabezados": "node scripts/encabezados.js"
+    "encabezados": "node scripts/encabezados.js",
+    "recorridos:escenas": "node scripts/escenas.js"
   },
   "dependencies": {
     "react": "^18.3.1",

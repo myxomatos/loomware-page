@@ -31,6 +31,23 @@
   box-shadow: var(--shadow-md);
 }
 
+/* El dibujo del primer paso. Es lo único de la portada que enseña lo que
+   construimos: el estudio comparativo medía una imagen contra las 44 de Bind.
+   Sobre el papel cálido, para que el dibujo —que es de ese mundo— no flote. */
+.recorrido__escena {
+  display: block;
+  width: 100%;
+  height: 146px;
+  /* Sin recortar: cada escena tiene su propia forma —el almacén es ancho, la
+     tarjeta de checado es alta— y `cover` le cortaba la mitad a las anchas. */
+  object-fit: contain;
+  object-position: center;
+  padding: var(--sp-2);
+  margin-bottom: var(--sp-3);
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+}
+
 .recorrido__sol {
   font-family: var(--font-mono);
   font-size: var(--fs-2xs);
@@ -107,6 +124,11 @@
   /* En celular cada recorrido es un renglón de un toque; el resumen lo
      convertiría en tarjeta y serían cinco pantallas de lista. */
   .recorrido__resumen {
+    display: none;
+  }
+  /* En celular el recorrido es un renglón de un toque: ocho dibujos serían
+     cuatro pantallas más y ya hay uno en el hero. */
+  .recorrido__escena {
     display: none;
   }
 }

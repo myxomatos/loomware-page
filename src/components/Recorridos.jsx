@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Icon from './Icon'
 import { RECORRIDOS } from '../data/recorridos'
 import { servicioPorSlug } from '../data/servicios'
@@ -15,7 +16,25 @@ import './Recorridos.css'
  * La lista sale de src/data/recorridos.js: cuando se escriba uno nuevo,
  * aparece aquí solo.
  */
+/*
+ * En celular no se dibujan las escenas, y no basta con esconderlas: una imagen
+ * con `display:none` se descarga igual, así que serían diecisiete kilobytes
+ * tirados en el aparato donde más pesan. Aquí no se pintan siquiera.
+ */
+function useEscritorio() {
+  const [ancho, setAncho] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 600px)')
+    const ver = () => setAncho(mq.matches)
+    ver()
+    mq.addEventListener('change', ver)
+    return () => mq.removeEventListener('change', ver)
+  }, [])
+  return ancho
+}
+
 export default function Recorridos() {
+  const escritorio = useEscritorio()
   if (!RECORRIDOS.length) return null
 
   return (
@@ -40,6 +59,17 @@ export default function Recorridos() {
                   className="recorrido"
                   onClick={() => rastrear('recorrido_desde_inicio', { recorrido: r.slug })}
                 >
+                  {/* El primer paso del recorrido, como dibujo. Sale de la escena real
+                      con `npm run recorridos:escenas`; no es una ilustración aparte. */}
+                  {escritorio && (
+                  <img
+                    className="recorrido__escena"
+                    src={`/recorridos/escena-${r.slug}.svg`}
+                    alt={`Primer paso del recorrido: ${r.titulo}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  )}
                   <span className="recorrido__sol">{s ? s.nombre : r.servicio}</span>
                   <span className="recorrido__titulo">{r.titulo}</span>
                   {/* El resumen ya estaba escrito en src/data/recorridos.js y el inicio no lo
