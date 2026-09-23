@@ -17,7 +17,9 @@
     "hero:dibujo": "node scripts/hero-dibujo.js",
     "og:imagen": "node scripts/og-imagen.js",
     "fuente:titulares": "node scripts/subconjunto-titulares.js",
-    "logo:cliente": "node scripts/logo-cliente.js"
+    "logo:cliente": "node scripts/logo-cliente.js",
+    "postbuild": "node scripts/encabezados.js",
+    "encabezados": "node scripts/encabezados.js"
   },
   "dependencies": {
     "react": "^18.3.1",
