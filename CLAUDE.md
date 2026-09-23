@@ -31,15 +31,26 @@ Sitio público de Loomware: <https://loomware.com.mx>. React + Vite, desplegado 
 
 Estado al 21 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
-> **La página está en pausa desde el 21 de septiembre de 2026.** Alan cerró su parte: la rama
-> `alan` construye sin errores, el preview está publicado y el responsivo quedó verificado con
-> medición (ver "Resueltas"). De aquí en adelante todo lo que falta depende de Aldo y está en
-> esta lista.
+> **Estado al 22 de septiembre de 2026, segunda pasada del estudio comparativo.**
 >
-> Mientras tanto Alan terminó el **material de venta**: los ocho recorridos, uno por solución,
-> viven en el repositorio como páginas (`/recorridos/<slug>`) y también como artifacts para
-> mandar por WhatsApp. Tres puntos de esta lista los afectan y están marcados
-> **[material de venta]**.
+> **Lo que bloquea todo:** se probaron los dos endpoints del preview y **ninguna de las siete
+> variables de Cloudflare está cargada**. `POST /api/contacto` responde *«Falta configurar
+> RESEND_API_KEY»* y `/api/denue` responde *«Falta configurar DENUE_TOKEN»*, los dos con
+> HTTP 500. En claro: **hoy el sitio no puede capturar un solo prospecto**, `/prospectar` no
+> abre y no hay analítica ni banda de cookies. Es el paso 2 de la ruta de abajo y no hay nada
+> que valga la pena hacer antes que eso.
+>
+> **Lo que sí avanzó:** de los siete movimientos del estudio comparativo
+> (<https://claude.ai/artifact/MoSn3kdnN4acpzk3bbs5t8>) quedan cerrados **seis**. El 06 —un caso
+> real— se cerró el 22 de septiembre con GT-SHOP, firmado por su dueño. El 05 —publicar precio—
+> sigue abierto y es decisión de Aldo.
+>
+> **Lo que la segunda pasada encontró y es nuestro:** tres cosas medidas, en "Pendientes de
+> Alan" más abajo. La lista de Aldo ya no es la única.
+>
+> El **material de venta** está terminado: los ocho recorridos, uno por solución, viven en el
+> repositorio como páginas (`/recorridos/<slug>`) y también como artifacts para mandar por
+> WhatsApp. Tres puntos de esta lista los afectan y están marcados **[material de venta]**.
 
 ### Ruta a producción — Aldo, hoy, en este orden
 
@@ -104,6 +115,20 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
 
       Sin las dos primeras, `/prospectar` responde 500. Sin la tercera, el formulario no envía.
       Las de analítica son las únicas que aplican al **build**: tras cargarlas hay que redesplegar.
+
+      **Comprobado el 22 de septiembre de 2026:** ninguna de las siete está cargada todavía.
+      `POST /api/contacto` devuelve *«Falta configurar RESEND_API_KEY»* y `/api/denue`
+      devuelve *«Falta configurar DENUE_TOKEN»*, los dos con HTTP 500, y el HTML publicado no
+      trae Analytics. Se puede volver a comprobar sin mandarle un correo a nadie, porque las
+      dos funciones revisan la configuración **antes** que los datos:
+
+      ```
+      curl -X POST https://alan.loomware-page.pages.dev/api/contacto -d '{}'
+      curl https://alan.loomware-page.pages.dev/api/denue/BuscarEntidad/todos/09/1/1
+      ```
+
+      Cuando estén cargadas, la primera responde *«Falta tu nombre»* (400) y la segunda
+      *«Contraseña incorrecta»* (401). Esos dos errores son la señal de que quedó bien.
 
 - [ ] **Verificar `loomware.com.mx` en Resend.** Domains → Add Domain, y capturar en Cloudflare DNS
       los tres registros que indique (MX `send`, TXT `send` con el SPF, TXT `resend._domainkey`).
@@ -171,6 +196,37 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       a `/gracias` (con `metodo` = formulario o calculadora), `click_whatsapp` con el origen,
       y `calculadora_inicio` cuando alguien empieza a contestar. **Hasta que esto no esté,
       todo lo que agreguemos al sitio es a ciegas: no vamos a saber qué funcionó.**
+
+### Pendientes de Alan — de la segunda pasada del estudio (2026-09-22)
+
+Hasta hoy esta lista no existía y todo aparecía como responsabilidad de Aldo. Al volver a medir
+la página contra los veintidós sitios salieron tres cosas que son nuestras. Ninguna bloquea a
+las de Aldo; se pueden trabajar en paralelo.
+
+- [ ] **El inicio volvió a crecer en celular: 16.3 pantallas.** La cuarta auditoría lo había
+      bajado de 18.6 a **14.7**, y las dos secciones nuevas —los ocho recorridos bajo el hero y
+      los casos de éxito— lo subieron a **16.3**. Las dos valen lo que ocupan, así que no se
+      trata de quitarlas: se trata de recuperar el espacio en otro lado. Los candidatos, por
+      tamaño: «El desafío» (14 viñetas), el proceso y las preguntas del inicio, que repiten
+      cosas que ya están en las páginas de servicio. Medir antes y después con el mismo método.
+
+- [ ] **La sección 06 del estudio sigue abierta entera: la página no enseña nada.** Medido hoy:
+      **2 imágenes y 0 rostros** en toda la portada. Xero abre con la foto de una panadera real
+      en su obrador y encima un pedazo de su sistema con una factura pagada; Bind carga 44
+      imágenes; Holded 45. Nosotros tenemos el dibujo del hero y el logotipo de GT-SHOP. Es, ya
+      con el caso adentro, **la mayor diferencia que queda contra el grupo de arriba**, y a
+      diferencia del precio, buena parte se puede resolver sin decisión de Aldo: los ocho
+      recorridos ya tienen escenas propias, dibujadas por nosotros, y ninguna se asoma al
+      inicio. Enseñar una sola —la bodega con su camión— al lado del titular cambiaría la
+      primera pantalla. Los rostros sí dependen de Aldo (`src/data/equipo.js` está en blanco:
+      las dos personas existen pero sin cargo ni foto, así que las tarjetas no salen).
+
+- [ ] **Texto indexable por debajo de los competidores directos, y bajando.** La portada tiene
+      **1 432 palabras** contra 1 964 de Bind, 2 573 de Siigo y 3 378 de Alegra —y el estudio la
+      había medido en 1 536, o sea que bajó al acortar—. Para un dominio nuevo el texto es la
+      vía lenta pero segura del posicionamiento. La solución no es inflar la portada: es
+      material que responda preguntas de búsqueda, que es lo que hoy no existe. Los ocho
+      recorridos ya suman por su cuenta.
 
 ### De la tercera auditoría, aún abiertos
 
