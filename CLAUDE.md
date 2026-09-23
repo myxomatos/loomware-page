@@ -14,6 +14,27 @@ Sitio público de Loomware: <https://loomware.com.mx>. React + Vite, desplegado 
   Todo commit va a la rama del autor; nunca a la del otro.
 - Cloudflare publica cada push a una rama en `https://<rama>.loomware-page.pages.dev`
   (p. ej. `https://alan.loomware-page.pages.dev`). Ese preview es la evidencia que acompaña al PR.
+
+### El enlace que se comparte
+
+**<https://alan.loomware-page.pages.dev>** — ése, tal cual, sin nada después.
+
+Siempre sirve el último push a la rama: el HTML va con `Cache-Control: max-age=0,
+must-revalidate` y su ETag, así que el navegador está obligado a preguntarle al servidor en
+cada carga. No hay una URL «nueva» y otra «vieja».
+
+Si alguien jura estar viendo algo que ya se cambió, **no es el sitio: es su pestaña**, que
+lleva rato abierta sin recargar. Se resuelve con **Ctrl + F5** (Cmd + Shift + R en Mac), o
+abriendo el enlace en una ventana de incógnito. En celular, desde una pestaña nueva de
+incógnito.
+
+Durante la sesión del 22 de septiembre circularon enlaces con `?v=2`, `?v=3` y `?v=4`.
+Sirven exactamente la misma página —se comprobó comparando el HTML byte por byte— y eran sólo
+una forma de saltarse la caché. **No usarlos**: parecen versiones distintas del sitio y no lo
+son. Lo mismo vale para los recorridos que se mandan por WhatsApp:
+`https://alan.loomware-page.pages.dev/recorridos/<slug>`, sin parámetros.
+
+Cuando el PR se mezcle, el enlace del equipo pasa a ser <https://loomware.com.mx>.
 - Para llevar algo a producción: push a tu rama → `gh pr create --base main` → Aldo revisa el
   preview y mezcla. Después del merge, `git merge main` en tu rama para seguir al día.
 
