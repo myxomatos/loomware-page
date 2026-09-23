@@ -200,6 +200,15 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       suele verse en cada giro; si en alguno no es así, se corrige. **El recorrido del ERP
       repite un "Hoy" por giro** ("el material se va a la obra sin que nadie lo descuente de
       ella", "la aseguradora rechaza por datos que no cuadran"): se validan junto con estos.
+- [ ] **Decidir si el «99.9% de disponibilidad» se queda en el dibujo del hero.** La pantalla de
+      ejemplo trae ocho cifras y siete son inofensivas —tratos abiertos, pedidos del día, técnicos
+      en ruta—. La octava no: **99.9%** es el número con el que se escriben los acuerdos de nivel
+      de servicio. Va dentro de una imagen rotulada «pantalla de ejemplo», así que a mi juicio se
+      lee como ilustración; pero junto a lo que promete la página de Infraestructura Cloud
+      —monitoreo continuo, respaldos probados— alguien podría citarla como compromiso. Si a Aldo
+      le parece, se cambia por algo que no tenga esa forma («al día», «respaldo probado») en un
+      minuto: es una línea de `scripts/hero-sistema.js`. Va junto a los otros puntos de contrato.
+
 - [ ] **Validar tres afirmaciones nuevas del inicio**, escritas por Alan y Claude sin confirmar
       con Aldo: (a) el hero dice que atienden *distribuidoras, manufactura y empresas de
       servicios* — es el posicionamiento; (b) la tarjeta de agenda promete *una llamada de 30
@@ -274,9 +283,27 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       paso de cada una se ve en su tarjeta del inicio. Se sacan con
       `npm run recorridos:escenas`, que le pide a un navegador que dibuje la escena y hornea en
       cada elemento el estilo calculado, porque los colores viven en reglas CSS de la página y
-      una copia cruda sale negra. **En escritorio: 10 imágenes y 131.7 KB.** En celular no se
+      una copia cruda sale negra. **En escritorio: 10 imágenes y 132.7 KB.** En celular no se
       dibujan —serían diecisiete kilobytes tirados donde más pesan— y la portada se queda igual,
-      en 114 KB y 14.0 pantallas.
+      en 114.2 KB y 14.0 pantallas.
+
+- [x] **Y el hero es ahora la pantalla del sistema (2026-09-22).** Era un diagrama —la maraña de
+      hoy contra un solo sistema—; ahora es **la pantalla de inicio con los ocho módulos**, cada
+      uno poniendo su propio recuadro: el embudo del CRM, el dinero por cobrar del ERP, la
+      dispersión de la nómina, los pedidos de la tienda, los flujos que corren solos, el módulo a
+      medida en producción, la disponibilidad y los técnicos en ruta. Se genera con
+      `npm run hero:sistema` y pesa **2.5 KB**; en celular hay una versión de lista, y el
+      `<picture>` hace que el navegador baje sólo una.
+
+      Dos reglas quedan escritas en el guion que lo dibuja: **no se enseña la pantalla de un
+      cliente** —es una pantalla de ejemplo y lo dice adentro, en su esquina— y **los nombres de
+      cliente no se inventan**: donde iría una razón social van renglones grises, que además es
+      como se ve de verdad una demostración pública de un sistema con datos de terceros.
+
+      Lo que **no** queda cerrado, y conviene no confundirlo: las 44 imágenes de Bind incluyen
+      capturas de su software funcionando. Las nuestras son dibujos nuestros. La salida honesta
+      para eso sería la autorización de un cliente para enseñar su sistema con los datos
+      cubiertos.
 
 - [ ] **Faltan los rostros, y ésos sí dependen de Aldo.** Xero abre con la foto de una panadera
       real en su obrador. Nosotros seguimos en **cero rostros**, porque `src/data/equipo.js`
@@ -340,10 +367,11 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       cinco pantallas en celular). Si ve otra puerta de entrada, es cambiar una bandera.
 - [ ] **Nómina y comercio en línea ya están en el sitio** (tarjeta y página cada uno). Confirmar
       que sí se ofrecen; si no, quitarlos de `src/data/servicios.js` y se van solos de todos lados.
-- [ ] **Hero.** La ilustración ya es propia: la nave isométrica del recorrido del ERP,
-      exportada a SVG (`npm run hero:dibujo`). Si más adelante hay **foto real** del equipo o
-      de un proyecto, sigue siendo mejor que cualquier dibujo: se cambia el `<img>` de
-      `src/components/Hero.jsx` y se optimiza con `npm run optimizar:imagenes`.
+- [ ] **Hero.** Ya no es una ilustración: es la pantalla de ejemplo del sistema, con los ocho
+      módulos (`npm run hero:sistema`). Sigue en pie lo de siempre: si algún día hay **una
+      captura real** —con autorización del cliente y los datos cubiertos— vale más que cualquier
+      dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
+      Se cambia el `<picture>` de `src/components/Hero.jsx`.
 
 ### Resueltas el 2026-09-22 (recorrido de la página, URL por URL)
 
