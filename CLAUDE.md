@@ -49,8 +49,13 @@ Estado al 21 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
 > Alan" más abajo. La lista de Aldo ya no es la única.
 >
 > El **material de venta** está terminado: los ocho recorridos, uno por solución, viven en el
-> repositorio como páginas (`/recorridos/<slug>`) y también como artifacts para mandar por
-> WhatsApp. Tres puntos de esta lista los afectan y están marcados **[material de venta]**.
+> repositorio como páginas `/recorridos/<slug>`. **Para mandarle uno a un prospecto se manda el
+> enlace del sitio**, no el artifact: los ocho responden 200 en el preview, abren sin cuenta y sin
+> registro desde cualquier celular, y desde el 22 de septiembre traen el logotipo que regresa al
+> inicio y el enlace que lleva al formulario. Los artifacts fueron el andamio de cuando el sitio
+> todavía no los tenía; hoy sobran y sólo dos de los ocho quedaron compartidos, así que el enlace
+> del sitio es además el único que sirve para los ocho. Tres puntos de esta lista los afectan y
+> están marcados **[material de venta]**.
 
 ### Ruta a producción — Aldo, hoy, en este orden
 
@@ -244,6 +249,14 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       `src/lib/ancla.js` espera a que exista y entonces va. Era el único camino al formulario
       desde cualquier página que no fuera el inicio.
 
+- [ ] **Abrir el PR en cuanto Aldo avise.** La rama `alan` lleva hoy **más de 80 commits por
+      delante de `main`**: todo lo de esta semana vive sólo en la rama, y `loomware.com.mx`
+      sigue sirviendo el sitio viejo. El orden que manda este archivo es Aldo revisa el preview →
+      avisa → Alan abre el PR → Aldo mezcla, así que **no se abre antes**; pero conviene tenerlo
+      presente, porque el preview ya está listo y lo único que falta del paso 1 es que Aldo lo
+      recorra. El comando es `gh pr create --base main --head alan` (hace falta `gh auth login`
+      en la máquina, hoy no lo está).
+
 - [ ] **Cuando el PR se mezcle, los artifacts de WhatsApp van al dominio.** Cada archivo de
       `recorridos-fuente/` lleva dos enlaces absolutos al preview de la rama —la marca de
       arriba y «formulario del sitio» del cierre— porque mientras `main` no tenga esto,
@@ -379,6 +392,18 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
 
 - [x] **GT-SHOP, el primer caso real**, firmado por Eduardo Díaz. Pendiente su visto bueno,
       arriba en la lista de Aldo.
+
+- [x] **El estudio comparativo, con las cifras de hoy.** El artifact
+      (<https://claude.ai/artifact/MoSn3kdnN4acpzk3bbs5t8>) se quedó con la foto de la mañana:
+      decía que éramos 298 ms, que no teníamos prueba social, que la calculadora estaba escondida
+      y que la portada cargaba una imagen. Cinco de sus ocho fichas ya no eran ciertas. La
+      segunda medición reemplaza a la primera en la misma URL, y deja ver de dónde venía cada
+      cifra. **Seis de los siete movimientos quedaron cerrados**; el que falta es el 05, publicar
+      precio, que es de Aldo.
+
+- [x] **Barrido de deuda técnica.** Cero referencias a los tres componentes que se borraron, 30
+      enlaces internos sin uno roto, las 25 URLs del sitemap con su página construida, ninguna
+      marca de pendiente en el código, y el catálogo de íconos en 50 sin ninguno sin uso.
 
 ### Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 
