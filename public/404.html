@@ -6,63 +6,88 @@
     <title>Página no encontrada · Loomware</title>
     <meta name="robots" content="noindex, follow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/archivo-subset.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <style>@font-face{font-family:'Inter';font-weight:100 900;font-display:swap;src:url('/fonts/inter-latin.woff2') format('woff2')}</style>
     <style>
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        text-align: center;
-        padding: 48px 24px;
-        box-sizing: border-box;
-        font-family: 'Inter', system-ui, sans-serif;
-        color: #465069;
-        background: #f7f8fc;
+      @font-face{font-family:'Inter';font-weight:100 900;font-display:swap;
+        src:url('/fonts/inter-latin.woff2') format('woff2')}
+      @font-face{font-family:'Archivo';font-weight:700;font-display:swap;
+        src:url('/fonts/archivo-subset.woff2') format('woff2')}
+
+      /* Esta página es un archivo suelto: Cloudflare la sirve sin pasar por la
+         aplicación, así que no puede usar src/styles/tokens.css —su nombre
+         cambia en cada build—. Los valores van escritos, y son los mismos:
+         morado #5326d9 para la acción, papel cálido #f5f3ef, texto #465069.
+         Si el sistema cambia, este archivo se actualiza a mano. */
+      :root{
+        color-scheme: light;
+        --morado:#5326d9;
+        --morado-oscuro:#4720c7;
+        --tinta:#0b1739;
+        --texto:#465069;
+        --apagado:#5b6480;
+        --papel:#f5f3ef;
+        --filete:#e6e8f2;
       }
-      h1 {
-        margin: 0;
-        font-size: clamp(72px, 18vw, 140px);
-        font-weight: 800;
-        line-height: 1;
-        letter-spacing: -0.04em;
-        background: linear-gradient(90deg, #6338ff, #b5179e 55%, #e11d48);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+      *{box-sizing:border-box}
+      body{
+        margin:0; min-height:100vh;
+        display:flex; flex-direction:column;
+        padding:20px 18px 48px;
+        font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+        font-size:16px; line-height:1.55; color:var(--texto);
+        background:var(--papel);
       }
-      h2 {
-        margin: 16px 0 0;
-        font-size: clamp(20px, 4vw, 28px);
-        font-weight: 800;
-        color: #0b1739;
-      }
-      p {
-        max-width: 46ch;
-        margin: 12px auto 0;
-        line-height: 1.55;
-      }
-      a {
-        display: inline-flex;
-        margin-top: 28px;
-        padding: 0 24px;
-        min-height: 46px;
-        align-items: center;
-        border-radius: 12px;
-        background: #e11d48;
-        color: #fff;
-        font-weight: 600;
-        text-decoration: none;
-      }
+      /* El logotipo lleva al inicio, como en todas las demás páginas del sitio. */
+      .marca{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+        color:var(--tinta);font-weight:700;font-size:17px;letter-spacing:-.01em;
+        align-self:flex-start;}
+      .marca svg{display:block}
+
+      main{margin:auto;width:100%;max-width:520px;text-align:left}
+      .cod{font-family:'Archivo','Inter',system-ui,sans-serif;font-weight:700;
+        font-size:clamp(56px,14vw,104px);line-height:1;letter-spacing:-.04em;
+        color:var(--morado);margin:0}
+      h1{font-family:'Archivo','Inter',system-ui,sans-serif;font-weight:700;
+        font-size:clamp(21px,4vw,28px);line-height:1.2;letter-spacing:-.02em;
+        color:var(--tinta);margin:12px 0 0}
+      p{margin:10px 0 0;max-width:46ch}
+
+      .btn{display:inline-flex;align-items:center;justify-content:center;
+        margin-top:24px;padding:0 22px;min-height:48px;border-radius:4px;
+        background:var(--morado);color:#fff;font-weight:600;text-decoration:none}
+      .btn:hover{background:var(--morado-oscuro)}
+      .btn:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
+
+      /* Un solo botón dejaba la página en callejón: quien llegó aquí buscaba
+         algo, y estas dos son las que busca. */
+      .otras{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--filete);
+        font-size:14.5px;color:var(--apagado)}
+      .otras a{color:var(--morado);font-weight:500;text-underline-offset:3px}
     </style>
   </head>
   <body>
+    <a class="marca" href="/">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="#0b1739" stroke-width="1.8"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="#f5f3ef" stroke-width="4.6"/>
+        <path d="M15.5 8h4v4" stroke="#f5f3ef" stroke-width="4.6"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="#5326d9" stroke-width="1.9"/>
+        <path d="M15.5 8h4v4" stroke="#5326d9" stroke-width="1.9"/>
+      </svg>
+      Loomware
+    </a>
+
     <main>
-      <h1>404</h1>
-      <h2>Página no encontrada</h2>
-      <p>La página que buscas cambió de lugar o nunca existió. Revisa la dirección o vuelve al inicio.</p>
-      <a href="/">Volver al inicio</a>
+      <p class="cod">404</p>
+      <h1>Esta página cambió de lugar</h1>
+      <p>La dirección que escribiste ya no existe o tiene una letra de más. Desde el inicio
+        llegas a todo en dos clics.</p>
+      <a class="btn" href="/">Ir al inicio</a>
+      <p class="otras">O ve directo a <a href="/#soluciones">las soluciones</a>,
+        a <a href="/calculadora">la calculadora</a> o
+        <a href="/#contacto">pide un diagnóstico</a>.</p>
     </main>
   </body>
 </html>
