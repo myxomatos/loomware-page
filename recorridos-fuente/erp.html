@@ -127,8 +127,14 @@
   /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
   .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
   .antes svg{display:block;width:100%;max-width:620px;height:auto;}
-  .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);max-width:70ch;
-    line-height:1.6;}
+  /* Dos pies, no uno: cada mitad del dibujo lleva el suyo debajo. El recuadro
+     de la derecha empieza en el 56 % del ancho, así que la rejilla parte ahí. */
+  .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+    line-height:1.6;max-width:620px;display:grid;grid-template-columns:56% 1fr;gap:0 16px;}
+  .antes figcaption b{color:var(--ink-2);font-weight:700;}
+  @media (max-width:640px){
+    .antes figcaption{grid-template-columns:1fr;gap:4px;}
+  }
   .dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;}
   .dg-line{stroke:var(--pain);stroke-width:1;fill:none;opacity:.6;}
   .dg-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-2);}
@@ -385,9 +391,10 @@
         <text class="dg-t" x="364" y="89">Facturación</text>
         <text class="dg-t" x="364" y="107">Cobranza</text>
       </svg>
-      <figcaption>A la izquierda, hoy: cinco libretas y alguien copiando de una a otra. A la
-        derecha, con el sistema: una sola. Lo que se ahorra no es papel —es el tiempo de copiar,
-        y los errores de copiar.</figcaption>
+      <figcaption>
+        <span><b>Hoy.</b> Cinco libretas, y alguien copiando de una a otra.</span>
+        <span><b>Con el sistema.</b> Una sola. Nadie vuelve a copiar.</span>
+      </figcaption>
     </figure>
 
     <div class="specline">
@@ -524,9 +531,7 @@
   </div>
 
   <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
-    <p>Arriba seguimos una tarima de mercancía. Pero <b>todo negocio sigue algo</b>: una obra,
-      una cita, una orden de trabajo. Busca el tuyo: es el mismo camino con tu palabra.</p>
+    <h2>Todo negocio sigue algo</h2>
     <ul class="rejilla">
       <li class="este"><b>Distribuidoras y mayoristas</b>
         <span>Sigues la caja de mercancía: llega, se guarda, se separa para un cliente, se entrega y se cobra.</span>
@@ -547,9 +552,8 @@
         <span>Sigues la cita: la agenda, el material que se usa, el servicio que das y el cobro.</span>
         <span class="hoy">Hoy: el material se descuenta a mano y el seguro rechaza por datos que no cuadran.</span></li>
     </ul>
-    <p class="giros__cierre">¿No está el tuyo? <b>No importa el giro, importa que sigas algo.</b>
-      Si en tu negocio alguien anota lo mismo en dos lados, esto es para ti. Cuál es tu «algo»
-      sale en la primera media hora del diagnóstico.</p>
+    <p class="giros__cierre">¿No está el tuyo? <b>Si alguien en tu negocio anota lo mismo en dos
+      lados, esto es para ti.</b> Qué sigues tú sale en la primera media hora del diagnóstico.</p>
   </section>
 
   <section class="faq">
