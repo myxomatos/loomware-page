@@ -163,6 +163,10 @@
     gap:30px;margin-top:22px;align-items:start;}
   .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
     display:flex;flex-direction:column;gap:8px;min-width:0;}
+  /* En escritorio no cambia nada: el dibujo y la ficha viajan juntos en la
+     columna pegada. En celular se separan, y por qué está abajo, en la
+     consulta de 880. */
+  .figura__fijo{display:flex;flex-direction:column;gap:8px;min-width:0;}
 
   /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
   .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
@@ -338,9 +342,21 @@
     /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
        los pasos pasan por debajo, igual que en escritorio */
     .cols{display:block;margin-top:16px;}
-    .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+    /* Medido a 390x844: con la ficha adentro, lo pegado media 590 px de los
+       844 del telefono y dejaba 254 para leer, cuando los pasos miden de 269 a
+       386. Ninguno cabia: el mejor se veia al 69 %. Y la ficha sola pesaba
+       214 px —lo mismo que el dibujo— repitiendo el codigo que el rotulo ya
+       dice arriba. Aqui se queda pegado el dibujo, y la ficha se lee una vez
+       antes de los pasos. Quedan 488 px de lectura y los seis caben. */
+    /* display:contents y no static: un elemento pegado sólo se queda dentro de
+       la caja de su padre, y la de .figure termina donde empiezan los pasos, así
+       que el dibujo se despegaba en el paso 03. Sin caja, lo pegado cuelga de
+       .cols, que abarca los seis. */
+    .figure{display:contents;}
+    .figura__fijo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
       background:var(--paper);padding-block:8px;margin-bottom:6px;
       border-bottom:1px solid var(--rule-soft);}
+    .exp{margin:14px 0 4px;}
     .stage svg{max-height:33vh;}
     .legend{display:none;}
     /* en tablet vertical el texto corría a 100 caracteres por renglón */
@@ -418,8 +434,9 @@
         <text class="dg-t" x="364" y="89">Facturas</text>
         <text class="dg-t" x="364" y="107">Cobros</text>
       </svg>
-      <svg class="dg-alto" viewBox="0 0 340 306" role="img"
-           aria-label="Arriba, cinco recuadros sueltos —compras, bodega, ventas, facturas y cobros— unidos por líneas cruzadas. Abajo, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
+      <!-- Misma escena que la de arriba, apilada para el teléfono. Se calla ante
+           un lector de pantalla: quien no la ve ya la oyó una vez. -->
+      <svg class="dg-alto" viewBox="0 0 340 306" aria-hidden="true" focusable="false">
         <path class="dg-line" d="M90 17 L236 13"/>
         <path class="dg-line" d="M90 17 L250 57"/>
         <path class="dg-line" d="M112 61 L236 13"/>
@@ -496,6 +513,8 @@
   <div class="cols">
     <div class="figure">
 
+      <div class="figura__fijo">
+
       <div class="readout" aria-live="polite">
         <span class="readout__k lbl" id="hudK">Lo que vamos a seguir</span>
         <span class="readout__v" id="hudV">una compra de 40 piezas, desde que llega hasta que está cobrada</span>
@@ -519,6 +538,8 @@
         <li><span class="sw sw--sys"></span>El sistema: un solo lugar</li>
         <li><span class="sw sw--money"></span>La puerta de salida</li>
       </ul>
+
+      </div>
 
       <div class="exp">
         <div class="exp__t lbl">La ficha · cada dato, una sola vez</div>
@@ -651,11 +672,11 @@
           Cada sistema se hace a la medida, así que el número depende de lo que tú necesites
           —sirve igual para un consultorio de una persona que para una fábrica de cien—.
           Y nadie empieza con todo: se arranca por el área que más te duele, que es la parte
-          más chica. <b>El diagnóstico es gratis y termina con un precio cerrado por
+          más chica. <b>El diagnóstico no tiene costo y termina con un precio cerrado por
           escrito</b>: ese trabajo, ese precio. Si después quieres más, se cotiza aparte y lo
           apruebas tú. Y si el número no te cuadra, ahí se queda.</span></li>
       <li><b>¿Tengo que parar la operación?</b>
-        <span>No. Arranca por partes y corre en paralelo con lo que usas hoy, hasta
+        <span>No. Arranca por partes y trabaja al mismo tiempo que lo que usas hoy, hasta
           que el nuevo queda comprobado contra la realidad.</span></li>
       <li><b>¿Y si mi gente no lo usa?</b>
         <span>Ese es el riesgo real de un ERP, no el precio. El flujo se diseña con quien va a
@@ -663,8 +684,8 @@
           operación hasta que todo se anota en un solo lugar.</span></li>
       <li><b>¿Y si mis datos están hechos un desastre?</b>
         <span>Es lo más común, y no es un problema: es el primer trabajo. Antes de arrancar se pone
-          en orden lo que hoy está regado —contar el almacén si es inventario, revisar el
-          padrón si son clientes— para que el sistema empiece con la verdad y no con el
+          en orden lo que hoy está regado —contar el almacén si es inventario, revisar la
+          lista si son clientes— para que el sistema empiece con la verdad y no con el
           Excel.</span></li>
     </ul>
   </section>
@@ -676,7 +697,7 @@
     <ul class="rejilla">
       <li><b>01</b><span>¿Cuánto gastaste el año pasado en algo que ya tenías?</span></li>
       <li><b>02</b><span>¿Cuántas veces prometiste algo que no podías entregar?</span></li>
-      <li><b>03</b><span>¿Cuántos días pasan entre que entregas y se timbra la factura?</span></li>
+      <li><b>03</b><span>¿Cuántos días pasan entre que entregas y sale la factura?</span></li>
       <li><b>04</b><span>¿Cuántas facturas al mes no cuadran con lo entregado?</span></li>
       <li><b>05</b><span>¿Sabes cuánto ganas con tu mejor cliente sin esperar a fin de mes?</span></li>
     </ul>
@@ -849,8 +870,8 @@
 
     { truck:move(14,-4),  truckOn:false, propio:false, mont:move(26,-172), montOn:true,  beams:[1],
       label:"02 / 06 · Estante A-04, nivel 12",
-      k:"Lo que hay · 312 piezas",
-      v:"lugar A-04-12 · costo con envío $184.20 por pieza" },
+      k:"ENT-2207 · Entró a su lugar",
+      v:"312 piezas en A-04-12 · costo con envío $184.20 por pieza" },
 
     { truck:move(14,-4),  truckOn:false, propio:false, mont:move(34,-64),  montOn:true,  beams:[2],
       label:"03 / 06 · La mesa donde se junta",
@@ -859,7 +880,7 @@
 
     { truck:move(292,-6), truckOn:true,  propio:true,  mont:move(150,-30), montOn:true,  beams:[3],
       label:"04 / 06 · La puerta de salida",
-      k:"Factura A-1140 · Timbrada",
+      k:"Factura A-1140 · Enviada al SAT",
       v:"18 piezas · $41,760 · entrega y factura del mismo pedido" },
 
     { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[4],
@@ -919,7 +940,9 @@
      lectura, no el último que la cruzó por arriba: con esa regla la escena iba
      siempre un paso atrasada respecto al texto. */
   var reproduciendo = false;
-  var figuraEl = document.querySelector(".figure");
+  /* La linea de lectura se calcula contra lo que de verdad se queda pegado.
+     En celular eso es .figura__fijo; en escritorio, la columna entera. */
+  var figuraEl = document.querySelector(".figura__fijo") || document.querySelector(".figure");
 
   function elegir(){
     if (reproduciendo) return;          // mientras reproduce, manda el reproductor
@@ -969,7 +992,7 @@
     clearInterval(timer);
     timer = null;
     reproduciendo = false;
-    playEl.textContent = "▶ Reproducir";
+    playEl.textContent = "▶ Que avance solo";
     playEl.setAttribute("aria-pressed", "false");
   }
   playEl.addEventListener("click", function(){
