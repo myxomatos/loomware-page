@@ -206,7 +206,7 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
       | `RESEND_API_KEY` | **Cargada** | `POST /api/contacto` ya no dice «Falta configurar RESEND_API_KEY»: contesta *«Falta tu nombre»* con **400**, que es la señal que este archivo dejó escrita. |
       | `LEAD_TO`, `LEAD_FROM` | **No se sabe** | Las dos son opcionales y el código tiene valores por omisión, así que ninguna respuesta las delata. Sólo se sabe mandando el formulario. |
       | `DENUE_TOKEN` | **Falta** | `/api/denue` responde *«Falta configurar DENUE_TOKEN»* con **500**. |
-      | `PROSPECT_KEY` | **No se sabe** | La función revisa `DENUE_TOKEN` primero y su error tapa el siguiente. Se sabrá en cuanto entre el token. |
+      | `PROSPECT_KEY` | **No se sabe todavía** | La versión publicada revisa `DENUE_TOKEN` primero y su error tapa el siguiente. **Corregido el 24**: en cuanto se despliegue, la misma llamada lista las dos. |
       | `VITE_GA_ID` | **No está en el HTML** | `googletagmanager` no aparece en la página publicada. O no se cargó, **o se cargó y falta redesplegar**: es variable de *build*. |
       | `VITE_GSC_VERIFICATION` | **No está en el HTML** | Igual: no hay etiqueta `google-site-verification`. |
 
@@ -227,6 +227,12 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
       Cuando estén cargadas, la primera responde *«Falta tu nombre»* (400) —**ya lo hace**— y
       la segunda *«Contraseña incorrecta»* (401). Esos dos errores son la señal de que quedó
       bien.
+
+      **La segunda ahora las lista todas de una vez** (2026-09-24). Revisaba en orden y se
+      detenía en la primera que faltara, así que la ausencia de `DENUE_TOKEN` tapaba la de
+      `PROSPECT_KEY` y no había forma de saber si la contraseña estaba puesta. Ahora dice
+      *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»*, o sólo la que falte, así que **una
+      llamada contesta si ya quedaron las dos**.
 
 - [ ] **Verificar `loomware.com.mx` en Resend.** Domains → Add Domain, y capturar en Cloudflare DNS
       los tres registros que indique (MX `send`, TXT `send` con el SPF, TXT `resend._domainkey`).
