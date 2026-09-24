@@ -16,9 +16,9 @@ responde 500.
 | --- | --- | --- | --- |
 | 1 | Revisar el preview en escritorio y en celular | <https://aldo.loomware-page.pages.dev> | ✅ 2026-09-23 |
 | 2 | Verificar `loomware.com.mx` en Resend | Resend y Cloudflare DNS | ✅ 2026-09-23 |
-| 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | En curso |
-| 4 | **Retry deployment** (las variables no aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último de la rama → ⋯ | |
-| 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | |
+| 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | `RESEND_API_KEY` ✅ 2026-09-24; faltan `DENUE_TOKEN`, `PROSPECT_KEY` y `VITE_GA_ID` |
+| 4 | **Retry deployment** (las variables no aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último de la rama → ⋯ | Repetir tras cada variable nueva |
+| 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | Formulario ✅ 2026-09-24: llega de `web@` a `aldo_sanchez@` y «Responder» va al prospecto |
 | 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | |
 | 7 | Probar en producción, y confirmar que aparece la banda de cookies si ya está `VITE_GA_ID` | <https://loomware.com.mx> | |
 | 8 | Search Console: confirmar la propiedad y enviar el sitemap (25 URLs) | <https://search.google.com/search-console> | |
