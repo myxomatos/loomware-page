@@ -401,7 +401,7 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
          siete tienen el mismo problema.** Lo pegado mide de 465 a 524 px de los 740 y deja
          de 216 a 275 para leer, cuando sus pasos miden de 269 a 341. A 390×844 sí caben, así
          que sólo se ve en pantalla chica. La salida ya está probada en el ERP: sacar de lo
-         pegado todo lo que no sea el dibujo con su rótulo y su pie, y  en
+         pegado todo lo que no sea el dibujo con su rótulo y su pie, y `display:contents` en
          el contenedor para que lo pegado cuelgue de la columna y no se despegue a medio
          camino.
       5. **Contar los botones** y que cada uno diga qué hace.
