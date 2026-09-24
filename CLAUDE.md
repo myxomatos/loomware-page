@@ -58,6 +58,26 @@ Cuando el PR se mezcle, el enlace del equipo pasa a ser <https://loomware.com.mx
   `/recorridos/erp`. Nadie lo había planteado; salió de una auditoría que decía «a esta
   página le falta prueba». Se retiró el 2026-09-24.
 
+- **No se afirma nada sobre el negocio del lector que no sepamos**, y una cifra de ejemplo
+  nunca se acomoda para que «revele» una conclusión. Las cifras de ejemplo están para enseñar
+  el mecanismo —cómo se mueve un dato, qué sale en la pantalla—, no para demostrar una tesis.
+  Si un número se eligió para que la frase de abajo cuadrara, sobra la frase, y casi siempre
+  también el número.
+
+  *Por qué está escrito:* en la pantalla del recorrido del ERP, Claude escribió *«el que más te
+  compra es el que menos te deja»* como si la tabla lo revelara, **después de haber inventado
+  los cuatro renglones para que ese patrón saliera**. Se retiró el 2026-09-24, junto con los
+  márgenes que lo fabricaban.
+
+- **Las reglas internas no se le explican al lector.** Cómo trabajamos —que no enseñamos la
+  pantalla de un cliente, que no inventamos nombres, que cubrimos los datos de terceros— se
+  escribe en este archivo y en los comentarios del código, que es donde sirve. En la página se
+  **hace**, no se narra: un renglón cubierto con su encabezado se entiende solo, y un párrafo
+  que lo explica le señala al visitante algo que no estaba mirando y le da una política que no
+  pidió. La única excepción es lo que la ley obliga a decir, que vive en `/aviso-de-privacidad`,
+  y las etiquetas cortas que evitan una confusión real —«pantalla de ejemplo», «cifras de
+  ejemplo»—.
+
 - Textos en español de México; nombres de commit en español, imperativo, una línea de resumen.
 - Antes de abrir un PR: `npm run build` sin errores y el sitio revisado en `npm run preview`.
 
@@ -376,6 +396,14 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
          texto: la del paso 04 vivía en la tabla de estados.
       4. **Medir el teléfono, no verlo.** Cuánto ocupa lo que se queda pegado y si el paso cabe
          en lo que sobra. El ERP dejaba 254 px para pasos de hasta 386 y **ninguno cabía**.
+
+         **Medido el 2026-09-24 en los siete que faltan, a 360×740 —un teléfono chico—: los
+         siete tienen el mismo problema.** Lo pegado mide de 465 a 524 px de los 740 y deja
+         de 216 a 275 para leer, cuando sus pasos miden de 269 a 341. A 390×844 sí caben, así
+         que sólo se ve en pantalla chica. La salida ya está probada en el ERP: sacar de lo
+         pegado todo lo que no sea el dibujo con su rótulo y su pie, y  en
+         el contenedor para que lo pegado cuelgue de la columna y no se despegue a medio
+         camino.
       5. **Contar los botones** y que cada uno diga qué hace.
       6. **La pantalla del sistema.** El ERP ya la tiene; las otras siete enseñan sólo su
          objeto —el tablero de corcho, la tarjeta de checado, los dos maniquíes—, que es el

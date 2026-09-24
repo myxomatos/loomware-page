@@ -163,11 +163,17 @@
 
   .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
     font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
-  /* 44 px, el mínimo recomendado para algo que se pica con el dedo. Medía 29. */
-  .play{display:inline-flex;align-items:center;min-height:44px;
+  /* 44 px de blanco táctil **sin** crecer la caja. Subirlo a min-height:44px
+     —como estaba— le sumaba 15 px al bloque que se queda pegado arriba, y a
+     360×740 eso dejaba fuera cuatro de los seis pasos por entre 2 y 11 px. El
+     área transparente de abajo hace el mismo trabajo sin ocupar pantalla. */
+  .play{position:relative;display:inline-flex;align-items:center;
     font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
     color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
     border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+  /* Crece el blanco, no el botón: la caja mide 29 y 8 px arriba y abajo la
+     llevan a 45, por encima del mínimo. */
+  .play::after{content:"";position:absolute;inset:-8px -4px;}
   .play:hover{background:var(--signal);color:var(--surface);}
   .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
 

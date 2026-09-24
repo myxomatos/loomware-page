@@ -220,11 +220,17 @@
 
       .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
         font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
-      /* 44 px, el mínimo recomendado para algo que se pica con el dedo. Medía 29. */
-      .play{display:inline-flex;align-items:center;min-height:44px;
+      /* 44 px de blanco táctil **sin** crecer la caja. Subirlo a min-height:44px
+         —como estaba— le sumaba 15 px al bloque que se queda pegado arriba, y a
+         360×740 eso dejaba fuera cuatro de los seis pasos por entre 2 y 11 px. El
+         área transparente de abajo hace el mismo trabajo sin ocupar pantalla. */
+      .play{position:relative;display:inline-flex;align-items:center;
         font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
         color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
         border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+      /* Crece el blanco, no el botón: la caja mide 29 y 8 px arriba y abajo la
+         llevan a 45, por encima del mínimo. */
+      .play::after{content:"";position:absolute;inset:-8px -4px;}
       .play:hover{background:var(--signal);color:var(--surface);}
       .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
 
@@ -369,6 +375,7 @@
       .pant .fila{display:grid;grid-template-columns:minmax(0,1fr) 74px 52px;
         align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);}
       .pant .fila:first-of-type{border-top:0;}
+      .pant .tabla__t + .fila{border-top:0;}
       /* Donde iría la razón social de un cliente va un renglón gris: los nombres no
          se inventan, y así se ve de verdad un tablero con datos de terceros. */
       .pant .anon{height:8px;border-radius:1px;background:var(--rule);opacity:.65;}
@@ -376,6 +383,13 @@
         font-variant-numeric:tabular-nums;text-align:right;}
       .pant .mar{font-family:var(--mono);font-size:11.5px;color:var(--signal);
         font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;}
+      /* Con los encabezados, el renglón gris se explica solo: es la columna del
+         cliente, cubierta. Antes hacía falta un párrafo abajo para decirlo, y ese
+         párrafo le explicaba al lector una regla nuestra que no pidió. */
+      .pant .fila--enc{padding:0 0 5px;border-top:0;}
+      .pant .fila--enc span{font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+        text-transform:uppercase;color:var(--ink-3);}
+      .pant .fila--enc + .fila{border-top:1px solid var(--rule-soft);}
       .pant .fila--suma{border-top:1px solid var(--rule);}
       .pant .fila--suma .mon,.pant .fila--suma .mar{color:var(--ink);font-weight:700;}
       .pant .fila--suma .lbl{font-size:9.5px;color:var(--ink-3);}
@@ -820,10 +834,12 @@
           </div>
           <div class="tabla">
             <div class="tabla__t">Ganancia por cliente · este mes</div>
-        <div class="fila"><div class="anon" style="width:62%"></div><span class="mon">$14,900</span><span class="mar">16.8 %</span></div>
-        <div class="fila"><div class="anon" style="width:47%"></div><span class="mon">$11,240</span><span class="mar">21.2 %</span></div>
-        <div class="fila"><div class="anon" style="width:39%"></div><span class="mon">$9,380</span><span class="mar">26.7 %</span></div>
-        <div class="fila"><div class="anon" style="width:26%"></div><span class="mon">$6,240</span><span class="mar">31.4 %</span></div>
+            <div class="fila fila--enc"><span>Cliente</span>
+              <span class="mon">Facturado</span><span class="mar">Ganancia</span></div>
+        <div class="fila"><div class="anon" style="width:62%"></div><span class="mon">$14,900</span><span class="mar">21.8 %</span></div>
+        <div class="fila"><div class="anon" style="width:47%"></div><span class="mon">$11,240</span><span class="mar">25.0 %</span></div>
+        <div class="fila"><div class="anon" style="width:39%"></div><span class="mon">$9,380</span><span class="mar">19.6 %</span></div>
+        <div class="fila"><div class="anon" style="width:26%"></div><span class="mon">$6,240</span><span class="mar">23.4 %</span></div>
             <div class="fila fila--suma"><span class="lbl">Suma</span>
               <span class="mon">$41,760</span><span class="mar">22.4 %</span></div>
           </div>
@@ -831,13 +847,8 @@
       </div>
     </div>
 
-    <p class="pant__lee">Lo que dice esa tabla: <b>el que más te compra es el que menos te
-      deja</b> —16.8 % contra 31.4 %—. Eso no se ve cuando la cuenta se hace a fin de mes y
-      sale un promedio.</p>
-    <p class="pant__pie">Cifras de ejemplo, las mismas del recorrido: los cuatro renglones suman
-      los $41,760 del paso 04 y su ganancia da el 22.4 % del paso 06. Donde iría el nombre de un
-      cliente va un renglón gris: no se enseña la pantalla de un cliente y los nombres no se
-      inventan.</p>
+    <p class="pant__pie">Cifras de ejemplo, las mismas del recorrido: los cuatro renglones
+      suman los $41,760 del paso 04 y su ganancia da el 22.4 % del paso 06.</p>
   </section>
 
   <section class="faq">
