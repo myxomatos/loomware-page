@@ -45,6 +45,19 @@ Cuando el PR se mezcle, el enlace del equipo pasa a ser <https://loomware.com.mx
 - `/prospectar` es privada: fuera del menú, `noindex`, con contraseña. La Function
   `functions/api/denue` toma `DENUE_TOKEN` y `PROSPECT_KEY` de las variables de Cloudflare;
   el token del INEGI solo vive en el servidor y en `.env` local (ignorado por git).
+- **Los casos de éxito viven en `#casos` de la portada y en ningún otro lado.** Se escriben
+  en `src/data/casos.js` y los dibuja `src/components/Casos.jsx`; el pie enlaza a esa
+  sección y nada más. **Ningún caso se cita, se resume, se enseña ni se insinúa en otra
+  página** —ni en un recorrido, ni en una de servicio, ni en una de industria—, porque un
+  cliente autoriza su nombre para lo que contrató, no para ilustrar otra cosa. Cuando entren
+  más casos, entran ahí. Si una página necesita prueba y no la tiene, **eso se dice**; no se
+  pide prestada.
+
+  *Por qué está escrito:* el 2026-09-23 Claude anotó en los pendientes de Aldo que había que
+  preguntarle a Eduardo Díaz si su caso también cubría el ERP, para poder usar GT-SHOP en
+  `/recorridos/erp`. Nadie lo había planteado; salió de una auditoría que decía «a esta
+  página le falta prueba». Se retiró el 2026-09-24.
+
 - Textos en español de México; nombres de commit en español, imperativo, una línea de resumen.
 - Antes de abrir un PR: `npm run build` sin errores y el sitio revisado en `npm run preview`.
 
@@ -244,24 +257,6 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       servicios* — es el posicionamiento; (b) la tarjeta de agenda promete *una llamada de 30
       minutos, sin costo*; (c) "Quiénes somos" dice que *la persona que hace el diagnóstico es la
       misma que diseña la solución y responde el WhatsApp*. Si alguna no es cierta, se cambia.
-- [ ] **El recorrido del ERP no tiene una sola prueba, y es el que más se manda.** Todo lo que
-      enseña dice «cifras de ejemplo» —honestamente, tres veces—, pero quien lo lee completo
-      pregunta *«¿y a quién le sirvió?»* y no hay respuesta.
-
-      **GT-SHOP no se puede usar tal como está.** Su caso vive en `src/data/casos.js` con
-      `servicio: 'Comercio en línea'` y la frase que firmó Eduardo habla de la venta de la
-      cámara. Si su logotipo aparece en `/recorridos/erp`, cualquiera entiende «GT-SHOP usa el
-      ERP de Loomware», y eso no fue lo que pasó.
-
-      **Pero hay una pregunta que vale la pena hacerle**, porque su flujo roza el ERP de cerca:
-      catálogo, factura, envío y devolución en un mismo lugar es la mitad de lo que hace un ERP.
-      Si Eduardo confirma que **lo que le resolvimos también le ordenó el inventario y la
-      facturación**, y autoriza decirlo, el caso sostiene las dos páginas y se agrega
-      `servicio` como lista en `casos.js`. **Es él quien lo decide, no nosotros.**
-
-      Si la respuesta es no, se cierra con otro cliente de ERP que autorice su nombre, aunque
-      sea una frase. Va junto a «Logotipos de clientes» más abajo.
-
 - [ ] **Validar lo que dice la tabla de la pantalla nueva del ERP.** El 2026-09-23 el
       recorrido ganó su tablero, y su tabla de ganancia por cliente cuenta una historia que
       **escribí yo, no tú**: *«el que más te compra es el que menos te deja»* —16.8 % contra

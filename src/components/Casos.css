@@ -1,8 +1,25 @@
+/* Casos de éxito.
+
+   La tarjeta se lee en tres bandas, de arriba abajo, y en un solo orden:
+   quién es · qué pasó (01·02·03) · lo que dice el dueño.
+
+   Antes era una reja de dos por dos —«quién» arriba a la izquierda, la cita
+   abajo a la izquierda y los tres pasos en una columna a la derecha—, y eso
+   dejaba la cita y el resultado lado a lado en el renglón de abajo: dos cosas
+   sin relación que se leían como pareja, y ninguna pista de por dónde empezar.
+   Una tarjeta con un solo orden de lectura no necesita que el lector adivine. */
+
 .casos__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 440px));
   justify-content: center;
   gap: var(--sp-6);
+}
+/* Un solo caso: la tarjeta se abre a lo ancho. Los tres pasos se acomodan solos
+   en tres columnas cuando hay ancho —la reja de abajo lo decide—, así que la
+   tarjeta no se estira a pantalla y media de texto en una columna de 440 px. */
+.casos__grid--uno {
+  grid-template-columns: minmax(0, 940px);
 }
 .caso {
   display: flex;
@@ -10,99 +27,125 @@
   gap: var(--sp-5);
   padding: var(--sp-6);
 }
-
-/* Un solo caso: se reparte en dos columnas en cuanto hay ancho para las dos.
-   Apilado ocupaba una pantalla y media de texto en una columna de 440 px. */
-.casos__grid--uno {
-  grid-template-columns: minmax(0, 940px);
-}
 @media (min-width: 900px) {
   .casos__grid--uno .caso {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
-    grid-template-areas:
-      "quien qué"
-      "cita qué";
-    align-content: start;
-    gap: var(--sp-6) var(--sp-8);
     padding: var(--sp-8);
   }
-  .casos__grid--uno .caso__head {
-    grid-area: quien;
-  }
-  .casos__grid--uno .caso__cita {
-    grid-area: cita;
-    align-self: start;
-  }
-  .casos__grid--uno .caso__detalle {
-    grid-area: qué;
-  }
 }
-.caso__head {
+
+/* ---------- banda 1: quién es ---------- */
+.caso__quien {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--sp-3);
 }
-.caso__quien {
+.caso__giro {
+  margin: 0;
   font-size: var(--fs-sm);
   color: var(--text-900);
 }
-.caso__detalle {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-  margin: 0;
+/* El logotipo del cliente: un solo tono, y va primero porque es lo que da la
+   prueba. Es un conjunto vertical —dibujo arriba, palabra abajo—: a 40 px la
+   palabra quedaba ilegible. */
+.caso__logo {
+  display: block;
+  height: 76px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  object-position: left center;
 }
-.caso__detalle dt {
+
+/* ---------- banda 2: qué pasó ---------- */
+/* Tres columnas cuando hay ancho, una cuando no. Con dos o tres casos la
+   tarjeta es angosta y los pasos se apilan solos: es la misma regla para las
+   dos formas, no dos diseños que mantener. */
+.caso__pasos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--sp-5);
+  margin: 0;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border);
+}
+.caso__paso dt {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
   font-size: var(--fs-2xs);
   font-weight: 700;
   letter-spacing: var(--ls-caps);
   text-transform: uppercase;
   color: var(--text-500);
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
-.caso__detalle dd {
-  margin: var(--sp-1) 0 0;
+/* El número es el que quita la duda de por dónde se lee. Va en cobre, que en
+   este sitio es el color del dato, igual que los números de paso del recorrido. */
+.caso__n {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--copper-500);
+  letter-spacing: -0.02em;
+}
+.caso__paso dd {
+  margin: var(--sp-2) 0 0;
   font-size: var(--fs-sm);
   line-height: var(--lh-body);
 }
-.caso__resultado {
-  padding: var(--sp-3) var(--sp-4);
-  border-radius: var(--r-md);
-  background: var(--purple-50);
+/* Qué se le construyó, con el nombre de la solución al lado del paso que la
+   cuenta. Suelto arriba de la tarjeta no decía si era el giro del cliente, una
+   categoría o lo que le vendimos. */
+.caso__servicio {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-caps);
+  text-transform: none;
+  color: var(--copper-500);
+  background: var(--copper-100);
+  border-radius: var(--r-sm);
+  padding: 2px 8px;
+  margin-right: 8px;
+  white-space: nowrap;
 }
-.caso__resultado dt {
-  color: var(--purple-600);
-}
-.caso__resultado dd {
+/* Lo que cambió es el dato que cierra la historia, así que lleva el color del
+   dato. Estaba sobre placa morada, y el morado en este sitio es la marca y lo
+   que se pica: gastarlo aquí le quitaba peso a los botones y obligaba a la cita
+   de abajo a defenderse con otro color. */
+.caso__paso--cambio dd {
   color: var(--text-900);
   font-weight: 600;
+  border-left: 3px solid var(--copper-500);
+  background: var(--copper-100);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
 }
+
+/* ---------- banda 3: lo que dice quien lo opera ---------- */
 /* La cita cierra la tarjeta y es lo que más convence, así que se lee como
    titular: tipografía de titular, tamaño de entrada y al color del texto
-   fuerte. En cursiva y en gris chico —como estaba— se leía como pie de
-   página. La regla es cobre, no morada: el morado ya lo trae el bloque de
-   resultado justo arriba y dos moradas seguidas se anulan. */
+   fuerte. En cursiva y en gris chico se leía como pie de página. */
 .caso__cita {
   margin: 0;
-  padding-left: var(--sp-5);
-  border-left: 3px solid var(--copper-500);
+  padding: var(--sp-5) 0 0;
+  border-top: 1px solid var(--border);
   font-family: var(--font-display);
   font-size: var(--fs-h3);
   font-weight: 500;
   line-height: var(--lh-snug);
   color: var(--text-900);
   text-wrap: pretty;
+  max-width: 62ch;
 }
 .caso__cita p {
   margin: 0;
 }
-/* Quién lo dijo, como la firma de un crédito: monoespaciada y en cobre, igual
-   que las etiquetas de dato del resto de la página. Firmada se puede
-   comprobar; sin nombre sería una frase nuestra. */
+/* Quién lo dijo, como la firma de un crédito: monoespaciada y en gris. No va
+   en cobre —como estaba— porque el cobre ya lo traen los tres números, el
+   distintivo y la placa de «qué cambió»: una quinta pieza de cobre en la misma
+   tarjeta deja de señalar nada. Firmada se puede comprobar; sin nombre sería
+   una frase nuestra. */
 .caso__cita footer {
   margin-top: var(--sp-3);
   font-family: var(--font-mono);
@@ -110,20 +153,5 @@
   font-weight: 500;
   letter-spacing: var(--ls-caps);
   text-transform: uppercase;
-  color: var(--copper-500);
-}
-
-/* El logotipo del cliente: un solo tono, a media altura de una línea de
-   titular, y con aire abajo para que no se pegue al distintivo del servicio.
-   Va primero en la tarjeta porque es lo que da la prueba. */
-.caso__logo {
-  display: block;
-  /* El logotipo es un conjunto vertical —dibujo arriba, palabra abajo—: a 40 px
-     la palabra quedaba ilegible. */
-  height: 76px;
-  width: auto;
-  max-width: 220px;
-  margin-bottom: var(--sp-4);
-  object-fit: contain;
-  object-position: left center;
+  color: var(--text-500);
 }
