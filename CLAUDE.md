@@ -188,7 +188,7 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
 
       | Variable | Encrypt | De dónde sale |
       | --- | --- | --- |
-      | `DENUE_TOKEN` | Sí | Alan lo tiene. **No está en el repositorio ni debe estarlo.** Pedírselo por un canal privado. |
+      | `DENUE_TOKEN` | Sí | Alan lo tiene. **No está en el repositorio ni debe estarlo.** Pedírselo por un canal privado. **Probado contra el INEGI el 2026-09-24: sirve** (HTTP 200 con registros). |
       | `PROSPECT_KEY` | Sí | Contraseña de `/prospectar`; la eligen entre los dos. |
       | `RESEND_API_KEY` | Sí | Crear cuenta en <https://resend.com> → API Keys → Create (empieza con `re_`). |
       | `LEAD_TO` | No | Sólo para probar antes de verificar el dominio: el correo dueño de la cuenta de Resend. |
