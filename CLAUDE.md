@@ -244,6 +244,19 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       servicios* — es el posicionamiento; (b) la tarjeta de agenda promete *una llamada de 30
       minutos, sin costo*; (c) "Quiénes somos" dice que *la persona que hace el diagnóstico es la
       misma que diseña la solución y responde el WhatsApp*. Si alguna no es cierta, se cambia.
+- [ ] **El recorrido del ERP no tiene una sola prueba, y es el que más se manda.** Todo lo que
+      enseña dice «cifras de ejemplo» —honestamente, tres veces—, pero quien lo lee completo
+      pregunta *«¿y a quién le sirvió?»* y no hay respuesta. **GT-SHOP no sirve aquí**: su caso
+      es comercio en línea, no ERP, y usarlo para otra cosa sería justo lo que esta página no
+      hace. Se cierra con un cliente de ERP que autorice su nombre, aunque sea una frase. Va
+      junto a «Logotipos de clientes» más abajo.
+
+- [ ] **La página del ERP no dice cuánto tiempo le quita al prospecto.** El cierre ofrece el
+      diagnóstico pero no dice si son treinta minutos o tres días, y ésa es la objeción que
+      queda. La portada ya promete *«una llamada de 30 minutos, sin costo»* — **esa frase sigue
+      sin tu visto bueno**, arriba en «Validar tres afirmaciones nuevas del inicio», así que no
+      se trajo al recorrido. En cuanto la confirmes, es una línea.
+
 - [ ] **Confirmar que +52 55 8096 8928 es el WhatsApp** que van a atender. Está en
       `src/data/contacto.js` y de ahí sale para todo el sitio.
 - [ ] **Video de "Ver cómo funciona".** Cuando el clip de Clipchamp esté listo, subirlo a YouTube
@@ -335,6 +348,16 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       para eso sería la autorización de un cliente para enseñar su sistema con los datos
       cubiertos.
 
+- [ ] **Los otros siete recorridos tampoco enseñan una pantalla.** El 2026-09-23 el ERP ganó
+      la suya —el tablero, al terminar los seis pasos— y con eso contesta la pregunta que un
+      prospecto se hace y ninguno de los ocho contestaba: *«¿cómo se ve el programa?»*. Los
+      otros siete siguen enseñando sólo su objeto —el tablero de corcho, la tarjeta de checado,
+      los dos maniquíes—, que es el mundo, no el sistema. La pieza es reusable: es HTML con las
+      variables de la propia página, así que hereda el modo oscuro y reflúye. Falta escribir la
+      pantalla de cada solución y los números que la sostienen, que es el trabajo de verdad:
+      **los del ERP cuadran con los del recorrido a propósito**, y ésa es la parte que no se
+      puede copiar y pegar.
+
 - [ ] **Faltan los rostros, y ésos sí dependen de Aldo.** Xero abre con la foto de una panadera
       real en su obrador. Nosotros seguimos en **cero rostros**, porque `src/data/equipo.js`
       está en blanco: las dos personas existen pero sin cargo ni foto, y la tarjeta sólo aparece
@@ -402,6 +425,98 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       captura real** —con autorización del cliente y los datos cubiertos— vale más que cualquier
       dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
       Se cambia el `<picture>` de `src/components/Hero.jsx`.
+
+### Resueltas el 2026-09-23 (quinta destrucción del recorrido del ERP)
+
+Las cuatro pasadas anteriores destriparon palabras. Ésta midió **el aparato**, que nunca se
+había comprobado, y de ahí salió lo más grave.
+
+- [x] **En el teléfono nunca se veía un paso completo junto a su dibujo**, que es la única
+      promesa del formato. Medido a 390×844: lo que se quedaba pegado arriba medía **590 px de
+      los 844** y dejaba 254 para leer, cuando los pasos miden de 269 a 386. **Ninguno de los
+      seis cabía**: el mejor se veía al 69 %, el peor al 53 %.
+
+      Y de esos 590 px el dibujo eran **215**. Los otros 375 eran el rótulo, el pie y la ficha
+      de los cinco papeles, que sola pesaba 214 —lo mismo que el dibujo— y repetía el código
+      que el rótulo ya dice arriba: «PED-3471» salía dos veces en la misma pantalla. Ahora en
+      celular sólo se queda pegado el dibujo; la ficha se lee una vez, antes de los pasos.
+
+      Hizo falta además sacar la caja que cortaba el pegado: **un elemento pegado sólo se queda
+      dentro de la caja de su padre**, y la de `.figure` terminaba donde empiezan los pasos,
+      así que el dibujo se despegaba en el paso 03. Con `display:contents` cuelga de
+      `.cols`, que abarca los seis. Medido después: **6 de 6 pasos legibles completos con el
+      dibujo en pantalla, en 360, 390, 430 y 768 px.**
+
+      **Sólo el ERP fallaba.** Se midieron los ocho: los otros siete pegan de 466 a 498 px
+      (55–59 % del teléfono) y sus pasos sí caben. El ERP era el peor porque era el único con
+      la ficha adentro.
+
+- [x] **La página decía «en la pantalla» y nunca enseñaba una.** Cero imágenes en 1 516
+      palabras: el dibujo es una bodega vista desde arriba —enseña **el mundo**, nunca **el
+      programa**—, así que quien leía los seis pasos seguía sin saber qué vería todos los días.
+      Ahora, al terminar los seis pasos, está el tablero: las cinco áreas, tres cifras y la
+      ganancia por cliente.
+
+      Va en **HTML y no en SVG**, por tres razones medidas en esta misma página: un lienzo fijo
+      encoge su texto en el teléfono —el diagrama de arriba acababa en 5.2 px y hubo que
+      dibujarlo dos veces—; el recorrido tiene **modo oscuro** y su acento es **cobre**, no el
+      morado del sitio, así que un archivo con los colores horneados se vería mal en los dos
+      casos; y es texto, o sea que lo lee un buscador y lo lee quien no ve la pantalla.
+
+      **Los números son los del propio recorrido y cuadran:** los cuatro renglones suman
+      exactamente los $41,760 de la factura del paso 04 y su ganancia ponderada da el 22.4 %
+      del paso 06. Y dicen algo: **el que más compra deja el margen más bajo** —16.8 % contra
+      31.4 %—, que es lo que el paso 06 promete y lo que no se ve cuando la cuenta se hace a
+      fin de mes. **Aldo: si esa lectura no te parece, se cambia la tabla; son cifras de
+      ejemplo y lo dice al pie.** Cuesta 0.9 pantallas de celular —de 7.7 a 8.6—.
+
+      Las dos reglas del hero se aplican igual: no se enseña la pantalla de un cliente —lo dice
+      adentro, en su esquina— y donde iría una razón social va un renglón gris.
+
+- [x] **Palabras de oficina que habían sobrevivido tres rondas.** «Timbrada» seguía viva en el
+      rótulo del paso 04 y «se timbra» en la pregunta 03, dos rondas después de haberlas
+      quitado del resto; «padrón» y «en paralelo», fuera; **«gratis» convivía con «sin costo»**
+      a tres pantallas, después de haberlo quitado de todos los botones del sitio. Y el paso 02
+      **prendía ENT-2207** mientras el rótulo hablaba de «312 piezas»: quien sigue el papel veía
+      encenderse un número que no aparecía en ninguna otra parte del paso.
+
+- [x] **Dos fallas del aparato.** El botón «Que avance solo» **volvía a decir «Reproducir»** al
+      terminar de correr —el guion le reescribía el nombre viejo—, y el dibujo apilado del
+      teléfono **se le anunciaba a un lector de pantalla** igual que el ancho: la misma escena,
+      descrita dos veces seguidas.
+
+- [x] **Sin JavaScript, los ocho recorridos se leían rotos.** La escena se dibuja desde el guion
+      dentro de un `<g id="world">` que llega vacío: quedaba un recuadro con borde y nada
+      adentro, un botón que no avanza y un rótulo que anuncia «01 / 06» de un dibujo que no
+      existe. Y lo peor no era el dibujo: los pasos empiezan en opacidad .34 y sólo el primero
+      trae la clase que los enciende, así que **cinco de los seis se leían al 34 %**. Cinco
+      reglas dentro de `<noscript>` los caen a un artículo que se lee entero.
+
+      No cubre el caso de que el guion exista y falle: ahí JavaScript está encendido y
+      `<noscript>` no aplica. Las reglas se revisaron leyendo la cascada, no renderizando con
+      guiones apagados: `--disable-javascript` no surte efecto en Edge headless nuevo.
+
+- [x] **El 404 era la única página que seguía en el sistema visual viejo.** `public/404.html`
+      es un archivo suelto que Cloudflare sirve sin pasar por la aplicación, así que se quedó
+      fuera de la revisión del 22 de septiembre y conservaba entero lo que ese día se retiró: el
+      **degradado morado→rosa→rojo**, el botón en **#e11d48** —el rojo reservado para el error—,
+      titulares en peso 800, radio de 12 px y un fondo que no está en la paleta. Tampoco
+      declaraba `color-scheme`, y no lo hereda porque no carga `tokens.css`. Ahora usa el
+      morado #5326d9, el papel cálido y Archivo; los valores van escritos en el archivo porque
+      `tokens.css` cambia de nombre en cada build. Y dejaba al visitante en un callejón con un
+      solo botón: ahora el logotipo lleva al inicio y hay tres destinos reales.
+
+      **Barrido después:** cero apariciones del degradado y del rojo-botón en todo el código.
+      Dos falsas alarmas comprobadas antes de tocarlas: `public/hero-operacion.svg` parece
+      muerto pero es la fuente de la tarjeta social (`scripts/og-imagen.js`), y el favicon usa
+      **#8168f0 y no #5326d9 a propósito** —va sobre la placa azul marino, donde el morado de
+      marca no se leería; es la misma regla que sigue la variante clara del logotipo—. **No
+      cambiarlos.**
+
+- [x] **Corrección de método.** Las 3 399 palabras que conté primero incluían el código del
+      guion: `body.textContent` se lleva el contenido de `<script>`. Son **1 516** (1 683 con
+      la pantalla nueva). Y el recorte que se ve en las capturas a 390 px es de Edge, no del
+      sitio: medido con `scrollWidth`, **no hay desbordamiento** en ninguno de los seis anchos.
 
 ### Resueltas el 2026-09-22 (recorrido de la página, URL por URL)
 
