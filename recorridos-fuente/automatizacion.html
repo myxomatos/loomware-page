@@ -106,7 +106,9 @@
   /* ---------- barra de marca ---------- */
   .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
     padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
-  .brand__id{display:flex;align-items:center;gap:8px;}
+  /* El logotipo lleva al inicio y es el único camino de regreso: medía 26 px
+     de alto, la mitad de lo que se puede picar con el dedo. */
+  .brand__id{display:flex;align-items:center;gap:8px;min-height:44px;}
   .brand__id svg{display:block;flex:none;}
   .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
     letter-spacing:-.03em;color:var(--ink);}
@@ -161,7 +163,9 @@
 
   .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
     font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
-  .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+  /* 44 px, el mínimo recomendado para algo que se pica con el dedo. Medía 29. */
+  .play{display:inline-flex;align-items:center;min-height:44px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
     color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
     border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
   .play:hover{background:var(--signal);color:var(--surface);}
@@ -266,7 +270,11 @@
   .cierre{margin-top:26px;max-width:640px;padding-left:16px;
     border-left:3px solid var(--signal);}
   .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
-  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+  /* 48 px de alto: es la medida que el sistema del sitio fija para botones y
+     campos. Medido antes: 42. Va con min-height y no con más relleno, para que
+     el texto no se mueva. */
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;
+    gap:9px;padding:11px 18px;border-radius:2px;
     font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
     text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
   .btn svg{flex:none;}

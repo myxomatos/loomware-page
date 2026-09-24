@@ -389,8 +389,18 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
          verdad**: los del ERP cuadran con los de su recorrido a propósito, y eso no se copia
          y se pega.
 
-      **Estado: ERP en curso (cinco pasadas). CRM, nómina, tienda en línea, automatización,
+      7. **La tarjeta del enlace.** Los ocho ya la tienen, una por recorrido
+         (`npm run og:recorridos`). Cuando cambie el título o el resumen de uno en
+         `src/data/recorridos.js`, **hay que volver a correrlo**: la tarjeta trae ese texto
+         horneado y el build no la regenera, porque necesita el sitio servido.
+
+      **Estado: ERP en curso (seis pasadas). CRM, nómina, tienda en línea, automatización,
       software a medida, infraestructura cloud y apps móviles: sin empezar.**
+
+      **Lo que falta del ERP y no es mío:** los blancos táctiles —el logotipo mide 26 px de
+      alto, el botón del recorrido 29 y los dos de contacto 42, cuando el sistema del sitio dice
+      48 y la recomendación de accesibilidad es 44—, y la pantalla del sistema para los otros
+      siete.
 
 - [ ] **Faltan los rostros, y ésos sí dependen de Aldo.** Xero abre con la foto de una panadera
       real en su obrador. Nosotros seguimos en **cero rostros**, porque `src/data/equipo.js`
@@ -459,6 +469,53 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       captura real** —con autorización del cliente y los datos cubiertos— vale más que cualquier
       dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
       Se cambia el `<picture>` de `src/components/Hero.jsx`.
+
+### Resueltas el 2026-09-24 (sexta pasada del ERP, y lo que salió midiéndola)
+
+- [x] **El recorrido no tenía nombre.** El índice del documento iba de «Todo negocio sigue algo»
+      directo a «Llega la mercancía»: seis encabezados hermanos, del mismo nivel que «Antes de
+      que preguntes», sin nada que los presentara ni que dijera cuántos son. Lo único que había
+      era «Baja para recorrerlo», que es una instrucción, no un nombre. Para quien lee con los
+      ojos se entiende por el dibujo; para quien lee el índice —un buscador, un lector de
+      pantalla, quien salta de encabezado en encabezado— **el recorrido no existía como pieza**.
+      Ahora se llama «Seis pasos, un solo pedido» y los seis pasan de `h2` a `h3`.
+      **Índice medido: cero saltos de nivel.**
+
+- [x] **La primera puerta se había ido a 6.1 pantallas, y fue culpa mía.** Ese botón existe
+      porque el único que había estaba a 6.6 del inicio; se puso justo al terminar los seis
+      pasos, en 4.9. El 23 metí la pantalla del sistema **entre los dos** y lo empujó de vuelta.
+      Además el botón dice *«¿Te viste en alguno de los seis pasos?»*: habla de los pasos, así
+      que va pegado a ellos. Queda en **5.3 pantallas de 8.7** —el 61 % del recorrido, contra el
+      71 %—.
+
+- [x] **En el teléfono la leyenda del dibujo no se veía.** Estaba en `display:none` abajo de
+      880 px, así que quien lee en celular —la mayoría, y esta pieza se manda por WhatsApp— veía
+      una línea punteada saliendo de cada parada sin nada que dijera que eso es **lo que se
+      anota y viaja al sistema**, que es la idea entera del recorrido. Sale del bloque pegado
+      —ahí serían píxeles que le quito a la lectura del paso— y se lee una vez, junto a la
+      ficha. Cuesta 0.1 pantallas.
+
+- [x] **Cada recorrido lleva ya su propia tarjeta social** (`npm run og:recorridos`, 8
+      tarjetas, 180 KB). Los ocho compartían `og-image.png`, la genérica del sitio, y **estas
+      páginas existen para mandarse por WhatsApp**: lo primero que ve el prospecto no es la
+      página, es la tarjeta del enlace. Ocho enlaces distintos que se previsualizaban idénticos
+      parecen el mismo enlace mandado ocho veces. Cada una lleva la escena de su propio
+      recorrido, con la paleta del recorrido y no con el morado del sitio, porque la tarjeta
+      debe parecerse a lo que abre.
+
+- [x] **Y la tarjeta apuntaba a un 404. Eso estaba vivo.** Comprobado con `curl`:
+      `loomware.com.mx/og-image.png` **responde 404**, porque producción sigue sirviendo el
+      sitio viejo y su tarjeta es otro archivo (`hero_desktop-1400w.png`, de los PNG que esta
+      rama borró). Como el enlace que se comparte es el preview de la rama, WhatsApp pedía la
+      imagen al dominio, no la encontraba y **no mostraba ninguna**: la pieza que existe para
+      mandarse por WhatsApp se previsualizaba en blanco.
+
+      `og:image` es la única URL absoluta de la página que **tiene que resolver ahora mismo**
+      —el canonical puede y debe seguir apuntando al dominio, así el preview no compite en el
+      buscador—. `scripts/base-publica.js` la cuelga del preview de la rama cuando el build no
+      es de `main`, usando `CF_PAGES_BRANCH`, que Cloudflare pone en cada build. Aplica a los
+      recorridos, a servicios e industrias y a las páginas que arma Vite. Probado en los tres
+      modos, y las **47 tarjetas del sitio construido apuntan a un archivo que sí se publica**.
 
 ### Resueltas el 2026-09-23 (quinta destrucción del recorrido del ERP)
 
