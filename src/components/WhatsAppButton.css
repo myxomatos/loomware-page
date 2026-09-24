@@ -49,3 +49,25 @@
     display: none;
   }
 }
+
+/* Mientras el formulario está a la vista, el flotante se retira: ahí el
+   renglón «¿Prefieres hablar directo?» ya ofrece WhatsApp, y dos entradas al
+   mismo canal en la misma pantalla es insistir, no ayudar. Se desvanece en vez
+   de desaparecer de golpe, y deja de recibir clics. */
+.wa-flotante {
+  transition:
+    opacity var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease),
+    visibility var(--t-base);
+}
+.wa-flotante--oculto {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.96);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-flotante {
+    transition: none;
+  }
+}
