@@ -258,11 +258,11 @@
   .vs__row--gana p{font-weight:500;}
 
   /* ---------- secciones de abajo ---------- */
-  .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
-  .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
+  .giros,.faq,.costo,.pant{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
+  .giros h2,.faq h2,.costo h2,.cierre h2,.pant h2{font-family:var(--mono);font-weight:700;
     font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
     text-wrap:balance;color:var(--ink);text-transform:uppercase;}
-  .giros p,.faq p,.costo p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
+  .giros p,.faq p,.costo p,.pant p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
 
   /* 320px: da 3 columnas en escritorio y 2 en tablet, y las seis tarjetas
      de giros y de preguntas llenan las filas sin dejar celdas vacías. */
@@ -287,6 +287,71 @@
     font-size:12.5px;line-height:1.4;color:var(--ink);}
   .costo .rejilla b{font-size:10px;color:var(--signal);line-height:1.6;
     font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
+
+  /* ---------- la pantalla: lo que se ve en la computadora ---------- */
+  /* En HTML y no en SVG: reflúye en el teléfono sin encoger su texto, hereda el
+     modo oscuro de la página y un buscador la lee. */
+  .pant .app{border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+    background:var(--surface);box-shadow:var(--shadow);max-width:760px;}
+  .pant .app__barra{display:flex;align-items:center;gap:10px;padding:7px 11px;
+    background:var(--paper);border-bottom:1px solid var(--rule-soft);
+    font-family:var(--mono);font-size:10px;}
+  .pant .app__marca{font-weight:700;letter-spacing:.06em;color:var(--ink);}
+  .pant .app__per{color:var(--ink-2);border:1px solid var(--rule-soft);
+    border-radius:2px;padding:2px 7px;}
+  .pant .app__nota{margin-left:auto;letter-spacing:.1em;color:var(--ink-3);
+    text-transform:uppercase;}
+  .pant .app__cuerpo{display:grid;grid-template-columns:122px minmax(0,1fr);}
+  .pant .app__lado{display:flex;flex-direction:column;gap:1px;padding:9px 0;
+    background:var(--paper);border-right:1px solid var(--rule-soft);
+    font-family:var(--mono);font-size:10.5px;}
+  .pant .app__lado span{padding:5px 11px;color:var(--ink-3);}
+  .pant .app__lado .es{color:var(--signal);background:var(--signal-soft);
+    border-left:2px solid var(--signal);padding-left:9px;}
+  .pant .app__main{padding:12px 13px;display:flex;flex-direction:column;gap:12px;min-width:0;}
+
+  .pant .kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+    background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:2px;}
+  .pant .kpi{background:var(--surface);padding:8px 10px;display:flex;flex-direction:column;gap:1px;}
+  .pant .kpi b{font-family:var(--mono);font-size:16px;font-weight:700;letter-spacing:-.03em;
+    color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.3;}
+  .pant .kpi--gana b{color:var(--money);}
+  .pant .kpi span{font-family:var(--mono);font-size:9px;color:var(--ink-3);line-height:1.4;}
+
+  .pant .tabla__t{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
+  .pant .fila{display:grid;grid-template-columns:minmax(0,1fr) 74px 52px;
+    align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);}
+  .pant .fila:first-of-type{border-top:0;}
+  /* Donde iría la razón social de un cliente va un renglón gris: los nombres no
+     se inventan, y así se ve de verdad un tablero con datos de terceros. */
+  .pant .anon{height:8px;border-radius:1px;background:var(--rule);opacity:.65;}
+  .pant .mon{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);
+    font-variant-numeric:tabular-nums;text-align:right;}
+  .pant .mar{font-family:var(--mono);font-size:11.5px;color:var(--signal);
+    font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;}
+  .pant .fila--suma{border-top:1px solid var(--rule);}
+  .pant .fila--suma .mon,.pant .fila--suma .mar{color:var(--ink);font-weight:700;}
+  .pant .fila--suma .lbl{font-size:9.5px;color:var(--ink-3);}
+
+  /* Con el padre delante: .pant p les gana por especificidad y el pie salía a
+     13.5 px, más fuerte que la frase que explica la tabla. */
+  .pant .pant__lee{margin:13px 0 0;font-size:13.5px;color:var(--ink);max-width:62ch;}
+  .pant .pant__pie{margin:9px 0 0;font-family:var(--mono);font-size:10px;
+    line-height:1.7;color:var(--ink-3);max-width:70ch;}
+
+  @media (max-width:560px){
+    /* La barra lateral de 122 px se comía un tercio del teléfono: pasa a ser un
+       renglón de pestañas, que es como se ve un sistema en un celular. */
+    .pant .app__cuerpo{grid-template-columns:minmax(0,1fr);}
+    .pant .app__lado{flex-direction:row;overflow-x:auto;gap:0;padding:0;
+      border-right:0;border-bottom:1px solid var(--rule-soft);
+      scrollbar-width:none;-ms-overflow-style:none;}
+    .pant .app__lado::-webkit-scrollbar{display:none;}
+    .pant .app__lado span{padding:7px 10px;white-space:nowrap;}
+    .pant .app__lado .es{border-left:0;border-bottom:2px solid var(--signal);padding-left:10px;}
+    .pant .fila{grid-template-columns:minmax(0,1fr) 66px 52px;gap:7px;}
+  }
 
   /* ---------- cierre ---------- */
   /* La puerta de en medio: aparece en cuanto terminan los seis pasos, que es
@@ -638,7 +703,7 @@
       </section>
 
       <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>El tablero del dueño</h2><span class="gauge">ganancia 22.4 %</span></div>
+        <div class="step-head"><span class="paso">06</span><h2>El tablero del dueño</h2><span class="gauge">ganancia 22.4 %</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Cuánto ganaste de verdad se sabe a fin de mes, es un promedio, y nadie jura que esté bien.</p></div>
@@ -652,6 +717,55 @@
 
     </div>
   </div>
+
+  <section class="pant">
+    <h2>Y esto es lo que ves</h2>
+    <p>Los seis pasos de arriba pasan en la bodega. Esto es lo que aparece en la computadora
+      mientras pasan: una sola pantalla que ya trae la cuenta hecha, porque cada dato se anotó
+      una vez.</p>
+
+    <div class="app">
+      <div class="app__barra">
+        <span class="app__marca">ERP</span>
+        <span class="app__per">Este mes</span>
+        <span class="app__nota">Pantalla de ejemplo</span>
+      </div>
+      <div class="app__cuerpo">
+        <nav class="app__lado" aria-label="Áreas del sistema">
+          <span class="es">Tablero</span>
+          <span>Compras</span>
+          <span>Bodega</span>
+          <span>Ventas</span>
+          <span>Facturas</span>
+          <span>Cobros</span>
+        </nav>
+        <div class="app__main">
+          <div class="kpis">
+            <div class="kpi kpi--gana"><b>22.4 %</b><span>ganancia real</span></div>
+            <div class="kpi"><b>$41,760</b><span>facturado hoy</span></div>
+            <div class="kpi"><b>1 vez</b><span>cada dato</span></div>
+          </div>
+          <div class="tabla">
+            <div class="tabla__t">Ganancia por cliente · este mes</div>
+        <div class="fila"><div class="anon" style="width:62%"></div><span class="mon">$14,900</span><span class="mar">16.8 %</span></div>
+        <div class="fila"><div class="anon" style="width:47%"></div><span class="mon">$11,240</span><span class="mar">21.2 %</span></div>
+        <div class="fila"><div class="anon" style="width:39%"></div><span class="mon">$9,380</span><span class="mar">26.7 %</span></div>
+        <div class="fila"><div class="anon" style="width:26%"></div><span class="mon">$6,240</span><span class="mar">31.4 %</span></div>
+            <div class="fila fila--suma"><span class="lbl">Suma</span>
+              <span class="mon">$41,760</span><span class="mar">22.4 %</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="pant__lee">Lo que dice esa tabla: <b>el que más te compra es el que menos te
+      deja</b> —16.8 % contra 31.4 %—. Eso no se ve cuando la cuenta se hace a fin de mes y
+      sale un promedio.</p>
+    <p class="pant__pie">Cifras de ejemplo, las mismas del recorrido: los cuatro renglones suman
+      los $41,760 del paso 04 y su ganancia da el 22.4 % del paso 06. Donde iría el nombre de un
+      cliente va un renglón gris: no se enseña la pantalla de un cliente y los nombres no se
+      inventan.</p>
+  </section>
 
   <section class="atajo">
     <p>¿Te viste en alguno de los seis pasos? Te decimos qué conviene arreglar primero.</p>
