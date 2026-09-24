@@ -85,14 +85,25 @@ Cuando el PR se mezcle, el enlace del equipo pasa a ser <https://loomware.com.mx
 
 Estado al 21 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
-> **Estado al 22 de septiembre de 2026, segunda pasada del estudio comparativo.**
+> **Estado al 24 de septiembre de 2026.**
 >
-> **Lo que bloquea todo:** se probaron los dos endpoints del preview y **ninguna de las siete
-> variables de Cloudflare está cargada**. `POST /api/contacto` responde *«Falta configurar
-> RESEND_API_KEY»* y `/api/denue` responde *«Falta configurar DENUE_TOKEN»*, los dos con
-> HTTP 500. En claro: **hoy el sitio no puede capturar un solo prospecto**, `/prospectar` no
-> abre y no hay analítica ni banda de cookies. Es el paso 2 de la ruta de abajo y no hay nada
-> que valga la pena hacer antes que eso.
+> **Se movió lo que bloqueaba todo, a medias.** Probados hoy los dos endpoints del preview:
+> `POST /api/contacto` **ya no** dice «Falta configurar RESEND_API_KEY» —contesta *«Falta tu
+> nombre»* con 400, que es la señal de que la llave está—, y `/api/denue` **sigue en 500**
+> por `DENUE_TOKEN`. El HTML publicado tampoco trae Analytics ni la etiqueta de Search
+> Console.
+>
+> En claro, y sin adornar:
+>
+> - **El formulario ya tiene con qué enviar, pero no está probado que el correo llegue.** Sin
+>   `LEAD_FROM`, el remitente por omisión es `web@loomware.com.mx` y Resend **no envía desde
+>   un dominio sin verificar**, que es el paso 7 de la ruta. Se sabe mandando el formulario una
+>   vez.
+> - **`/prospectar` sigue sin abrir**: falta el token del INEGI.
+> - **No hay analítica ni banda de cookies**, y las dos variables de analítica son de *build*:
+>   aunque se carguen, **hay que redesplegar** para que entren.
+>
+> Sigue siendo el paso 2 de la ruta de abajo, y sigue sin haber nada que valga más la pena.
 >
 > **Lo que sí avanzó:** de los siete movimientos del estudio comparativo
 > (<https://claude.ai/artifact/MoSn3kdnN4acpzk3bbs5t8>) quedan cerrados **seis**. El 06 —un caso
@@ -120,7 +131,7 @@ El detalle de cada cosa está en los bloques de abajo.
 | # | Qué hacer | Dónde | Tiempo |
 | --- | --- | --- | --- |
 | 1 | **Revisar el preview** en escritorio **y en celular** | <https://alan.loomware-page.pages.dev> | 20 min |
-| 2 | **Cargar las 7 variables**, cada una dos veces: *Production* y *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | 25 min |
+| 2 | **Cargar las variables que faltan**, cada una dos veces: *Production* y *Preview*. Al 24 de septiembre `RESEND_API_KEY` ya está; `DENUE_TOKEN` no, y las de analítica no aparecen en el HTML | Cloudflare → `loomware-page` → Settings → Variables and Secrets | 20 min |
 | 3 | **Retry deployment** (las variables no se aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último → ⋯ | 2 min |
 | 4 | **Avisarle a Alan** que ya revisaste, para que abra el PR | WhatsApp | 1 min |
 | 5 | **Mezclar el PR** de `alan` a `main` | GitHub | 2 min |
@@ -133,6 +144,19 @@ El detalle de cada cosa está en los bloques de abajo.
 celular, llenar el formulario hasta el aviso de privacidad, entrar a dos páginas de servicio y
 a una de industria, abrir `/prospectar`, y **recorrer dos de los ocho «Paso a paso» desde el
 inicio en celular** (por ejemplo ERP y nómina): son la pieza que se le manda al prospecto.
+
+**Y tres cosas nuevas del 23 y 24 de septiembre**, que no existían la última vez que lo viste:
+
+1. **La sección de casos de éxito quedó rehecha** —<https://alan.loomware-page.pages.dev/#casos>—.
+   El caso de Eduardo es el mismo, palabra por palabra; lo que cambió es cómo se lee: ahora va
+   en tres bandas numeradas —quién es · 01 qué necesitaba · 02 qué se construyó · 03 qué cambió—
+   y cierra con su cita. **Es lo que Eduardo va a ver cuando le pidas el visto bueno.**
+2. **El recorrido del ERP enseña la pantalla del sistema** al terminar los seis pasos. Son
+   cifras de ejemplo y lo dice tres veces; aun así, **échales un ojo** antes de que salga a
+   producción.
+3. **El enlace que se manda por WhatsApp ya trae su propia imagen de vista previa**, una por
+   recorrido. Antes los ocho mostraban la misma, y apuntaba a un archivo que no existía, así
+   que WhatsApp no enseñaba ninguna. Se ve pegando el enlace en una conversación contigo mismo.
 
 **Qué probar en el paso 6**: enviar el formulario —debe llegar el correo y aterrizar en
 `/gracias`—, entrar a `/prospectar` con la contraseña y hacer una búsqueda, y confirmar que
@@ -175,19 +199,34 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
       Sin las dos primeras, `/prospectar` responde 500. Sin la tercera, el formulario no envía.
       Las de analítica son las únicas que aplican al **build**: tras cargarlas hay que redesplegar.
 
-      **Comprobado el 22 de septiembre de 2026:** ninguna de las siete está cargada todavía.
-      `POST /api/contacto` devuelve *«Falta configurar RESEND_API_KEY»* y `/api/denue`
-      devuelve *«Falta configurar DENUE_TOKEN»*, los dos con HTTP 500, y el HTML publicado no
-      trae Analytics. Se puede volver a comprobar sin mandarle un correo a nadie, porque las
-      dos funciones revisan la configuración **antes** que los datos:
+      **Comprobado otra vez el 24 de septiembre de 2026, y algo se movió.**
+
+      | Variable | Cómo está | Cómo se sabe |
+      | --- | --- | --- |
+      | `RESEND_API_KEY` | **Cargada** | `POST /api/contacto` ya no dice «Falta configurar RESEND_API_KEY»: contesta *«Falta tu nombre»* con **400**, que es la señal que este archivo dejó escrita. |
+      | `LEAD_TO`, `LEAD_FROM` | **No se sabe** | Las dos son opcionales y el código tiene valores por omisión, así que ninguna respuesta las delata. Sólo se sabe mandando el formulario. |
+      | `DENUE_TOKEN` | **Falta** | `/api/denue` responde *«Falta configurar DENUE_TOKEN»* con **500**. |
+      | `PROSPECT_KEY` | **No se sabe** | La función revisa `DENUE_TOKEN` primero y su error tapa el siguiente. Se sabrá en cuanto entre el token. |
+      | `VITE_GA_ID` | **No está en el HTML** | `googletagmanager` no aparece en la página publicada. O no se cargó, **o se cargó y falta redesplegar**: es variable de *build*. |
+      | `VITE_GSC_VERIFICATION` | **No está en el HTML** | Igual: no hay etiqueta `google-site-verification`. |
+
+      **Ojo con el formulario: que la llave esté no quiere decir que el correo llegue.** Sin
+      `LEAD_FROM`, el remitente por omisión es `web@loomware.com.mx`, y Resend **rechaza
+      enviar desde un dominio que no ha verificado** —el paso 7 de la ruta—. O se verifica el
+      dominio, o se pone `LEAD_FROM` con `Loomware <onboarding@resend.dev>` para probar. La
+      única forma de saberlo es **mandar el formulario una vez y ver si llega el correo**.
+
+      Se puede volver a comprobar sin mandarle un correo a nadie, porque las dos funciones
+      revisan la configuración **antes** que los datos:
 
       ```
       curl -X POST https://alan.loomware-page.pages.dev/api/contacto -d '{}'
       curl https://alan.loomware-page.pages.dev/api/denue/BuscarEntidad/todos/09/1/1
       ```
 
-      Cuando estén cargadas, la primera responde *«Falta tu nombre»* (400) y la segunda
-      *«Contraseña incorrecta»* (401). Esos dos errores son la señal de que quedó bien.
+      Cuando estén cargadas, la primera responde *«Falta tu nombre»* (400) —**ya lo hace**— y
+      la segunda *«Contraseña incorrecta»* (401). Esos dos errores son la señal de que quedó
+      bien.
 
 - [ ] **Verificar `loomware.com.mx` en Resend.** Domains → Add Domain, y capturar en Cloudflare DNS
       los tres registros que indique (MX `send`, TXT `send` con el SPF, TXT `resend._domainkey`).
@@ -207,6 +246,12 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       catálogo, pago, envío, factura y devolución en un mismo flujo, con la instalación y el
       mantenimiento como parte de la venta. La sección ya se muestra en el inicio, firmada
       con una frase de Eduardo.
+
+      **La tarjeta se rehízo el 2026-09-24 y ése es el aspecto que hay que enseñarle.** El
+      texto del caso no cambió ni una palabra; cambió cómo se lee —tres bandas numeradas en vez
+      de una reja donde la cita y el resultado quedaban lado a lado—. Vale la pena mandarle el
+      enlace <https://alan.loomware-page.pages.dev/#casos> junto con la petición: es más fácil
+      decir que sí viendo cómo va a salir.
 
       Falta que **Eduardo apruebe dos cosas antes de producción**: la **cita tal como está
       escrita** —es su palabra, no la nuestra; la línea es `cita` en `src/data/casos.js`— y
@@ -277,14 +322,6 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       servicios* — es el posicionamiento; (b) la tarjeta de agenda promete *una llamada de 30
       minutos, sin costo*; (c) "Quiénes somos" dice que *la persona que hace el diagnóstico es la
       misma que diseña la solución y responde el WhatsApp*. Si alguna no es cierta, se cambia.
-- [ ] **Validar lo que dice la tabla de la pantalla nueva del ERP.** El 2026-09-23 el
-      recorrido ganó su tablero, y su tabla de ganancia por cliente cuenta una historia que
-      **escribí yo, no tú**: *«el que más te compra es el que menos te deja»* —16.8 % contra
-      31.4 %—. Es el hallazgo clásico de un ERP y es lo que le da sentido a la imagen, pero si
-      en lo que tú ves en los clientes de Loomware eso no es así, se cambian los cuatro
-      renglones y la frase de abajo en `recorridos-fuente/erp.html`. Las cifras son de
-      ejemplo y el pie lo dice, pero la **lectura** sí es una afirmación.
-
 - [ ] **La página del ERP no dice cuánto tiempo le quita al prospecto.** El cierre ofrece el
       diagnóstico pero no dice si son treinta minutos o tres días, y ésa es la objeción que
       queda. La portada ya promete *«una llamada de 30 minutos, sin costo»* — **esa frase sigue
@@ -539,6 +576,38 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       es de `main`, usando `CF_PAGES_BRANCH`, que Cloudflare pone en cada build. Aplica a los
       recorridos, a servicios e industrias y a las páginas que arma Vite. Probado en los tres
       modos, y las **47 tarjetas del sitio construido apuntan a un archivo que sí se publica**.
+
+- [x] **Los casos de éxito se leen en un solo orden.** La tarjeta era una reja de dos por dos
+      y eso dejaba **la cita y el resultado lado a lado** en el renglón de abajo: dos cosas sin
+      relación que se leen como pareja, y ninguna pista de por dónde empezar. Ahora son tres
+      bandas —quién es · qué pasó (01·02·03) · lo que dice el dueño—. Y cuatro cosas que
+      confundían: el subtítulo prometía tres cosas y la tarjeta titulaba otras tres; «GT-SHOP»
+      aparecía tres veces; el distintivo del servicio flotaba sin decir qué era; y «Resultado»
+      iba sobre placa morada, cuando el morado es la marca y lo que se pica. **El texto del caso
+      no cambió ni una palabra.** Medido con uno y con tres casos, en cinco medidas.
+
+- [x] **Salieron dos cosas de la pantalla del ERP que Claude había escrito sin base.** La
+      primera, *«el que más te compra es el que menos te deja»*, no era una suposición sino algo
+      peor: **los cuatro renglones estaban inventados para que ese patrón saliera**, y después
+      la conclusión se escribió como si la tabla la revelara. La segunda, *«no se enseña la
+      pantalla de un cliente y los nombres no se inventan»*, es una regla nuestra que al
+      prospecto no le toca leer. Las dos fuera; la tabla gana encabezados —Cliente · Facturado ·
+      Ganancia— y con eso el renglón cubierto se explica solo. Las cifras siguen cuadrando:
+      suman los $41,760 del paso 04 y su ganancia da el 22.4 % del paso 06.
+
+      **Las dos quedaron como regla del proyecto**, arriba en «Reglas del proyecto», con su
+      fecha y su porqué.
+
+- [x] **Corrección de un arreglo del mismo día.** Subir el botón del recorrido a 44 px de alto
+      le sumó 15 px al bloque que se queda pegado arriba, y a **360×740** eso dejó fuera cuatro
+      de los seis pasos por entre 2 y 11 px. A 390 no se notaba. El blanco táctil no necesita
+      que la caja crezca: un área transparente lo lleva a 45 px sin ocupar pantalla. Medido
+      otra vez: 6 de 6 en 360, 390, 430 y 768.
+
+- [x] **La tarjeta del enlace, comprobada en vivo.** No sólo en el build:
+      `alan.loomware-page.pages.dev/recorridos/erp` sirve hoy su `og:image` apuntando al
+      preview de la rama, y esa imagen **responde 200**. O sea que `CF_PAGES_BRANCH` hace lo
+      que se esperaba y el enlace que se manda por WhatsApp ya enseña algo.
 
 ### Resueltas el 2026-09-23 (quinta destrucción del recorrido del ERP)
 
