@@ -10,7 +10,8 @@ Deja todo el trabajo de la sesión commiteado, empujado y, si está listo, en un
 1. **Commit.** `git status` limpio: todo cambio de la sesión commiteado en la rama personal, con
    mensaje en español, imperativo, una línea de resumen. Agrupa por intención, no un solo commit
    con todo.
-2. **Build.** `npm run build` sin errores. Si falla, arregla o revierte antes de empujar.
+2. **Pruebas y build.** `npm test` y `npm run build` sin errores. Si algo falla, arregla o
+   revierte antes de empujar.
 3. **Push.** `git push origin <rama>`. Cloudflare publicará el preview en
    `https://<rama>.loomware-page.pages.dev`.
 4. **PR.** Pregunta si lo empujado está listo para producción.
