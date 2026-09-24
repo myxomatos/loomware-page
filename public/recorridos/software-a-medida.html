@@ -426,6 +426,16 @@
     </style>
   </head>
   <body>
+<noscript><style>
+  /* Sin guion la escena llega vacía: se retira el recuadro, el botón que no
+     avanza y el rótulo del paso, y los seis pasos se encienden. Queda un
+     artículo que se lee entero. */
+  .stage, .play, #stateLabel{display:none;}
+  .step{opacity:1;cursor:default;border-left-color:var(--rule-soft);}
+  .chip{opacity:1;}
+</style></noscript>
+
+
 <div class="wrap">
 
   <div class="brand">
