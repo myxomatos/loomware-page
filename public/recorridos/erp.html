@@ -398,8 +398,8 @@
     <h1>Del trabajo hecho al dinero cobrado</h1>
     <p class="deck">Un <b>ERP</b> es la libreta única del negocio: lo que haces, lo que cobras y
       lo que gastas se anota <b>una sola vez</b>, y todos lo ven al instante. Abajo lo sigues
-      paso a paso: una tarima de mercancía entra a una bodega y sale convertida en dinero
-      cobrado. ¿Lo tuyo no es una bodega? Al final está el mismo camino, giro por giro.</p>
+      paso a paso: una caja de mercancía entra a una bodega y sale convertida en dinero
+      cobrado. ¿Lo tuyo no es una bodega? Sigue leyendo: el camino es el mismo con otras palabras.</p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
@@ -443,138 +443,12 @@
     </figure>
 
     <div class="specline">
-      <span>El dato se captura <b>1 vez</b></span>
+      <span>Cada dato se anota <b>1 vez</b></span>
       <span>Sabes qué hay y cuánto vale <b>al momento</b></span>
-      <span>Facturación <b>CFDI 4.0</b></span>
-      <span>Arranque <b>módulo por módulo</b></span>
+      <span>Facturas <b>que acepta el SAT</b></span>
+      <span>Arranca <b>por partes, no de golpe</b></span>
     </div>
   </header>
-
-  <div class="cols">
-    <div class="figure">
-
-      <div class="readout" aria-live="polite">
-        <span class="readout__k lbl" id="hudK">OC-1182 · Recepción</span>
-        <span class="readout__v" id="hudV">40 de 40 pzas · proveedor validado · ya sabes cuánto le debes</span>
-      </div>
-
-      <div class="stage">
-        <svg id="scene" viewBox="14 44 744 462" role="img"
-             aria-label="Vista isométrica de una distribuidora: al fondo la oficina con el sistema y los racks de almacén, al centro la mesa de surtido, al frente los andenes de recepción y embarque. Un montacargas recorre el ciclo y de cada parada sale una línea de color hacia el sistema.">
-          <g id="world"></g>
-        </svg>
-      </div>
-
-      <div class="cap">
-        <span id="stateLabel">01 / 06 · Andén de recepción</span>
-        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
-        <span>Cifras de ejemplo</span>
-      </div>
-
-      <ul class="legend">
-        <li><span class="sw sw--beam"></span>El dato que viaja al sistema</li>
-        <li><span class="sw sw--sys"></span>El sistema: un solo lugar</li>
-        <li><span class="sw sw--money"></span>Andén de embarque</li>
-      </ul>
-
-      <div class="exp">
-        <div class="exp__t lbl">Expediente · un dato, una sola captura</div>
-        <ul class="chips" id="chips">
-          <li class="chip" id="c0"><b>OC-1182</b><span>recepción</span></li>
-          <li class="chip" id="c1"><b>ENT-2207</b><span>entrada</span></li>
-          <li class="chip" id="c2"><b>PED-3471</b><span>apartado</span></li>
-          <li class="chip" id="c3"><b>A-1140</b><span>CFDI timbrado</span></li>
-          <li class="chip" id="c4"><b>REP-0915</b><span>pago aplicado</span></li>
-          <li class="chip chip--tot" id="ctot"><b>1 captura</b><span>en todo el ciclo</span></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="steps" id="steps">
-
-      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
-
-      <section class="step on" tabindex="0" data-i="0">
-        <div class="step-head"><span class="paso">01</span><h2>Recepción contra la orden</h2><span class="gauge">40 / 40 pzas</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>La remisión se firma en el andén y alguien la captura tres días después, en oficinas.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Se recibe contra la orden de compra en pantalla. Si llegan 38 de 40, la diferencia
-              queda registrada en la orden en ese momento.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Le pagas al proveedor lo que de verdad te entregó.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="1">
-        <div class="step-head"><span class="paso">02</span><h2>Ubicación y existencia</h2><span class="gauge">A-04-12</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>La tarima se guarda «allá al fondo» y el Excel se actualiza los viernes.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Se guarda en una ubicación con nombre, la existencia sube al instante y el costo
-              ya incluye lo que pagaste de envío.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Compras sobre lo que hay, no sobre el susto de quedarte sin.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="2">
-        <div class="step-head"><span class="paso">03</span><h2>Pedido y surtido</h2><span class="gauge">PED-3471</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El vendedor le habla al almacén para preguntar si hay. Dos vendedores prometen la
-              misma pieza y uno queda mal.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El pedido aparta la mercancía al instante y arma la lista de surtido por ubicación.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Prometes fechas que sí cumples y se surte en un solo recorrido.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>Embarque y factura</h2><span class="gauge">CFDI 4.0</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Lo que se embarcó se vuelve a capturar en el sistema de facturación, días después.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>La remisión y el CFDI salen del mismo pedido que se surtió, el mismo día.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Facturas el día que sale el camión, así el plazo de crédito empieza antes.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="4">
-        <div class="step-head"><span class="paso">05</span><h2>Cobro y complemento</h2><span class="gauge">cartera al día</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Alguien compara el banco contra las facturas a mano, cuando puede.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El pago se aplica a la factura que le corresponde, el complemento se timbra solo
-              y sabes cuánto lleva esperando cada factura.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Cobras antes porque sabes a quién seguirle hoy.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>Tablero de dirección</h2><span class="gauge">margen 22.4 %</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El margen se sabe hasta el cierre, es un promedio y nadie jura que esté bien.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Ningún dato se capturó dos veces en todo el recorrido: el margen por producto,
-              por cliente y por vendedor es el real.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Decides con el número de hoy, no con el del mes pasado.</p></div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
   <section class="giros">
     <h2>Todo negocio sigue algo</h2>
     <ul class="rejilla">
@@ -598,8 +472,135 @@
         <span class="hoy">Hoy: el material se descuenta a mano y el seguro rechaza por datos que no cuadran.</span></li>
     </ul>
     <p class="giros__cierre">¿No está el tuyo? <b>Si alguien en tu negocio anota lo mismo en dos
-      lados, esto es para ti.</b> Qué sigues tú sale en la primera media hora del diagnóstico.</p>
+      lados, esto es para ti.</b> Abajo seguimos el primero paso a paso: cambia la palabra y es
+      tu negocio.</p>
   </section>
+
+
+  <div class="cols">
+    <div class="figure">
+
+      <div class="readout" aria-live="polite">
+        <span class="readout__k lbl" id="hudK">OC-1182 · Recepción</span>
+        <span class="readout__v" id="hudV">40 de 40 piezas · proveedor revisado · ya sabes cuánto le debes</span>
+      </div>
+
+      <div class="stage">
+        <svg id="scene" viewBox="14 44 744 462" role="img"
+             aria-label="Vista isométrica de una distribuidora: al fondo la oficina con el sistema y los estantes de la bodega, al centro la mesa donde se junta el pedido, al frente las puertas de entrada y salida. Un montacargas recorre el ciclo y de cada parada sale una línea de color hacia el sistema.">
+          <g id="world"></g>
+        </svg>
+      </div>
+
+      <div class="cap">
+        <span id="stateLabel">01 / 06 · Andén de recepción</span>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <span>Cifras de ejemplo</span>
+      </div>
+
+      <ul class="legend">
+        <li><span class="sw sw--beam"></span>Lo que se anota y viaja al sistema</li>
+        <li><span class="sw sw--sys"></span>El sistema: un solo lugar</li>
+        <li><span class="sw sw--money"></span>La puerta de salida</li>
+      </ul>
+
+      <div class="exp">
+        <div class="exp__t lbl">La ficha · cada dato, una sola vez</div>
+        <ul class="chips" id="chips">
+          <li class="chip" id="c0"><b>OC-1182</b><span>recepción</span></li>
+          <li class="chip" id="c1"><b>ENT-2207</b><span>entrada</span></li>
+          <li class="chip" id="c2"><b>PED-3471</b><span>apartado</span></li>
+          <li class="chip" id="c3"><b>A-1140</b><span>factura timbrada</span></li>
+          <li class="chip" id="c4"><b>REP-0915</b><span>pago aplicado</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 sola vez</b><span>en todo el camino</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="steps" id="steps">
+
+      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
+
+      <section class="step on" tabindex="0" data-i="0">
+        <div class="step-head"><span class="paso">01</span><h2>Llega la mercancía</h2><span class="gauge">40 de 40 piezas</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El papel de entrega se firma en la puerta y alguien lo anota tres días después, en oficinas.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>En la pantalla se compara con el pedido que le hiciste al proveedor. Si llegan
+                  38 de 40, la diferencia queda anotada ahí mismo.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Le pagas al proveedor lo que de verdad te entregó.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="1">
+        <div class="step-head"><span class="paso">02</span><h2>Dónde quedó y cuánto hay</h2><span class="gauge">A-04-12</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>La mercancía se guarda «allá al fondo» y el Excel se actualiza los viernes.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Se guarda en un lugar con nombre, lo que hay sube al instante, y el costo ya
+                  incluye lo que pagaste de envío.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Compras sobre lo que hay, no sobre el susto de quedarte sin.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="2">
+        <div class="step-head"><span class="paso">03</span><h2>Se junta el pedido</h2><span class="gauge">PED-3471</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El vendedor le habla a la bodega para preguntar si hay. Dos vendedores prometen la
+              misma pieza y uno queda mal.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El pedido aparta la mercancía al instante y arma la lista de lo que hay que juntar, en el orden de los pasillos.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Prometes fechas que sí cumples, y se junta todo en una sola vuelta.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="3">
+        <div class="step-head"><span class="paso">04</span><h2>Sale y se factura</h2><span class="gauge">factura timbrada</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Lo que salió se vuelve a anotar en el sistema de facturas, días después.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El papel de entrega y la factura salen del mismo pedido que se juntó, el mismo día.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Facturas el día que sale el camión. Y como el plazo para pagarte empieza con la factura, te pagan antes.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="4">
+        <div class="step-head"><span class="paso">05</span><h2>Entra el dinero</h2><span class="gauge">sabes quién te debe</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Alguien compara el banco contra las facturas a mano, cuando puede.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El pago se pega a la factura que le toca, el comprobante del pago se hace solo
+              y sabes cuánto lleva esperando cada factura.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Cobras antes porque sabes a quién seguirle hoy.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="5">
+        <div class="step-head"><span class="paso">06</span><h2>El tablero del dueño</h2><span class="gauge">margen 22.4 %</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Cuánto ganaste de verdad se sabe a fin de mes, es un promedio, y nadie jura que esté bien.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Ningún dato se anotó dos veces en todo el camino: lo que ganas por producto,
+              por cliente y por vendedor es lo real.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Decides con el número de hoy, no con el del mes pasado.</p></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
 
   <section class="faq">
     <h2>Antes de que preguntes</h2>
@@ -607,22 +608,23 @@
       rodeos.</p>
     <ul class="rejilla">
       <li><b>¿Qué compro exactamente?</b>
-        <span>Un ERP implementado sobre tu operación: catálogos, almacenes, flujos y reportes
-          configurados contigo, migración de tus datos y facturación conectada. No es una
-          licencia que te entregan y ahí te ves.</span></li>
+        <span>El sistema armado para tu negocio y funcionando: lo configuramos contigo,
+          pasamos tus datos de donde estén hoy —Excel, libretas, el sistema viejo— y lo
+          dejamos facturando. No es un programa que te entregan y ahí te ves.</span></li>
       <li><b>¿Cuánto tarda?</b>
-        <span>Depende de cuántos módulos y de qué tan limpios estén tus datos. Por eso el
-          arranque es por etapas: el primer módulo operando en semanas, y el resto entra
-          sobre esa base.</span></li>
+        <span>Depende de dos cosas, y las dos se miden en el diagnóstico: cuántas partes
+          quieres y qué tan ordenados están tus datos de hoy. Por eso no arranca todo de
+          golpe: primero la parte que más te duele, y el resto entra sobre esa base.
+          <b>La fecha te la damos en el diagnóstico, y esa fecha va en el contrato.</b></span></li>
       <li><b>¿Cómo se cotiza?</b>
         <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
           cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
       <li><b>¿Tengo que parar la operación?</b>
-        <span>No. El arranque es por módulos y corre en paralelo con lo que usas hoy, hasta
+        <span>No. Arranca por partes y corre en paralelo con lo que usas hoy, hasta
           que el nuevo queda validado contra la realidad.</span></li>
       <li><b>¿Y si mi gente no lo usa?</b>
         <span>Ese es el riesgo real de un ERP, no el precio. El flujo se diseña con quien va a
-          capturar, se pide lo mínimo necesario y las primeras semanas se compara contra la
+          anotar, se pide lo mínimo necesario y las primeras semanas se compara contra la
           operación hasta que el sistema es la única fuente.</span></li>
       <li><b>¿Y si mi inventario está mal?</b>
         <span>Es lo más común. La migración incluye un conteo físico de arranque para que el
@@ -660,7 +662,7 @@
 
   <p class="colofon">
     Las cifras de este recorrido son de <b>una operación de ejemplo</b> y sirven para mostrar
-    el flujo. El ERP se ajusta al giro y a la operación de cada empresa: el recorrido de la tuya
+    el flujo. El ERP se ajusta al tipo de negocio y a la forma de trabajar de cada empresa: el recorrido de la tuya
     se dibuja en el diagnóstico, con tus números.
   </p>
 
@@ -804,34 +806,34 @@
   }
   var STATES = [
     { truck:move(14,-4),  truckOn:true,  propio:false, mont:move(-86,-16), montOn:true,  beams:[0],
-      label:"01 / 06 · Andén de recepción",
+      label:"01 / 06 · La puerta de entrada",
       k:"OC-1182 · Recepción",
-      v:"40 de 40 pzas · proveedor validado · ya sabes cuánto le debes" },
+      v:"40 de 40 piezas · proveedor revisado · ya sabes cuánto le debes" },
 
     { truck:move(14,-4),  truckOn:false, propio:false, mont:move(26,-172), montOn:true,  beams:[1],
-      label:"02 / 06 · Rack A-04, nivel 12",
-      k:"Existencia · 312 pzas",
-      v:"ubicación A-04-12 · costo con flete $184.20 por pieza" },
+      label:"02 / 06 · Estante A-04, nivel 12",
+      k:"Lo que hay · 312 piezas",
+      v:"lugar A-04-12 · costo con envío $184.20 por pieza" },
 
     { truck:move(14,-4),  truckOn:false, propio:false, mont:move(34,-64),  montOn:true,  beams:[2],
-      label:"03 / 06 · Mesa de surtido",
+      label:"03 / 06 · La mesa donde se junta",
       k:"PED-3471 · Apartado",
-      v:"18 pzas · 3 ubicaciones · un solo recorrido" },
+      v:"18 piezas · 3 lugares · una sola vuelta" },
 
     { truck:move(292,-6), truckOn:true,  propio:true,  mont:move(150,-30), montOn:true,  beams:[3],
-      label:"04 / 06 · Andén de embarque",
-      k:"CFDI A-1140 · Timbrado",
-      v:"18 pzas · $41,760 · remisión y factura del mismo pedido" },
+      label:"04 / 06 · La puerta de salida",
+      k:"Factura A-1140 · Timbrada",
+      v:"18 piezas · $41,760 · entrega y factura del mismo pedido" },
 
     { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[4],
-      label:"05 / 06 · Ruta y cobranza",
+      label:"05 / 06 · Entrega y cobro",
       k:"REP-0915 · Pago aplicado",
-      v:"complemento timbrado · sabes quién te debe y desde cuándo" },
+      v:"comprobante del pago hecho · sabes quién te debe y desde cuándo" },
 
     { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[0,1,2,3,4],
       label:"06 / 06 · Tablero de dirección",
       k:"Margen real · 22.4 %",
-      v:"cinco registros, una sola captura · flete y merma ya descontados" }
+      v:"cinco pasos, una sola anotación · envío y pérdidas ya descontados" }
   ];
 
   var truckEl = document.getElementById("truck");
