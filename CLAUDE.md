@@ -221,6 +221,15 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       suele verse en cada giro; si en alguno no es así, se corrige. **El recorrido del ERP
       repite un "Hoy" por giro** ("el material se va a la obra sin que nadie lo descuente de
       ella", "la aseguradora rechaza por datos que no cuadran"): se validan junto con estos.
+- [ ] **La página del ERP promete que la fecha de entrega va en el contrato.** El recorrido
+      decía antes «el primer módulo operando en semanas», que era un plazo al aire. Se cambió
+      por algo más honesto y **más obligante**: *«La fecha te la damos en el diagnóstico, y esa
+      fecha va en el contrato»*. Para sostenerlo hacen falta dos cosas: que **cada diagnóstico
+      termine con una fecha**, y que el **contrato tenga dónde escribirla**. Si el contrato no
+      la tiene, la página está prometiendo algo que no se cumple. Si Aldo prefiere no
+      comprometer fecha, se quita esa línea de `recorridos-fuente/erp.html`; y si tiene un
+      rango real —«el primero entre 4 y 8 semanas»—, se pone y queda mejor que las dos.
+
 - [ ] **Decidir si el «99.9% de disponibilidad» se queda en el dibujo del hero.** La pantalla de
       ejemplo trae ocho cifras y siete son inofensivas —tratos abiertos, pedidos del día, técnicos
       en ruta—. La octava no: **99.9%** es el número con el que se escriben los acuerdos de nivel
