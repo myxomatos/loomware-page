@@ -268,6 +268,11 @@
       .vs__row--hoy p{color:var(--ink-2);}
       .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
       .vs__row--con .vs__lbl{color:var(--signal);}
+      /* La línea que traduce el paso a otro negocio. Va apagada y en cursiva
+         porque no es el paso: es la nota al margen de quien no tiene bodega. */
+      .enotro{margin:10px 0 0;font-size:13px;line-height:1.55;color:var(--ink-3);
+        padding-left:12px;border-left:2px solid var(--rule);}
+      .enotro b{color:var(--ink-2);font-weight:600;}
       .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
       .vs__row--gana .vs__lbl{color:var(--money);}
       .vs__row--gana p{font-weight:500;}
@@ -403,7 +408,7 @@
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
-           aria-label="A la izquierda, cinco recuadros sueltos —compras, almacén, ventas, facturación y cobranza— unidos por líneas cruzadas. A la derecha, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
+           aria-label="A la izquierda, cinco recuadros sueltos —compras, bodega, ventas, facturas y cobros— unidos por líneas cruzadas. A la derecha, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
         <path class="dg-line" d="M52 17 L198 13"/>
         <path class="dg-line" d="M52 17 L212 57"/>
         <path class="dg-line" d="M74 61 L198 13"/>
@@ -417,10 +422,10 @@
         <rect class="dg-box" x="164" y="46" width="96" height="22" rx="2"/>
         <rect class="dg-box" x="72"  y="94" width="96" height="22" rx="2"/>
         <text class="dg-t" x="12"  y="21">Compras</text>
-        <text class="dg-t" x="158" y="17">Almacén</text>
+        <text class="dg-t" x="158" y="17">Bodega</text>
         <text class="dg-t" x="34"  y="65">Ventas</text>
-        <text class="dg-t" x="172" y="61">Facturación</text>
-        <text class="dg-t" x="80"  y="109">Cobranza</text>
+        <text class="dg-t" x="172" y="61">Facturas</text>
+        <text class="dg-t" x="80"  y="109">Cobros</text>
         <path class="dg-arrow" d="M288 62 L326 62"/>
         <path class="dg-arrow" d="M318 56 L326 62 L318 68"/>
         <rect class="dg-erp" x="346" y="2" width="268" height="118" rx="3"/>
@@ -431,10 +436,10 @@
         <rect class="dg-row" x="356" y="78" width="248" height="15" rx="1"/>
         <rect class="dg-row" x="356" y="96" width="248" height="15" rx="1"/>
         <text class="dg-t" x="364" y="35">Compras</text>
-        <text class="dg-t" x="364" y="53">Almacén</text>
+        <text class="dg-t" x="364" y="53">Bodega</text>
         <text class="dg-t" x="364" y="71">Ventas</text>
-        <text class="dg-t" x="364" y="89">Facturación</text>
-        <text class="dg-t" x="364" y="107">Cobranza</text>
+        <text class="dg-t" x="364" y="89">Facturas</text>
+        <text class="dg-t" x="364" y="107">Cobros</text>
       </svg>
       <figcaption>
         <span><b>Hoy.</b> Cinco libretas, y alguien copiando de una a otra.</span>
@@ -454,16 +459,16 @@
     <ul class="rejilla">
       <li class="este"><b>Distribuidoras y mayoristas</b>
         <span>Sigues la caja de mercancía: llega, se guarda, se separa para un cliente, se entrega y se cobra.</span>
-        <span class="hoy">Hoy: lo que dice el sistema y lo que hay en el piso no es lo mismo.</span></li>
+        <span class="hoy">Hoy: lo que dice el sistema y lo que hay en la bodega no es lo mismo.</span></li>
       <li><b>Manufactura y talleres</b>
         <span>Sigues la pieza que fabricas: entra el material, se arma, sale terminada y se cobra.</span>
         <span class="hoy">Hoy: cuánto costó hacerla se sabe hasta fin de mes.</span></li>
       <li><b>Constructoras y servicios en campo</b>
-        <span>Sigues la obra: lo que presupuestaste, el material que mandas, cómo va y lo que cobras por etapa.</span>
+        <span>Sigues la obra: lo que dijiste que iba a costar, el material que mandas, cómo va y lo que cobras por etapa.</span>
         <span class="hoy">Hoy: el material sale a la obra y nadie lo descuenta de esa obra.</span></li>
       <li><b>Despachos y consultorías</b>
         <span>Sigues el trabajo de tu gente: las horas, los gastos, lo que entregas y lo que cobras.</span>
-        <span class="hoy">Hoy: cobras lo que presupuestaste, no lo que de verdad te costó.</span></li>
+        <span class="hoy">Hoy: cobras lo que dijiste al principio, no lo que de verdad te costó.</span></li>
       <li><b>Comercio y retail</b>
         <span>Sigues el producto: entra, se reparte entre tus tiendas y tu página, se vende y se repone.</span>
         <span class="hoy">Hoy: vendes en la página algo que ya se acabó en la tienda.</span></li>
@@ -509,9 +514,9 @@
         <ul class="chips" id="chips">
           <li class="chip" id="c0"><b>OC-1182</b><span>recepción</span></li>
           <li class="chip" id="c1"><b>ENT-2207</b><span>entrada</span></li>
-          <li class="chip" id="c2"><b>PED-3471</b><span>apartado</span></li>
-          <li class="chip" id="c3"><b>A-1140</b><span>factura timbrada</span></li>
-          <li class="chip" id="c4"><b>REP-0915</b><span>pago aplicado</span></li>
+          <li class="chip" id="c2"><b>PED-3471</b><span>apartado para el cliente</span></li>
+          <li class="chip" id="c3"><b>A-1140</b><span>factura enviada al SAT</span></li>
+          <li class="chip" id="c4"><b>REP-0915</b><span>pago registrado</span></li>
           <li class="chip chip--tot" id="ctot"><b>1 sola vez</b><span>en todo el camino</span></li>
         </ul>
       </div>
@@ -533,6 +538,7 @@
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Le pagas al proveedor lo que de verdad te entregó.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en una clínica es el material que llega del proveedor; en una obra, el cemento que baja del camión.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="1">
@@ -546,6 +552,7 @@
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Compras sobre lo que hay, no sobre el susto de quedarte sin.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en un despacho son las horas que ya lleva cada trabajo; en una tienda, cuántas piezas quedan.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="2">
@@ -559,10 +566,11 @@
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Prometes fechas que sí cumples, y se junta todo en una sola vuelta.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en una clínica es preparar la charola de la cita; en una obra, cargar lo que sale hoy.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>Sale y se factura</h2><span class="gauge">factura timbrada</span></div>
+        <div class="step-head"><span class="paso">04</span><h2>Sale y se factura</h2><span class="gauge">factura enviada al SAT</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Lo que salió se vuelve a anotar en el sistema de facturas, días después.</p></div>
@@ -571,6 +579,7 @@
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Facturas el día que sale el camión. Y como el plazo para pagarte empieza con la factura, te pagan antes.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en un despacho es entregar el trabajo y facturarlo el mismo día, no tres semanas después.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="4">
@@ -587,13 +596,13 @@
       </section>
 
       <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>El tablero del dueño</h2><span class="gauge">margen 22.4 %</span></div>
+        <div class="step-head"><span class="paso">06</span><h2>El tablero del dueño</h2><span class="gauge">ganancia 22.4 %</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Cuánto ganaste de verdad se sabe a fin de mes, es un promedio, y nadie jura que esté bien.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Ningún dato se anotó dos veces en todo el camino: lo que ganas por producto,
-              por cliente y por vendedor es lo real.</p></div>
+            <p>Ningún dato se anotó dos veces en todo el camino: la ganancia por producto,
+              por cliente y por vendedor es la de verdad.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Decides con el número de hoy, no con el del mes pasado.</p></div>
         </div>
@@ -617,15 +626,16 @@
           golpe: primero la parte que más te duele, y el resto entra sobre esa base.
           <b>La fecha te la damos en el diagnóstico, y esa fecha va en el contrato.</b></span></li>
       <li><b>¿Cómo se cotiza?</b>
-        <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
+        <span>Primero acordamos exactamente qué entra y qué no. Sobre eso te damos
+          <b>un precio cerrado</b>: ese trabajo, ese precio. Si después quieres más, se
           cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
       <li><b>¿Tengo que parar la operación?</b>
         <span>No. Arranca por partes y corre en paralelo con lo que usas hoy, hasta
-          que el nuevo queda validado contra la realidad.</span></li>
+          que el nuevo queda comprobado contra la realidad.</span></li>
       <li><b>¿Y si mi gente no lo usa?</b>
         <span>Ese es el riesgo real de un ERP, no el precio. El flujo se diseña con quien va a
           anotar, se pide lo mínimo necesario y las primeras semanas se compara contra la
-          operación hasta que el sistema es la única fuente.</span></li>
+          operación hasta que todo se anota en un solo lugar.</span></li>
       <li><b>¿Y si mi inventario está mal?</b>
         <span>Es lo más común. La migración incluye un conteo físico de arranque para que el
           sistema empiece con la verdad y no con el Excel.</span></li>
@@ -641,7 +651,7 @@
       <li><b>02</b><span>¿Cuántas veces prometiste algo que no podías entregar?</span></li>
       <li><b>03</b><span>¿Cuántos días pasan entre que entregas y se timbra la factura?</span></li>
       <li><b>04</b><span>¿Cuántas facturas al mes no cuadran con lo entregado?</span></li>
-      <li><b>05</b><span>¿Sabes el margen de tu mejor cliente sin esperar al cierre?</span></li>
+      <li><b>05</b><span>¿Sabes cuánto ganas con tu mejor cliente sin esperar a fin de mes?</span></li>
     </ul>
   </section>
 
@@ -832,7 +842,7 @@
 
     { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[0,1,2,3,4],
       label:"06 / 06 · Tablero de dirección",
-      k:"Margen real · 22.4 %",
+      k:"Ganancia real · 22.4 %",
       v:"cinco pasos, una sola anotación · envío y pérdidas ya descontados" }
   ];
 
