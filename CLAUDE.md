@@ -45,6 +45,10 @@ Cuando el PR se mezcle, el enlace del equipo pasa a ser <https://loomware.com.mx
 - `/prospectar` es privada: fuera del menú, `noindex`, con contraseña. La Function
   `functions/api/denue` toma `DENUE_TOKEN` y `PROSPECT_KEY` de las variables de Cloudflare;
   el token del INEGI solo vive en el servidor y en `.env` local (ignorado por git).
+  **Y la contraseña tampoco se escribe en ningún archivo del repositorio, ni siquiera como
+  propuesta**: `myxomatos/loomware-page` es **público** —comprobado el 2026-09-24—, así que
+  cualquier cosa escrita aquí queda publicada. Las dos se acuerdan por canal privado y viven
+  nada más en Cloudflare.
 - **Los casos de éxito viven en `#casos` de la portada y en ningún otro lado.** Se escriben
   en `src/data/casos.js` y los dibuja `src/components/Casos.jsx`; el pie enlaza a esa
   sección y nada más. **Ningún caso se cita, se resume, se enseña ni se insinúa en otra
@@ -179,6 +183,39 @@ Lo que falte de "Datos que faltan" entra después, cada uno por su propio PR.
       `src/data/calculadora.js` y se actualiza solo. Es el único lugar del sitio donde
       ponemos una cifra que no es del cliente.
 
+
+- [ ] **Alan: pasarle a Aldo el token del INEGI, y Aldo cargarlo.** Es el requisito del punto
+      de abajo: `DENUE_TOKEN` es de Alan y Aldo no puede capturarlo hasta que se lo manden por
+      un canal privado. **Probado contra el INEGI el 2026-09-24: el token sirve.** El mensaje,
+      listo para copiar —el token va en **otro mensaje**, nunca junto con estas instrucciones—:
+
+      > Aldo, esto desbloquea `/prospectar`. Son 10 minutos en Cloudflare.
+      >
+      > En el siguiente mensaje te mando el token del INEGI. Va en **Workers & Pages →
+      > `loomware-page` → Settings → Variables and Secrets**, y hay que capturarlo **dos
+      > veces**: una en *Production* y otra en *Preview*, las dos con **Encrypt** activado.
+      >
+      > • `DENUE_TOKEN` → el del mensaje de abajo
+      > • `PROSPECT_KEY` → la contraseña para entrar a `/prospectar`. La escogemos entre los
+      > dos. También va con Encrypt, y también dos veces.
+      >
+      > Al terminar: **Deployments → el último → ⋯ → Retry deployment**. Las variables no se
+      > aplican solas a un despliegue ya publicado.
+      >
+      > Para saber si quedó, sin entrar a nada:
+      >
+      > `curl https://alan.loomware-page.pages.dev/api/denue/BuscarEntidad/todos/09/1/1`
+      >
+      > Hoy responde *«Falta configurar…»* con 500. Cuando quede bien va a responder **401
+      > «Contraseña incorrecta»** — ese error es la señal de que está listo.
+      >
+      > Cuando lo tengas cargado, borra el mensaje del token de la conversación.
+
+      **La contraseña no se escribe aquí.** El borrador que se le mandó a Alan traía una
+      propuesta concreta; se quitó de este archivo porque **el repositorio es público**
+      —comprobado el 2026-09-24 con la API de GitHub: `private: false`—, y una contraseña
+      escrita en un archivo público deja de ser contraseña. Se acuerda por el mismo canal
+      privado que el token, y vive nada más en Cloudflare.
 
 - [ ] **Cargar las variables en Cloudflare.** Workers & Pages → `loomware-page` → Settings →
       **Variables and Secrets** → Add. Cada una hay que capturarla **dos veces**: una en
