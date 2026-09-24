@@ -16,6 +16,7 @@
     "fuente:mono": "node scripts/subconjunto-mono.js",
     "hero:dibujo": "node scripts/hero-dibujo.js",
     "og:imagen": "node scripts/og-imagen.js",
+    "og:recorridos": "node scripts/og-recorridos.js",
     "fuente:titulares": "node scripts/subconjunto-titulares.js",
     "logo:cliente": "node scripts/logo-cliente.js",
     "postbuild": "node scripts/encabezados.js",

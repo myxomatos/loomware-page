@@ -1,6 +1,8 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { readdirSync } from 'node:fs'
+import { basePublica } from './scripts/base-publica.js'
+import { DOMINIO } from './src/data/contacto.js'
 
 // Una entrada por cada servicios/<slug>.html que genera scripts/generar-servicios.js
 const paginasDe = (carpeta) =>
@@ -19,7 +21,16 @@ export default defineConfig(({ mode }) => {
   // Van en el HTML estático de todas las páginas; sin ID no se inyecta nada.
   const analitica = {
     name: 'loomware-analitica',
-    transformIndexHtml() {
+    /* La tarjeta social es la única URL absoluta que tiene que resolver **ya**:
+       la baja WhatsApp o quien sea en el momento en que alguien pega el enlace.
+       Con el dominio adentro, el preview de la rama pedía la imagen a
+       loomware.com.mx —que hoy sirve el sitio viejo y responde 404— y no salía
+       ninguna. En producción basePublica() devuelve el dominio y esto no toca
+       nada. */
+    transformIndexHtml(html) {
+      const base = basePublica()
+      const htmlConTarjeta =
+        base === DOMINIO ? html : html.split(`${DOMINIO}/og-image.png`).join(`${base}/og-image.png`)
       const tags = []
       if (VITE_GSC_VERIFICATION) {
         tags.push({ tag: 'meta', attrs: { name: 'google-site-verification', content: VITE_GSC_VERIFICATION }, injectTo: 'head' })
@@ -46,7 +57,7 @@ export default defineConfig(({ mode }) => {
           injectTo: 'head',
         })
       }
-      return tags
+      return { html: htmlConTarjeta, tags }
     },
   }
 

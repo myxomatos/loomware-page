@@ -16,6 +16,7 @@ import { SERVICIOS } from '../src/data/servicios.js'
 import { INDUSTRIAS } from '../src/data/industrias.js'
 import { RECORRIDOS } from '../src/data/recorridos.js'
 import { DOMINIO, EMPRESA, EMAIL, TELEFONOS } from '../src/data/contacto.js'
+import { basePublica } from './base-publica.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const carpeta = resolve(raiz, 'servicios')
@@ -75,14 +76,14 @@ const plantilla = (s, tipo = 'servicio') => {
     <meta property="og:url" content="${DOMINIO}/${ruta}" />
     <meta property="og:title" content="${esc(s.titulo)}" />
     <meta property="og:description" content="${esc(s.descripcion)}" />
-    <meta property="og:image" content="${DOMINIO}/og-image.png" />
+    <meta property="og:image" content="${basePublica()}/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(s.titulo)}" />
     <meta name="twitter:description" content="${esc(s.descripcion)}" />
-    <meta name="twitter:image" content="${DOMINIO}/og-image.png" />
+    <meta name="twitter:image" content="${basePublica()}/og-image.png" />
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     ${tipo === 'servicio' ? `<script type="application/ld+json">${ldService(s)}</script>

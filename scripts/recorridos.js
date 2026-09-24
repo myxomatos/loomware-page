@@ -10,12 +10,13 @@
  * sitio: canonical, Open Graph, favicon y el ajuste de las áreas seguras del
  * teléfono. Sin `noindex`: son contenido, y contestan lo que la gente busca.
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { RECORRIDOS } from '../src/data/recorridos.js'
 import { servicioPorSlug } from '../src/data/servicios.js'
 import { DOMINIO, EMPRESA } from '../src/data/contacto.js'
+import { basePublica } from './base-publica.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const destino = resolve(raiz, 'public/recorridos')
@@ -77,6 +78,17 @@ for (const r of RECORRIDOS) {
   if (!servicio) throw new Error(`recorridos: el servicio "${r.servicio}" no existe en servicios.js`)
   const titulo = `${r.titulo} · ${servicio.nombre} | ${EMPRESA}`
 
+  /* Cada recorrido lleva su propia tarjeta social: estas páginas existen para
+     mandarse por WhatsApp y lo primero que ve el prospecto es la tarjeta del
+     enlace, no la página. Con la genérica, ocho enlaces distintos se
+     previsualizaban idénticos. Se dibujan con `npm run og:recorridos`, que
+     necesita el sitio servido; si una falta, esa se queda con la del sitio y
+     nunca se publica una tarjeta rota. */
+  const BASE = basePublica()
+  const tarjeta = existsSync(resolve(raiz, `public/recorridos/og-${r.slug}.png`))
+    ? `${BASE}/recorridos/og-${r.slug}.png`
+    : `${BASE}/og-image.png`
+
   const pagina = `<!DOCTYPE html>
 <html lang="es-MX">
   <head>
@@ -94,14 +106,14 @@ for (const r of RECORRIDOS) {
     <meta property="og:url" content="${url}" />
     <meta property="og:title" content="${esc(titulo)}" />
     <meta property="og:description" content="${esc(r.descripcion)}" />
-    <meta property="og:image" content="${DOMINIO}/og-image.png" />
+    <meta property="og:image" content="${tarjeta}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(titulo)}" />
     <meta name="twitter:description" content="${esc(r.descripcion)}" />
-    <meta name="twitter:image" content="${DOMINIO}/og-image.png" />
+    <meta name="twitter:image" content="${tarjeta}" />
 
     <style>
       :root {
