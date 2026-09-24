@@ -246,10 +246,29 @@ Todo esto ya tiene su lugar en el código; sólo hay que capturar el dato.
       misma que diseña la solución y responde el WhatsApp*. Si alguna no es cierta, se cambia.
 - [ ] **El recorrido del ERP no tiene una sola prueba, y es el que más se manda.** Todo lo que
       enseña dice «cifras de ejemplo» —honestamente, tres veces—, pero quien lo lee completo
-      pregunta *«¿y a quién le sirvió?»* y no hay respuesta. **GT-SHOP no sirve aquí**: su caso
-      es comercio en línea, no ERP, y usarlo para otra cosa sería justo lo que esta página no
-      hace. Se cierra con un cliente de ERP que autorice su nombre, aunque sea una frase. Va
-      junto a «Logotipos de clientes» más abajo.
+      pregunta *«¿y a quién le sirvió?»* y no hay respuesta.
+
+      **GT-SHOP no se puede usar tal como está.** Su caso vive en `src/data/casos.js` con
+      `servicio: 'Comercio en línea'` y la frase que firmó Eduardo habla de la venta de la
+      cámara. Si su logotipo aparece en `/recorridos/erp`, cualquiera entiende «GT-SHOP usa el
+      ERP de Loomware», y eso no fue lo que pasó.
+
+      **Pero hay una pregunta que vale la pena hacerle**, porque su flujo roza el ERP de cerca:
+      catálogo, factura, envío y devolución en un mismo lugar es la mitad de lo que hace un ERP.
+      Si Eduardo confirma que **lo que le resolvimos también le ordenó el inventario y la
+      facturación**, y autoriza decirlo, el caso sostiene las dos páginas y se agrega
+      `servicio` como lista en `casos.js`. **Es él quien lo decide, no nosotros.**
+
+      Si la respuesta es no, se cierra con otro cliente de ERP que autorice su nombre, aunque
+      sea una frase. Va junto a «Logotipos de clientes» más abajo.
+
+- [ ] **Validar lo que dice la tabla de la pantalla nueva del ERP.** El 2026-09-23 el
+      recorrido ganó su tablero, y su tabla de ganancia por cliente cuenta una historia que
+      **escribí yo, no tú**: *«el que más te compra es el que menos te deja»* —16.8 % contra
+      31.4 %—. Es el hallazgo clásico de un ERP y es lo que le da sentido a la imagen, pero si
+      en lo que tú ves en los clientes de Loomware eso no es así, se cambian los cuatro
+      renglones y la frase de abajo en `recorridos-fuente/erp.html`. Las cifras son de
+      ejemplo y el pie lo dice, pero la **lectura** sí es una afirmación.
 
 - [ ] **La página del ERP no dice cuánto tiempo le quita al prospecto.** El cierre ofrece el
       diagnóstico pero no dice si son treinta minutos o tres días, y ésa es la objeción que
@@ -348,15 +367,30 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       para eso sería la autorización de un cliente para enseñar su sistema con los datos
       cubiertos.
 
-- [ ] **Los otros siete recorridos tampoco enseñan una pantalla.** El 2026-09-23 el ERP ganó
-      la suya —el tablero, al terminar los seis pasos— y con eso contesta la pregunta que un
-      prospecto se hace y ninguno de los ocho contestaba: *«¿cómo se ve el programa?»*. Los
-      otros siete siguen enseñando sólo su objeto —el tablero de corcho, la tarjeta de checado,
-      los dos maniquíes—, que es el mundo, no el sistema. La pieza es reusable: es HTML con las
-      variables de la propia página, así que hereda el modo oscuro y reflúye. Falta escribir la
-      pantalla de cada solución y los números que la sostienen, que es el trabajo de verdad:
-      **los del ERP cuadran con los del recorrido a propósito**, y ésa es la parte que no se
-      puede copiar y pegar.
+- [ ] **Revisión minuciosa de las ocho tarjetas del «Paso a paso», una por una.** Es la tarea
+      grande de Alan. El ERP lleva cinco pasadas y **todavía no se cierra**; las otras siete no
+      han tenido ninguna. La receta que salió de destruir el ERP, en este orden:
+
+      1. **Qué es, explicado a un niño de 10 años.** La definición primero, antes de tocar
+         nada. Si no se puede decir en una línea sin una palabra de oficina, el recorrido no
+         está listo.
+      2. **La prueba de los ocho giros.** Que el camino sirva igual para una clínica, una obra
+         y un despacho, no sólo para el giro del dibujo.
+      3. **Cacería de palabras de oficina.** En el ERP sobrevivieron tres rondas: «timbrada»,
+         «padrón», «en paralelo». Hay que buscarlas también **en el guion**, no sólo en el
+         texto: la del paso 04 vivía en la tabla de estados.
+      4. **Medir el teléfono, no verlo.** Cuánto ocupa lo que se queda pegado y si el paso cabe
+         en lo que sobra. El ERP dejaba 254 px para pasos de hasta 386 y **ninguno cabía**.
+      5. **Contar los botones** y que cada uno diga qué hace.
+      6. **La pantalla del sistema.** El ERP ya la tiene; las otras siete enseñan sólo su
+         objeto —el tablero de corcho, la tarjeta de checado, los dos maniquíes—, que es el
+         mundo y no el sistema. La pieza es reusable —HTML con las variables de la propia
+         página, hereda el modo oscuro y reflúye—, pero **los números son el trabajo de
+         verdad**: los del ERP cuadran con los de su recorrido a propósito, y eso no se copia
+         y se pega.
+
+      **Estado: ERP en curso (cinco pasadas). CRM, nómina, tienda en línea, automatización,
+      software a medida, infraestructura cloud y apps móviles: sin empezar.**
 
 - [ ] **Faltan los rostros, y ésos sí dependen de Aldo.** Xero abre con la foto de una panadera
       real en su obrador. Nosotros seguimos en **cero rostros**, porque `src/data/equipo.js`
