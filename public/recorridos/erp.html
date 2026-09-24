@@ -309,6 +309,14 @@
         font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
 
       /* ---------- cierre ---------- */
+      /* La puerta de en medio: aparece en cuanto terminan los seis pasos, que es
+         donde el lector ya se convenció. Antes el único botón estaba a 6.6 pantallas
+         del inicio y había que aguantar tres más para encontrarlo. */
+      .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+        padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+      .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+      @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
+
       .cierre{margin-top:26px;max-width:640px;padding-left:16px;
         border-left:3px solid var(--signal);}
       .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
@@ -318,10 +326,12 @@
       .btn svg{flex:none;}
       .btn:hover{filter:brightness(1.1);}
       .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
-      .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
-        color:var(--ink-3);line-height:1.8;}
+      /* 10 px escondía la segunda vía dentro de un párrafo. A 12.5 se lee como
+         lo que es: la otra forma de escribirnos. */
+      .cierre .otras{margin:14px 0 0;max-width:none;font-family:var(--mono);font-size:12.5px;
+        color:var(--ink-3);line-height:1.9;}
       /* El correo no se parte a media dirección: se baja entero. */
-      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+      .cierre .otras a{color:var(--signal);font-weight:500;text-underline-offset:3px;
         overflow-wrap:normal;word-break:normal;white-space:nowrap;}
       .cierre .otras .par{display:inline;}
       .cierre .otras a:hover{color:var(--signal);}
@@ -492,14 +502,14 @@
 
       <div class="stage">
         <svg id="scene" viewBox="14 44 744 462" role="img"
-             aria-label="Vista isométrica de una distribuidora: al fondo la oficina con el sistema y los estantes de la bodega, al centro la mesa donde se junta el pedido, al frente las puertas de entrada y salida. Un montacargas recorre el ciclo y de cada parada sale una línea de color hacia el sistema.">
+             aria-label="Dibujo de una bodega vista desde arriba: al fondo la oficina con el sistema y los estantes de la bodega, al centro la mesa donde se junta el pedido, al frente las puertas de entrada y salida. Un montacargas recorre el ciclo y de cada parada sale una línea de color hacia el sistema.">
           <g id="world"></g>
         </svg>
       </div>
 
       <div class="cap">
         <span id="stateLabel">01 / 06 · Andén de recepción</span>
-        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Que avance solo</button>
         <span>Cifras de ejemplo</span>
       </div>
 
@@ -611,6 +621,15 @@
     </div>
   </div>
 
+  <section class="atajo">
+    <p>¿Te viste en alguno de los seis pasos? Dinos en cuál y te decimos qué conviene
+      arreglar primero.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      WhatsApp · 55 8096 8928
+    </a>
+  </section>
+
   <section class="faq">
     <h2>Antes de que preguntes</h2>
     <p>Las seis preguntas que hace cualquiera antes de sentarse a ver un ERP, contestadas sin
@@ -625,10 +644,14 @@
           quieres y qué tan ordenados están tus datos de hoy. Por eso no arranca todo de
           golpe: primero la parte que más te duele, y el resto entra sobre esa base.
           <b>La fecha te la damos en el diagnóstico, y esa fecha va en el contrato.</b></span></li>
-      <li><b>¿Cómo se cotiza?</b>
-        <span>Primero acordamos exactamente qué entra y qué no. Sobre eso te damos
-          <b>un precio cerrado</b>: ese trabajo, ese precio. Si después quieres más, se
-          cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
+      <li><b>¿Cuánto cuesta?</b>
+        <span>No hay lista de precios, y no es por misterio: <b>no vendemos un paquete</b>.
+          Cada sistema se hace a la medida, así que el número depende de lo que tú necesites
+          —sirve igual para un consultorio de una persona que para una fábrica de cien—.
+          Y nadie empieza con todo: se arranca por el área que más te duele, que es la parte
+          más chica. <b>El diagnóstico es gratis y termina con un precio cerrado por
+          escrito</b>: ese trabajo, ese precio. Si después quieres más, se cotiza aparte y lo
+          apruebas tú. Y si el número no te cuadra, ahí se queda.</span></li>
       <li><b>¿Tengo que parar la operación?</b>
         <span>No. Arranca por partes y corre en paralelo con lo que usas hoy, hasta
           que el nuevo queda comprobado contra la realidad.</span></li>
@@ -636,9 +659,11 @@
         <span>Ese es el riesgo real de un ERP, no el precio. El flujo se diseña con quien va a
           anotar, se pide lo mínimo necesario y las primeras semanas se compara contra la
           operación hasta que todo se anota en un solo lugar.</span></li>
-      <li><b>¿Y si mi inventario está mal?</b>
-        <span>Es lo más común. La migración incluye un conteo físico de arranque para que el
-          sistema empiece con la verdad y no con el Excel.</span></li>
+      <li><b>¿Y si mis datos están hechos un desastre?</b>
+        <span>Es lo más común, y no es un problema: es el primer trabajo. Antes de arrancar se pone
+          en orden lo que hoy está regado —contar el almacén si es inventario, revisar el
+          padrón si son clientes— para que el sistema empiece con la verdad y no con el
+          Excel.</span></li>
     </ul>
   </section>
 
