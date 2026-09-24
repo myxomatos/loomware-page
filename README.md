@@ -40,6 +40,7 @@ enlace estable se usa el preview de la rama (ver *Flujo de trabajo*).
 | `npm run dev` | Servidor de desarrollo con recarga en caliente |
 | `npm run build` | Genera las páginas de servicio y el sitemap, y compila a `dist/` |
 | `npm run preview` | Sirve `dist/` para revisarlo |
+| `npm test` | Pruebas con Vitest: calculadora, formulario y barra de servicios |
 | `npm run generar:servicios` | Regenera `servicios/*.html` y `public/sitemap.xml` desde `src/data/servicios.js` (el build ya lo hace) |
 | `npm run optimizar:imagenes` | Convierte los PNG del hero a WebP; correrlo sólo si cambian los originales |
 | `npm run share` | Túnel público temporal para enseñar el avance |
@@ -86,7 +87,8 @@ una para *Production* y otra para *Preview*, que son entornos distintos. Despué
 ## Estructura
 
 ```
-CLAUDE.md                  # reglas del proyecto y lista de pendientes
+CLAUDE.md                  # reglas del proyecto (lo lee Claude Code en cada sesión)
+PENDIENTES.md              # ruta a producción, variables, pendientes e historial
 vite.config.js             # entradas, proxy de /api/denue en desarrollo, inyección de analítica
 index.html                 # página principal
 prospectar.html            # herramienta interna (noindex)
@@ -101,6 +103,9 @@ scripts/
 functions/api/
   contacto.js              # recibe el formulario y envía el correo con Resend
   denue/[[path]].js        # proxy al DENUE; guarda el token del lado del servidor
+                           # (cada archivo de functions/ es una ruta: las pruebas van en tests/)
+
+tests/                     # pruebas de las Functions; las de src/ van junto a su archivo (*.test.js)
 
 public/                    # hero (PNG y WebP), fonts/, og-image.png, favicon.svg,
                            # apple-touch-icon.png, 404.html, _headers, robots.txt, sitemap.xml
@@ -122,6 +127,8 @@ src/
   aviso/                   # aviso de privacidad
 
 .claude/skills/            # /inicio y /cierre, el flujo de sesión del equipo
+.claude/settings.json      # activa el plugin mattpocock-skills y el hook que recuerda cuál usar
+.claude/hooks/skills.txt   # el texto de ese recordatorio
 ```
 
 ## Editar contenido
