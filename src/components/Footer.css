@@ -5,8 +5,8 @@
 }
 .footer__grid {
   display: grid;
-  grid-template-columns: minmax(220px, 1.4fr) repeat(4, minmax(0, 1fr));
-  gap: var(--sp-8);
+  grid-template-columns: minmax(230px, 1.2fr) repeat(4, minmax(0, 1fr));
+  gap: var(--sp-10) var(--sp-8);
 }
 .footer__brand {
   display: flex;
@@ -14,28 +14,13 @@
   align-items: flex-start;
   gap: var(--sp-4);
 }
+.footer__brand .footer__contact {
+  margin-top: var(--sp-1);
+}
 .footer__tagline {
   font-size: var(--fs-xs);
   max-width: 28ch;
   line-height: var(--lh-body);
-}
-.footer__social {
-  display: flex;
-  gap: var(--sp-2);
-}
-.footer__social a,
-.footer__social span {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-sm);
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-  transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
-}
-.footer__social a:hover {
-  background: var(--purple-500);
 }
 .footer__col {
   display: flex;
@@ -78,6 +63,8 @@
   flex-wrap: wrap;
   margin-top: var(--sp-10);
   padding-top: var(--sp-5);
+  /* deja libre la esquina donde vive el botón flotante de WhatsApp */
+  padding-right: 176px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: var(--fs-2xs);
 }
@@ -97,12 +84,38 @@
   .footer {
     padding-block: var(--sp-10) var(--sp-5);
   }
+  /* La marca a lo ancho y las columnas de enlaces de dos en dos: a una columna el
+     pie medía pantalla y media. */
   .footer__grid {
-    grid-template-columns: 1fr;
-    gap: var(--sp-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-6) var(--sp-4);
+  }
+  .footer__grid > :first-child {
+    grid-column: 1 / -1;
   }
   .footer__bottom {
     flex-direction: column;
     align-items: flex-start;
+    padding-right: 72px;
   }
+}
+
+/* Enlace para volver a decidir sobre las cookies. Es un botón porque abre la
+   banda, no navega a ninguna parte; se pinta como el resto del pie. */
+.footer__cookies {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer__cookies:hover {
+  color: var(--white);
+}
+.footer__cookies:focus-visible {
+  outline: 2px solid var(--purple-400);
+  outline-offset: 2px;
 }

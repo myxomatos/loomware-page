@@ -1,0 +1,901 @@
+<!--
+  Ligas del sitio: relativas y en la misma pestaña, para que funcionen igual en
+  producción y en el preview de cada rama.
+    1. la barra de marca (brand__site) regresa al inicio, a la tarjeta de este recorrido
+    2. la liga "formulario del sitio" del cierre (.otras) lleva al formulario de su servicio
+-->
+<title>Del andén al cobro</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+
+  :root{
+    /* --- superficie y texto: neutros cálidos, para que el cobre cante --- */
+    --paper:#EEEBE6;
+    --surface:#FFFFFF;
+    --ink:#191A1E;
+    --ink-2:#4E5058;
+    --ink-3:#7A7D86;
+    --rule:#CFC9C0;
+    --rule-soft:#E3DED6;
+
+    --signal:#A35C23;       /* cobre: el dato que el sistema registra */
+    --signal-soft:#F8EDE2;
+    --money:#12643C;        /* verde: lo que ganas */
+    --pain:#6B6F79;         /* gris: así está hoy */
+    --pain-bg:#DFDCD5;      /* franja apagada, separada del papel a simple vista */
+
+    /* --- materiales de la escena: cara superior / izquierda / derecha --- */
+    --grd:#DCD7CE;  --grd2:#E9E5DD;
+    --asf-t:#A8A49C;
+    --line:#F0EDE7;
+    --con-t:#C6C1B8; --con-l:#9B978F; --con-r:#B0ABA3;
+    --rck-t:#D2CEC6; --rck-l:#A5A199; --rck-r:#BDB9B1;
+    --box-t:#E4D5BB; --box-l:#B8A886; --box-r:#D0C0A1;
+    --ofi-t:#E4E0D8; --ofi-l:#B4B0A8; --ofi-r:#CBC7BF;
+    --tra-t:#EBE8E1; --tra-l:#B9B5AD; --tra-r:#D3CFC8;
+    --trk-t:#C7C3BB; --trk-l:#928E86; --trk-r:#ADA9A1;
+    --fk-t:#5A5C63;  --fk-l:#35373C;  --fk-r:#47494F;
+    --pal-t:#C4A173; --pal-l:#8F7349; --pal-r:#AB8B5D;
+    --per-t:#5A6472; --per-l:#333A44; --per-r:#47505C;   /* la gente de la nave */
+    --chs:#33353B;
+    --whl:#191A1E;
+    --shadow:0 1px 0 rgba(25,26,30,.04), 0 12px 28px -20px rgba(25,26,30,.4);
+
+    --mono:"Azeret Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+      --rule:#3F3930; --rule-soft:#2A2620;
+      --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+      --pain:#8F8878; --pain-bg:#1B1915;
+      /* la escena va más clara que el papel: si no, el dibujo se vuelve lodo */
+      --grd:#221F19; --grd2:#2E2A23;
+      --asf-t:#3D3931; --line:#6A6357;
+      --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+      --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+      --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+      --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+      --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+      --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+      --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+      --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+      --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+      --chs:#141210; --whl:#0C0A08;
+      --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+    --rule:#3F3930; --rule-soft:#2A2620;
+    --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+    --pain:#8F8878; --pain-bg:#1B1915;
+    --grd:#221F19; --grd2:#2E2A23;
+    --asf-t:#3D3931; --line:#6A6357;
+    --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+    --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+    --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+    --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+    --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+    --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+    --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+    --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+    --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+    --chs:#141210; --whl:#0C0A08;
+    --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+  }
+
+  /* Monoespaciada para todo lo que es dato, etiqueta o título: lectura de máquina.
+     Archivo sólo para el texto corrido, que en mono cansa. */
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:14px; line-height:1.5;
+    -webkit-font-smoothing:antialiased; overflow-wrap:break-word;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding-inline:18px;padding-block:16px 48px;}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:500;}
+
+  /* ---------- barra de marca ---------- */
+  .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
+  .brand__id{display:flex;align-items:center;gap:8px;}
+  .brand__id svg{display:block;flex:none;}
+  .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
+    letter-spacing:-.03em;color:var(--ink);}
+  .brand__site{font-family:var(--mono);font-size:11px;color:var(--ink-2);text-decoration:none;
+    border-bottom:1px solid var(--rule);padding-bottom:1px;}
+  .brand__site:hover{color:var(--signal);border-color:currentColor;}
+
+  /* ---------- cabecera ---------- */
+  .mast{display:flex;flex-direction:column;gap:13px;padding-block:20px 17px;
+    border-bottom:1px solid var(--rule);}
+  .eyebrow{color:var(--signal);}
+  h1{font-family:var(--mono);font-weight:700;
+    font-size:clamp(25px,4.6vw,42px);line-height:1.04;letter-spacing:-.03em;
+    text-transform:uppercase;margin:0;text-wrap:balance;}
+  .deck{max-width:78ch;color:var(--ink-2);font-size:14px;margin:0;line-height:1.55;}
+  .deck b{color:var(--ink);font-weight:600;}
+
+  /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
+  .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
+  .antes svg{display:block;width:100%;max-width:620px;height:auto;}
+  .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);max-width:70ch;
+    line-height:1.6;}
+  .dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;}
+  .dg-line{stroke:var(--pain);stroke-width:1;fill:none;opacity:.6;}
+  .dg-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-2);}
+  .dg-arrow{stroke:var(--ink-3);stroke-width:1.5;fill:none;}
+  .dg-erp{fill:var(--surface);stroke:var(--signal);stroke-width:1.5;}
+  .dg-row{fill:var(--signal-soft);}
+  .dg-k{font-family:var(--mono);font-size:9px;fill:var(--signal);letter-spacing:.12em;}
+
+  .specline{display:flex;flex-wrap:wrap;gap:4px 20px;font-family:var(--mono);font-size:10.5px;
+    color:var(--ink-3);font-variant-numeric:tabular-nums;}
+  .specline b{color:var(--signal);font-weight:500;}
+
+  /* ---------- dos columnas ---------- */
+  .cols{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+    gap:30px;margin-top:22px;align-items:start;}
+  .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
+    display:flex;flex-direction:column;gap:8px;min-width:0;}
+
+  /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
+  .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
+    background:var(--surface);border:1px solid var(--rule-soft);
+    border-left:3px solid var(--signal);border-radius:2px;}
+  .readout__k{color:var(--signal);font-size:11px;}
+  .readout__v{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+    font-variant-numeric:tabular-nums;line-height:1.45;}
+
+  .stage{background:var(--surface);border:1px solid var(--rule-soft);
+    border-radius:3px;box-shadow:var(--shadow);padding:5px;}
+  .stage svg{display:block;width:100%;height:auto;}
+
+  .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
+  .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+    color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
+    border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+  .play:hover{background:var(--signal);color:var(--surface);}
+  .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+  .legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;
+    font-family:var(--mono);font-size:10px;color:var(--ink-3);}
+  .legend li{display:flex;align-items:center;gap:6px;}
+  .sw{width:12px;height:7px;flex:none;border-radius:1px;}
+  .sw--beam{background:repeating-linear-gradient(90deg,var(--signal) 0 4px,transparent 4px 7px);}
+  .sw--sys{background:var(--signal);}
+  .sw--money{background:var(--money);}
+
+  /* expediente: un dato, una sola captura */
+  .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
+    flex-direction:column;gap:7px;}
+  .exp__t{color:var(--ink-3);}
+  .chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+  .chip{display:flex;flex-direction:column;gap:0;padding:4px 8px;border-radius:2px;
+    border:1px solid var(--rule-soft);background:var(--surface);font-family:var(--mono);
+    opacity:.32;transition:opacity .4s ease,border-color .4s ease,background-color .4s ease;min-width:0;}
+  .chip b{font-size:11px;font-weight:500;letter-spacing:-.02em;color:var(--ink-2);line-height:1.5;}
+  .chip span{font-size:9px;color:var(--ink-3);line-height:1.5;}
+  .chip.on{opacity:1;}
+  .chip.now{border-color:var(--signal);background:var(--signal-soft);}
+  .chip.now b{color:var(--signal);}
+  .chip--tot.on{border-color:var(--signal);background:var(--signal);}
+  .chip--tot.on b,.chip--tot.on span{color:var(--surface);}
+
+  /* ---------- pasos ---------- */
+  .steps{display:flex;flex-direction:column;min-width:0;}
+  .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+    padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
+  /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
+     es lo que hace que el recorrido se lea de uno en uno. */
+  .step{display:flex;flex-direction:column;justify-content:center;
+    min-height:clamp(140px,27vh,240px);padding-block:12px;padding-left:14px;
+    border-left:3px solid transparent;cursor:pointer;min-width:0;
+    transition:opacity .35s ease,border-color .35s ease;opacity:.34;}
+  .step.on{opacity:1;border-left-color:var(--signal);}
+  .step:hover{opacity:.7;border-left-color:var(--rule);}
+  .step.on:hover{opacity:1;border-left-color:var(--signal);}
+  .step:focus-visible{outline:2px solid var(--signal);outline-offset:5px;}
+  .step-head{display:flex;align-items:baseline;gap:9px;margin-bottom:8px;flex-wrap:wrap;}
+  .paso{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:-.02em;
+    color:var(--ink-3);line-height:1.5;transition:color .35s ease;}
+  .step.on .paso{color:var(--signal);}
+  .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
+    color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
+    border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
+  .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+    margin:0;color:var(--ink);text-wrap:balance;}
+
+  /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
+  .vs{display:flex;flex-direction:column;gap:1px;border-radius:2px;overflow:hidden;}
+  .vs__row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:11px;
+    padding:8px 10px;align-items:start;}
+  .vs__row p{margin:0;font-size:13px;line-height:1.45;color:var(--ink);}
+  .vs__lbl{line-height:1.75;}
+  .vs__row--hoy{background:var(--pain-bg);border-left:3px solid var(--pain);}
+  .vs__row--hoy .vs__lbl{color:var(--pain);}
+  .vs__row--hoy p{color:var(--ink-2);}
+  .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
+  .vs__row--con .vs__lbl{color:var(--signal);}
+  .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
+  .vs__row--gana .vs__lbl{color:var(--money);}
+  .vs__row--gana p{font-weight:500;}
+
+  /* ---------- secciones de abajo ---------- */
+  .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
+  .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
+    font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
+    text-wrap:balance;color:var(--ink);text-transform:uppercase;}
+  .giros p,.faq p,.costo p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
+
+  /* 320px: da 3 columnas en escritorio y 2 en tablet, y las seis tarjetas
+     de giros y de preguntas llenan las filas sin dejar celdas vacías. */
+  .rejilla{list-style:none;margin:0;padding:0;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;
+    background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:2px;}
+  .rejilla li{background:var(--surface);padding:11px 13px;display:flex;
+    flex-direction:column;gap:3px;}
+  .rejilla b{font-family:var(--mono);font-size:10.5px;font-weight:500;
+    letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+  .rejilla span{font-size:12.5px;line-height:1.45;color:var(--ink-2);}
+  .rejilla .hoy{font-size:11.5px;line-height:1.45;color:var(--pain);}
+  .rejilla .este{background:var(--signal-soft);}
+  .rejilla .este b{color:var(--signal);}
+  .giros__cierre{margin:14px 0 0 !important;font-size:13.5px;color:var(--ink);}
+
+  /* preguntas que el comprador hace antes de llamar */
+  .faq .rejilla b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+
+  .costo .rejilla{grid-template-columns:minmax(0,1fr);max-width:780px;}
+  .costo .rejilla li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;
+    font-size:12.5px;line-height:1.4;color:var(--ink);}
+  .costo .rejilla b{font-size:10px;color:var(--signal);line-height:1.6;
+    font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
+
+  /* ---------- cierre ---------- */
+  .cierre{margin-top:26px;max-width:640px;padding-left:16px;
+    border-left:3px solid var(--signal);}
+  .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+    font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
+    text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
+  .btn svg{flex:none;}
+  .btn:hover{filter:brightness(1.1);}
+  .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+  .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
+    color:var(--ink-3);line-height:1.8;}
+  /* El correo no se parte a media dirección: se baja entero. */
+  .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+    overflow-wrap:normal;word-break:normal;white-space:nowrap;}
+  .cierre .otras .par{display:inline;}
+  .cierre .otras a:hover{color:var(--signal);}
+  .cierre .otras .sep{margin-inline:7px;color:var(--rule);}
+
+  .colofon{margin-top:24px;font-family:var(--mono);font-size:10px;color:var(--ink-3);
+    max-width:96ch;line-height:1.7;}
+  .colofon b{color:var(--ink-2);font-weight:500;}
+
+  /* ---------- estado de la escena ---------- */
+  #truck,#mont{transition:transform .95s cubic-bezier(.35,.85,.3,1),opacity .45s ease;}
+  #truck.propio{--trk-t:#C4772F;--trk-l:#7A3F12;--trk-r:#A35C23;}
+  .oculto{opacity:0;}
+  .beam{opacity:0;transition:opacity .4s ease;}
+  .beam.on{opacity:1;}
+  .beam path{stroke:var(--signal);stroke-width:2.4;fill:none;stroke-linecap:round;
+    stroke-dasharray:5 6;animation:flujo 1.1s linear infinite;}
+  .beam circle{fill:var(--signal);}
+  @keyframes flujo{to{stroke-dashoffset:-33;}}
+  .mark{stroke:var(--ink-3);stroke-width:1.2;fill:none;stroke-dasharray:6 6;opacity:.7;}
+
+  @media (prefers-reduced-motion:reduce){
+    #truck,#mont,.beam,.chip,.step{transition:none;}
+    .beam path{animation:none;}
+  }
+
+  @media (max-width:880px){
+    /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
+       los pasos pasan por debajo, igual que en escritorio */
+    .cols{display:block;margin-top:16px;}
+    .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+      background:var(--paper);padding-block:8px;margin-bottom:6px;
+      border-bottom:1px solid var(--rule-soft);}
+    .stage svg{max-height:33vh;}
+    .legend{display:none;}
+    /* en tablet vertical el texto corría a 100 caracteres por renglón */
+    .steps{max-width:660px;}
+    .step{min-height:clamp(120px,22vh,190px);padding-left:11px;opacity:.4;}
+  }
+  @media (max-width:560px){
+    .vs__row,.costo .rejilla li{grid-template-columns:minmax(0,1fr);gap:3px;}
+    .vs__lbl,.costo .rejilla b{line-height:1.4;}
+    .btn{width:100%;justify-content:center;}
+    /* En celular cada forma de contacto va en su propio renglón. */
+    .cierre .otras .par{display:block;}
+    .cierre .otras .sep{display:none;}
+    .gauge{margin-left:0;}
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="brand">
+    <span class="brand__id">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M19 19H4.8a2.8 2.8 0 1 1 .05-5.6 4 4 0 0 1 4.58-5.31A5 5 0 0 1 19 11a4 4 0 0 1 0 8Z" stroke="var(--ink)" stroke-width="1.8"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M15.5 8h4v4" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--signal)" stroke-width="2"/>
+        <path d="M15.5 8h4v4" stroke="var(--signal)" stroke-width="2"/>
+      </svg>
+      <span class="brand__name">Loomware</span>
+    </span>
+    <a class="brand__site" href="/#recorrido-erp">loomware.com.mx</a>
+  </div>
+
+  <header class="mast">
+    <div class="eyebrow lbl">ERP · un ejemplo, paso a paso</div>
+    <h1>Del andén al cobro</h1>
+    <p class="deck">Un <b>ERP</b> es un solo sistema donde compras, almacén, ventas, facturación y
+      cobranza escriben y leen lo mismo. Para verlo seguimos una tarima en una distribuidora:
+      entra por el andén y sale convertida en dinero cobrado. Seis paradas y
+      <b>una sola captura</b>. El giro no cambia la idea: abajo está el mismo recorrido en
+      otros cinco.</p>
+
+    <figure class="antes">
+      <svg viewBox="0 0 620 124" role="img"
+           aria-label="A la izquierda, cinco recuadros sueltos —compras, almacén, ventas, facturación y cobranza— unidos por líneas cruzadas. A la derecha, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
+        <path class="dg-line" d="M52 17 L198 13"/>
+        <path class="dg-line" d="M52 17 L212 57"/>
+        <path class="dg-line" d="M74 61 L198 13"/>
+        <path class="dg-line" d="M74 61 L212 57"/>
+        <path class="dg-line" d="M74 61 L120 105"/>
+        <path class="dg-line" d="M212 57 L120 105"/>
+        <path class="dg-line" d="M52 17 L120 105"/>
+        <rect class="dg-box" x="4"   y="6"  width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="150" y="2"  width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="26"  y="50" width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="164" y="46" width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="72"  y="94" width="96" height="22" rx="2"/>
+        <text class="dg-t" x="12"  y="21">Compras</text>
+        <text class="dg-t" x="158" y="17">Almacén</text>
+        <text class="dg-t" x="34"  y="65">Ventas</text>
+        <text class="dg-t" x="172" y="61">Facturación</text>
+        <text class="dg-t" x="80"  y="109">Cobranza</text>
+        <path class="dg-arrow" d="M288 62 L326 62"/>
+        <path class="dg-arrow" d="M318 56 L326 62 L318 68"/>
+        <rect class="dg-erp" x="346" y="2" width="268" height="118" rx="3"/>
+        <text class="dg-k" x="358" y="17">UN SOLO SISTEMA</text>
+        <rect class="dg-row" x="356" y="24" width="248" height="15" rx="1"/>
+        <rect class="dg-row" x="356" y="42" width="248" height="15" rx="1"/>
+        <rect class="dg-row" x="356" y="60" width="248" height="15" rx="1"/>
+        <rect class="dg-row" x="356" y="78" width="248" height="15" rx="1"/>
+        <rect class="dg-row" x="356" y="96" width="248" height="15" rx="1"/>
+        <text class="dg-t" x="364" y="35">Compras</text>
+        <text class="dg-t" x="364" y="53">Almacén</text>
+        <text class="dg-t" x="364" y="71">Ventas</text>
+        <text class="dg-t" x="364" y="89">Facturación</text>
+        <text class="dg-t" x="364" y="107">Cobranza</text>
+      </svg>
+      <figcaption>Izquierda: cinco lugares que se copian datos a mano. Derecha: un lugar donde
+        los cinco escriben y leen. Eso es todo lo que es un ERP.</figcaption>
+    </figure>
+
+    <div class="specline">
+      <span>El dato se captura <b>1 vez</b></span>
+      <span>Inventario valuado <b>al momento</b></span>
+      <span>Facturación <b>CFDI 4.0</b></span>
+      <span>Arranque <b>módulo por módulo</b></span>
+    </div>
+  </header>
+
+  <div class="cols">
+    <div class="figure">
+
+      <div class="readout" aria-live="polite">
+        <span class="readout__k lbl" id="hudK">OC-1182 · Recepción</span>
+        <span class="readout__v" id="hudV">40 de 40 pzas · proveedor validado · cuenta por pagar abierta</span>
+      </div>
+
+      <div class="stage">
+        <svg id="scene" viewBox="14 44 744 462" role="img"
+             aria-label="Vista isométrica de una distribuidora: al fondo la oficina con el sistema y los racks de almacén, al centro la mesa de surtido, al frente los andenes de recepción y embarque. Un montacargas recorre el ciclo y de cada parada sale una línea de color hacia el sistema.">
+          <g id="world"></g>
+        </svg>
+      </div>
+
+      <div class="cap">
+        <span id="stateLabel">01 / 06 · Andén de recepción</span>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <span>Cifras de ejemplo</span>
+      </div>
+
+      <ul class="legend">
+        <li><span class="sw sw--beam"></span>El dato que viaja al sistema</li>
+        <li><span class="sw sw--sys"></span>El sistema: un solo lugar</li>
+        <li><span class="sw sw--money"></span>Andén de embarque</li>
+      </ul>
+
+      <div class="exp">
+        <div class="exp__t lbl">Expediente · un dato, una sola captura</div>
+        <ul class="chips" id="chips">
+          <li class="chip" id="c0"><b>OC-1182</b><span>recepción</span></li>
+          <li class="chip" id="c1"><b>ENT-2207</b><span>entrada</span></li>
+          <li class="chip" id="c2"><b>PED-3471</b><span>apartado</span></li>
+          <li class="chip" id="c3"><b>A-1140</b><span>CFDI timbrado</span></li>
+          <li class="chip" id="c4"><b>REP-0915</b><span>pago aplicado</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 captura</b><span>en todo el ciclo</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="steps" id="steps">
+
+      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
+
+      <section class="step on" tabindex="0" data-i="0">
+        <div class="step-head"><span class="paso">01</span><h2>Recepción contra la orden</h2><span class="gauge">40 / 40 pzas</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>La remisión se firma en el andén y alguien la captura tres días después, en oficinas.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Se recibe contra la orden de compra en pantalla. Si llegan 38 de 40, la diferencia
+              queda registrada en la orden en ese momento.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Le pagas al proveedor lo que de verdad te entregó.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="1">
+        <div class="step-head"><span class="paso">02</span><h2>Ubicación y existencia</h2><span class="gauge">A-04-12</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>La tarima se guarda «allá al fondo» y el Excel se actualiza los viernes.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Se guarda en una ubicación con nombre, la existencia sube al instante y el costo
+              ya trae el flete prorrateado.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Compras sobre lo que hay, no sobre el susto de quedarte sin.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="2">
+        <div class="step-head"><span class="paso">03</span><h2>Pedido y surtido</h2><span class="gauge">PED-3471</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El vendedor le habla al almacén para preguntar si hay. Dos vendedores prometen la
+              misma pieza y uno queda mal.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El pedido aparta la mercancía al instante y arma la lista de surtido por ubicación.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Prometes fechas que sí cumples y se surte en un solo recorrido.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="3">
+        <div class="step-head"><span class="paso">04</span><h2>Embarque y factura</h2><span class="gauge">CFDI 4.0</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Lo que se embarcó se vuelve a capturar en el sistema de facturación, días después.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La remisión y el CFDI salen del mismo pedido que se surtió, el mismo día.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Facturas el día que sale el camión, así el plazo de crédito empieza antes.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="4">
+        <div class="step-head"><span class="paso">05</span><h2>Cobro y complemento</h2><span class="gauge">cartera al día</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Alguien concilia el banco contra las facturas a mano, cuando puede.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El pago se aplica a la factura que le corresponde, el complemento se timbra solo
+              y la antigüedad de saldos se actualiza.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Cobras antes porque sabes a quién seguirle hoy.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="5">
+        <div class="step-head"><span class="paso">06</span><h2>Tablero de dirección</h2><span class="gauge">margen 22.4 %</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El margen se sabe hasta el cierre, es un promedio y nadie jura que esté bien.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Ningún dato se capturó dos veces en todo el recorrido: el margen por producto,
+              por cliente y por vendedor es el real.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Decides con el número de hoy, no con el del mes pasado.</p></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="giros">
+    <h2>El mismo recorrido, en otros giros</h2>
+    <p>Dibujamos una distribuidora porque ahí el recorrido se ve con los ojos. El ERP no cambia
+      entre un giro y otro; cambia <b>qué se sigue</b> y qué duele hoy.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Se sigue la tarima: se recibe, se guarda, se surte, se embarca y se cobra.</span>
+        <span class="hoy">Hoy: el inventario del sistema no es el del piso.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Se sigue la orden de producción: insumos que entran, lote que se consume, producto terminado que sale facturado.</span>
+        <span class="hoy">Hoy: el costo real de la pieza se conoce hasta el cierre.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Se sigue la obra: presupuesto, material que sale a obra, avance, estimación y cobro por etapa.</span>
+        <span class="hoy">Hoy: el material se va a la obra sin que nadie lo descuente de ella.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Se sigue el proyecto: horas del equipo, gastos, entregable, factura y cobranza.</span>
+        <span class="hoy">Hoy: se factura lo presupuestado, no lo que de verdad costó.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Se sigue la pieza: entra al almacén, se reparte entre sucursales y tienda en línea, se vende y se repone.</span>
+        <span class="hoy">Hoy: se vende en línea lo que ya se acabó en la sucursal.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>Se sigue la cita: agenda, insumos que se consumen, servicio prestado, factura y cobro al paciente o a la aseguradora.</span>
+        <span class="hoy">Hoy: el insumo se descuenta a mano y la aseguradora rechaza por datos que no cuadran.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia el objeto que se sigue. No cambia la idea: <b>el dato se
+      captura una vez y todas las áreas leen el mismo.</b> Si tu giro no está en la lista,
+      también aplica: se define en el diagnóstico.</p>
+  </section>
+
+  <section class="faq">
+    <h2>Antes de que preguntes</h2>
+    <p>Las seis dudas que sale todo director antes de sentarse a ver un ERP, contestadas sin
+      rodeos.</p>
+    <ul class="rejilla">
+      <li><b>¿Qué compro exactamente?</b>
+        <span>Un ERP implementado sobre tu operación: catálogos, almacenes, flujos y reportes
+          configurados contigo, migración de tus datos y facturación conectada. No es una
+          licencia que te entregan y ahí te ves.</span></li>
+      <li><b>¿Cuánto tarda?</b>
+        <span>Depende de cuántos módulos y de qué tan limpios estén tus datos. Por eso el
+          arranque es por etapas: el primer módulo operando en semanas, y el resto entra
+          sobre esa base.</span></li>
+      <li><b>¿Cómo se cotiza?</b>
+        <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
+          cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
+      <li><b>¿Tengo que parar la operación?</b>
+        <span>No. El arranque es por módulos y corre en paralelo con lo que usas hoy, hasta
+          que el nuevo queda validado contra la realidad.</span></li>
+      <li><b>¿Y si mi gente no lo usa?</b>
+        <span>Ese es el riesgo real de un ERP, no el precio. El flujo se diseña con quien va a
+          capturar, se pide lo mínimo necesario y las primeras semanas se concilia contra la
+          operación hasta que el sistema es la única fuente.</span></li>
+      <li><b>¿Y si mi inventario está mal?</b>
+        <span>Es lo más común. La migración incluye un conteo físico de arranque para que el
+          sistema empiece con la verdad y no con el Excel.</span></li>
+    </ul>
+  </section>
+
+  <section class="costo">
+    <h2>¿Cuánto te está costando hoy?</h2>
+    <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
+      Si no sabes alguna, esa ya es la respuesta.</p>
+    <ul class="rejilla">
+      <li><b>01</b><span>¿Cuánto compraste el año pasado de algo que ya tenías?</span></li>
+      <li><b>02</b><span>¿Cuántas veces prometiste producto que ya estaba vendido?</span></li>
+      <li><b>03</b><span>¿Cuántos días pasan entre que entregas y se timbra la factura?</span></li>
+      <li><b>04</b><span>¿Cuántas facturas al mes no cuadran con lo entregado?</span></li>
+      <li><b>05</b><span>¿Sabes el margen de tu mejor cliente sin esperar al cierre?</span></li>
+    </ul>
+  </section>
+
+  <section class="cierre">
+    <h2>Te decimos dónde se está yendo el dinero</h2>
+    <p>Recorremos tu operación completa —qué se compra, cómo se almacena, cómo se vende y cómo se
+      cobra— y te decimos qué conviene resolver primero. La primera llamada es sin costo y sin compromiso.</p>
+    <a class="btn"
+       href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
+       target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      WhatsApp · 55 8096 8928
+    </a>
+    <p class="otras">
+      <span class="par">o llena el <a href="/servicios/erp#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
+    </p>
+  </section>
+
+  <p class="colofon">
+    Las cifras de este recorrido son de <b>una operación de ejemplo</b> y sirven para mostrar
+    el flujo. El ERP se ajusta al giro y a la operación de cada empresa: el recorrido de la tuya
+    se dibuja en el diagnóstico, con tus números.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Proyección isométrica: +x baja a la derecha, +y baja a la izquierda, +z sube. */
+  var C = 0.866, S = 0.5, OX = 300, OY = 80;
+  function pt(x, y, z){
+    return ((x - y) * C + OX).toFixed(1) + "," + ((x + y) * S - z + OY).toFixed(1);
+  }
+  function q(a,b,c,d){ return a + " " + b + " " + c + " " + d; }
+
+  /* Un cuboide: las dos caras que ve el espectador, y encima la tapa. */
+  function box(x, y, w, d, z0, z1, t, l, r){
+    return '<polygon points="' + q(pt(x,y+d,z1), pt(x+w,y+d,z1), pt(x+w,y+d,z0), pt(x,y+d,z0)) + '" fill="var(' + l + ')"/>' +
+           '<polygon points="' + q(pt(x+w,y,z1), pt(x+w,y+d,z1), pt(x+w,y+d,z0), pt(x+w,y,z0)) + '" fill="var(' + r + ')"/>' +
+           '<polygon points="' + q(pt(x,y,z1), pt(x+w,y,z1), pt(x+w,y+d,z1), pt(x,y+d,z1)) + '" fill="var(' + t + ')"/>';
+  }
+  function slab(x, y, w, d, z, fill){
+    return '<polygon points="' + q(pt(x,y,z), pt(x+w,y,z), pt(x+w,y+d,z), pt(x,y+d,z)) + '" fill="var(' + fill + ')"/>';
+  }
+  function stripe(x, y, w, d, fill, op){
+    return '<polygon points="' + q(pt(x,y,1), pt(x+w,y,1), pt(x+w,y+d,1), pt(x,y+d,1)) +
+           '" fill="var(' + fill + ')" opacity="' + op + '"/>';
+  }
+  /* Una persona: piernas, torso y cabeza. Da escala y recuerda que aquí trabaja gente. */
+  function persona(x, y){
+    return box(x, y, 5, 5, 0, 9, "--per-t", "--per-l", "--per-r") +
+           box(x - 1, y - 1, 7, 7, 9, 17, "--per-t", "--per-l", "--per-r") +
+           box(x, y, 5, 5, 17, 21, "--per-t", "--per-l", "--per-r");
+  }
+
+  var s = "";
+
+  /* --- Suelo, del fondo al frente: terreno, piso de nave, patio de maniobras --- */
+  s += slab(0, 0, 520, 320, 0, "--grd");
+  s += slab(10, 10, 500, 202, 0.4, "--grd2");
+  s += slab(0, 228, 520, 86, 0.6, "--asf-t");
+  s += stripe(0, 230, 520, 2.5, "--line", ".5");
+  s += stripe(0, 311, 520, 2.5, "--line", ".5");
+  for (var lx = 8; lx < 512; lx += 46){ s += stripe(lx, 268, 26, 3, "--line", ".7"); }
+
+  /* --- La oficina es el sistema: pantalla encendida y el servidor al lado.
+         Es el único edificio con color, para que el acento signifique una cosa. --- */
+  s += box(26, 20, 74, 58, 0, 50, "--ofi-t", "--ofi-l", "--ofi-r");
+  s += '<polygon points="' + q(pt(34,78,40), pt(92,78,40), pt(92,78,22), pt(34,78,22)) +
+       '" fill="var(--signal)" opacity=".85"/>';
+  s += '<polygon points="' + q(pt(26,20,51), pt(100,20,51), pt(100,78,51), pt(26,78,51)) +
+       '" fill="var(--signal)" opacity=".15"/>';
+  s += box(106, 30, 16, 22, 0, 34, "--ofi-t", "--ofi-l", "--ofi-r");
+  s += '<polygon points="' + q(pt(106,30,34), pt(122,30,34), pt(122,52,34), pt(106,52,34)) +
+       '" fill="var(--signal)" opacity=".9"/>';
+
+  /* --- Racks de almacén: postes, tres niveles de viga y tarimas encima --- */
+  function rack(x, y){
+    var w = 150, d = 36, o = "";
+    o += box(x, y, 6, d, 0, 62, "--rck-t", "--rck-l", "--rck-r");
+    o += box(x + 72, y, 5, d, 0, 62, "--rck-t", "--rck-l", "--rck-r");
+    o += box(x + w - 6, y, 6, d, 0, 62, "--rck-t", "--rck-l", "--rck-r");
+    [22, 44, 62].forEach(function(z){
+      o += box(x, y, w, d, z - 4, z, "--rck-t", "--rck-l", "--rck-r");
+    });
+    /* tarimas: [desplazamiento en x, nivel, ancho] */
+    [[9,0,28],[43,0,24],[82,0,30],[118,0,24],[11,22,30],[54,22,26],[100,22,34]].forEach(function(c){
+      o += box(x + c[0], y + 6, c[2], 24, c[1], c[1] + 18, "--box-t", "--box-l", "--box-r");
+    });
+    return o;
+  }
+  s += rack(150, 26);
+  s += rack(330, 26);
+
+  /* --- Mesa de surtido, al centro --- */
+  s += box(178, 138, 172, 42, 0, 9, "--con-t", "--con-l", "--con-r");
+  s += box(190, 146, 16, 26, 9, 11, "--pal-t", "--pal-l", "--pal-r");
+  s += box(322, 148, 10, 10, 9, 40, "--rck-t", "--rck-l", "--rck-r");
+
+  /* --- Andenes. El de recepción va en concreto; el verde marca dónde la
+         mercancía se vuelve factura, que es el único otro dato de color. --- */
+  s += box(44, 194, 132, 28, 0.4, 14, "--con-t", "--con-l", "--con-r");
+  s += '<polygon points="' + q(pt(44,222,14), pt(176,222,14), pt(176,222,10), pt(44,222,10)) +
+       '" fill="var(--con-l)"/>';
+  s += box(318, 194, 132, 28, 0.4, 14, "--con-t", "--con-l", "--con-r");
+  s += '<polygon points="' + q(pt(318,222,14), pt(450,222,14), pt(450,222,10), pt(318,222,10)) +
+       '" fill="var(--money)" opacity=".9"/>';
+  s += '<polygon class="mark" points="' + q(pt(44,234,1.2), pt(176,234,1.2), pt(176,300,1.2), pt(44,300,1.2)) + '"/>';
+
+  /* --- La gente: una en el andén de recepción, otra en la mesa de surtido --- */
+  s += persona(150, 206);
+  s += persona(300, 152);
+
+  /* --- El camión, armado en su posición base y movido por transform --- */
+  var TX = 40, TY = 238, T = "";
+  [TX + 18, TX + 46, TX + 108].forEach(function(wx){
+    T += box(wx, TY, 13, 46, 0, 15, "--whl", "--whl", "--whl");
+  });
+  T += box(TX + 4, TY + 3, 130, 40, 13, 21, "--chs", "--chs", "--chs");
+  T += box(TX + 14, TY + 3, 92, 40, 21, 60, "--tra-t", "--tra-l", "--tra-r");
+  T += '<polygon points="' + q(pt(TX+14,TY+43,46), pt(TX+106,TY+43,46), pt(TX+106,TY+43,37), pt(TX+14,TY+43,37)) +
+       '" fill="var(--trk-t)"/>';
+  T += box(TX + 106, TY + 3, 30, 40, 19, 62, "--trk-t", "--trk-l", "--trk-r");
+  s += '<g id="truck">' + T + '</g>';
+
+  /* --- El montacargas con su tarima --- */
+  var FX = 200, FY = 250, F = "";
+  [[4,3],[4,22],[27,4],[27,21]].forEach(function(w){
+    F += box(FX + w[0], FY + w[1], 8, 7, 0, 8, "--whl", "--whl", "--whl");
+  });
+  F += box(FX + 18, FY + 2, 22, 28, 6, 26, "--fk-t", "--fk-l", "--fk-r");
+  F += box(FX + 20, FY + 4, 4, 4, 26, 46, "--chs", "--chs", "--chs");
+  F += box(FX + 20, FY + 25, 4, 4, 26, 46, "--chs", "--chs", "--chs");
+  F += box(FX + 35, FY + 4, 4, 4, 26, 46, "--chs", "--chs", "--chs");
+  F += box(FX + 35, FY + 25, 4, 4, 26, 46, "--chs", "--chs", "--chs");
+  F += box(FX + 18, FY + 2, 22, 28, 46, 49, "--fk-t", "--fk-l", "--fk-r");
+  F += box(FX + 2, FY + 3, 4, 5, 0, 48, "--chs", "--chs", "--chs");
+  F += box(FX + 2, FY + 26, 4, 5, 0, 48, "--chs", "--chs", "--chs");
+  F += box(FX - 10, FY + 1, 24, 30, 10, 13, "--pal-t", "--pal-l", "--pal-r");
+  F += box(FX - 7, FY + 5, 18, 22, 13, 31, "--box-t", "--box-l", "--box-r");
+  s += '<g id="mont">' + F + '</g>';
+
+  /* --- El dato que sube al sistema: una línea por parada, hacia la oficina --- */
+  var OFI = [63, 49, 52];
+  function beam(x, y, z){
+    var ctl = pt((x + OFI[0]) / 2, (y + OFI[1]) / 2, (z + OFI[2]) / 2 + 55);
+    return '<path d="M' + pt(x,y,z) + " Q" + ctl + " " + pt(OFI[0],OFI[1],OFI[2]) + '"/>' +
+           '<circle cx="' + ((x - y) * C + OX).toFixed(1) + '" cy="' + ((x + y) * S - z + OY).toFixed(1) + '" r="3.6"/>';
+  }
+  var ORIGENES = [[110,208,20],[230,44,50],[264,159,12],[384,208,20],[470,268,16]];
+  ORIGENES.forEach(function(o, i){
+    s += '<g class="beam" id="b' + i + '">' + beam(o[0], o[1], o[2]) + '</g>';
+  });
+
+  document.getElementById("world").innerHTML = s;
+
+  /* --- Estados --- */
+  function move(dx, dy){
+    return "translate(" + ((dx - dy) * C).toFixed(1) + "px," + ((dx + dy) * S).toFixed(1) + "px)";
+  }
+  var STATES = [
+    { truck:move(14,-4),  truckOn:true,  propio:false, mont:move(-86,-16), montOn:true,  beams:[0],
+      label:"01 / 06 · Andén de recepción",
+      k:"OC-1182 · Recepción",
+      v:"40 de 40 pzas · proveedor validado · cuenta por pagar abierta" },
+
+    { truck:move(14,-4),  truckOn:false, propio:false, mont:move(26,-172), montOn:true,  beams:[1],
+      label:"02 / 06 · Rack A-04, nivel 12",
+      k:"Existencia · 312 pzas",
+      v:"ubicación A-04-12 · costo con flete $184.20 por pieza" },
+
+    { truck:move(14,-4),  truckOn:false, propio:false, mont:move(34,-64),  montOn:true,  beams:[2],
+      label:"03 / 06 · Mesa de surtido",
+      k:"PED-3471 · Apartado",
+      v:"18 pzas · 3 ubicaciones · un solo recorrido" },
+
+    { truck:move(292,-6), truckOn:true,  propio:true,  mont:move(150,-30), montOn:true,  beams:[3],
+      label:"04 / 06 · Andén de embarque",
+      k:"CFDI A-1140 · Timbrado",
+      v:"18 pzas · $41,760 · remisión y factura del mismo pedido" },
+
+    { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[4],
+      label:"05 / 06 · Ruta y cobranza",
+      k:"REP-0915 · Pago aplicado",
+      v:"complemento timbrado · antigüedad de saldos al momento" },
+
+    { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[0,1,2,3,4],
+      label:"06 / 06 · Tablero de dirección",
+      k:"Margen real · 22.4 %",
+      v:"cinco registros, una sola captura · flete y merma ya descontados" }
+  ];
+
+  var truckEl = document.getElementById("truck");
+  var montEl  = document.getElementById("mont");
+  var labelEl = document.getElementById("stateLabel");
+  var hudK = document.getElementById("hudK");
+  var hudV = document.getElementById("hudV");
+  var beamEls = Array.prototype.slice.call(document.querySelectorAll(".beam"));
+  var chipEls = Array.prototype.slice.call(document.querySelectorAll("#chips .chip"));
+  var totEl   = document.getElementById("ctot");
+  var stepEls = Array.prototype.slice.call(document.querySelectorAll(".step"));
+  var ULTIMO  = STATES.length - 1;
+  var current = -1;
+
+  function apply(i){
+    if (i === current) return;
+    current = i;
+    var st = STATES[i];
+
+    truckEl.style.transform = st.truck;
+    truckEl.classList.toggle("oculto", !st.truckOn);
+    truckEl.classList.toggle("propio", st.propio);
+
+    montEl.style.transform = st.mont;
+    montEl.classList.toggle("oculto", !st.montOn);
+
+    beamEls.forEach(function(g, n){ g.classList.toggle("on", st.beams.indexOf(n) !== -1); });
+
+    /* El expediente acumula: en el último paso quedan los cinco y el total. */
+    chipEls.forEach(function(el, n){
+      if (el === totEl) return;
+      el.classList.toggle("on", i === ULTIMO || n <= i);
+      el.classList.toggle("now", i !== ULTIMO && n === i);
+    });
+    totEl.classList.toggle("on", i === ULTIMO);
+
+    labelEl.textContent = st.label;
+    hudK.textContent = st.k;
+    hudV.textContent = st.v;
+    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+  }
+
+  apply(0);
+
+  /* El paso que se está leyendo es el que tiene el centro más cerca de la línea de
+     lectura, no el último que la cruzó por arriba: con esa regla la escena iba
+     siempre un paso atrasada respecto al texto. */
+  var reproduciendo = false;
+  var figuraEl = document.querySelector(".figure");
+
+  function elegir(){
+    if (reproduciendo) return;          // mientras reproduce, manda el reproductor
+    /* En escritorio se lee a media pantalla. En celular el dibujo se queda pegado
+       arriba, así que la lectura es el centro de lo que queda debajo de él: se
+       calcula del dibujo mismo, no con una fracción a ojo. */
+    var alto = window.innerHeight, linea = alto * 0.5;
+    if (window.innerWidth <= 880 && figuraEl){
+      linea = (Math.max(figuraEl.getBoundingClientRect().bottom, 0) + alto) / 2;
+    }
+    var idx = 0, cerca = Infinity, dentro = false;
+    for (var n = 0; n < stepEls.length; n++){
+      var r = stepEls[n].getBoundingClientRect();
+      if (r.top <= linea && r.bottom >= linea){ idx = n; dentro = true; break; }
+      if (!dentro){
+        var d = Math.min(Math.abs(r.top - linea), Math.abs(r.bottom - linea));
+        if (d < cerca){ cerca = d; idx = n; }
+      }
+    }
+    apply(idx);
+  }
+
+  /* Directo, sin requestAnimationFrame: son seis medidas por evento y apply() sale
+     solo si el paso cambió, así que no hay trabajo de más al desplazar. */
+  window.addEventListener("scroll", elegir, { passive:true });
+  window.addEventListener("resize", elegir, { passive:true });
+  elegir();
+
+  stepEls.forEach(function(el){
+    el.addEventListener("click", function(){ detener(); apply(Number(el.dataset.i)); });
+    el.addEventListener("keydown", function(ev){
+      if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); detener(); apply(Number(el.dataset.i)); }
+    });
+  });
+
+  /* Reproducción automática: sirve para grabar el recorrido en video sin tocar nada. */
+  var playEl = document.getElementById("play");
+  var timer = null;
+  var suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function irA(i){
+    stepEls[i].scrollIntoView({ behavior: suave ? "smooth" : "auto", block: "center" });
+    apply(i);
+  }
+  function detener(){
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+    reproduciendo = false;
+    playEl.textContent = "▶ Reproducir";
+    playEl.setAttribute("aria-pressed", "false");
+  }
+  playEl.addEventListener("click", function(){
+    if (timer){ detener(); return; }
+    reproduciendo = true;
+    playEl.textContent = "❚❚ Pausar";
+    playEl.setAttribute("aria-pressed", "true");
+    irA(0);
+    timer = setInterval(function(){
+      var n = current + 1;
+      if (n >= STATES.length){ detener(); return; }
+      irA(n);
+    }, 4500);
+  });
+
+  /* Si la persona toma el control, la reproducción se detiene sola. */
+  ["wheel", "touchstart"].forEach(function(ev){
+    window.addEventListener(ev, function(){ detener(); }, { passive:true });
+  });
+})();
+</script>

@@ -37,11 +37,14 @@
 .hero__media {
   margin: 0;
 }
+/* El dibujo isométrico va sobre papel, no sobre una tarjeta con sombra:
+   es una ilustración, no una captura de pantalla. */
 .hero__media img {
   width: 100%;
   height: auto;
-  border-radius: var(--r-2xl);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--r-lg);
+  background: var(--bg-soft);
+  padding: var(--sp-5);
 }
 
 @media (max-width: 991px) {
@@ -81,4 +84,60 @@
     min-height: 36px;
     padding-inline: var(--sp-3);
   }
+}
+
+/* Botón secundario con el círculo de play dentro */
+.hero__video {
+  padding-left: var(--sp-3);
+}
+.hero__video .btn__play {
+  width: 28px;
+  height: 28px;
+  border-color: currentColor;
+}
+.hero__video-nota {
+  padding: 2px 8px;
+  border-radius: var(--r-md);
+  background: var(--purple-100);
+  color: var(--purple-600);
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+}
+.hero__video:hover .hero__video-nota {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+}
+
+/* --- La segunda acción: la puerta que no pide nada --- */
+.hero__calc {
+  flex-direction: column;
+  gap: 2px;
+  padding-block: var(--sp-2);
+  line-height: 1.2;
+}
+.hero__calc-nota {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--copper-500);
+}
+.hero__calc:hover .hero__calc-nota {
+  color: inherit;
+}
+
+/* --- El video, cuando exista: tercera opción, sin peso de botón --- */
+.hero__video {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--purple-500);
+}
+.hero__video-nota {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--text-500);
 }

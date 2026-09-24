@@ -1,0 +1,11 @@
+{
+  "extraKnownMarketplaces": {
+    "mattpocock": { "source": { "source": "github", "repo": "mattpocock/skills" } }
+  },
+  "enabledPlugins": { "mattpocock-skills@mattpocock": true },
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "cat \"$CLAUDE_PROJECT_DIR/.claude/hooks/skills.txt\"" } ] }
+    ]
+  }
+}

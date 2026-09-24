@@ -25,4 +25,18 @@ Sitio público de Loomware: <https://loomware.com.mx>. React + Vite, desplegado 
   `functions/api/denue` toma `DENUE_TOKEN` y `PROSPECT_KEY` de las variables de Cloudflare;
   el token del INEGI solo vive en el servidor y en `.env` local (ignorado por git).
 - Textos en español de México; nombres de commit en español, imperativo, una línea de resumen.
-- Antes de abrir un PR: `npm run build` sin errores y el sitio revisado en `npm run preview`.
+- Antes de abrir un PR: `npm test` y `npm run build` sin errores, y el sitio revisado en
+  `npm run preview`.
+
+## Pendientes
+
+`PENDIENTES.md` es la lista viva: la ruta a producción, las variables de Cloudflare, lo que falta
+de cada quien y el historial de lo resuelto. Léela al empezar trabajo nuevo; al resolver un punto,
+táchalo ahí con la fecha.
+
+## Skills
+
+Además de `/inicio` y `/cierre`, el proyecto usa el plugin `mattpocock-skills`. El hook de
+`.claude/settings.json` recuerda en cada mensaje cuál toca según la situación; la lista vive en
+`.claude/hooks/skills.txt`. Para revisar un PR, `mattpocock-skills:code-review` (revisa contra
+estas reglas), no el `code-review` integrado.

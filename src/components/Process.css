@@ -46,9 +46,12 @@
   height: 44px;
   border-radius: 50%;
 }
+/* El número de un paso es un dato, no una acción: cobre y monoespaciada, como
+   en los recorridos. El morado queda libre para lo que se pica. */
 .step__num {
-  color: var(--white);
-  background: var(--purple-500);
+  color: var(--copper-600);
+  background: var(--copper-100);
+  font-family: var(--font-mono);
   font-size: var(--fs-sm);
   font-weight: 700;
 }

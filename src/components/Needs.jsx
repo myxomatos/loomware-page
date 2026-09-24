@@ -64,10 +64,9 @@ export default function Needs() {
           ))}
         </div>
 
-        <div className="needs__grid">
-          <div id="impacto" className="card card--dark impact">
-            <h3 className="impact__title">Impacto que puedes lograr</h3>
-            <ul className="impact__list">
+        <div id="impacto" className="card card--dark impact">
+          <h3 className="impact__title">Impacto que puedes lograr</h3>
+          <ul className="impact__list">
               {IMPACT.map((i) => (
                 <li key={i.title} className="impact__item">
                   <Icon name={i.icon} size={28} strokeWidth={1.75} />
@@ -75,11 +74,10 @@ export default function Needs() {
                   <p className="impact__item-text">{i.text}</p>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <ContactForm interes={selectedLabel} />
+          </ul>
         </div>
+
+        <ContactForm interes={selectedLabel} />
       </div>
     </section>
   )

@@ -2,38 +2,32 @@ import Icon from './Icon'
 import Logo from './Logo'
 import './Challenge.css'
 
+/* Tres dolores, no cinco: "falta de visibilidad" y "sistemas que no se integran"
+   ya están dichos en los otros. Nadie lee doce viñetas en la segunda sección. */
 const PAINS = [
   'Información dispersa',
   'Procesos manuales y lentos',
-  'Falta de visibilidad del negocio',
-  'Sistemas que no se integran',
   'Decisiones sin datos confiables',
 ]
 
 const INPUTS = [
   { icon: 'message-circle', label: 'WhatsApp', tone: 'green' },
   { icon: 'globe', label: 'Web / Formularios' },
-  { icon: 'instagram', label: 'Redes sociales' },
   { icon: 'mail', label: 'Correo / Llamadas' },
   { icon: 'file-spreadsheet', label: 'Excel y archivos' },
-  { icon: 'database', label: 'Otros sistemas' },
 ]
 
 const CORE = [
   'Captura y centraliza',
   'Integra y automatiza',
-  'Unifica tu operación',
   'Convierte datos en acción',
-  'Se adapta a tu negocio',
 ]
 
 const RESULTS = [
-  { icon: 'target', label: 'Oportunidades atendidas' },
-  { icon: 'refresh-cw', label: 'Seguimiento constante' },
-  { icon: 'list-checks', label: 'Menos tareas manuales' },
-  { icon: 'activity', label: 'Información en tiempo real' },
-  { icon: 'lightbulb', label: 'Mejores decisiones' },
-  { icon: 'trending-up', label: 'Más ventas y crecimiento' },
+  { icon: 'target', label: 'Cada prospecto con dueño y fecha' },
+  { icon: 'activity', label: 'Inventario real, no el de ayer' },
+  { icon: 'list-checks', label: 'Lo repetitivo corre solo' },
+  { icon: 'trending-up', label: 'Sabes cuánto vas a cerrar' },
 ]
 
 function FlowArrow() {
@@ -52,9 +46,7 @@ export default function Challenge() {
           <div className="challenge__copy">
             <span className="eyebrow eyebrow--purple">El desafío</span>
             <h2 className="challenge__title">
-              Tu negocio <span className="challenge__accent">crece.</span>
-              <br />
-              ¿Tus procesos también?
+              De datos dispersos a <span className="challenge__accent">control real</span>
             </h2>
             <p className="text-sm">
               Cuando la información está en todas partes, el control se pierde y las
@@ -108,7 +100,7 @@ export default function Challenge() {
 
             <div className="flow__col">
               <p className="flow__label">Resultados</p>
-              <p className="flow__hint">Más control, más ventas, menos trabajo manual</p>
+              <p className="flow__hint">Lo que cambia en la operación</p>
               <ul className="flow__list card">
                 {RESULTS.map((r) => (
                   <li key={r.label}>

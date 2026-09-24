@@ -1,8 +1,6 @@
 import Icon from './Icon'
 import './CtaBand.css'
 
-const PROMISES = ['Diagnóstico sin costo', 'Propuesta personalizada', 'Acompañamiento real']
-
 export default function CtaBand() {
   return (
     <section className="cta-band-wrap" aria-labelledby="cta-title">
@@ -22,16 +20,10 @@ export default function CtaBand() {
             </div>
           </div>
 
-          <span className="cta-band__divider" aria-hidden="true" />
-
-          <ul className="cta-band__promises">
-            {PROMISES.map((p) => (
-              <li key={p}>
-                <Icon name="check" size={16} strokeWidth={2.5} />
-                {p}
-              </li>
-            ))}
-          </ul>
+          <a href="#contacto" className="btn btn--primary cta-band__btn">
+            Solicitar diagnóstico
+            <Icon name="arrow-right" size={18} />
+          </a>
         </div>
       </div>
     </section>

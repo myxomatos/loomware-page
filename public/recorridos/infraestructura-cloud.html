@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Del cuarto del servidor a cualquier lugar · Infraestructura cloud | Loomware</title>
+    <meta name="description" content="Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída vigilada, los accesos por persona y la oficina sin cuartito del servidor." />
+    <link rel="canonical" href="https://loomware.com.mx/recorridos/infraestructura-cloud" />
+    <meta name="theme-color" content="#A35C23" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Loomware" />
+    <meta property="og:url" content="https://loomware.com.mx/recorridos/infraestructura-cloud" />
+    <meta property="og:title" content="Del cuarto del servidor a cualquier lugar · Infraestructura cloud | Loomware" />
+    <meta property="og:description" content="Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída vigilada, los accesos por persona y la oficina sin cuartito del servidor." />
+    <meta property="og:image" content="https://loomware.com.mx/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_MX" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Del cuarto del servidor a cualquier lugar · Infraestructura cloud | Loomware" />
+    <meta name="twitter:description" content="Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída vigilada, los accesos por persona y la oficina sin cuartito del servidor." />
+    <meta name="twitter:image" content="https://loomware.com.mx/og-image.png" />
+
+    <style>
+      :root {
+        color-scheme: light;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+      body { margin: 0; padding: 0; }
+      img { max-width: 100%; }
+      [hidden] { display: none !important; }
+    </style>
+    <!--
+      Ligas del sitio: relativas y en la misma pestaña, para que funcionen igual en
+      producción y en el preview de cada rama.
+        1. la barra de marca (brand__site) regresa al inicio, a la tarjeta de este recorrido
+        2. la liga "formulario del sitio" del cierre (.otras) lleva al formulario de su servicio
+    -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
+    <style>
+      *,*::before,*::after{box-sizing:border-box;}
+
+      :root{
+        /* --- superficie y texto: neutros cálidos, para que el cobre cante --- */
+        --paper:#EEEBE6;
+        --surface:#FFFFFF;
+        --ink:#191A1E;
+        --ink-2:#4E5058;
+        --ink-3:#7A7D86;
+        --rule:#CFC9C0;
+        --rule-soft:#E3DED6;
+
+        --signal:#A35C23;       /* cobre: el dato que el sistema registra */
+        --signal-soft:#F8EDE2;
+        --money:#12643C;        /* verde: lo que ganas */
+        --pain:#6B6F79;         /* gris: así está hoy */
+        --pain-bg:#DFDCD5;      /* franja apagada, separada del papel a simple vista */
+
+        /* --- materiales de la escena: cara superior / izquierda / derecha --- */
+        --grd:#DCD7CE;  --grd2:#E9E5DD;
+        --asf-t:#A8A49C;
+        --line:#F0EDE7;
+        --con-t:#C6C1B8; --con-l:#9B978F; --con-r:#B0ABA3;
+        --rck-t:#D2CEC6; --rck-l:#A5A199; --rck-r:#BDB9B1;
+        --box-t:#E4D5BB; --box-l:#B8A886; --box-r:#D0C0A1;
+        --ofi-t:#E4E0D8; --ofi-l:#B4B0A8; --ofi-r:#CBC7BF;
+        --tra-t:#EBE8E1; --tra-l:#B9B5AD; --tra-r:#D3CFC8;
+        --trk-t:#C7C3BB; --trk-l:#928E86; --trk-r:#ADA9A1;
+        --fk-t:#5A5C63;  --fk-l:#35373C;  --fk-r:#47494F;
+        --pal-t:#C4A173; --pal-l:#8F7349; --pal-r:#AB8B5D;
+        --per-t:#5A6472; --per-l:#333A44; --per-r:#47505C;   /* la gente de la nave */
+        --chs:#33353B;
+        --whl:#191A1E;
+        --shadow:0 1px 0 rgba(25,26,30,.04), 0 12px 28px -20px rgba(25,26,30,.4);
+
+        --mono:"Azeret Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+        --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+      }
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]){
+          --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+          --rule:#3F3930; --rule-soft:#2A2620;
+          --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+          --pain:#8F8878; --pain-bg:#1B1915;
+          /* la escena va más clara que el papel: si no, el dibujo se vuelve lodo */
+          --grd:#221F19; --grd2:#2E2A23;
+          --asf-t:#3D3931; --line:#6A6357;
+          --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+          --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+          --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+          --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+          --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+          --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+          --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+          --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+          --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+          --chs:#141210; --whl:#0C0A08;
+          --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+        }
+      }
+      :root[data-theme="dark"]{
+        --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+        --rule:#3F3930; --rule-soft:#2A2620;
+        --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+        --pain:#8F8878; --pain-bg:#1B1915;
+        --grd:#221F19; --grd2:#2E2A23;
+        --asf-t:#3D3931; --line:#6A6357;
+        --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+        --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+        --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+        --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+        --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+        --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+        --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+        --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+        --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+        --chs:#141210; --whl:#0C0A08;
+        --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+      }
+
+      /* Monoespaciada para todo lo que es dato, etiqueta o título: lectura de máquina.
+         Archivo sólo para el texto corrido, que en mono cansa. */
+      body{
+        background:var(--paper); color:var(--ink);
+        font-family:var(--sans); font-size:14px; line-height:1.5;
+        -webkit-font-smoothing:antialiased; overflow-wrap:break-word;
+      }
+      .wrap{max-width:1180px;margin:0 auto;padding-inline:18px;padding-block:16px 48px;}
+      .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+        font-weight:500;}
+
+      /* ---------- barra de marca ---------- */
+      .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+        padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
+      .brand__id{display:flex;align-items:center;gap:8px;}
+      .brand__id svg{display:block;flex:none;}
+      .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
+        letter-spacing:-.03em;color:var(--ink);}
+      .brand__site{font-family:var(--mono);font-size:11px;color:var(--ink-2);text-decoration:none;
+        border-bottom:1px solid var(--rule);padding-bottom:1px;}
+      .brand__site:hover{color:var(--signal);border-color:currentColor;}
+
+      /* ---------- cabecera ---------- */
+      .mast{display:flex;flex-direction:column;gap:13px;padding-block:20px 17px;
+        border-bottom:1px solid var(--rule);}
+      .eyebrow{color:var(--signal);}
+      h1{font-family:var(--mono);font-weight:700;
+        font-size:clamp(25px,4.6vw,42px);line-height:1.04;letter-spacing:-.03em;
+        text-transform:uppercase;margin:0;text-wrap:balance;}
+      .deck{max-width:78ch;color:var(--ink-2);font-size:14px;margin:0;line-height:1.55;}
+      .deck b{color:var(--ink);font-weight:600;}
+
+      /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
+      .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
+      .antes svg{display:block;width:100%;max-width:620px;height:auto;}
+      .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);max-width:70ch;
+        line-height:1.6;}
+      .dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;}
+      .dg-line{stroke:var(--pain);stroke-width:1;fill:none;opacity:.6;}
+      .dg-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-2);}
+      .dg-arrow{stroke:var(--ink-3);stroke-width:1.5;fill:none;}
+      .dg-erp{fill:var(--surface);stroke:var(--signal);stroke-width:1.5;}
+      .dg-row{fill:var(--signal-soft);}
+      .dg-k{font-family:var(--mono);font-size:9px;fill:var(--signal);letter-spacing:.12em;}
+
+      .specline{display:flex;flex-wrap:wrap;gap:4px 20px;font-family:var(--mono);font-size:10.5px;
+        color:var(--ink-3);font-variant-numeric:tabular-nums;}
+      .specline b{color:var(--signal);font-weight:500;}
+
+      /* ---------- dos columnas ---------- */
+      .cols{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+        gap:30px;margin-top:22px;align-items:start;}
+      .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
+        display:flex;flex-direction:column;gap:8px;min-width:0;}
+
+      /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
+      .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
+        background:var(--surface);border:1px solid var(--rule-soft);
+        border-left:3px solid var(--signal);border-radius:2px;}
+      .readout__k{color:var(--signal);font-size:11px;}
+      .readout__v{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+        font-variant-numeric:tabular-nums;line-height:1.45;}
+
+      .stage{background:var(--surface);border:1px solid var(--rule-soft);
+        border-radius:3px;box-shadow:var(--shadow);padding:5px;}
+      .stage svg{display:block;width:100%;height:auto;}
+
+      .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+        font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
+      .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+        color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
+        border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+      .play:hover{background:var(--signal);color:var(--surface);}
+      .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+      .legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;
+        font-family:var(--mono);font-size:10px;color:var(--ink-3);}
+      .legend li{display:flex;align-items:center;gap:6px;}
+      .sw{width:12px;height:7px;flex:none;border-radius:1px;}
+      .sw--real{background:var(--ink-2);}
+      .sw--tienda{background:transparent;border-top:2px dashed var(--pain);height:0;}
+      .sw--fantasma{background:var(--pain-bg);border:1px solid var(--pain);}
+      .sw--con{background:var(--signal);}
+
+      /* expediente: un dato, una sola captura */
+      .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
+        flex-direction:column;gap:7px;}
+      .exp__t{color:var(--ink-3);}
+      .chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+      .chip{display:flex;flex-direction:column;gap:0;padding:4px 8px;border-radius:2px;
+        border:1px solid var(--rule-soft);background:var(--surface);font-family:var(--mono);
+        opacity:.32;transition:opacity .4s ease,border-color .4s ease,background-color .4s ease;min-width:0;}
+      .chip b{font-size:11px;font-weight:500;letter-spacing:-.02em;color:var(--ink-2);line-height:1.5;}
+      .chip span{font-size:9px;color:var(--ink-3);line-height:1.5;}
+      .chip.on{opacity:1;}
+      .chip.now{border-color:var(--signal);background:var(--signal-soft);}
+      .chip.now b{color:var(--signal);}
+      .chip--tot.on{border-color:var(--signal);background:var(--signal);}
+      .chip--tot.on b,.chip--tot.on span{color:var(--surface);}
+
+      /* ---------- pasos ---------- */
+      .steps{display:flex;flex-direction:column;min-width:0;}
+      .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+        padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
+      /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
+         es lo que hace que el recorrido se lea de uno en uno. */
+      .step{display:flex;flex-direction:column;justify-content:center;
+        min-height:clamp(140px,27vh,240px);padding-block:12px;padding-left:14px;
+        border-left:3px solid transparent;cursor:pointer;min-width:0;
+        transition:opacity .35s ease,border-color .35s ease;opacity:.34;}
+      .step.on{opacity:1;border-left-color:var(--signal);}
+      .step:hover{opacity:.7;border-left-color:var(--rule);}
+      .step.on:hover{opacity:1;border-left-color:var(--signal);}
+      .step:focus-visible{outline:2px solid var(--signal);outline-offset:5px;}
+      .step-head{display:flex;align-items:baseline;gap:9px;margin-bottom:8px;flex-wrap:wrap;}
+      .paso{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:-.02em;
+        color:var(--ink-3);line-height:1.5;transition:color .35s ease;}
+      .step.on .paso{color:var(--signal);}
+      .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
+        color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
+        border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
+      .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+        margin:0;color:var(--ink);text-wrap:balance;}
+
+      /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
+      .vs{display:flex;flex-direction:column;gap:1px;border-radius:2px;overflow:hidden;}
+      .vs__row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:11px;
+        padding:8px 10px;align-items:start;}
+      .vs__row p{margin:0;font-size:13px;line-height:1.45;color:var(--ink);}
+      .vs__lbl{line-height:1.75;}
+      .vs__row--hoy{background:var(--pain-bg);border-left:3px solid var(--pain);}
+      .vs__row--hoy .vs__lbl{color:var(--pain);}
+      .vs__row--hoy p{color:var(--ink-2);}
+      .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
+      .vs__row--con .vs__lbl{color:var(--signal);}
+      .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
+      .vs__row--gana .vs__lbl{color:var(--money);}
+      .vs__row--gana p{font-weight:500;}
+
+      /* ---------- secciones de abajo ---------- */
+      .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
+      .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
+        font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
+        text-wrap:balance;color:var(--ink);text-transform:uppercase;}
+      .giros p,.faq p,.costo p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
+
+      /* 320px: da 3 columnas en escritorio y 2 en tablet, y las seis tarjetas
+         de giros y de preguntas llenan las filas sin dejar celdas vacías. */
+      .rejilla{list-style:none;margin:0;padding:0;display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;
+        background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:2px;}
+      .rejilla li{background:var(--surface);padding:11px 13px;display:flex;
+        flex-direction:column;gap:3px;}
+      .rejilla b{font-family:var(--mono);font-size:10.5px;font-weight:500;
+        letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+      .rejilla span{font-size:12.5px;line-height:1.45;color:var(--ink-2);}
+      .rejilla .hoy{font-size:11.5px;line-height:1.45;color:var(--pain);}
+      .rejilla .este{background:var(--signal-soft);}
+      .rejilla .este b{color:var(--signal);}
+      .giros__cierre{margin:14px 0 0 !important;font-size:13.5px;color:var(--ink);}
+
+      /* preguntas que el comprador hace antes de llamar */
+      .faq .rejilla b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+
+      .costo .rejilla{grid-template-columns:minmax(0,1fr);max-width:780px;}
+      .costo .rejilla li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;
+        font-size:12.5px;line-height:1.4;color:var(--ink);}
+      .costo .rejilla b{font-size:10px;color:var(--signal);line-height:1.6;
+        font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
+
+      /* ---------- cierre ---------- */
+      .cierre{margin-top:26px;max-width:640px;padding-left:16px;
+        border-left:3px solid var(--signal);}
+      .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
+      .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+        font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
+        text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
+      .btn svg{flex:none;}
+      .btn:hover{filter:brightness(1.1);}
+      .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+      .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
+        color:var(--ink-3);line-height:1.8;}
+      /* El correo no se parte a media dirección: se baja entero. */
+      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+        overflow-wrap:normal;word-break:normal;white-space:nowrap;}
+      .cierre .otras .par{display:inline;}
+      .cierre .otras a:hover{color:var(--signal);}
+      .cierre .otras .sep{margin-inline:7px;color:var(--rule);}
+
+      .colofon{margin-top:24px;font-family:var(--mono);font-size:10px;color:var(--ink-3);
+        max-width:96ch;line-height:1.7;}
+      .colofon b{color:var(--ink-2);font-weight:500;}
+
+      /* ---------- estado de la escena ---------- */
+      /* Cada elemento del dibujo aparece en el paso que le toca, y algunos se van. */
+      .e{opacity:0;transition:opacity .45s ease;}
+      .e.visible{opacity:1;}
+
+      /* El cuartito del servidor y, enfrente, la operación en otro lado. */
+      :root{--pared:#E6E0D6;--piso:#CFC6B8;--metal:#4A4C54;--metal-2:#2F3138;--led-on:#12643C;--led-off:#8A8D95;--postit:#F3E39A;--edificio:#3A3C44;--ventana:#6D717C;--piel:#5A6472;}
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]){--pared:#2A2620;--piso:#3A342B;--metal:#9A9DA6;--metal-2:#6D717C;--led-on:#5BD095;--led-off:#4A4C54;--postit:#B8A44E;--edificio:#8B94A3;--ventana:#4B535F;--piel:#8B94A3;}
+      }
+      :root[data-theme="dark"]{--pared:#2A2620;--piso:#3A342B;--metal:#9A9DA6;--metal-2:#6D717C;--led-on:#5BD095;--led-off:#4A4C54;--postit:#B8A44E;--edificio:#8B94A3;--ventana:#4B535F;--piel:#8B94A3;}
+
+      .pared{fill:var(--pared);}
+      .piso{fill:var(--piso);}
+      .repisa{fill:var(--piso);stroke:var(--rule);stroke-width:.8;}
+      .torre{fill:var(--metal);}
+      .torre-frente{fill:var(--metal-2);}
+      .ranura{stroke:var(--metal);stroke-width:1.2;}
+      .led{fill:var(--led-on);}
+      .led--off{fill:var(--led-off);}
+      .regulador{fill:var(--metal-2);}
+      .regulador-luz{fill:var(--paper);}
+      .cable{fill:none;stroke:var(--metal-2);stroke-width:1.6;stroke-linecap:round;}
+      .enchufe{fill:var(--surface);stroke:var(--rule);stroke-width:.8;}
+      .rayo{fill:var(--pain);}
+      .vent{fill:none;stroke:var(--metal);stroke-width:1.6;}
+      .vent-aspa{fill:var(--metal-2);}
+      .vent-giro{fill:none;stroke:var(--pain);stroke-width:1.2;stroke-dasharray:3 3;}
+      .disco{fill:var(--metal);}
+      .disco-etq{fill:var(--surface);stroke:var(--rule);stroke-width:.6;}
+      .postit{fill:var(--postit);}
+      .t-postit{font-family:var(--sans);font-size:7.5px;fill:var(--ink);}
+      .cruz{stroke:var(--pain);stroke-width:3;stroke-linecap:round;}
+      .rot-lugar{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--ink-3);letter-spacing:.12em;text-anchor:middle;}
+      .gente{fill:var(--piel);}
+
+      /* rótulos HOY / CON EL SISTEMA */
+      .rot{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;fill:var(--surface);}
+      .rot-caja{fill:var(--pain);}
+      .rot-caja--con{fill:var(--signal);}
+
+      /* la etiqueta de lo que pasa hoy */
+      .parado{fill:var(--pain-bg);stroke:var(--pain);stroke-width:.9;}
+      .t-parado{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--pain);letter-spacing:.03em;}
+      .t-parado--sub{font-weight:400;font-size:8px;}
+      .t-nota{font-family:var(--mono);font-size:8px;fill:var(--pain);letter-spacing:.02em;}
+
+      /* la operación en otro lado */
+      .edificio{fill:var(--edificio);}
+      .ventana{fill:var(--ventana);}
+      .ventana--luz{fill:var(--signal);}
+      .lugar{fill:var(--surface);stroke:var(--rule);stroke-width:.9;}
+      .laptop{fill:var(--metal-2);}
+      .laptop-luz{fill:var(--signal-soft);}
+      .casa{fill:none;stroke:var(--ink-3);stroke-width:1.4;stroke-linejoin:round;}
+      .liga{fill:none;stroke:var(--signal);stroke-width:1.8;stroke-linecap:round;}
+      .liga-pto{fill:var(--signal);}
+      .candado{fill:none;stroke:var(--signal);stroke-width:1.4;}
+      .t-con{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--signal);letter-spacing:.03em;}
+      .t-con--sub{font-weight:400;fill:var(--ink-3);font-size:8px;}
+      .t-gana{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--money);letter-spacing:.03em;}
+      .resumen{fill:var(--pain-bg);stroke:var(--pain);stroke-width:1;}
+      .resumen--con{fill:var(--signal-soft);stroke:var(--signal);}
+      .resumen-t{font-family:var(--mono);font-size:9px;font-weight:700;fill:var(--pain);letter-spacing:.03em;}
+      .resumen-t--con{fill:var(--signal);}
+
+      .sw--cuarto{background:var(--pared);border:1px solid var(--rule);height:10px;}
+      .sw--parado{background:var(--pain-bg);border:1px solid var(--pain);height:10px;}
+      .sw--nube{background:var(--edificio);height:10px;}
+      .sw--acceso{background:transparent;border:1.5px solid var(--signal);border-radius:2px;width:9px;height:9px;}
+
+      @media (prefers-reduced-motion:reduce){
+        .e,.chip,.step{transition:none;}
+      }
+
+      @media (max-width:880px){
+        /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
+           los pasos pasan por debajo, igual que en escritorio */
+        .cols{display:block;margin-top:16px;}
+        .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+          background:var(--paper);padding-block:8px;margin-bottom:6px;
+          border-bottom:1px solid var(--rule-soft);}
+        .stage svg{max-height:33vh;}
+        .rot-lugar{font-size:11px;}
+        /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
+           fijo, la línea de lectura se movería sola y el paso brincaría */
+        .readout__v{min-height:3.05em;}
+        .t-anaquel{font-size:13px;}
+        /* El dibujo se encoge a un tercio: los rótulos de los ejes crecen para seguir legibles. */
+        .eje{font-size:17px;}
+        .eje--dato{font-size:15px;}
+        .legend{display:none;}
+        /* en tablet vertical el texto corría a 100 caracteres por renglón */
+        .steps{max-width:660px;}
+        .step{min-height:clamp(120px,22vh,190px);padding-left:11px;opacity:.4;}
+      }
+      @media (max-width:560px){
+        .vs__row,.costo .rejilla li{grid-template-columns:minmax(0,1fr);gap:3px;}
+        .vs__lbl,.costo .rejilla b{line-height:1.4;}
+        .btn{width:100%;justify-content:center;}
+        /* En celular cada forma de contacto va en su propio renglón. */
+        .cierre .otras .par{display:block;}
+        .cierre .otras .sep{display:none;}
+        .gauge{margin-left:0;}
+      }
+    </style>
+  </head>
+  <body>
+<div class="wrap">
+
+  <div class="brand">
+    <span class="brand__id">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M19 19H4.8a2.8 2.8 0 1 1 .05-5.6 4 4 0 0 1 4.58-5.31A5 5 0 0 1 19 11a4 4 0 0 1 0 8Z" stroke="var(--ink)" stroke-width="1.8"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M15.5 8h4v4" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--signal)" stroke-width="2"/>
+        <path d="M15.5 8h4v4" stroke="var(--signal)" stroke-width="2"/>
+      </svg>
+      <span class="brand__name">Loomware</span>
+    </span>
+    <a class="brand__site" href="/#recorrido-infraestructura-cloud">loomware.com.mx</a>
+  </div>
+
+  <header class="mast">
+    <div class="eyebrow lbl">Infraestructura cloud · un ejemplo, paso a paso</div>
+    <h1>Del cuarto del servidor a cualquier lugar</h1>
+    <p class="deck">En casi toda empresa hay un cuartito con <b>un servidor que alguien compró hace
+      años</b>: se apaga cuando se va la luz, se respalda cuando alguien se acuerda y se queda
+      chico justo en diciembre. Para verlo seguimos una semana de esa empresa dos veces: con el
+      servidor en el cuartito, y con la operación viviendo en otro lado, disponible desde la
+      oficina, la bodega o tu casa. Seis paradas y <b>una sola operación</b>. El giro no cambia
+      la idea: abajo está el mismo recorrido en otros cinco.</p>
+
+    <figure class="antes">
+      <svg viewBox="0 0 620 124" role="img"
+           aria-label="A la izquierda, un servidor en la oficina del que dependen la oficina, la bodega y la gente que trabaja fuera; si se apaga, todos se detienen. A la derecha, la operación en la nube, respaldada y vigilada, a la que entran la oficina, la bodega, el celular y la casa.">
+        <rect class="dg-box" x="90" y="40" width="70" height="44" rx="2"/>
+        <text class="dg-t" x="98" y="57">Servidor</text>
+        <text class="dg-t" x="98" y="71">en la oficina</text>
+        <path class="dg-line" d="M90 62 L30 20"/>
+        <path class="dg-line" d="M90 62 L30 104"/>
+        <path class="dg-line" d="M160 62 L220 20"/>
+        <path class="dg-line" d="M160 62 L220 104"/>
+        <rect class="dg-box" x="4" y="6" width="56" height="20" rx="2"/>
+        <rect class="dg-box" x="4" y="94" width="56" height="20" rx="2"/>
+        <rect class="dg-box" x="196" y="6" width="56" height="20" rx="2"/>
+        <rect class="dg-box" x="196" y="94" width="56" height="20" rx="2"/>
+        <text class="dg-t" x="10" y="20">Oficina</text>
+        <text class="dg-t" x="10" y="108">Bodega</text>
+        <text class="dg-t" x="202" y="20">Ventas</text>
+        <text class="dg-t" x="202" y="108">Tu casa</text>
+        <text class="dg-t" x="72" y="118">se va la luz: todos se detienen</text>
+        <path class="dg-arrow" d="M268 62 L300 62"/>
+        <path class="dg-arrow" d="M292 56 L300 62 L292 68"/>
+        <rect class="dg-erp" x="316" y="2" width="298" height="118" rx="3"/>
+        <text class="dg-k" x="328" y="17">TU OPERACIÓN, EN OTRO LADO</text>
+        <rect class="dg-row" x="326" y="24" width="278" height="15" rx="1"/>
+        <rect class="dg-row" x="326" y="42" width="278" height="15" rx="1"/>
+        <rect class="dg-row" x="326" y="60" width="278" height="15" rx="1"/>
+        <rect class="dg-row" x="326" y="78" width="278" height="15" rx="1"/>
+        <rect class="dg-row" x="326" y="96" width="278" height="15" rx="1"/>
+        <text class="dg-t" x="334" y="35">Sigue funcionando cuando se va la luz</text>
+        <text class="dg-t" x="334" y="53">Respaldo diario, con restauración probada</text>
+        <text class="dg-t" x="334" y="71">Crece en temporada alta y baja después</text>
+        <text class="dg-t" x="334" y="89">Vigilada las 24 horas, con alertas</text>
+        <text class="dg-t" x="334" y="107">Acceso por persona, dos factores y registro</text>
+      </svg>
+      <figcaption>Izquierda: todo depende de un equipo en un cuartito. Derecha: la operación
+        vive en otro lado, respaldada y vigilada, y se entra desde donde estés. Eso es todo lo
+        que es la infraestructura en la nube.</figcaption>
+    </figure>
+
+    <div class="specline">
+      <span>Migración <b>sin detener la operación</b></span>
+      <span>Respaldo <b>diario y probado</b></span>
+      <span>Vigilancia <b>24 horas</b></span>
+      <span>Pagas <b>lo que usas</b></span>
+    </div>
+  </header>
+
+  <div class="cols">
+    <div class="figure">
+
+      <div class="readout" aria-live="polite">
+        <span class="readout__k lbl" id="hudK">LUZ-1120 · Se fue la luz</span>
+        <span class="readout__v" id="hudV">martes 11:20 · izquierda: el servidor se apaga y todos esperan · derecha: sigue</span>
+      </div>
+
+      <div class="stage">
+        <svg id="scene" viewBox="0 0 680 360" role="img"
+             aria-label="A la izquierda, el cuartito del servidor de una oficina: la torre con sus luces, el regulador que pita cuando se va la luz, el ventilador, el disco externo del respaldo con fecha de hace veintitrés días, y el papelito con la contraseña pegado en la pared. A la derecha, la misma empresa con la operación en otro lado: un edificio de centro de datos cifrado y vigilado, del que salen líneas a la laptop de la oficina, al celular de quien anda en la calle y a la casa. Paso a paso se ven el apagón, el respaldo, la temporada alta, la caída, los accesos y el cierre.">
+          <g id="world"></g>
+        </svg>
+      </div>
+
+      <div class="cap">
+        <span id="stateLabel">01 / 06 · Se fue la luz</span>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <span>Cifras de ejemplo</span>
+      </div>
+
+      <ul class="legend">
+        <li><span class="sw sw--cuarto"></span>El cuartito del servidor, en tu oficina</li>
+        <li><span class="sw sw--parado"></span>La operación detenida</li>
+        <li><span class="sw sw--nube"></span>Tu operación, en otro lado</li>
+        <li><span class="sw sw--acceso"></span>Un acceso, por persona</li>
+      </ul>
+
+      <div class="exp">
+        <div class="exp__t lbl">La operación · disponible, respaldada y vigilada</div>
+        <ul class="chips" id="chips">
+          <li class="chip" id="c0"><b>LUZ-1120</b><span>apagón</span></li>
+          <li class="chip" id="c1"><b>RESP-0200</b><span>respaldo</span></li>
+          <li class="chip" id="c2"><b>TEMP-DIC</b><span>temporada</span></li>
+          <li class="chip" id="c3"><b>MON-0940</b><span>alerta</span></li>
+          <li class="chip" id="c4"><b>ACC-2FA</b><span>accesos</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 operación</b><span>desde cualquier lugar</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="steps" id="steps">
+
+      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
+
+      <section class="step on" tabindex="0" data-i="0">
+        <div class="step-head"><span class="paso">01</span><h2>Se fue la luz</h2><span class="gauge">martes 11:20</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Se va la luz a las 11:20. El regulador pita ocho minutos y el servidor se apaga.
+              Ventas, bodega y caja esperan a que regrese, y a que alguien lo reinicie.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La operación vive en otro lado, con su propia energía. Tu gente entra desde el
+              celular mientras regresa la luz de la oficina.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>La luz de tu oficina deja de ser la luz de tu empresa.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="1">
+        <div class="step-head"><span class="paso">02</span><h2>El respaldo</h2><span class="gauge">2:00 am</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Hay un disco externo con la etiqueta «RESPALDO». El último se hizo hace
+              veintitrés días, cuando alguien se acordó, y se sabrá si sirve el día que haga
+              falta.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Respaldo automático todos los días a las 2:00, con treinta días de historia, y
+              una restauración de prueba cada mes. Un respaldo probado es un respaldo.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Sabes que tu información se recupera, porque ya se recuperó en la prueba.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="2">
+        <div class="step-head"><span class="paso">03</span><h2>La temporada alta</h2><span class="gauge">diciembre</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>En diciembre entran cuarenta personas al mismo tiempo. El ventilador del servidor
+              suena todo el día y cada pantalla tarda medio minuto.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La capacidad crece sola en temporada —el triple en diciembre— y baja en enero.
+              Pagas lo que usas, cada mes.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Tu mejor mes es también el mes en que el sistema va más rápido.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="3">
+        <div class="step-head"><span class="paso">04</span><h2>La caída</h2><span class="gauge">9:40 → 9:52</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Un jueves el servidor deja de responder a las 9:40. Seis horas buscando quién lo
+              arregle: el sobrino que sabe de computadoras, el técnico que instaló el sistema.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Vigilancia las 24 horas: la alerta salta a las 9:40 y a las 9:52 está resuelto.
+              Tu gente siguió trabajando.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Alguien se entera antes que tus usuarios, y lo resuelve.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="4">
+        <div class="step-head"><span class="paso">05</span><h2>Los accesos</h2><span class="gauge">por persona</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>La contraseña está en un papelito pegado en la pared, es la misma para todos, y
+              el vendedor que se fue en marzo todavía puede entrar.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Cada persona entra con su usuario, su rol y dos factores. Queda registro de
+              quién entró a qué, y el que se va se da de baja el mismo día.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Sabes quién ve tu información, y decides quién deja de verla.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="5">
+        <div class="step-head"><span class="paso">06</span><h2>La oficina sin cuartito</h2><span class="gauge">pagas lo que usas</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El servidor cuesta el equipo, la luz, el aire, el técnico y cada hora que la
+              empresa se detuvo esperándolo.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Tu operación está disponible desde la oficina, la bodega y tu casa; se actualiza,
+              se respalda y se vigila sin que compres ni mantengas equipo.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>El servidor deja de ser un tema tuyo.</p></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="giros">
+    <h2>El mismo recorrido, en otros giros</h2>
+    <p>Dibujamos el cuartito del servidor porque casi toda empresa tiene uno. Lo que cambia
+      entre un giro y otro es <b>qué se detiene cuando se detiene</b>, y desde dónde necesita
+      entrar tu gente.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Los vendedores de ruta y la bodega entran al mismo sistema desde el celular, con o sin luz en la oficina.</span>
+        <span class="hoy">Hoy: si el servidor se apaga, la bodega surte de memoria.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Planta y oficina en un solo sistema, con respaldo de las órdenes y los planos.</span>
+        <span class="hoy">Hoy: el sistema de producción vive en una computadora de la planta.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Cada obra entra desde donde está, y los presupuestos y estimaciones quedan respaldados.</span>
+        <span class="hoy">Hoy: la información de la obra viaja en la laptop del residente.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Los expedientes de los clientes, cifrados, con acceso por persona y registro de quién los abrió.</span>
+        <span class="hoy">Hoy: los expedientes están en un servidor que respalda el contador cuando se acuerda.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Las sucursales venden aunque en una se vaya la luz o el internet, y el corte se concentra solo.</span>
+        <span class="hoy">Hoy: cada sucursal depende de la computadora de la matriz.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>El expediente clínico cifrado, respaldado y disponible en consultorio y a domicilio.</span>
+        <span class="hoy">Hoy: el expediente vive en la computadora de la recepción.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia qué se detiene. No cambia la idea: <b>la operación vive en
+      un lugar que sigue funcionando, y tu gente entra desde donde está.</b> Si tu giro no está
+      en la lista, también aplica: se define en el diagnóstico.</p>
+  </section>
+
+  <section class="faq">
+    <h2>Antes de que preguntes</h2>
+    <p>Las seis dudas que sale todo director antes de sacar su operación del cuartito,
+      contestadas sin rodeos.</p>
+    <ul class="rejilla">
+      <li><b>¿Dónde quedan mis datos?</b>
+        <span>En centros de datos de proveedores de nube reconocidos, cifrados y con acceso
+          controlado. Tú conservas la propiedad y puedes exportarlos cuando quieras.</span></li>
+      <li><b>¿Qué compro exactamente?</b>
+        <span>La migración de tus sistemas, y después la administración: capacidad, respaldos
+          probados, vigilancia, accesos y actualizaciones. Tú dejas de comprar y mantener equipo.</span></li>
+      <li><b>¿Cuesta más que mi servidor?</b>
+        <span>Depende de cuánto te cuesta hoy el servidor cuando falla. En el diagnóstico
+          comparamos el costo real actual —equipo, energía, soporte, horas detenidas— contra la
+          nube, con tus números.</span></li>
+      <li><b>¿Y si se cae el internet de mi oficina?</b>
+        <span>Tus sistemas siguen funcionando para quien tenga conexión: celular, otra sede,
+          casa. La operación crítica sin conexión se resuelve en el diseño.</span></li>
+      <li><b>¿Ustedes ven mi información?</b>
+        <span>Solo lo necesario para administrar la infraestructura, con registro de cada
+          acceso, bajo aviso de privacidad y contrato de confidencialidad.</span></li>
+      <li><b>¿Cómo se cotiza?</b>
+        <span>La migración por alcance, con precio cerrado para ese alcance; la operación,
+          mensual, por lo que usas. Si amplías el alcance, se cotiza aparte y lo apruebas tú.</span></li>
+    </ul>
+  </section>
+
+  <section class="costo">
+    <h2>¿Cuánto te está costando hoy?</h2>
+    <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
+      Si no sabes alguna, esa ya es la respuesta.</p>
+    <ul class="rejilla">
+      <li><b>01</b><span>¿Cuántas horas se detuvo la empresa el último año por el servidor?</span></li>
+      <li><b>02</b><span>¿De qué fecha es tu último respaldo, y cuándo se probó por última vez?</span></li>
+      <li><b>03</b><span>¿Cuántas personas conocen la contraseña del servidor, y cuántas ya trabajan en otro lado?</span></li>
+      <li><b>04</b><span>¿Cuánto tarda cada pantalla en tu mes más alto?</span></li>
+      <li><b>05</b><span>¿A quién le llamas cuando el servidor falla, y cuánto tarda en llegar?</span></li>
+    </ul>
+  </section>
+
+  <section class="cierre">
+    <h2>Te decimos qué tan expuesta está tu operación</h2>
+    <p>Revisamos dónde viven tus sistemas, cómo se respaldan, quién entra y qué pasa cuando
+      falla, y te decimos por dónde empezar. La primera llamada es sin costo y sin compromiso.</p>
+    <a class="btn"
+       href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20infraestructura%20cloud%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
+       target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      WhatsApp · 55 8096 8928
+    </a>
+    <p class="otras">
+      <span class="par">o llena el <a href="/servicios/infraestructura-cloud#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
+    </p>
+  </section>
+
+  <p class="colofon">
+    Las horas y las fechas de este recorrido son de <b>una oficina de ejemplo</b> y sirven para
+    mostrar el flujo. La infraestructura se diseña sobre los sistemas y los riesgos de cada
+    empresa: la tuya sale del diagnóstico, con tu operación.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Casi toda empresa tiene el mismo cuartito: la torre que alguien compró
+     hace años, el regulador que pita, el ventilador, el disco del respaldo y
+     el papelito con la contraseña. El dibujo lo pone a la izquierda tal cual,
+     y a la derecha la misma empresa con la operación viviendo en otro lado:
+     un edificio cifrado y vigilado del que salen líneas a la oficina, al
+     celular de quien anda en la calle y a la casa. */
+  var CU = { x:30, y:44, w:272, h:256 };      // el cuartito
+  var ED = { x:566, y:64, w:92, h:236 };      // el centro de datos
+  var LX = 372;                                // la columna de lugares, a la derecha
+
+  /* d = el paso a partir del cual el elemento se ve; h = el paso en que se va */
+  function cuando(d, contenido, h){
+    return '<g class="e" data-d="' + d + '"' + (h !== undefined ? ' data-h="' + h + '"' : '') + '>' + contenido + '</g>';
+  }
+  function rotulo(x, y, texto, con){
+    var w = texto.length * 7.4 + 18;
+    return '<rect class="rot-caja' + (con ? ' rot-caja--con' : '') + '" x="' + x + '" y="' + (y - 9) + '" width="' + w + '" height="18" rx="2"/>' +
+           '<text class="rot" x="' + (x + 9) + '" y="' + (y + 4) + '">' + texto + '</text>';
+  }
+  function persona(x, y){
+    return '<circle class="gente" cx="' + x + '" cy="' + (y - 21) + '" r="5"/>' +
+           '<path class="gente" d="M' + (x - 9) + ' ' + y + ' q0 -13 9 -13 q9 0 9 13 z"/>';
+  }
+  function parado(x, y, texto, sub){
+    var w = Math.max(texto.length, sub ? sub.length * 0.94 : 0) * 5.3 + 14;
+    return '<rect class="parado" x="' + x + '" y="' + y + '" width="' + w + '" height="' + (sub ? 27 : 16) + '" rx="2"/>' +
+           '<text class="t-parado" x="' + (x + 7) + '" y="' + (y + 11.5) + '">' + texto + '</text>' +
+           (sub ? '<text class="t-parado t-parado--sub" x="' + (x + 7) + '" y="' + (y + 22) + '">' + sub + '</text>' : '');
+  }
+  function conTag(y, texto, sub){
+    return '<text class="t-con" x="' + LX + '" y="' + y + '">' + texto + '</text>' +
+           (sub ? '<text class="t-con t-con--sub" x="' + LX + '" y="' + (y + 11) + '">' + sub + '</text>' : '');
+  }
+
+  var s = rotulo(16, 22, 'HOY', false) + rotulo(352, 22, 'CON EL SISTEMA', true);
+
+  /* --- el cuartito --- */
+  var cx = CU.x, cy = CU.y, piso = cy + CU.h;
+  s += '<rect class="pared" x="' + cx + '" y="' + cy + '" width="' + CU.w + '" height="' + CU.h + '" rx="2"/>' +
+       '<rect class="piso" x="' + cx + '" y="' + (piso - 14) + '" width="' + CU.w + '" height="14"/>' +
+       '<text class="rot-lugar" x="' + (cx + CU.w / 2) + '" y="' + (piso + 22) + '">EL CUARTITO DEL SERVIDOR · TU OFICINA</text>';
+  /* la repisa, el disco y el ventilador en la pared */
+  s += '<rect class="repisa" x="' + (cx + 24) + '" y="' + (cy + 118) + '" width="150" height="6" rx="1"/>';
+  var tx = cx + 78, ty = piso - 14 - 96;   // la torre, parada en el piso
+  s += '<rect class="torre" x="' + tx + '" y="' + ty + '" width="56" height="96" rx="2"/>' +
+       '<rect class="torre-frente" x="' + (tx + 6) + '" y="' + (ty + 6) + '" width="44" height="84" rx="1"/>';
+  [30, 38, 46, 54, 62, 70].forEach(function(dy){
+    s += '<line class="ranura" x1="' + (tx + 12) + '" y1="' + (ty + dy) + '" x2="' + (tx + 44) + '" y2="' + (ty + dy) + '"/>';
+  });
+  function leds(off){
+    return [0, 1, 2].map(function(k){
+      return '<circle class="led' + (off ? ' led--off' : '') + '" cx="' + (tx + 14 + k * 9) + '" cy="' + (ty + 16) + '" r="2.6"/>';
+    }).join('');
+  }
+  /* el regulador, con su lucecita */
+  var rx = tx + 70, ry = piso - 14 - 44;
+  s += '<rect class="regulador" x="' + rx + '" y="' + ry + '" width="64" height="44" rx="2"/>' +
+       '<rect class="regulador-luz" x="' + (rx + 8) + '" y="' + (ry + 8) + '" width="26" height="10" rx="1"/>';
+  /* cables al enchufe de la pared */
+  var ex = cx + 22, ey = piso - 60;
+  s += '<rect class="enchufe" x="' + ex + '" y="' + ey + '" width="18" height="22" rx="2"/>' +
+       '<circle class="ranura" cx="' + (ex + 6) + '" cy="' + (ey + 11) + '" r="1.2"/><circle class="ranura" cx="' + (ex + 12) + '" cy="' + (ey + 11) + '" r="1.2"/>' +
+       '<path class="cable" d="M' + (ex + 18) + ' ' + (ey + 14) + ' q20 24 ' + (tx - ex - 18) + ' 34"/>' +
+       '<path class="cable" d="M' + (ex + 18) + ' ' + (ey + 10) + ' q40 -30 ' + (rx - ex - 10) + ' 8 q10 10 8 ' + (ry - ey) + '"/>';
+  /* el ventilador */
+  var vx = cx + 226, vy = cy + 70;
+  s += '<circle class="vent" cx="' + vx + '" cy="' + vy + '" r="18"/>' +
+       [0, 90, 180, 270].map(function(a){
+         return '<path class="vent-aspa" transform="rotate(' + a + ' ' + vx + ' ' + vy + ')" d="M' + vx + ' ' + vy + ' q-8 -14 2 -16 q8 2 4 14 z"/>';
+       }).join('') + '<circle class="vent-aspa" cx="' + vx + '" cy="' + vy + '" r="2.5"/>';
+
+  /* --- Paso 01 · se fue la luz: leds apagados, rayo en el enchufe, todos esperando --- */
+  s += cuando(0, leds(true) +
+                 '<path class="rayo" d="M' + (ex + 12) + ' ' + (ey - 34) + ' l-7 14 h6 l-5 14 l11 -17 h-6 z"/>' +
+                 '<text class="t-nota" x="' + (cx + 8) + '" y="' + (piso - 4) + '">11:20 · sin luz</text>' +
+                 '<text class="t-nota" x="' + (rx + 38) + '" y="' + (ry + 16) + '">PIIIP</text>' +
+                 parado(cx + 16, cy + 14, 'ventas, bodega y caja: esperando', 'hasta que regrese y alguien lo reinicie'), 1);
+  s += cuando(1, leds(false), 3);
+
+  /* --- Paso 02 · el respaldo: el disco en la repisa, con su fecha --- */
+  s += cuando(1, '<rect class="disco" x="' + (cx + 34) + '" y="' + (cy + 100) + '" width="46" height="18" rx="2"/>' +
+                 '<rect class="disco-etq" x="' + (cx + 40) + '" y="' + (cy + 105) + '" width="34" height="8"/>' +
+                 '<text class="t-postit" x="' + (cx + 42) + '" y="' + (cy + 111.5) + '">RESPALDO</text>' +
+                 parado(cx + 16, cy + 14, 'último respaldo: hace 23 días', 'cuando alguien se acordó · sin probar'), 2);
+
+  /* --- Paso 03 · la temporada alta: el ventilador a tope --- */
+  s += cuando(2, '<circle class="vent-giro" cx="' + vx + '" cy="' + vy + '" r="24"/>' +
+                 '<text class="t-nota" x="' + (vx - 26) + '" y="' + (vy + 40) + '">100 % todo el día</text>' +
+                 parado(cx + 16, cy + 14, 'diciembre · 40 personas a la vez', 'cada pantalla tarda medio minuto'), 3);
+
+  /* --- Paso 04 · la caída: la torre con una cruz y seis horas de llamadas --- */
+  s += cuando(3, leds(true) +
+                 '<line class="cruz" x1="' + (tx + 10) + '" y1="' + (ty + 30) + '" x2="' + (tx + 46) + '" y2="' + (ty + 84) + '"/>' +
+                 '<line class="cruz" x1="' + (tx + 46) + '" y1="' + (ty + 30) + '" x2="' + (tx + 10) + '" y2="' + (ty + 84) + '"/>' +
+                 parado(cx + 16, cy + 14, 'jueves 9:40 · dejó de responder', '6 h buscando quién lo arregle'), 4);
+  s += cuando(4, leds(false));
+
+  /* --- Paso 05 · los accesos: el papelito en la pared --- */
+  s += cuando(4, '<g transform="rotate(-6 ' + (cx + 200) + ' ' + (cy + 150) + ')">' +
+                 '<rect class="postit" x="' + (cx + 176) + '" y="' + (cy + 134) + '" width="62" height="40" rx="1"/>' +
+                 '<text class="t-postit" x="' + (cx + 182) + '" y="' + (cy + 148) + '">CLAVE:</text>' +
+                 '<text class="t-postit" x="' + (cx + 182) + '" y="' + (cy + 159) + '">la misma</text>' +
+                 '<text class="t-postit" x="' + (cx + 182) + '" y="' + (cy + 169) + '">para todos</text></g>' +
+                 parado(cx + 16, cy + 14, 'la contraseña, en la pared', 'Luis se fue en marzo y todavía entra'), 5);
+
+  /* --- Paso 06 · lo que cuesta el cuartito --- */
+  s += cuando(5, parado(cx + 16, cy + 14, 'equipo + luz + aire + técnico', '+ cada hora que la empresa esperó'));
+
+  /* --- la operación, en otro lado --- */
+  s += '<rect class="edificio" x="' + ED.x + '" y="' + ED.y + '" width="' + ED.w + '" height="' + ED.h + '" rx="2"/>';
+  function ventanas(luces){
+    var o = '';
+    for (var f = 0; f < 9; f++) for (var c = 0; c < 4; c++){
+      var n = f * 4 + c, luz = luces.indexOf(n) >= 0;
+      o += '<rect class="ventana' + (luz ? ' ventana--luz' : '') + '" x="' + (ED.x + 12 + c * 19) + '" y="' + (ED.y + 12 + f * 24) + '" width="12" height="14" rx="1"/>';
+    }
+    return o;
+  }
+  var NORMAL = [1, 6, 8, 13, 18, 21, 27, 30, 34];
+  s += cuando(0, ventanas(NORMAL), 2);
+  s += cuando(2, ventanas(NORMAL.concat([0, 2, 3, 5, 9, 10, 12, 15, 16, 19, 22, 24, 25, 28, 31, 33, 35])), 3);
+  s += cuando(3, ventanas(NORMAL));
+  s += '<text class="rot-lugar" x="' + (ED.x + ED.w / 2) + '" y="' + (ED.y + ED.h + 22) + '">CENTRO DE DATOS</text>' +
+       '<text class="rot-lugar" x="' + (ED.x + ED.w / 2) + '" y="' + (ED.y + ED.h + 34) + '">cifrado · vigilado</text>';
+
+  /* los tres lugares desde donde entra tu gente */
+  var LUG = [
+    { y:132, nom:'LA OFICINA' },
+    { y:212, nom:'LA CALLE' },
+    { y:292, nom:'TU CASA' }
+  ];
+  function lugar(l, k){
+    var x = LX, y = l.y, o = '<rect class="lugar" x="' + x + '" y="' + (y - 44) + '" width="130" height="52" rx="3"/>';
+    if (k === 0) o += persona(x + 22, y) + '<rect class="laptop" x="' + (x + 40) + '" y="' + (y - 26) + '" width="34" height="22" rx="2"/>' +
+                      '<rect class="laptop-luz" x="' + (x + 43) + '" y="' + (y - 23) + '" width="28" height="16" rx="1"/>' +
+                      '<rect class="laptop" x="' + (x + 36) + '" y="' + (y - 4) + '" width="42" height="3" rx="1"/>';
+    if (k === 1) o += persona(x + 22, y) + '<rect class="laptop" x="' + (x + 38) + '" y="' + (y - 30) + '" width="13" height="24" rx="2"/>' +
+                      '<rect class="laptop-luz" x="' + (x + 40) + '" y="' + (y - 27) + '" width="9" height="17" rx="1"/>';
+    if (k === 2) o += '<path class="casa" d="M' + (x + 10) + ' ' + (y - 14) + ' l14 -16 l14 16 v10 h-28 z"/>' +
+                      persona(x + 54, y) + '<rect class="laptop" x="' + (x + 70) + '" y="' + (y - 26) + '" width="30" height="20" rx="2"/>' +
+                      '<rect class="laptop-luz" x="' + (x + 73) + '" y="' + (y - 23) + '" width="24" height="14" rx="1"/>';
+    o += '<text class="rot-lugar" x="' + (x + 65) + '" y="' + (y + 20) + '">' + l.nom + '</text>';
+    /* la línea al edificio */
+    o += '<path class="liga" d="M' + (x + 130) + ' ' + (y - 18) + ' H' + (ED.x - 2) + '"/>' +
+         '<circle class="liga-pto" cx="' + (ED.x - 2) + '" cy="' + (y - 18) + '" r="3"/>';
+    return o;
+  }
+  LUG.forEach(function(l, k){ s += lugar(l, k); });
+
+  /* lo que pasa en cada paso, arriba de los lugares */
+  s += cuando(0, conTag(56, 'sigue · 11:20', 'tu gente entra desde el celular'), 1);
+  s += cuando(1, conTag(56, '2:00 am · respaldo diario', '30 días de historia · probada el día 1'), 2);
+  s += cuando(2, conTag(56, 'diciembre · capacidad ×3', 'en enero baja sola · pagas lo que usas'), 3);
+  s += cuando(3, conTag(56, 'alerta 9:40 · resuelto 9:52', 'vigilancia 24 h · tu gente siguió'), 4);
+  s += cuando(4, conTag(56, 'usuario · rol · 2 factores', 'registro de quién entró a qué') +
+                 LUG.map(function(l){
+                   return '<rect class="candado" x="' + (LX + 108) + '" y="' + (l.y - 40) + '" width="14" height="11" rx="2"/>' +
+                          '<path class="candado" d="M' + (LX + 111) + ' ' + (l.y - 40) + ' v-4 a4 4 0 0 1 8 0 v4"/>';
+                 }).join(''), 5);
+  s += cuando(5, conTag(56, 'disponible desde los tres lugares', 'se actualiza, se respalda y se vigila') +
+                 '<text class="t-gana" x="' + LX + '" y="' + 84 + '">el servidor deja de ser un tema tuyo</text>');
+
+  document.getElementById("world").innerHTML = s;
+
+  /* ---------- estados ---------- */
+  var STATES = [
+    { label:"01 / 06 · Se fue la luz",
+      k:"LUZ-1120 · Se fue la luz",
+      v:"martes 11:20 · izquierda: el servidor se apaga y todos esperan · derecha: sigue" },
+    { label:"02 / 06 · El respaldo",
+      k:"RESP-0200 · Respaldo diario",
+      v:"2:00 am · 30 días de historia · probado cada mes · izquierda: hace 23 días" },
+    { label:"03 / 06 · La temporada alta",
+      k:"TEMP-DIC · Capacidad ×3",
+      v:"diciembre: 40 personas a la vez · derecha: crece sola · izquierda: medio minuto" },
+    { label:"04 / 06 · La caída",
+      k:"MON-0940 · Alerta y solución",
+      v:"jueves 9:40 → 9:52 · vigilancia 24 h · izquierda: 6 h buscando quién lo arregle" },
+    { label:"05 / 06 · Los accesos",
+      k:"ACC-2FA · Por persona y rol",
+      v:"dos factores y registro · izquierda: la contraseña en la pared, la misma para todos" },
+    { label:"06 / 06 · La oficina sin cuartito",
+      k:"1 operación · Desde cualquier lugar",
+      v:"disponible en la oficina, la calle y tu casa · pagas lo que usas" }
+  ];
+
+  var labelEl = document.getElementById("stateLabel");
+  var hudK = document.getElementById("hudK");
+  var hudV = document.getElementById("hudV");
+  var elems = Array.prototype.slice.call(document.querySelectorAll("#world .e"));
+  var chipEls = Array.prototype.slice.call(document.querySelectorAll("#chips .chip"));
+  var totEl = document.getElementById("ctot");
+  var stepEls = Array.prototype.slice.call(document.querySelectorAll(".step"));
+  var ULTIMO = STATES.length - 1;
+  var current = -1;
+
+  function apply(i){
+    if (i === current) return;
+    current = i;
+    var st = STATES[i];
+
+    elems.forEach(function(el){
+      var h = el.dataset.h;
+      el.classList.toggle("visible", i >= +el.dataset.d && (h === undefined || i < +h));
+    });
+
+    chipEls.forEach(function(el, n){
+      if (el === totEl) return;
+      el.classList.toggle("on", i === ULTIMO || n <= i);
+      el.classList.toggle("now", i !== ULTIMO && n === i);
+    });
+    totEl.classList.toggle("on", i === ULTIMO);
+
+    labelEl.textContent = st.label;
+    hudK.textContent = st.k;
+    hudV.textContent = st.v;
+    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+  }
+
+  apply(0);
+
+  var reproduciendo = false;
+  var figuraEl = document.querySelector(".figure");
+
+  function elegir(){
+    if (reproduciendo) return;          // mientras reproduce, manda el reproductor
+    /* En escritorio se lee a media pantalla. En celular el dibujo se queda pegado
+       arriba, así que la lectura es el centro de lo que queda debajo de él: se
+       calcula del dibujo mismo, no con una fracción a ojo. */
+    var alto = window.innerHeight, linea = alto * 0.5;
+    if (window.innerWidth <= 880 && figuraEl){
+      linea = (Math.max(figuraEl.getBoundingClientRect().bottom, 0) + alto) / 2;
+    }
+    var idx = 0, cerca = Infinity, dentro = false;
+    for (var n = 0; n < stepEls.length; n++){
+      var r = stepEls[n].getBoundingClientRect();
+      if (r.top <= linea && r.bottom >= linea){ idx = n; dentro = true; break; }
+      if (!dentro){
+        var d = Math.min(Math.abs(r.top - linea), Math.abs(r.bottom - linea));
+        if (d < cerca){ cerca = d; idx = n; }
+      }
+    }
+    apply(idx);
+  }
+
+  window.addEventListener("scroll", elegir, { passive:true });
+  window.addEventListener("resize", elegir, { passive:true });
+  elegir();
+
+  stepEls.forEach(function(el){
+    el.addEventListener("click", function(){ detener(); apply(Number(el.dataset.i)); });
+    el.addEventListener("keydown", function(ev){
+      if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); detener(); apply(Number(el.dataset.i)); }
+    });
+  });
+
+  /* Reproducción automática: sirve para grabar el recorrido en video sin tocar nada. */
+  var playEl = document.getElementById("play");
+  var timer = null;
+  var suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function irA(i){
+    stepEls[i].scrollIntoView({ behavior: suave ? "smooth" : "auto", block: "center" });
+    apply(i);
+  }
+  function detener(){
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+    reproduciendo = false;
+    playEl.textContent = "▶ Reproducir";
+    playEl.setAttribute("aria-pressed", "false");
+  }
+  playEl.addEventListener("click", function(){
+    if (timer){ detener(); return; }
+    reproduciendo = true;
+    playEl.textContent = "❚❚ Pausar";
+    playEl.setAttribute("aria-pressed", "true");
+    irA(0);
+    timer = setInterval(function(){
+      var n = current + 1;
+      if (n >= STATES.length){ detener(); return; }
+      irA(n);
+    }, 4500);
+  });
+
+  /* Si la persona toma el control, la reproducción se detiene sola. */
+  ["wheel", "touchstart"].forEach(function(ev){
+    window.addEventListener(ev, function(){ detener(); }, { passive:true });
+  });
+})();
+</script>
+  </body>
+</html>

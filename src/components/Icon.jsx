@@ -56,13 +56,6 @@ const PATHS = {
       <path d="M2 12h20" />
     </>
   ),
-  instagram: (
-    <>
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <path d="M17.5 6.5h.01" />
-    </>
-  ),
   mail: (
     <>
       <rect width="20" height="16" x="2" y="4" rx="2" />
@@ -195,13 +188,6 @@ const PATHS = {
   activity: (
     <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />
   ),
-  lightbulb: (
-    <>
-      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
-      <path d="M9 18h6" />
-      <path d="M10 22h4" />
-    </>
-  ),
   'refresh-cw': (
     <>
       <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
@@ -239,23 +225,146 @@ const PATHS = {
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </>
   ),
-  linkedin: (
-    <>
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect width="4" height="12" x="2" y="9" />
-      <circle cx="4" cy="4" r="2" />
-    </>
-  ),
-  youtube: (
-    <>
-      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-      <path d="m10 15 5-3-5-3z" />
-    </>
-  ),
-  facebook: (
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  ),
   'chevron-right': <path d="m9 18 6-6-6-6" />,
+  'file-text': (
+    <>
+      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+      <path d="M8 13h8" />
+      <path d="M8 17h5" />
+    </>
+  ),
+  balanza: (
+    <>
+      <path d="M12 3v18" />
+      <path d="M5 7h14" />
+      <path d="M12 3 5 7" />
+      <path d="m12 3 7 4" />
+      <path d="m7 7-3.2 6.4a3.6 3.6 0 0 0 6.4 0z" />
+      <path d="m17 7-3.2 6.4a3.6 3.6 0 0 0 6.4 0z" />
+      <path d="M8.5 21h7" />
+    </>
+  ),
+  'check-circle': (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  dollar: (
+    <>
+      <path d="M12 2v20" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </>
+  ),
+  truck: (
+    <>
+      <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+      <path d="M14 9h4l4 4v4a1 1 0 0 1-1 1h-1" />
+      <circle cx="7" cy="18" r="2" />
+      <circle cx="17" cy="18" r="2" />
+      <path d="M9 18h6" />
+    </>
+  ),
+  calculator: (
+    <>
+      <rect width="16" height="20" x="4" y="2" rx="2" />
+      <path d="M8 6h8" />
+      <path d="M8 11h.01" />
+      <path d="M12 11h.01" />
+      <path d="M16 11h.01" />
+      <path d="M8 15h.01" />
+      <path d="M12 15h.01" />
+      <path d="M16 15v3" />
+    </>
+  ),
+  'credit-card': (
+    <>
+      <rect width="20" height="14" x="2" y="5" rx="2" />
+      <path d="M2 10h20" />
+    </>
+  ),
+  server: (
+    <>
+      <rect width="20" height="8" x="2" y="2" rx="2" />
+      <rect width="20" height="8" x="2" y="14" rx="2" />
+      <path d="M6 6h.01" />
+      <path d="M6 18h.01" />
+    </>
+  ),
+  camera: (
+    <>
+      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z" />
+      <circle cx="12" cy="13" r="3" />
+    </>
+  ),
+  'wifi-off': (
+    <>
+      <path d="M12 20h.01" />
+      <path d="M8.5 16.4a5 5 0 0 1 7 0" />
+      <path d="M5 12.9a10 10 0 0 1 5.2-2.7" />
+      <path d="M19 12.9a10 10 0 0 0-4-2.5" />
+      <path d="M2 8.8a15 15 0 0 1 5-3.1" />
+      <path d="M22 8.8a15 15 0 0 0-8.9-3.7" />
+      <path d="m2 2 20 20" />
+    </>
+  ),
+  'user-check': (
+    <>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="m16 11 2 2 4-4" />
+    </>
+  ),
+  'shopping-cart': (
+    <>
+      <circle cx="8" cy="21" r="1" />
+      <circle cx="19" cy="21" r="1" />
+      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+    </>
+  ),
+  package: (
+    <>
+      <path d="m7.5 4.27 9 5.15" />
+      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+      <path d="m3.3 7 8.7 5 8.7-5" />
+      <path d="M12 22V12" />
+    </>
+  ),
+  // Logotipo de WhatsApp: globo relleno con el auricular calado. El calado toma
+  // el color de fondo del contenedor vía --icon-bg (blanco por omisión).
+  /*
+   * Mensaje directo: la burbuja de conversación con su pico y un auricular
+   * adentro. Dibujado al trazo, como el resto del juego, para que conviva con
+   * el correo y el morado de la página; el glifo verde de marca se queda sólo
+   * en el botón flotante, donde el color es el que invita a tocarlo.
+   */
+  'message-phone': (
+    <>
+      <path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.3l-1.2 4.3 4.4-1.2A8.8 8.8 0 1 0 12 3.2Z" />
+      <g transform="translate(5.9 5) scale(0.52)">
+        <path
+          d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+          fill="currentColor"
+          stroke="none"
+        />
+      </g>
+    </>
+  ),
+  whatsapp: (
+    <>
+      <path
+        d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"
+        fill="currentColor"
+        stroke="none"
+      />
+      <path
+        d="M9.1 7.6c.3-.3.7-.4 1-.3l1.2 2.1c.1.3 0 .6-.2.8l-.7.7c.6 1.3 1.7 2.4 3 3l.7-.7c.2-.2.5-.3.8-.2l2.1 1.2c.1.3 0 .7-.3 1-.7.7-1.6 1-2.6.8-2.9-.6-5.3-3-5.9-5.9-.2-1 .1-1.9.9-2.5z"
+        fill="var(--icon-bg, #fff)"
+        stroke="none"
+      />
+    </>
+  ),
 }
 
 export default function Icon({ name, size = 20, strokeWidth = 2, className = '', ...rest }) {

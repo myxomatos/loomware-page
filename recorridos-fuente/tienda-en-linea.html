@@ -1,0 +1,964 @@
+<!--
+  Ligas del sitio: relativas y en la misma pestaña, para que funcionen igual en
+  producción y en el preview de cada rama.
+    1. la barra de marca (brand__site) regresa al inicio, a la tarjeta de este recorrido
+    2. la liga "formulario del sitio" del cierre (.otras) lleva al formulario de su servicio
+-->
+<title>Del carrito a la puerta</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+
+  :root{
+    /* --- superficie y texto: neutros cálidos, para que el cobre cante --- */
+    --paper:#EEEBE6;
+    --surface:#FFFFFF;
+    --ink:#191A1E;
+    --ink-2:#4E5058;
+    --ink-3:#7A7D86;
+    --rule:#CFC9C0;
+    --rule-soft:#E3DED6;
+
+    --signal:#A35C23;       /* cobre: el dato que el sistema registra */
+    --signal-soft:#F8EDE2;
+    --money:#12643C;        /* verde: lo que ganas */
+    --pain:#6B6F79;         /* gris: así está hoy */
+    --pain-bg:#DFDCD5;      /* franja apagada, separada del papel a simple vista */
+
+    /* --- materiales de la escena: cara superior / izquierda / derecha --- */
+    --grd:#DCD7CE;  --grd2:#E9E5DD;
+    --asf-t:#A8A49C;
+    --line:#F0EDE7;
+    --con-t:#C6C1B8; --con-l:#9B978F; --con-r:#B0ABA3;
+    --rck-t:#D2CEC6; --rck-l:#A5A199; --rck-r:#BDB9B1;
+    --box-t:#E4D5BB; --box-l:#B8A886; --box-r:#D0C0A1;
+    --ofi-t:#E4E0D8; --ofi-l:#B4B0A8; --ofi-r:#CBC7BF;
+    --tra-t:#EBE8E1; --tra-l:#B9B5AD; --tra-r:#D3CFC8;
+    --trk-t:#C7C3BB; --trk-l:#928E86; --trk-r:#ADA9A1;
+    --fk-t:#5A5C63;  --fk-l:#35373C;  --fk-r:#47494F;
+    --pal-t:#C4A173; --pal-l:#8F7349; --pal-r:#AB8B5D;
+    --per-t:#5A6472; --per-l:#333A44; --per-r:#47505C;   /* la gente de la nave */
+    --chs:#33353B;
+    --whl:#191A1E;
+    --shadow:0 1px 0 rgba(25,26,30,.04), 0 12px 28px -20px rgba(25,26,30,.4);
+
+    --mono:"Azeret Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+      --rule:#3F3930; --rule-soft:#2A2620;
+      --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+      --pain:#8F8878; --pain-bg:#1B1915;
+      /* la escena va más clara que el papel: si no, el dibujo se vuelve lodo */
+      --grd:#221F19; --grd2:#2E2A23;
+      --asf-t:#3D3931; --line:#6A6357;
+      --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+      --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+      --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+      --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+      --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+      --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+      --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+      --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+      --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+      --chs:#141210; --whl:#0C0A08;
+      --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+    --rule:#3F3930; --rule-soft:#2A2620;
+    --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+    --pain:#8F8878; --pain-bg:#1B1915;
+    --grd:#221F19; --grd2:#2E2A23;
+    --asf-t:#3D3931; --line:#6A6357;
+    --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+    --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+    --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+    --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+    --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+    --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+    --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+    --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+    --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+    --chs:#141210; --whl:#0C0A08;
+    --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+  }
+
+  /* Monoespaciada para todo lo que es dato, etiqueta o título: lectura de máquina.
+     Archivo sólo para el texto corrido, que en mono cansa. */
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:14px; line-height:1.5;
+    -webkit-font-smoothing:antialiased; overflow-wrap:break-word;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding-inline:18px;padding-block:16px 48px;}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:500;}
+
+  /* ---------- barra de marca ---------- */
+  .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
+  .brand__id{display:flex;align-items:center;gap:8px;}
+  .brand__id svg{display:block;flex:none;}
+  .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
+    letter-spacing:-.03em;color:var(--ink);}
+  .brand__site{font-family:var(--mono);font-size:11px;color:var(--ink-2);text-decoration:none;
+    border-bottom:1px solid var(--rule);padding-bottom:1px;}
+  .brand__site:hover{color:var(--signal);border-color:currentColor;}
+
+  /* ---------- cabecera ---------- */
+  .mast{display:flex;flex-direction:column;gap:13px;padding-block:20px 17px;
+    border-bottom:1px solid var(--rule);}
+  .eyebrow{color:var(--signal);}
+  h1{font-family:var(--mono);font-weight:700;
+    font-size:clamp(25px,4.6vw,42px);line-height:1.04;letter-spacing:-.03em;
+    text-transform:uppercase;margin:0;text-wrap:balance;}
+  .deck{max-width:78ch;color:var(--ink-2);font-size:14px;margin:0;line-height:1.55;}
+  .deck b{color:var(--ink);font-weight:600;}
+
+  /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
+  .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
+  .antes svg{display:block;width:100%;max-width:620px;height:auto;}
+  .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);max-width:70ch;
+    line-height:1.6;}
+  .dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;}
+  .dg-line{stroke:var(--pain);stroke-width:1;fill:none;opacity:.6;}
+  .dg-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-2);}
+  .dg-arrow{stroke:var(--ink-3);stroke-width:1.5;fill:none;}
+  .dg-erp{fill:var(--surface);stroke:var(--signal);stroke-width:1.5;}
+  .dg-row{fill:var(--signal-soft);}
+  .dg-k{font-family:var(--mono);font-size:9px;fill:var(--signal);letter-spacing:.12em;}
+
+  .specline{display:flex;flex-wrap:wrap;gap:4px 20px;font-family:var(--mono);font-size:10.5px;
+    color:var(--ink-3);font-variant-numeric:tabular-nums;}
+  .specline b{color:var(--signal);font-weight:500;}
+
+  /* ---------- dos columnas ---------- */
+  .cols{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+    gap:30px;margin-top:22px;align-items:start;}
+  .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
+    display:flex;flex-direction:column;gap:8px;min-width:0;}
+
+  /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
+  .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
+    background:var(--surface);border:1px solid var(--rule-soft);
+    border-left:3px solid var(--signal);border-radius:2px;}
+  .readout__k{color:var(--signal);font-size:11px;}
+  .readout__v{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+    font-variant-numeric:tabular-nums;line-height:1.45;}
+
+  .stage{background:var(--surface);border:1px solid var(--rule-soft);
+    border-radius:3px;box-shadow:var(--shadow);padding:5px;}
+  .stage svg{display:block;width:100%;height:auto;}
+
+  .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
+  .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+    color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
+    border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+  .play:hover{background:var(--signal);color:var(--surface);}
+  .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+  .legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;
+    font-family:var(--mono);font-size:10px;color:var(--ink-3);}
+  .legend li{display:flex;align-items:center;gap:6px;}
+  .sw{width:12px;height:7px;flex:none;border-radius:1px;}
+  .sw--real{background:var(--ink-2);}
+  .sw--tienda{background:transparent;border-top:2px dashed var(--pain);height:0;}
+  .sw--fantasma{background:var(--pain-bg);border:1px solid var(--pain);}
+  .sw--con{background:var(--signal);}
+
+  /* expediente: un dato, una sola captura */
+  .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
+    flex-direction:column;gap:7px;}
+  .exp__t{color:var(--ink-3);}
+  .chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+  .chip{display:flex;flex-direction:column;gap:0;padding:4px 8px;border-radius:2px;
+    border:1px solid var(--rule-soft);background:var(--surface);font-family:var(--mono);
+    opacity:.32;transition:opacity .4s ease,border-color .4s ease,background-color .4s ease;min-width:0;}
+  .chip b{font-size:11px;font-weight:500;letter-spacing:-.02em;color:var(--ink-2);line-height:1.5;}
+  .chip span{font-size:9px;color:var(--ink-3);line-height:1.5;}
+  .chip.on{opacity:1;}
+  .chip.now{border-color:var(--signal);background:var(--signal-soft);}
+  .chip.now b{color:var(--signal);}
+  .chip--tot.on{border-color:var(--signal);background:var(--signal);}
+  .chip--tot.on b,.chip--tot.on span{color:var(--surface);}
+
+  /* ---------- pasos ---------- */
+  .steps{display:flex;flex-direction:column;min-width:0;}
+  .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+    padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
+  /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
+     es lo que hace que el recorrido se lea de uno en uno. */
+  .step{display:flex;flex-direction:column;justify-content:center;
+    min-height:clamp(140px,27vh,240px);padding-block:12px;padding-left:14px;
+    border-left:3px solid transparent;cursor:pointer;min-width:0;
+    transition:opacity .35s ease,border-color .35s ease;opacity:.34;}
+  .step.on{opacity:1;border-left-color:var(--signal);}
+  .step:hover{opacity:.7;border-left-color:var(--rule);}
+  .step.on:hover{opacity:1;border-left-color:var(--signal);}
+  .step:focus-visible{outline:2px solid var(--signal);outline-offset:5px;}
+  .step-head{display:flex;align-items:baseline;gap:9px;margin-bottom:8px;flex-wrap:wrap;}
+  .paso{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:-.02em;
+    color:var(--ink-3);line-height:1.5;transition:color .35s ease;}
+  .step.on .paso{color:var(--signal);}
+  .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
+    color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
+    border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
+  .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+    margin:0;color:var(--ink);text-wrap:balance;}
+
+  /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
+  .vs{display:flex;flex-direction:column;gap:1px;border-radius:2px;overflow:hidden;}
+  .vs__row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:11px;
+    padding:8px 10px;align-items:start;}
+  .vs__row p{margin:0;font-size:13px;line-height:1.45;color:var(--ink);}
+  .vs__lbl{line-height:1.75;}
+  .vs__row--hoy{background:var(--pain-bg);border-left:3px solid var(--pain);}
+  .vs__row--hoy .vs__lbl{color:var(--pain);}
+  .vs__row--hoy p{color:var(--ink-2);}
+  .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
+  .vs__row--con .vs__lbl{color:var(--signal);}
+  .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
+  .vs__row--gana .vs__lbl{color:var(--money);}
+  .vs__row--gana p{font-weight:500;}
+
+  /* ---------- secciones de abajo ---------- */
+  .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
+  .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
+    font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
+    text-wrap:balance;color:var(--ink);text-transform:uppercase;}
+  .giros p,.faq p,.costo p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
+
+  /* 320px: da 3 columnas en escritorio y 2 en tablet, y las seis tarjetas
+     de giros y de preguntas llenan las filas sin dejar celdas vacías. */
+  .rejilla{list-style:none;margin:0;padding:0;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;
+    background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:2px;}
+  .rejilla li{background:var(--surface);padding:11px 13px;display:flex;
+    flex-direction:column;gap:3px;}
+  .rejilla b{font-family:var(--mono);font-size:10.5px;font-weight:500;
+    letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+  .rejilla span{font-size:12.5px;line-height:1.45;color:var(--ink-2);}
+  .rejilla .hoy{font-size:11.5px;line-height:1.45;color:var(--pain);}
+  .rejilla .este{background:var(--signal-soft);}
+  .rejilla .este b{color:var(--signal);}
+  .giros__cierre{margin:14px 0 0 !important;font-size:13.5px;color:var(--ink);}
+
+  /* preguntas que el comprador hace antes de llamar */
+  .faq .rejilla b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+
+  .costo .rejilla{grid-template-columns:minmax(0,1fr);max-width:780px;}
+  .costo .rejilla li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;
+    font-size:12.5px;line-height:1.4;color:var(--ink);}
+  .costo .rejilla b{font-size:10px;color:var(--signal);line-height:1.6;
+    font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
+
+  /* ---------- cierre ---------- */
+  .cierre{margin-top:26px;max-width:640px;padding-left:16px;
+    border-left:3px solid var(--signal);}
+  .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+    font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
+    text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
+  .btn svg{flex:none;}
+  .btn:hover{filter:brightness(1.1);}
+  .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+  .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
+    color:var(--ink-3);line-height:1.8;}
+  /* El correo no se parte a media dirección: se baja entero. */
+  .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+    overflow-wrap:normal;word-break:normal;white-space:nowrap;}
+  .cierre .otras .par{display:inline;}
+  .cierre .otras a:hover{color:var(--signal);}
+  .cierre .otras .sep{margin-inline:7px;color:var(--rule);}
+
+  .colofon{margin-top:24px;font-family:var(--mono);font-size:10px;color:var(--ink-3);
+    max-width:96ch;line-height:1.7;}
+  .colofon b{color:var(--ink-2);font-weight:500;}
+
+  /* ---------- estado de la escena ---------- */
+  /* Cada elemento del dibujo aparece en el paso que le toca, y algunos se van. */
+  .e{opacity:0;transition:opacity .45s ease;}
+  .e.visible{opacity:1;}
+
+  /* El anaquel: madera, cajas de cartón y una etiqueta de cobre en las apartadas. */
+  :root{--madera:#B08A5C;--madera-2:#8F6E45;--carton:#E4D5BB;--carton-2:#C9B48E;--cinta:#B8A886;}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){--madera:#6A5033;--madera-2:#4E3A24;--carton:#8A7350;--carton-2:#6C5A3A;--cinta:#53452C;}
+  }
+  :root[data-theme="dark"]{--madera:#6A5033;--madera-2:#4E3A24;--carton:#8A7350;--carton-2:#6C5A3A;--cinta:#53452C;}
+
+  .poste{fill:var(--madera-2);}
+  .tabla{fill:var(--madera);}
+  .caja{fill:var(--carton);stroke:var(--carton-2);stroke-width:.8;}
+  .cinta{stroke:var(--cinta);stroke-width:1.2;}
+  .apartada{fill:var(--signal);}
+  .t-anaquel{font-family:var(--mono);font-size:9.5px;font-weight:700;fill:var(--ink-2);letter-spacing:.08em;}
+  .t-cuenta{font-family:var(--mono);font-size:9px;fill:var(--ink-3);letter-spacing:.03em;}
+  .paquete{fill:var(--carton);stroke:var(--carton-2);stroke-width:.8;}
+  .guia{fill:var(--surface);stroke:var(--signal);stroke-width:.8;}
+
+  /* Los dos celulares: el de la tienda de hoy y el que lee el anaquel. */
+  .cel{fill:var(--ink);}
+  .cel--con{fill:var(--signal);}
+  .pantalla{fill:var(--surface);}
+  .rot{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;fill:var(--surface);}
+  .rot-caja{fill:var(--pain);}
+  .rot-caja--con{fill:var(--signal);}
+  .p-hora{font-family:var(--mono);font-size:8px;fill:var(--ink-3);letter-spacing:.04em;}
+  .p-hora--fuerte{fill:var(--ink-2);font-weight:700;}
+  .p-foto{fill:var(--paper);stroke:var(--rule);stroke-width:.8;}
+  .p-nom{font-family:var(--sans);font-size:10px;font-weight:600;fill:var(--ink);}
+  .p-sku{font-family:var(--mono);font-size:8px;fill:var(--ink-3);}
+  .p-precio{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--ink);}
+  .p-stock{font-family:var(--mono);font-size:9.5px;font-weight:700;fill:var(--ink-2);}
+  .p-stock--pain{fill:var(--pain);}
+  .p-stock--con{fill:var(--signal);}
+  .p-nota{font-family:var(--mono);font-size:7.5px;fill:var(--pain);letter-spacing:.02em;}
+  .p-boton{fill:var(--pain);}
+  .p-boton--con{fill:var(--signal);}
+  .p-boton--agotado{fill:var(--pain-bg);}
+  .p-boton-t{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--surface);letter-spacing:.1em;text-anchor:middle;}
+  .p-boton-t--agotado{fill:var(--pain);}
+  .p-raya{stroke:var(--rule-soft);stroke-width:1;}
+  .p-tit{font-family:var(--mono);font-size:7.5px;fill:var(--ink-3);letter-spacing:.12em;}
+  .p-fila{font-family:var(--mono);font-size:8.5px;fill:var(--ink-2);}
+  .p-fila--pain{fill:var(--pain);font-weight:700;}
+  .p-fila--con{fill:var(--signal);font-weight:700;}
+  .p-fila--money{fill:var(--money);font-weight:700;}
+  .p-globo{fill:var(--pain-bg);stroke:var(--pain);stroke-width:.8;}
+
+  /* lo que une el anaquel con cada celular */
+  .liga{fill:none;stroke-width:1.8;stroke-linecap:round;}
+  .liga--pain{stroke:var(--pain);stroke-dasharray:4 3;}
+  .liga--con{stroke:var(--signal);}
+  .t-liga{font-family:var(--mono);font-size:8px;letter-spacing:.03em;text-anchor:middle;}
+  .t-liga--pain{fill:var(--pain);}
+  .t-liga--con{fill:var(--signal);}
+
+  .sw--caja{background:var(--carton);border:1px solid var(--carton-2);height:10px;}
+  .sw--apartada{background:var(--carton);border:1px solid var(--carton-2);border-top:3px solid var(--signal);height:10px;}
+  .sw--sin{background:transparent;color:var(--pain);width:auto;height:auto;font-weight:700;}
+  .sw--guia{background:var(--surface);border:1px solid var(--signal);height:10px;}
+
+  @media (prefers-reduced-motion:reduce){
+    .e,.chip,.step{transition:none;}
+  }
+
+  @media (max-width:880px){
+    /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
+       los pasos pasan por debajo, igual que en escritorio */
+    .cols{display:block;margin-top:16px;}
+    .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+      background:var(--paper);padding-block:8px;margin-bottom:6px;
+      border-bottom:1px solid var(--rule-soft);}
+    .stage svg{max-height:33vh;}
+    /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
+       fijo, la línea de lectura se movería sola y el paso brincaría */
+    .readout__v{min-height:3.05em;}
+    .t-anaquel{font-size:13px;}
+    /* El dibujo se encoge a un tercio: los rótulos de los ejes crecen para seguir legibles. */
+    .eje{font-size:17px;}
+    .eje--dato{font-size:15px;}
+    .legend{display:none;}
+    /* en tablet vertical el texto corría a 100 caracteres por renglón */
+    .steps{max-width:660px;}
+    .step{min-height:clamp(120px,22vh,190px);padding-left:11px;opacity:.4;}
+  }
+  @media (max-width:560px){
+    .vs__row,.costo .rejilla li{grid-template-columns:minmax(0,1fr);gap:3px;}
+    .vs__lbl,.costo .rejilla b{line-height:1.4;}
+    .btn{width:100%;justify-content:center;}
+    /* En celular cada forma de contacto va en su propio renglón. */
+    .cierre .otras .par{display:block;}
+    .cierre .otras .sep{display:none;}
+    .gauge{margin-left:0;}
+  }
+</style>
+
+
+<div class="wrap">
+
+  <div class="brand">
+    <span class="brand__id">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M19 19H4.8a2.8 2.8 0 1 1 .05-5.6 4 4 0 0 1 4.58-5.31A5 5 0 0 1 19 11a4 4 0 0 1 0 8Z" stroke="var(--ink)" stroke-width="1.8"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M15.5 8h4v4" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--signal)" stroke-width="2"/>
+        <path d="M15.5 8h4v4" stroke="var(--signal)" stroke-width="2"/>
+      </svg>
+      <span class="brand__name">Loomware</span>
+    </span>
+    <a class="brand__site" href="/#recorrido-tienda-en-linea">loomware.com.mx</a>
+  </div>
+
+  <header class="mast">
+    <div class="eyebrow lbl">Comercio en línea · un ejemplo, paso a paso</div>
+    <h1>Del carrito a la puerta</h1>
+    <p class="deck">Una tienda en línea desconectada de la operación <b>vende lo que ya no
+      hay</b>. Para verlo seguimos un solo producto durante dos semanas, en el mostrador y en
+      la página al mismo tiempo: cuánto hay de verdad, cuánto publica la tienda, y qué pasa
+      cuando las dos cifras dejan de coincidir. Seis paradas y <b>una sola existencia</b>.
+      El giro no cambia la idea: abajo está el mismo recorrido en otros cinco.</p>
+
+    <figure class="antes">
+      <svg viewBox="0 0 620 124" role="img"
+           aria-label="A la izquierda, tres lugares con su propio inventario —el mostrador, la tienda en línea y el sistema— que se copian a mano y no coinciden. A la derecha, una sola existencia de la que leen la tienda, el mostrador, la facturación y la paquetería.">
+        <path class="dg-line" d="M84 16 L136 58"/>
+        <path class="dg-line" d="M84 58 L136 16"/>
+        <path class="dg-line" d="M84 58 L136 100"/>
+        <path class="dg-line" d="M84 100 L136 58"/>
+        <path class="dg-line" d="M84 16 L136 100"/>
+        <rect class="dg-box" x="4"   y="6"  width="80" height="20" rx="2"/>
+        <rect class="dg-box" x="4"   y="48" width="80" height="20" rx="2"/>
+        <rect class="dg-box" x="4"   y="90" width="80" height="20" rx="2"/>
+        <text class="dg-t" x="11" y="20">Mostrador</text>
+        <text class="dg-t" x="11" y="62">Tienda web</text>
+        <text class="dg-t" x="11" y="104">El sistema</text>
+        <rect class="dg-box" x="136" y="6"  width="86" height="20" rx="2"/>
+        <rect class="dg-box" x="136" y="48" width="86" height="20" rx="2"/>
+        <rect class="dg-box" x="136" y="90" width="86" height="20" rx="2"/>
+        <text class="dg-t" x="143" y="20">Existencia A</text>
+        <text class="dg-t" x="143" y="62">Existencia B</text>
+        <text class="dg-t" x="143" y="104">Existencia C</text>
+        <path class="dg-arrow" d="M248 62 L288 62"/>
+        <path class="dg-arrow" d="M280 56 L288 62 L280 68"/>
+        <rect class="dg-erp" x="308" y="2" width="306" height="118" rx="3"/>
+        <text class="dg-k" x="320" y="17">UNA SOLA EXISTENCIA</text>
+        <rect class="dg-row" x="318" y="24" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="42" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="60" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="78" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="96" width="286" height="15" rx="1"/>
+        <text class="dg-t" x="326" y="35">La tienda publica lo que hay</text>
+        <text class="dg-t" x="326" y="53">El mostrador descuenta lo mismo</text>
+        <text class="dg-t" x="326" y="71">El pago entra a contabilidad</text>
+        <text class="dg-t" x="326" y="89">La factura sale sola al cliente</text>
+        <text class="dg-t" x="326" y="107">La guía se genera con rastreo</text>
+      </svg>
+      <figcaption>Izquierda: tres lugares con su propio número del mismo producto, copiados a
+        mano. Derecha: una existencia de la que leen todos. Eso es todo lo que es una tienda
+        en línea conectada.</figcaption>
+    </figure>
+
+    <div class="specline">
+      <span>Catálogo <b>desde tu sistema</b></span>
+      <span>Pagos <b>tarjeta · SPEI · tiendas</b></span>
+      <span>Guías <b>con rastreo</b></span>
+      <span>CFDI <b>sin que te escriban</b></span>
+    </div>
+  </header>
+
+  <div class="cols">
+    <div class="figure">
+
+      <div class="readout" aria-live="polite">
+        <span class="readout__k lbl" id="hudK">PED-W-2041 · Pedido en línea</span>
+        <span class="readout__v" id="hudV">11:40 pm · 4 pzas · derecha: apartadas en el anaquel · izquierda: se capturan mañana</span>
+      </div>
+
+      <div class="stage">
+        <svg id="scene" viewBox="0 0 680 362" role="img"
+             aria-label="En medio, un anaquel con cuarenta cajas del mismo producto. A los lados, dos celulares que lo venden al mismo tiempo. El de la izquierda es la tienda de hoy: publica un número copiado a mano, sigue diciendo treinta y seis cuando en el anaquel quedan doce, toma veinte pedidos en la promoción y ocho se quedan sin producto, con su factura pedida por WhatsApp y su devolución. El de la derecha lee el anaquel: publica doce cuando hay doce, dice agotado en la pieza trece, cobra con factura enviada y manda los dieciséis paquetes con guía y rastreo.">
+          <g id="world"></g>
+        </svg>
+      </div>
+
+      <div class="cap">
+        <span id="stateLabel">01 / 06 · El pedido de la noche</span>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <span>Cifras de ejemplo</span>
+      </div>
+
+      <ul class="legend">
+        <li><span class="sw sw--caja"></span>Una pieza en el anaquel</li>
+        <li><span class="sw sw--apartada"></span>Apartada por un pedido en línea</li>
+        <li><span class="sw sw--sin"></span>✕ Pedido sin producto</li>
+        <li><span class="sw sw--guia"></span>Con guía y rastreo</li>
+      </ul>
+
+      <div class="exp">
+        <div class="exp__t lbl">El pedido · una sola existencia para todos</div>
+        <ul class="chips" id="chips">
+          <li class="chip" id="c0"><b>PED-W-2041</b><span>pedido</span></li>
+          <li class="chip" id="c1"><b>SKU A-4120</b><span>existencia</span></li>
+          <li class="chip" id="c2"><b>PROMO-09</b><span>promoción</span></li>
+          <li class="chip" id="c3"><b>CFDI B-771</b><span>factura</span></li>
+          <li class="chip" id="c4"><b>GUÍA 8837</b><span>envío</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 existencia</b><span>para todos los canales</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="steps" id="steps">
+
+      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
+
+      <section class="step on" tabindex="0" data-i="0">
+        <div class="step-head"><span class="paso">01</span><h2>El pedido de la noche</h2><span class="gauge">11:40 pm</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Llega a las once de la noche, nadie lo ve hasta la mañana y alguien lo teclea en
+              el sistema a mano.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Entra al sistema a las 11:40, descuenta la existencia en ese instante y ya
+              amanece surtible.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Vendes de noche sin que nadie tenga que estar despierto.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="1">
+        <div class="step-head"><span class="paso">02</span><h2>Dos existencias del mismo producto</h2><span class="gauge">36 vs 12</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El mostrador vende 24 piezas en una semana. La tienda en línea sigue publicando
+              36, porque nadie le avisó.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Mostrador y tienda descuentan de la misma existencia: la página publica 12
+              porque hay 12.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Un solo inventario para todos los canales, sin capturarlo dos veces.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="2">
+        <div class="step-head"><span class="paso">03</span><h2>La promoción</h2><span class="gauge">8 sin producto</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>La promoción vende 20 piezas en línea. Hay 12. Ocho clientes pagaron algo que
+              no existe.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La promoción vende 12 y la página dice «agotado» en la pieza 13. Lo que no hay,
+              no se vende.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Cada venta en línea es una venta que sí puedes entregar.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="3">
+        <div class="step-head"><span class="paso">04</span><h2>El cobro y la factura</h2><span class="gauge">CFDI 4.0</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El pago cae en la pasarela y alguien lo concilia después. El cliente pide su
+              factura por WhatsApp y se la hacen a mano.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El pago entra a contabilidad con su pedido, y el cliente captura sus datos
+              fiscales y recibe su CFDI sin escribirte.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Cero pedidos por conciliar y cero facturas por WhatsApp.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="4">
+        <div class="step-head"><span class="paso">05</span><h2>La guía y la devolución</h2><span class="gauge">8 devueltos</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Se genera la guía aparte, se copia el número al cliente, y los ocho pedidos sin
+              producto se devuelven uno por uno, con disculpa.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La guía se genera sola con rastreo para el cliente. No hay ocho devoluciones
+              porque no hubo ocho ventas fantasma.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>El cliente rastrea su paquete solo, y tú no pides disculpas.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="5">
+        <div class="step-head"><span class="paso">06</span><h2>El tablero por canal</h2><span class="gauge">margen real</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Se sabe cuánto se vendió en línea. No se sabe cuánto dejó, ni cuánto costó
+              devolver lo que no había.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Ventas, margen y devoluciones por canal, con el costo real de envío ya
+              descontado.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Sabes si la tienda en línea te deja dinero, no solo si vende.</p></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="giros">
+    <h2>El mismo recorrido, en otros giros</h2>
+    <p>Dibujamos un producto en mostrador y en línea porque ahí el desfase se ve con los ojos.
+      Lo que cambia entre un giro y otro es <b>qué se vende en línea</b> y qué duele hoy.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Un portal donde el cliente de mayoreo pide con sus precios, ve su estado de cuenta y repite pedidos.</span>
+        <span class="hoy">Hoy: el pedido llega por WhatsApp y alguien lo captura.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Un catálogo de refacciones o producto terminado con existencia real y tiempo de entrega.</span>
+        <span class="hoy">Hoy: se cotiza por correo lo que ya está en catálogo.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Un portal para que las cuadrillas pidan material a obra contra existencia.</span>
+        <span class="hoy">Hoy: el material se pide por teléfono y se anota en una libreta.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Un portal de clientes para contratar servicios y descargar entregables y facturas.</span>
+        <span class="hoy">Hoy: cada entregable se manda por correo y se vuelve a pedir.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>La tienda en línea con el mismo inventario que las sucursales, y recoger en tienda.</span>
+        <span class="hoy">Hoy: se vende en línea lo que ya se acabó en la sucursal.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>Agenda y pago en línea, con el expediente y la factura ligados a la cita.</span>
+        <span class="hoy">Hoy: se agenda por WhatsApp y se cobra en la recepción.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia qué se vende. No cambia la idea: <b>la tienda es parte de
+      tu operación, no un negocio aparte que hay que alimentar a mano.</b> Si tu giro no está
+      en la lista, también aplica: se define en el diagnóstico.</p>
+  </section>
+
+  <section class="faq">
+    <h2>Antes de que preguntes</h2>
+    <p>Las seis dudas que sale todo director antes de abrir o rehacer su tienda en línea,
+      contestadas sin rodeos.</p>
+    <ul class="rejilla">
+      <li><b>¿Ya tengo tienda y capturo cada pedido a mano?</b>
+        <span>Eso es exactamente lo que se resuelve: se conecta la tienda al inventario, la
+          facturación y la contabilidad para que cada pedido entre solo, con su origen.</span></li>
+      <li><b>¿Qué compro exactamente?</b>
+        <span>Una tienda que es parte de tu operación: catálogo desde tu sistema, pagos,
+          envíos y factura conectados. No una plantilla que después hay que alimentar a mano.</span></li>
+      <li><b>¿Con qué se cobra?</b>
+        <span>Tarjeta, transferencia SPEI, meses sin intereses y pago en tiendas de
+          conveniencia, con los procesadores que operan en México.</span></li>
+      <li><b>¿Y la factura al cliente?</b>
+        <span>El cliente captura sus datos fiscales en la compra y recibe su CFDI. Nadie de
+          tu equipo tiene que hacerla ni contestarle.</span></li>
+      <li><b>¿Cuánto tarda?</b>
+        <span>Depende del tamaño del catálogo y de qué haya que conectar. El diseño y la
+          integración son cuestión de semanas, y el lanzamiento se hace con compras reales de
+          prueba antes de abrir.</span></li>
+      <li><b>¿Cómo se cotiza?</b>
+        <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
+          cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
+    </ul>
+  </section>
+
+  <section class="costo">
+    <h2>¿Cuánto te está costando hoy?</h2>
+    <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
+      Si no sabes alguna, esa ya es la respuesta.</p>
+    <ul class="rejilla">
+      <li><b>01</b><span>¿Cuántos pedidos en línea al mes se cancelan porque no había producto?</span></li>
+      <li><b>02</b><span>¿Cuántas personas capturan a mano los pedidos de la tienda en tu sistema?</span></li>
+      <li><b>03</b><span>¿Cuántas facturas al mes te piden por WhatsApp los clientes de la tienda?</span></li>
+      <li><b>04</b><span>¿Sabes cuánto te cuesta cada envío, con devoluciones incluidas?</span></li>
+      <li><b>05</b><span>¿Sabes si la tienda en línea te deja margen, o solo que vende?</span></li>
+    </ul>
+  </section>
+
+  <section class="cierre">
+    <h2>Te decimos dónde se están yendo tus ventas en línea</h2>
+    <p>Revisamos tu catálogo, tus canales de venta y cómo operas envíos y cobranza, y te
+      decimos qué conviene resolver primero. La primera llamada es sin costo y sin compromiso.</p>
+    <a class="btn"
+       href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20comercio%20en%20l%C3%ADnea%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
+       target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      WhatsApp · 55 8096 8928
+    </a>
+    <p class="otras">
+      <span class="par">o llena el <a href="/servicios/tienda-en-linea#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
+    </p>
+  </section>
+
+  <p class="colofon">
+    Las cifras y folios de este recorrido son de <b>un producto de ejemplo</b> y sirven para
+    mostrar el flujo. La tienda se ajusta al catálogo y a la operación de cada empresa: el
+    recorrido de la tuya se dibuja en el diagnóstico, con tus productos.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Una tienda en línea vende lo que dice su pantalla, no lo que hay en el
+     anaquel. Por eso el dibujo es un anaquel con cuarenta cajas del mismo
+     producto y dos celulares que lo venden al mismo tiempo. El de la
+     izquierda es la tienda de hoy: publica un número copiado a mano. El de la
+     derecha lee el anaquel. Las cajas se van del anaquel con cada venta; lo
+     que cada pantalla dice después de eso es toda la historia. */
+  var CEL = { w:160, h:322, y:24 }, CEL_HOY = 32, CEL_CON = 488;
+  var AN = { x:252, y:44, w:176 };                 // el anaquel
+  var TABLAS = [104, 168, 232, 296];               // altura de cada tabla
+  var CAJA = { w:15, h:26, paso:17.4 };
+
+  /* d = el paso a partir del cual el elemento se ve; h = el paso en que se va */
+  function cuando(d, contenido, h){
+    return '<g class="e" data-d="' + d + '"' + (h !== undefined ? ' data-h="' + h + '"' : '') + '>' + contenido + '</g>';
+  }
+  function rotulo(x, y, texto, con){
+    var w = texto.length * 7.4 + 18;
+    return '<rect class="rot-caja' + (con ? ' rot-caja--con' : '') + '" x="' + x + '" y="' + (y - 9) + '" width="' + w + '" height="18" rx="2"/>' +
+           '<text class="rot" x="' + (x + 9) + '" y="' + (y + 4) + '">' + texto + '</text>';
+  }
+
+  /* --- el anaquel y sus cuarenta cajas --- */
+  var s = '<rect class="poste" x="' + AN.x + '" y="' + AN.y + '" width="6" height="' + (TABLAS[3] - AN.y + 8) + '"/>' +
+          '<rect class="poste" x="' + (AN.x + AN.w - 6) + '" y="' + AN.y + '" width="6" height="' + (TABLAS[3] - AN.y + 8) + '"/>';
+  TABLAS.forEach(function(ty){
+    s += '<rect class="tabla" x="' + AN.x + '" y="' + ty + '" width="' + AN.w + '" height="7" rx="1"/>';
+  });
+  s += '<text class="t-anaquel" x="' + (AN.x + 2) + '" y="' + (AN.y - 10) + '">ANAQUEL · A-4120</text>';
+
+  /* caja n: tabla = n / 10, lugar = n % 10. Se dibuja parada sobre su tabla. */
+  function caja(n, apartada){
+    var t = Math.floor(n / 10), k = n % 10;
+    var x = AN.x + 9 + k * CAJA.paso, y = TABLAS[t] - CAJA.h;
+    var o = '<rect class="caja" x="' + x + '" y="' + y + '" width="' + CAJA.w + '" height="' + CAJA.h + '" rx="1"/>' +
+            '<line class="cinta" x1="' + (x + CAJA.w / 2) + '" y1="' + y + '" x2="' + (x + CAJA.w / 2) + '" y2="' + (y + CAJA.h) + '"/>';
+    /* la etiqueta de cobre: una banda al frente, que se vea aunque la caja sea chica */
+    if (apartada) o += '<rect class="apartada" x="' + (x + 1.5) + '" y="' + (y + 9) + '" width="' + (CAJA.w - 3) + '" height="7" rx="1"/>';
+    return o;
+  }
+  /* Qué le pasa a cada caja: 24 se venden en mostrador (paso 02), 4 se apartan
+     con el pedido de la noche (paso 01), 12 con la promoción (paso 03), y las
+     16 apartadas salen con guía (paso 05). */
+  var MOSTRADOR = [], NOCHE = [36, 37, 38, 39], PROMO = [];
+  for (var n = 0; n < 24; n++) MOSTRADOR.push(n);
+  for (var m = 24; m < 36; m++) PROMO.push(m);
+  s += cuando(0, MOSTRADOR.map(function(n){ return caja(n); }).join(''), 1);
+  s += cuando(0, NOCHE.map(function(n){ return caja(n, true); }).join(''), 4);
+  s += cuando(0, PROMO.map(function(n){ return caja(n); }).join(''), 2);
+  s += cuando(2, PROMO.map(function(n){ return caja(n, true); }).join(''), 4);
+
+  /* la cuenta real, bajo el anaquel */
+  function cuenta(texto){ return '<text class="t-cuenta" x="' + (AN.x + 2) + '" y="' + (TABLAS[3] + 22) + '">' + texto + '</text>'; }
+  s += cuando(0, cuenta('40 en anaquel · 4 apartadas'), 1);
+  s += cuando(1, cuenta('16 en anaquel · 4 apartadas'), 2);
+  s += cuando(2, cuenta('16 en anaquel · 16 apartadas'), 4);
+  s += cuando(4, cuenta('0 en anaquel · 16 con guía'));
+
+  /* los paquetes con guía, al pie del anaquel */
+  var py = TABLAS[3] + 34, paquetes = '';
+  [0, 1, 2].forEach(function(k){
+    var x = AN.x + 10 + k * 34;
+    paquetes += '<rect class="paquete" x="' + x + '" y="' + py + '" width="28" height="20" rx="1"/>' +
+                '<rect class="guia" x="' + (x + 5) + '" y="' + (py + 5) + '" width="18" height="9" rx="1"/>';
+  });
+  paquetes += '<text class="t-cuenta" x="' + (AN.x + 116) + '" y="' + (py + 14) + '">GUÍA 8837…</text>';
+  s += cuando(4, paquetes);
+
+  /* lo que une el anaquel con cada celular */
+  var ly = 150;
+  s += '<path class="liga liga--pain" d="M' + (CEL_HOY + CEL.w + 4) + ' ' + ly + ' L' + (AN.x - 8) + ' ' + ly + '"/>' +
+       '<text class="t-liga t-liga--pain" x="' + ((CEL_HOY + CEL.w + AN.x) / 2) + '" y="' + (ly - 8) + '">número</text>' +
+       '<text class="t-liga t-liga--pain" x="' + ((CEL_HOY + CEL.w + AN.x) / 2) + '" y="' + (ly + 13) + '">copiado</text>' +
+       '<path class="liga liga--con" d="M' + (AN.x + AN.w + 8) + ' ' + ly + ' L' + (CEL_CON - 4) + ' ' + ly + '"/>' +
+       '<text class="t-liga t-liga--con" x="' + ((AN.x + AN.w + CEL_CON) / 2) + '" y="' + (ly - 8) + '">lee el</text>' +
+       '<text class="t-liga t-liga--con" x="' + ((AN.x + AN.w + CEL_CON) / 2) + '" y="' + (ly + 13) + '">anaquel</text>';
+
+  /* --- los dos celulares --- */
+  function celular(x, con){
+    return '<rect class="cel' + (con ? ' cel--con' : '') + '" x="' + x + '" y="' + CEL.y + '" width="' + CEL.w + '" height="' + CEL.h + '" rx="16"/>' +
+           '<rect class="pantalla" x="' + (x + 7) + '" y="' + (CEL.y + 9) + '" width="' + (CEL.w - 14) + '" height="' + (CEL.h - 18) + '" rx="10"/>';
+  }
+  s += celular(CEL_HOY, false) + celular(CEL_CON, true);
+  s += rotulo(CEL_HOY + 10, CEL.y, 'HOY', false) + rotulo(CEL_CON + 10, CEL.y, 'CON EL SISTEMA', true);
+
+  /* La pantalla de un momento: hora, producto, existencia, botón y la lista de
+     abajo. Cada paso tiene su pantalla completa; así ninguna se confunde. */
+  function pantalla(x, con, p){
+    var sx = x + 16, sy = CEL.y + 22, o = '';
+    o += '<text class="p-hora" x="' + sx + '" y="' + (sy + 6) + '">tienda</text>' +
+         '<text class="p-hora p-hora--fuerte" x="' + (x + CEL.w - 16) + '" y="' + (sy + 6) + '" text-anchor="end">' + p.hora + '</text>';
+    o += '<rect class="p-foto" x="' + sx + '" y="' + (sy + 16) + '" width="34" height="34" rx="3"/>' +
+         '<rect class="caja" x="' + (sx + 9) + '" y="' + (sy + 25) + '" width="16" height="16" rx="1"/>' +
+         '<line class="cinta" x1="' + (sx + 17) + '" y1="' + (sy + 25) + '" x2="' + (sx + 17) + '" y2="' + (sy + 41) + '"/>' +
+         '<text class="p-nom" x="' + (sx + 42) + '" y="' + (sy + 28) + '">Bocina BT</text>' +
+         '<text class="p-sku" x="' + (sx + 42) + '" y="' + (sy + 39) + '">A-4120</text>' +
+         '<text class="p-precio" x="' + (sx + 42) + '" y="' + (sy + 52) + '">$1,290</text>';
+    o += '<text class="p-stock' + (p.tono ? ' p-stock--' + p.tono : '') + '" x="' + sx + '" y="' + (sy + 70) + '">' + p.stock + '</text>';
+    if (p.nota) o += '<text class="p-nota" x="' + sx + '" y="' + (sy + 81) + '">' + p.nota + '</text>';
+    var by = sy + 88, agotado = p.boton === 'AGOTADO';
+    o += '<rect class="p-boton' + (agotado ? ' p-boton--agotado' : con ? ' p-boton--con' : '') + '" x="' + sx + '" y="' + by + '" width="' + (CEL.w - 32) + '" height="20" rx="4"/>' +
+         '<text class="p-boton-t' + (agotado ? ' p-boton-t--agotado' : '') + '" x="' + (x + CEL.w / 2) + '" y="' + (by + 13.5) + '">' + p.boton + '</text>';
+    var fy = by + 34;
+    o += '<line class="p-raya" x1="' + sx + '" y1="' + (fy - 14) + '" x2="' + (x + CEL.w - 16) + '" y2="' + (fy - 14) + '"/>' +
+         '<text class="p-tit" x="' + sx + '" y="' + fy + '">' + p.titulo + '</text>';
+    p.filas.forEach(function(f, i){
+      var y = fy + 15 + i * 14;
+      if (f[1] === 'globo'){
+        o += '<rect class="p-globo" x="' + sx + '" y="' + (y - 10) + '" width="' + (f[0].length * 4.9 + 12) + '" height="14" rx="7"/>' +
+             '<text class="p-fila" x="' + (sx + 6) + '" y="' + y + '">' + f[0] + '</text>';
+      } else {
+        o += '<text class="p-fila' + (f[1] ? ' p-fila--' + f[1] : '') + '" x="' + sx + '" y="' + y + '">' + f[0] + '</text>';
+      }
+    });
+    return o;
+  }
+
+  var HOY = [
+    { hora:'11:40 pm', stock:'Disponibles: 36', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · 4 pzas'], ['se captura mañana', 'pain'], ['a mano, en el sistema', 'pain']] },
+    { hora:'día 9', stock:'Disponibles: 36', tono:'pain', nota:'número de hace una semana', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · capturado'], ['mostrador vendió 24', 'pain'], ['la tienda no se enteró', 'pain']] },
+    { hora:'día 12 · PROMO', stock:'Disponibles: 36', tono:'pain', nota:'en el anaquel hay 12', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS · 20',
+      filas:[['12 con producto'], ['8 sin producto ✕', 'pain'], ['PED-W-2058 ✕', 'pain'], ['PED-W-2061 ✕', 'pain'], ['PED-W-2064 ✕ …', 'pain']] },
+    { hora:'día 12', stock:'Disponibles: 36', tono:'pain', boton:'AGREGAR AL CARRITO', titulo:'COBRO',
+      filas:[['20 pagos en la pasarela'], ['por conciliar a mano', 'pain'], ['«¿y mi factura?»', 'globo'], ['×8 por WhatsApp', 'pain']] },
+    { hora:'día 14', stock:'Disponibles: 36', tono:'pain', boton:'AGREGAR AL CARRITO', titulo:'ENVÍOS',
+      filas:[['12 guías copiadas a mano'], ['8 devoluciones', 'pain'], ['8 disculpas', 'pain'], ['8 reembolsos', 'pain']] },
+    { hora:'cierre de mes', stock:'Disponibles: 36', tono:'pain', boton:'AGREGAR AL CARRITO', titulo:'CANAL EN LÍNEA',
+      filas:[['ventas: 20'], ['devoluciones: 8', 'pain'], ['margen: se desconoce', 'pain'], ['costo de envío: ?', 'pain']] }
+  ];
+  var CON = [
+    { hora:'11:40 pm', stock:'Disponibles: 36', tono:'con', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · 4 pzas'], ['4 apartadas ✓', 'con'], ['surtible al amanecer', 'con']] },
+    { hora:'día 9', stock:'Disponibles: 12', tono:'con', nota:'una sola existencia', boton:'AGREGAR AL CARRITO', titulo:'PEDIDOS',
+      filas:[['PED-W-2041 · surtido ✓'], ['mostrador −24', 'con'], ['la tienda publica 12', 'con']] },
+    { hora:'día 12 · PROMO', stock:'Disponibles: 0', tono:'con', nota:'se vendieron las 12', boton:'AGOTADO', titulo:'PEDIDOS · 12',
+      filas:[['12 con producto ✓', 'con'], ['0 sin producto', 'con'], ['pieza 13: «agotado»', 'con']] },
+    { hora:'día 12', stock:'Disponibles: 0', tono:'con', boton:'AGOTADO', titulo:'COBRO',
+      filas:[['12 pagos aprobados ✓', 'con'], ['aplicados a su pedido'], ['CFDI B-771 enviado ✓', 'con'], ['datos fiscales: cliente']] },
+    { hora:'día 14', stock:'Disponibles: 0', tono:'con', boton:'AGOTADO', titulo:'ENVÍOS',
+      filas:[['GUÍA 8837 · rastreo ✓', 'con'], ['16 paquetes en camino'], ['el cliente rastrea solo'], ['devoluciones: 0', 'money']] },
+    { hora:'cierre de mes', stock:'Disponibles: 0', tono:'con', boton:'AGOTADO', titulo:'CANAL EN LÍNEA',
+      filas:[['ventas: 16'], ['devoluciones: 0', 'money'], ['margen real ✓', 'money'], ['envío ya descontado ✓', 'money']] }
+  ];
+  HOY.forEach(function(p, i){ s += cuando(i, pantalla(CEL_HOY, false, p), i + 1); });
+  CON.forEach(function(p, i){ s += cuando(i, pantalla(CEL_CON, true, p), i + 1); });
+
+  document.getElementById("world").innerHTML = s;
+
+  /* ---------- estados ---------- */
+  var STATES = [
+    { label:"01 / 06 · El pedido de la noche",
+      k:"PED-W-2041 · Pedido en línea",
+      v:"11:40 pm · 4 pzas · derecha: apartadas en el anaquel · izquierda: se capturan mañana" },
+    { label:"02 / 06 · Dos existencias",
+      k:"SKU A-4120 · 36 publicadas, 12 reales",
+      v:"día 9 · el mostrador vendió 24 · la pantalla de hoy no se enteró; la otra publica 12" },
+    { label:"03 / 06 · La promoción",
+      k:"PROMO-09 · 20 vendidas, 12 existían",
+      v:"día 12 · izquierda: 8 pedidos sin producto · derecha: «agotado» en la pieza 13" },
+    { label:"04 / 06 · El cobro y la factura",
+      k:"CFDI B-771 · Enviado al cliente",
+      v:"pago aplicado a su pedido · CFDI enviado al cliente · izquierda: 8 facturas por WhatsApp" },
+    { label:"05 / 06 · La guía y la devolución",
+      k:"GUÍA 8837 · Con rastreo",
+      v:"día 14 · 16 paquetes con rastreo y cero devoluciones · izquierda: 8 devoluciones" },
+    { label:"06 / 06 · El tablero por canal",
+      k:"Canal en línea · Margen real",
+      v:"ventas, devoluciones y costo de envío por canal · izquierda: dos cifras sin conocer" }
+  ];
+
+  var labelEl = document.getElementById("stateLabel");
+  var hudK = document.getElementById("hudK");
+  var hudV = document.getElementById("hudV");
+  var elems = Array.prototype.slice.call(document.querySelectorAll("#world .e"));
+  var chipEls = Array.prototype.slice.call(document.querySelectorAll("#chips .chip"));
+  var totEl = document.getElementById("ctot");
+  var stepEls = Array.prototype.slice.call(document.querySelectorAll(".step"));
+  var ULTIMO = STATES.length - 1;
+  var current = -1;
+
+  function apply(i){
+    if (i === current) return;
+    current = i;
+    var st = STATES[i];
+
+    elems.forEach(function(el){
+      var h = el.dataset.h;
+      el.classList.toggle("visible", i >= +el.dataset.d && (h === undefined || i < +h));
+    });
+
+    chipEls.forEach(function(el, n){
+      if (el === totEl) return;
+      el.classList.toggle("on", i === ULTIMO || n <= i);
+      el.classList.toggle("now", i !== ULTIMO && n === i);
+    });
+    totEl.classList.toggle("on", i === ULTIMO);
+
+    labelEl.textContent = st.label;
+    hudK.textContent = st.k;
+    hudV.textContent = st.v;
+    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+  }
+
+  apply(0);
+
+  var reproduciendo = false;
+  var figuraEl = document.querySelector(".figure");
+
+  function elegir(){
+    if (reproduciendo) return;          // mientras reproduce, manda el reproductor
+    /* En escritorio se lee a media pantalla. En celular el dibujo se queda pegado
+       arriba, así que la lectura es el centro de lo que queda debajo de él: se
+       calcula del dibujo mismo, no con una fracción a ojo. */
+    var alto = window.innerHeight, linea = alto * 0.5;
+    if (window.innerWidth <= 880 && figuraEl){
+      linea = (Math.max(figuraEl.getBoundingClientRect().bottom, 0) + alto) / 2;
+    }
+    var idx = 0, cerca = Infinity, dentro = false;
+    for (var n = 0; n < stepEls.length; n++){
+      var r = stepEls[n].getBoundingClientRect();
+      if (r.top <= linea && r.bottom >= linea){ idx = n; dentro = true; break; }
+      if (!dentro){
+        var d = Math.min(Math.abs(r.top - linea), Math.abs(r.bottom - linea));
+        if (d < cerca){ cerca = d; idx = n; }
+      }
+    }
+    apply(idx);
+  }
+
+  window.addEventListener("scroll", elegir, { passive:true });
+  window.addEventListener("resize", elegir, { passive:true });
+  elegir();
+
+  stepEls.forEach(function(el){
+    el.addEventListener("click", function(){ detener(); apply(Number(el.dataset.i)); });
+    el.addEventListener("keydown", function(ev){
+      if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); detener(); apply(Number(el.dataset.i)); }
+    });
+  });
+
+  /* Reproducción automática: sirve para grabar el recorrido en video sin tocar nada. */
+  var playEl = document.getElementById("play");
+  var timer = null;
+  var suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function irA(i){
+    stepEls[i].scrollIntoView({ behavior: suave ? "smooth" : "auto", block: "center" });
+    apply(i);
+  }
+  function detener(){
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+    reproduciendo = false;
+    playEl.textContent = "▶ Reproducir";
+    playEl.setAttribute("aria-pressed", "false");
+  }
+  playEl.addEventListener("click", function(){
+    if (timer){ detener(); return; }
+    reproduciendo = true;
+    playEl.textContent = "❚❚ Pausar";
+    playEl.setAttribute("aria-pressed", "true");
+    irA(0);
+    timer = setInterval(function(){
+      var n = current + 1;
+      if (n >= STATES.length){ detener(); return; }
+      irA(n);
+    }, 4500);
+  });
+
+  /* Si la persona toma el control, la reproducción se detiene sola. */
+  ["wheel", "touchstart"].forEach(function(ev){
+    window.addEventListener(ev, function(){ detener(); }, { passive:true });
+  });
+})();
+</script>

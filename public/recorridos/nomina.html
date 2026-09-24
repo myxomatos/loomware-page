@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>De la checada al recibo · Nómina | Loomware</title>
+    <meta name="description" content="Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega." />
+    <link rel="canonical" href="https://loomware.com.mx/recorridos/nomina" />
+    <meta name="theme-color" content="#A35C23" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Loomware" />
+    <meta property="og:url" content="https://loomware.com.mx/recorridos/nomina" />
+    <meta property="og:title" content="De la checada al recibo · Nómina | Loomware" />
+    <meta property="og:description" content="Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega." />
+    <meta property="og:image" content="https://loomware.com.mx/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_MX" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="De la checada al recibo · Nómina | Loomware" />
+    <meta name="twitter:description" content="Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega." />
+    <meta name="twitter:image" content="https://loomware.com.mx/og-image.png" />
+
+    <style>
+      :root {
+        color-scheme: light;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+      body { margin: 0; padding: 0; }
+      img { max-width: 100%; }
+      [hidden] { display: none !important; }
+    </style>
+    <!--
+      Ligas del sitio: relativas y en la misma pestaña, para que funcionen igual en
+      producción y en el preview de cada rama.
+        1. la barra de marca (brand__site) regresa al inicio, a la tarjeta de este recorrido
+        2. la liga "formulario del sitio" del cierre (.otras) lleva al formulario de su servicio
+    -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
+    <style>
+      *,*::before,*::after{box-sizing:border-box;}
+
+      :root{
+        /* --- superficie y texto: neutros cálidos, para que el cobre cante --- */
+        --paper:#EEEBE6;
+        --surface:#FFFFFF;
+        --ink:#191A1E;
+        --ink-2:#4E5058;
+        --ink-3:#7A7D86;
+        --rule:#CFC9C0;
+        --rule-soft:#E3DED6;
+
+        --signal:#A35C23;       /* cobre: el dato que el sistema registra */
+        --signal-soft:#F8EDE2;
+        --money:#12643C;        /* verde: lo que ganas */
+        --pain:#6B6F79;         /* gris: así está hoy */
+        --pain-bg:#DFDCD5;      /* franja apagada, separada del papel a simple vista */
+
+        /* --- materiales de la escena: cara superior / izquierda / derecha --- */
+        --grd:#DCD7CE;  --grd2:#E9E5DD;
+        --asf-t:#A8A49C;
+        --line:#F0EDE7;
+        --con-t:#C6C1B8; --con-l:#9B978F; --con-r:#B0ABA3;
+        --rck-t:#D2CEC6; --rck-l:#A5A199; --rck-r:#BDB9B1;
+        --box-t:#E4D5BB; --box-l:#B8A886; --box-r:#D0C0A1;
+        --ofi-t:#E4E0D8; --ofi-l:#B4B0A8; --ofi-r:#CBC7BF;
+        --tra-t:#EBE8E1; --tra-l:#B9B5AD; --tra-r:#D3CFC8;
+        --trk-t:#C7C3BB; --trk-l:#928E86; --trk-r:#ADA9A1;
+        --fk-t:#5A5C63;  --fk-l:#35373C;  --fk-r:#47494F;
+        --pal-t:#C4A173; --pal-l:#8F7349; --pal-r:#AB8B5D;
+        --per-t:#5A6472; --per-l:#333A44; --per-r:#47505C;   /* la gente de la nave */
+        --chs:#33353B;
+        --whl:#191A1E;
+        --shadow:0 1px 0 rgba(25,26,30,.04), 0 12px 28px -20px rgba(25,26,30,.4);
+
+        --mono:"Azeret Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+        --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+      }
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]){
+          --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+          --rule:#3F3930; --rule-soft:#2A2620;
+          --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+          --pain:#8F8878; --pain-bg:#1B1915;
+          /* la escena va más clara que el papel: si no, el dibujo se vuelve lodo */
+          --grd:#221F19; --grd2:#2E2A23;
+          --asf-t:#3D3931; --line:#6A6357;
+          --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+          --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+          --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+          --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+          --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+          --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+          --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+          --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+          --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+          --chs:#141210; --whl:#0C0A08;
+          --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+        }
+      }
+      :root[data-theme="dark"]{
+        --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+        --rule:#3F3930; --rule-soft:#2A2620;
+        --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
+        --pain:#8F8878; --pain-bg:#1B1915;
+        --grd:#221F19; --grd2:#2E2A23;
+        --asf-t:#3D3931; --line:#6A6357;
+        --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
+        --rck-t:#4E4940; --rck-l:#343029; --rck-r:#423E36;
+        --box-t:#8A7350; --box-l:#53452C; --box-r:#6C5A3A;
+        --ofi-t:#4A4640; --ofi-l:#312E29; --ofi-r:#3D3A34;
+        --tra-t:#B0AAA0; --tra-l:#6A655C; --tra-r:#8C867C;
+        --trk-t:#726C63; --trk-l:#46423B; --trk-r:#5B564E;
+        --fk-t:#787A82; --fk-l:#43454B; --fk-r:#5C5E65;
+        --pal-t:#9A7D50; --pal-l:#5D4B30; --pal-r:#7A633E;
+        --per-t:#8B94A3; --per-l:#4B535F; --per-r:#6A7280;
+        --chs:#141210; --whl:#0C0A08;
+        --shadow:0 0 0 1px rgba(255,255,255,.05), 0 18px 40px -26px #000;
+      }
+
+      /* Monoespaciada para todo lo que es dato, etiqueta o título: lectura de máquina.
+         Archivo sólo para el texto corrido, que en mono cansa. */
+      body{
+        background:var(--paper); color:var(--ink);
+        font-family:var(--sans); font-size:14px; line-height:1.5;
+        -webkit-font-smoothing:antialiased; overflow-wrap:break-word;
+      }
+      .wrap{max-width:1180px;margin:0 auto;padding-inline:18px;padding-block:16px 48px;}
+      .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+        font-weight:500;}
+
+      /* ---------- barra de marca ---------- */
+      .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+        padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
+      .brand__id{display:flex;align-items:center;gap:8px;}
+      .brand__id svg{display:block;flex:none;}
+      .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
+        letter-spacing:-.03em;color:var(--ink);}
+      .brand__site{font-family:var(--mono);font-size:11px;color:var(--ink-2);text-decoration:none;
+        border-bottom:1px solid var(--rule);padding-bottom:1px;}
+      .brand__site:hover{color:var(--signal);border-color:currentColor;}
+
+      /* ---------- cabecera ---------- */
+      .mast{display:flex;flex-direction:column;gap:13px;padding-block:20px 17px;
+        border-bottom:1px solid var(--rule);}
+      .eyebrow{color:var(--signal);}
+      h1{font-family:var(--mono);font-weight:700;
+        font-size:clamp(25px,4.6vw,42px);line-height:1.04;letter-spacing:-.03em;
+        text-transform:uppercase;margin:0;text-wrap:balance;}
+      .deck{max-width:78ch;color:var(--ink-2);font-size:14px;margin:0;line-height:1.55;}
+      .deck b{color:var(--ink);font-weight:600;}
+
+      /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
+      .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
+      .antes svg{display:block;width:100%;max-width:620px;height:auto;}
+      .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);max-width:70ch;
+        line-height:1.6;}
+      .dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;}
+      .dg-line{stroke:var(--pain);stroke-width:1;fill:none;opacity:.6;}
+      .dg-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-2);}
+      .dg-arrow{stroke:var(--ink-3);stroke-width:1.5;fill:none;}
+      .dg-erp{fill:var(--surface);stroke:var(--signal);stroke-width:1.5;}
+      .dg-row{fill:var(--signal-soft);}
+      .dg-k{font-family:var(--mono);font-size:9px;fill:var(--signal);letter-spacing:.12em;}
+
+      .specline{display:flex;flex-wrap:wrap;gap:4px 20px;font-family:var(--mono);font-size:10.5px;
+        color:var(--ink-3);font-variant-numeric:tabular-nums;}
+      .specline b{color:var(--signal);font-weight:500;}
+
+      /* ---------- dos columnas ---------- */
+      .cols{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+        gap:30px;margin-top:22px;align-items:start;}
+      .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
+        display:flex;flex-direction:column;gap:8px;min-width:0;}
+
+      /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
+      .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
+        background:var(--surface);border:1px solid var(--rule-soft);
+        border-left:3px solid var(--signal);border-radius:2px;}
+      .readout__k{color:var(--signal);font-size:11px;}
+      .readout__v{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+        font-variant-numeric:tabular-nums;line-height:1.45;}
+
+      .stage{background:var(--surface);border:1px solid var(--rule-soft);
+        border-radius:3px;box-shadow:var(--shadow);padding:5px;}
+      .stage svg{display:block;width:100%;height:auto;}
+
+      .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+        font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
+      .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+        color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
+        border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+      .play:hover{background:var(--signal);color:var(--surface);}
+      .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+      .legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;
+        font-family:var(--mono);font-size:10px;color:var(--ink-3);}
+      .legend li{display:flex;align-items:center;gap:6px;}
+      .sw{width:12px;height:7px;flex:none;border-radius:1px;}
+      .sw--beam{background:repeating-linear-gradient(90deg,var(--signal) 0 4px,transparent 4px 7px);}
+      .sw--sys{background:var(--signal);}
+      .sw--money{background:var(--money);}
+
+      /* expediente: un dato, una sola captura */
+      .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
+        flex-direction:column;gap:7px;}
+      .exp__t{color:var(--ink-3);}
+      .chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+      .chip{display:flex;flex-direction:column;gap:0;padding:4px 8px;border-radius:2px;
+        border:1px solid var(--rule-soft);background:var(--surface);font-family:var(--mono);
+        opacity:.32;transition:opacity .4s ease,border-color .4s ease,background-color .4s ease;min-width:0;}
+      .chip b{font-size:11px;font-weight:500;letter-spacing:-.02em;color:var(--ink-2);line-height:1.5;}
+      .chip span{font-size:9px;color:var(--ink-3);line-height:1.5;}
+      .chip.on{opacity:1;}
+      .chip.now{border-color:var(--signal);background:var(--signal-soft);}
+      .chip.now b{color:var(--signal);}
+      .chip--tot.on{border-color:var(--signal);background:var(--signal);}
+      .chip--tot.on b,.chip--tot.on span{color:var(--surface);}
+
+      /* ---------- pasos ---------- */
+      .steps{display:flex;flex-direction:column;min-width:0;}
+      .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+        padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
+      /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
+         es lo que hace que el recorrido se lea de uno en uno. */
+      .step{display:flex;flex-direction:column;justify-content:center;
+        min-height:clamp(140px,27vh,240px);padding-block:12px;padding-left:14px;
+        border-left:3px solid transparent;cursor:pointer;min-width:0;
+        transition:opacity .35s ease,border-color .35s ease;opacity:.34;}
+      .step.on{opacity:1;border-left-color:var(--signal);}
+      .step:hover{opacity:.7;border-left-color:var(--rule);}
+      .step.on:hover{opacity:1;border-left-color:var(--signal);}
+      .step:focus-visible{outline:2px solid var(--signal);outline-offset:5px;}
+      .step-head{display:flex;align-items:baseline;gap:9px;margin-bottom:8px;flex-wrap:wrap;}
+      .paso{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:-.02em;
+        color:var(--ink-3);line-height:1.5;transition:color .35s ease;}
+      .step.on .paso{color:var(--signal);}
+      .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
+        color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
+        border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
+      .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+        margin:0;color:var(--ink);text-wrap:balance;}
+
+      /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
+      .vs{display:flex;flex-direction:column;gap:1px;border-radius:2px;overflow:hidden;}
+      .vs__row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:11px;
+        padding:8px 10px;align-items:start;}
+      .vs__row p{margin:0;font-size:13px;line-height:1.45;color:var(--ink);}
+      .vs__lbl{line-height:1.75;}
+      .vs__row--hoy{background:var(--pain-bg);border-left:3px solid var(--pain);}
+      .vs__row--hoy .vs__lbl{color:var(--pain);}
+      .vs__row--hoy p{color:var(--ink-2);}
+      .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
+      .vs__row--con .vs__lbl{color:var(--signal);}
+      .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
+      .vs__row--gana .vs__lbl{color:var(--money);}
+      .vs__row--gana p{font-weight:500;}
+
+      /* ---------- secciones de abajo ---------- */
+      .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
+      .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
+        font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
+        text-wrap:balance;color:var(--ink);text-transform:uppercase;}
+      .giros p,.faq p,.costo p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
+
+      /* 320px: da 3 columnas en escritorio y 2 en tablet, y las seis tarjetas
+         de giros y de preguntas llenan las filas sin dejar celdas vacías. */
+      .rejilla{list-style:none;margin:0;padding:0;display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;
+        background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:2px;}
+      .rejilla li{background:var(--surface);padding:11px 13px;display:flex;
+        flex-direction:column;gap:3px;}
+      .rejilla b{font-family:var(--mono);font-size:10.5px;font-weight:500;
+        letter-spacing:.05em;text-transform:uppercase;color:var(--ink);}
+      .rejilla span{font-size:12.5px;line-height:1.45;color:var(--ink-2);}
+      .rejilla .hoy{font-size:11.5px;line-height:1.45;color:var(--pain);}
+      .rejilla .este{background:var(--signal-soft);}
+      .rejilla .este b{color:var(--signal);}
+      .giros__cierre{margin:14px 0 0 !important;font-size:13.5px;color:var(--ink);}
+
+      /* preguntas que el comprador hace antes de llamar */
+      .faq .rejilla b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+
+      .costo .rejilla{grid-template-columns:minmax(0,1fr);max-width:780px;}
+      .costo .rejilla li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;
+        font-size:12.5px;line-height:1.4;color:var(--ink);}
+      .costo .rejilla b{font-size:10px;color:var(--signal);line-height:1.6;
+        font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
+
+      /* ---------- cierre ---------- */
+      .cierre{margin-top:26px;max-width:640px;padding-left:16px;
+        border-left:3px solid var(--signal);}
+      .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
+      .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+        font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
+        text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
+      .btn svg{flex:none;}
+      .btn:hover{filter:brightness(1.1);}
+      .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+      .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
+        color:var(--ink-3);line-height:1.8;}
+      /* El correo no se parte a media dirección: se baja entero. */
+      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+        overflow-wrap:normal;word-break:normal;white-space:nowrap;}
+      .cierre .otras .par{display:inline;}
+      .cierre .otras a:hover{color:var(--signal);}
+      .cierre .otras .sep{margin-inline:7px;color:var(--rule);}
+
+      .colofon{margin-top:24px;font-family:var(--mono);font-size:10px;color:var(--ink-3);
+        max-width:96ch;line-height:1.7;}
+      .colofon b{color:var(--ink-2);font-weight:500;}
+
+      /* ---------- estado de la escena ---------- */
+      /* Cada elemento del dibujo aparece en el paso que le toca, y algunos se van. */
+      .e{opacity:0;transition:opacity .45s ease;}
+      .e.visible{opacity:1;}
+
+      /* Papeles: la tarjeta de checado, la hoja copiada a mano y los dos recibos. */
+      .hoja{fill:var(--surface);stroke:var(--rule);stroke-width:.9;}
+      .hoja--con{stroke:var(--signal);}
+      .hoja-sombra{fill:var(--pain-bg);opacity:.6;}
+      .perf{fill:var(--paper);stroke:var(--rule);stroke-width:.8;}   /* la perforación de la tarjeta */
+      .raya{stroke:var(--rule-soft);stroke-width:1;}
+      .raya--fuerte{stroke:var(--rule);}
+      .t-tit{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--ink-2);letter-spacing:.1em;}
+      .t-sub{font-family:var(--mono);font-size:8.5px;fill:var(--ink-3);letter-spacing:.03em;}
+      .t-col{font-family:var(--mono);font-size:7.5px;fill:var(--ink-3);letter-spacing:.08em;}
+      .t-dato{font-family:var(--mono);font-size:9px;fill:var(--ink);font-variant-numeric:tabular-nums;}
+      .t-dato--suave{fill:var(--ink-3);}
+      .t-inc{font-family:var(--mono);font-size:7.8px;font-weight:700;fill:var(--signal);letter-spacing:.03em;}
+      .banda-inc{fill:var(--signal-soft);}
+      .t-monto{font-family:var(--mono);font-size:9px;fill:var(--ink);font-variant-numeric:tabular-nums;text-anchor:end;}
+      .t-monto--neto,.t-dato--neto{font-weight:700;}
+      .t-dato--con,.t-monto--con{fill:var(--signal);font-weight:700;}
+      .t-dato--money,.t-monto--money{fill:var(--money);font-weight:700;}
+      .t-dato--pain,.t-monto--pain{fill:var(--pain);font-weight:700;}
+      .error{fill:none;stroke:var(--pain);stroke-width:1.6;}
+
+      /* rótulos HOY / CON EL SISTEMA */
+      .rot{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;fill:var(--surface);}
+      .rot-caja{fill:var(--pain);}
+      .rot-caja--con{fill:var(--signal);}
+
+      /* flechas entre papeles */
+      .flecha{fill:none;stroke:var(--ink-3);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+      .flecha--con{stroke:var(--signal);stroke-width:2;}
+      .flecha--pain{stroke:var(--pain);stroke-dasharray:4 3;}
+      .t-flecha{font-family:var(--mono);font-size:8px;fill:var(--ink-3);letter-spacing:.03em;}
+      .t-flecha--con{fill:var(--signal);}
+
+      /* los mensajes que hoy llegan por WhatsApp el día 14 */
+      .globo{fill:var(--pain-bg);stroke:var(--pain);stroke-width:.9;}
+      .t-globo{font-family:var(--sans);font-size:8.5px;fill:var(--ink-2);}
+
+      /* sellos: timbrado, dispersado, coincide */
+      .sello{fill:none;stroke-width:1.8;}
+      .sello--pain{stroke:var(--pain);}
+      .sello--con{stroke:var(--signal);}
+      .sello--money{stroke:var(--money);}
+      .t-sello{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;}
+      .t-sello--pain{fill:var(--pain);}
+      .t-sello--con{fill:var(--signal);}
+      .t-sello--money{fill:var(--money);}
+
+      .sw--tarjeta{background:var(--surface);border:1px solid var(--rule);height:10px;}
+      .sw--inc{background:var(--signal-soft);border-left:3px solid var(--signal);height:10px;}
+      .sw--error{background:transparent;border:1.6px solid var(--pain);border-radius:50%;width:10px;height:10px;}
+      .sw--money{background:transparent;border:2px solid var(--money);height:9px;}
+
+      @media (prefers-reduced-motion:reduce){
+        .e,.chip,.step{transition:none;}
+        .beam path{animation:none;}
+      }
+
+      @media (max-width:880px){
+        /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
+           los pasos pasan por debajo, igual que en escritorio */
+        .cols{display:block;margin-top:16px;}
+        .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+          background:var(--paper);padding-block:8px;margin-bottom:6px;
+          border-bottom:1px solid var(--rule-soft);}
+        .stage svg{max-height:33vh;}
+        /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
+           fijo, la línea de lectura se movería sola y el paso brincaría */
+        .readout__v{min-height:3.05em;}
+        .t-tit{font-size:11px;}
+        .legend{display:none;}
+        /* en tablet vertical el texto corría a 100 caracteres por renglón */
+        .steps{max-width:660px;}
+        .step{min-height:clamp(120px,22vh,190px);padding-left:11px;opacity:.4;}
+      }
+      @media (max-width:560px){
+        .vs__row,.costo .rejilla li{grid-template-columns:minmax(0,1fr);gap:3px;}
+        .vs__lbl,.costo .rejilla b{line-height:1.4;}
+        .btn{width:100%;justify-content:center;}
+        /* En celular cada forma de contacto va en su propio renglón. */
+        .cierre .otras .par{display:block;}
+        .cierre .otras .sep{display:none;}
+        .gauge{margin-left:0;}
+      }
+    </style>
+  </head>
+  <body>
+<div class="wrap">
+
+  <div class="brand">
+    <span class="brand__id">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M19 19H4.8a2.8 2.8 0 1 1 .05-5.6 4 4 0 0 1 4.58-5.31A5 5 0 0 1 19 11a4 4 0 0 1 0 8Z" stroke="var(--ink)" stroke-width="1.8"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M15.5 8h4v4" stroke="var(--paper)" stroke-width="4.6"/>
+        <path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" stroke="var(--signal)" stroke-width="2"/>
+        <path d="M15.5 8h4v4" stroke="var(--signal)" stroke-width="2"/>
+      </svg>
+      <span class="brand__name">Loomware</span>
+    </span>
+    <a class="brand__site" href="/#recorrido-nomina">loomware.com.mx</a>
+  </div>
+
+  <header class="mast">
+    <div class="eyebrow lbl">Nómina · un ejemplo, paso a paso</div>
+    <h1>De la checada al recibo</h1>
+    <p class="deck">La nómina es el único proceso de la empresa con una <b>fecha que no se
+      mueve</b>. Para verlo seguimos la tarjeta de checado de una sola persona durante la
+      quincena y los dos caminos por los que puede volverse recibo: copiada a mano, o leída
+      tal cual por el sistema. Seis paradas y <b>un solo cálculo</b>. El giro no cambia la idea: abajo está el mismo recorrido en
+      otros cinco.</p>
+
+    <figure class="antes">
+      <svg viewBox="0 0 620 124" role="img"
+           aria-label="A la izquierda, tres canales por los que hoy llegan las incidencias —WhatsApp, una libreta y el correo— con líneas cruzadas hacia un solo Excel. A la derecha, un cálculo del que salen el CFDI, el archivo del banco, el recibo, la póliza y los acumulados.">
+        <path class="dg-line" d="M84 16 L136 60"/>
+        <path class="dg-line" d="M84 58 L136 60"/>
+        <path class="dg-line" d="M84 100 L136 60"/>
+        <path class="dg-line" d="M84 16 L136 52"/>
+        <path class="dg-line" d="M84 100 L136 68"/>
+        <rect class="dg-box" x="4"   y="6"  width="80" height="20" rx="2"/>
+        <rect class="dg-box" x="4"   y="48" width="80" height="20" rx="2"/>
+        <rect class="dg-box" x="4"   y="90" width="80" height="20" rx="2"/>
+        <text class="dg-t" x="11" y="20">WhatsApp</text>
+        <text class="dg-t" x="11" y="62">La libreta</text>
+        <text class="dg-t" x="11" y="104">El correo</text>
+        <rect class="dg-box" x="136" y="48" width="86" height="20" rx="2"/>
+        <text class="dg-t" x="143" y="62">Un Excel</text>
+        <path class="dg-arrow" d="M248 62 L288 62"/>
+        <path class="dg-arrow" d="M280 56 L288 62 L280 68"/>
+        <rect class="dg-erp" x="308" y="2" width="306" height="118" rx="3"/>
+        <text class="dg-k" x="320" y="17">UN SOLO CÁLCULO</text>
+        <rect class="dg-row" x="318" y="24" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="42" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="60" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="78" width="286" height="15" rx="1"/>
+        <rect class="dg-row" x="318" y="96" width="286" height="15" rx="1"/>
+        <text class="dg-t" x="326" y="35">CFDI de nómina timbrado</text>
+        <text class="dg-t" x="326" y="53">Archivo de dispersión del banco</text>
+        <text class="dg-t" x="326" y="71">Recibo de cada colaborador</text>
+        <text class="dg-t" x="326" y="89">Póliza para el despacho</text>
+        <text class="dg-t" x="326" y="107">Acumulados del año</text>
+      </svg>
+      <figcaption>Izquierda: las incidencias llegan por tres lados y alguien las teclea en un
+        Excel. Derecha: un cálculo del que salen las cinco cosas, sin volver a capturar.
+        Eso es todo lo que es un sistema de nómina.</figcaption>
+    </figure>
+
+    <div class="specline">
+      <span>Cálculo con <b>ISR · IMSS · INFONAVIT</b></span>
+      <span>Timbrado <b>CFDI 4.0 por PAC</b></span>
+      <span>Dispersión <b>en el formato de tu banco</b></span>
+      <span>Arranque <b>en paralelo</b></span>
+    </div>
+  </header>
+
+  <div class="cols">
+    <div class="figure">
+
+      <div class="readout" aria-live="polite">
+        <span class="readout__k lbl" id="hudK">TARJETA 118 · M. Ruiz</span>
+        <span class="readout__v" id="hudV">permiso el 7, 3 h extra el 10, falta el 12 · abajo, registradas el día que pasan</span>
+      </div>
+
+      <div class="stage">
+        <svg id="scene" viewBox="0 0 680 428" role="img"
+             aria-label="A la izquierda, la tarjeta de checado de una persona durante la quincena, con quince renglones de entrada y salida y tres incidencias marcadas: un permiso el día 7, tres horas extra el día 10 y una falta el día 12. De la tarjeta salen dos caminos. Arriba, como se hace hoy: las incidencias llegan por WhatsApp el día 14, la tarjeta se copia a mano a una hoja de Excel con dos horas extra en vez de tres, el recibo sale con ese error, se timbra el día 16, se dispersa el 17 y llega el reclamo. Abajo, con el sistema: el cálculo lee la tarjeta tal cual, el recibo sale con las tres horas, se timbra y se dispersa el día 15 y coincide con la tarjeta.">
+          <g id="world"></g>
+        </svg>
+      </div>
+
+      <div class="cap">
+        <span id="stateLabel">01 / 06 · Las incidencias</span>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <span>Cifras de ejemplo</span>
+      </div>
+
+      <ul class="legend">
+        <li><span class="sw sw--tarjeta"></span>La tarjeta de checado, de una persona</li>
+        <li><span class="sw sw--inc"></span>Una incidencia, el día que pasó</li>
+        <li><span class="sw sw--error"></span>El renglón que se copió mal</li>
+        <li><span class="sw sw--money"></span>Coincide con la tarjeta</li>
+      </ul>
+
+      <div class="exp">
+        <div class="exp__t lbl">La quincena · todo sale del mismo cálculo</div>
+        <ul class="chips" id="chips">
+          <li class="chip" id="c0"><b>INC-118</b><span>incidencias</span></li>
+          <li class="chip" id="c1"><b>CAL-Q18</b><span>cálculo</span></li>
+          <li class="chip" id="c2"><b>CFDI-N</b><span>timbrado</span></li>
+          <li class="chip" id="c3"><b>DISP-04</b><span>dispersión</span></li>
+          <li class="chip" id="c4"><b>REC-118</b><span>recibos</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 cálculo</b><span>del que sale todo</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="steps" id="steps">
+
+      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
+
+      <section class="step on" tabindex="0" data-i="0">
+        <div class="step-head"><span class="paso">01</span><h2>Las incidencias</h2><span class="gauge">días 1 al 14</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Las faltas, las horas extra y los préstamos se avisan por WhatsApp y llegan todos
+              juntos el día 14, cuando ya no hay tiempo de preguntar.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Cada incidencia se registra el día que pasa, con quien la autoriza, y ya está
+              contada cuando llega el cierre.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Dejas de perseguir a los jefes de área el último día.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="1">
+        <div class="step-head"><span class="paso">02</span><h2>El cierre de la quincena</h2><span class="gauge">día 14</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Alguien de Recursos Humanos pide las incidencias, espera, vuelve a pedirlas y
+              teclea lo que le mandaron.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El cierre no pide nada: lo que se registró en catorce días ya está adentro, y se
+              ve qué falta antes de calcular.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>La quincena deja de depender de que todos contesten a tiempo.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="2">
+        <div class="step-head"><span class="paso">03</span><h2>El cálculo</h2><span class="gauge">ISR · IMSS</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Un Excel con fórmulas que alguien movió hace meses. Si el ISR no cuadra, se busca
+              a mano el renglón que está mal.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Calcula percepciones, deducciones, ISR, IMSS e INFONAVIT con las tablas vigentes,
+              y deja el historial de quién cambió qué.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>El costo de la nómina se conoce antes de dispersar, no después.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="3">
+        <div class="step-head"><span class="paso">04</span><h2>El timbrado</h2><span class="gauge">CFDI 4.0</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Se timbra a la carrera el mismo día. Si el PAC rechaza un recibo, ya no hay margen
+              para corregirlo.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El CFDI de nómina sale del mismo cálculo, colaborador por colaborador, con
+              cancelaciones y sustituciones cuando hacen falta.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Lo timbrado es exactamente lo calculado, sin una segunda captura.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="4">
+        <div class="step-head"><span class="paso">05</span><h2>La dispersión</h2><span class="gauge">día 15</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El archivo del banco se arma aparte, se teclea otra vez y a veces cae un día
+              tarde. La gente pregunta.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El archivo de dispersión se genera del mismo cálculo que se timbró, en el formato
+              de tu banco.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Pagas el día que dijiste, y lo pagado cuadra con lo timbrado.</p></div>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="5">
+        <div class="step-head"><span class="paso">06</span><h2>El reclamo</h2><span class="gauge">día 18</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>«Me faltó mi bono.» Alguien abre el Excel de la quincena pasada a buscar qué
+              pasó, y la quincena nueva ya empezó.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Cada colaborador entra a su portal, ve su recibo timbrado y sus históricos sin
+              pedírselos a nadie.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Recursos Humanos deja de ser un buscador de recibos.</p></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="giros">
+    <h2>El mismo recorrido, en otros giros</h2>
+    <p>Dibujamos una tarjeta de checado porque es el papel que todos conocen. Lo que cambia
+      entre un giro y otro es <b>qué hay que contar</b> antes de calcular.</p>
+    <ul class="rejilla">
+      <li><b>Distribuidoras y mayoristas</b>
+        <span>Hay que contar comisiones por venta cobrada y viáticos de ruta.</span>
+        <span class="hoy">Hoy: la comisión se calcula aparte y llega después del cierre.</span></li>
+      <li class="este"><b>Manufactura y talleres</b>
+        <span>Hay que contar turnos, horas extra, prima dominical y destajo por pieza.</span>
+        <span class="hoy">Hoy: el reloj checador y la nómina son dos mundos que no se hablan.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Hay que contar cuadrillas por obra, altas y bajas frecuentes y horas por frente.</span>
+        <span class="hoy">Hoy: se dan de alta al IMSS tarde y el costo por obra no se sabe.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Hay que contar bonos por proyecto entregado y esquemas mixtos.</span>
+        <span class="hoy">Hoy: cada socio lleva su propio criterio en su propia hoja.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Hay que contar rotación alta, turnos partidos y comisiones por sucursal.</span>
+        <span class="hoy">Hoy: quien entró a media quincena se calcula a mano.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>Hay que contar guardias, honorarios y personal de base mezclado.</span>
+        <span class="hoy">Hoy: dos esquemas de pago conviviendo en el mismo Excel.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia qué se cuenta. No cambia la idea: <b>un solo cálculo del
+      que salen el timbrado, el banco y el recibo.</b> Si tu giro no está en la lista, también
+      aplica: se define en el diagnóstico.</p>
+  </section>
+
+  <section class="faq">
+    <h2>Antes de que preguntes</h2>
+    <p>Las seis dudas que sale todo director antes de mover la nómina de lugar, contestadas
+      sin rodeos.</p>
+    <ul class="rejilla">
+      <li><b>¿Cumple con el SAT y el IMSS?</b>
+        <span>Sí. Calcula conforme a las tablas vigentes, timbra CFDI 4.0 de nómina por un PAC
+          autorizado y genera los reportes para el SUA y la declaración anual.</span></li>
+      <li><b>¿Puedo seguir con mi despacho contable?</b>
+        <span>Sí. El sistema le entrega los acumulados y las pólizas que necesita. Varios
+          clientes lo usan para dejar de pagar el cálculo y conservar la asesoría.</span></li>
+      <li><b>¿Qué pasa con las quincenas que ya corrí este año?</b>
+        <span>Se cargan los acumulados del año en curso, para que el ISR y las prestaciones se
+          calculen bien desde la primera nómina en el sistema.</span></li>
+      <li><b>¿Y si se equivoca la primera vez?</b>
+        <span>Por eso el arranque corre una o dos quincenas <b>en paralelo</b> con tu método
+          actual, hasta que los dos resultados coincidan peso por peso.</span></li>
+      <li><b>¿Cuánto tarda?</b>
+        <span>La configuración es cuestión de semanas: colaboradores, salarios, prestaciones,
+          conceptos y el timbrado con tu PAC. El arranque se amarra a un cierre de quincena.</span></li>
+      <li><b>¿Cómo se cotiza?</b>
+        <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
+          cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
+    </ul>
+  </section>
+
+  <section class="costo">
+    <h2>¿Cuánto te está costando hoy?</h2>
+    <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
+      Si no sabes alguna, esa ya es la respuesta.</p>
+    <ul class="rejilla">
+      <li><b>01</b><span>¿Cuántos días al mes dedica alguien a correr la nómina?</span></li>
+      <li><b>02</b><span>¿Cuántos recibos se han tenido que cancelar y volver a timbrar este año?</span></li>
+      <li><b>03</b><span>¿Qué pasa con la quincena si esa persona se enferma?</span></li>
+      <li><b>04</b><span>¿Sabes el costo de nómina por área antes de dispersar?</span></li>
+      <li><b>05</b><span>¿Cuántas veces al mes te piden un recibo de meses anteriores?</span></li>
+    </ul>
+  </section>
+
+  <section class="cierre">
+    <h2>Te decimos dónde se está yendo la quincena</h2>
+    <p>Revisamos tu esquema completo —tipos de contrato, prestaciones, incidencias y cómo
+      dispersas hoy— y te decimos qué conviene resolver primero. La primera llamada es sin costo y sin
+      compromiso.</p>
+    <a class="btn"
+       href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20n%C3%B3mina%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
+       target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      WhatsApp · 55 8096 8928
+    </a>
+    <p class="otras">
+      <span class="par">o llena el <a href="/servicios/nomina#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
+    </p>
+  </section>
+
+  <p class="colofon">
+    Los días y folios de este recorrido son de <b>una quincena de ejemplo</b> y sirven para
+    mostrar el flujo. El sistema se ajusta al esquema de cada empresa: el recorrido del tuyo
+    se dibuja en el diagnóstico, con tus conceptos.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* La nómina empieza en un papel que todos conocen: la tarjeta de checado. El
+     dibujo sigue la tarjeta de una sola persona durante la quincena y los dos
+     caminos por los que puede volverse recibo. Arriba, como se hace hoy: la
+     tarjeta se copia a mano a una hoja, un renglón sale mal y el error llega
+     al recibo. Abajo, con el sistema: el cálculo lee la tarjeta tal cual, y el
+     recibo timbrado coincide con ella. */
+  var TJ = { x:22, y:20, w:190, h:344 };          // la tarjeta de checado
+  var FILA0 = 88, FILA = 17.4;                     // primer renglón y alto de cada uno
+  var Y_HOY = 22, Y_CON = 238;                     // los dos caminos, a la derecha
+  var HOJA = { x:240, w:170 };                     // hoja copiada / caja del cálculo
+  var REC = { x:450, w:206, h:142 };               // los recibos
+
+  /* d = el paso a partir del cual el elemento se ve; h = el paso en que se va */
+  function cuando(d, contenido, h){
+    return '<g class="e" data-d="' + d + '"' + (h !== undefined ? ' data-h="' + h + '"' : '') + '>' + contenido + '</g>';
+  }
+  function rotulo(x, y, texto, con){
+    var w = texto.length * 7.4 + 18;
+    return '<rect class="rot-caja' + (con ? ' rot-caja--con' : '') + '" x="' + x + '" y="' + (y - 9) + '" width="' + w + '" height="18" rx="2"/>' +
+           '<text class="rot" x="' + (x + 9) + '" y="' + (y + 4) + '">' + texto + '</text>';
+  }
+  function sello(x, y, texto, tono, giro){
+    var w = texto.length * 6.2 + 16;
+    return '<g transform="rotate(' + giro + ' ' + (x + w / 2) + ' ' + (y + 9) + ')">' +
+           '<rect class="sello sello--' + tono + '" x="' + x + '" y="' + y + '" width="' + w + '" height="18" rx="2"/>' +
+           '<text class="t-sello t-sello--' + tono + '" x="' + (x + 8) + '" y="' + (y + 12.5) + '">' + texto + '</text></g>';
+  }
+  function flecha(x1, y1, x2, y2, clase){
+    return '<path class="flecha' + (clase ? ' ' + clase : '') + '" d="M' + x1 + ' ' + y1 + ' L' + x2 + ' ' + y2 + '"/>' +
+           '<path class="flecha' + (clase ? ' ' + clase : '') + '" d="M' + (x2 - 7) + ' ' + (y2 - 5) + ' L' + x2 + ' ' + y2 + ' L' + (x2 - 7) + ' ' + (y2 + 5) + '"/>';
+  }
+
+  /* --- la tarjeta de checado: quince días de una sola persona --- */
+  var DIAS = [
+    [1,'07:58','17:02'],[2,'08:01','17:00'],[3,'07:55','17:04'],[4,'08:00','17:01'],[5,'07:59','17:03'],
+    [6,'08:02','17:00'],[7,'07:58','15:01','permiso 2 h'],[8,'08:00','17:02'],[9,'07:57','17:00'],
+    [10,'07:55','20:03','+3 h extra'],[11,'08:01','17:01'],[12,'—','—','falta'],[13,'07:59','17:02'],
+    [14,'08:00','17:00'],[15,'07:58','17:03']
+  ];
+  function fy(n){ return TJ.y + FILA0 + n * FILA; }
+  function renglon(n){
+    var d = DIAS[n], y = fy(n), o = '';
+    if (d[3]) o += '<rect class="banda-inc" x="' + (TJ.x + 6) + '" y="' + (y - 12) + '" width="' + (TJ.w - 12) + '" height="' + (FILA - 1) + '" rx="1"/>';
+    o += '<text class="t-dato t-dato--suave" x="' + (TJ.x + 14) + '" y="' + y + '">' + (d[0] < 10 ? '0' + d[0] : d[0]) + '</text>' +
+         '<text class="t-dato" x="' + (TJ.x + 44) + '" y="' + y + '">' + d[1] + '</text>' +
+         '<text class="t-dato" x="' + (TJ.x + 88) + '" y="' + y + '">' + d[2] + '</text>';
+    if (d[3]) o += '<text class="t-inc" x="' + (TJ.x + 128) + '" y="' + y + '">' + d[3] + '</text>';
+    return o;
+  }
+  var s = '<rect class="hoja-sombra" x="' + (TJ.x + 4) + '" y="' + (TJ.y + 4) + '" width="' + TJ.w + '" height="' + TJ.h + '" rx="3"/>' +
+          '<rect class="hoja" x="' + TJ.x + '" y="' + TJ.y + '" width="' + TJ.w + '" height="' + TJ.h + '" rx="3"/>' +
+          '<circle class="perf" cx="' + (TJ.x + TJ.w / 2) + '" cy="' + (TJ.y + 12) + '" r="4"/>' +
+          '<text class="t-tit" x="' + (TJ.x + 14) + '" y="' + (TJ.y + 34) + '">TARJETA DE CHECADO</text>' +
+          '<text class="t-sub" x="' + (TJ.x + 14) + '" y="' + (TJ.y + 48) + '">No. 118 · M. Ruiz</text>' +
+          '<text class="t-sub" x="' + (TJ.x + 14) + '" y="' + (TJ.y + 60) + '">Operadora · Q1</text>' +
+          '<line class="raya raya--fuerte" x1="' + (TJ.x + 6) + '" y1="' + (TJ.y + 66) + '" x2="' + (TJ.x + TJ.w - 6) + '" y2="' + (TJ.y + 66) + '"/>' +
+          '<text class="t-col" x="' + (TJ.x + 14) + '" y="' + (TJ.y + 78) + '">DÍA</text>' +
+          '<text class="t-col" x="' + (TJ.x + 44) + '" y="' + (TJ.y + 78) + '">ENTRADA</text>' +
+          '<text class="t-col" x="' + (TJ.x + 88) + '" y="' + (TJ.y + 78) + '">SALIDA</text>' +
+          '<text class="t-col" x="' + (TJ.x + 128) + '" y="' + (TJ.y + 78) + '">INCIDENCIA</text>';
+  for (var n = 0; n < DIAS.length; n++){
+    s += '<line class="raya" x1="' + (TJ.x + 6) + '" y1="' + (fy(n) + 4.5) + '" x2="' + (TJ.x + TJ.w - 6) + '" y2="' + (fy(n) + 4.5) + '"/>';
+  }
+  /* los catorce primeros días se ven desde el principio; el quince llega con el cierre */
+  var catorce = '';
+  for (var k = 0; k < 14; k++) catorce += renglon(k);
+  s += cuando(0, catorce);
+  s += cuando(1, renglon(14) + sello(TJ.x + 108, TJ.y + 30, 'CERRADA · 15', 'con', -6));
+
+  s += rotulo(HOJA.x, Y_HOY, 'HOY', false) + rotulo(HOJA.x, Y_CON, 'CON EL SISTEMA', true);
+
+  /* --- Paso 01 · las incidencias. Arriba llegan por WhatsApp, todas el día 14.
+         Abajo ya están en la tarjeta, el día que pasaron. --- */
+  function globo(x, y, texto){
+    var w = texto.length * 5.1 + 14;
+    return '<rect class="globo" x="' + x + '" y="' + y + '" width="' + w + '" height="16" rx="8"/>' +
+           '<text class="t-globo" x="' + (x + 7) + '" y="' + (y + 11) + '">' + texto + '</text>';
+  }
+  s += cuando(0, globo(HOJA.x, Y_HOY + 18, '«Ruiz pidió permiso el 7»') +
+                 globo(HOJA.x + 12, Y_HOY + 38, '«se quedó 3 h el 10»') +
+                 globo(HOJA.x + 4, Y_HOY + 58, '«faltó el 12»') +
+                 '<text class="t-flecha" x="' + (HOJA.x + 146) + '" y="' + (Y_HOY + 24) + '">llegan todas</text>' +
+                 '<text class="t-flecha" x="' + (HOJA.x + 146) + '" y="' + (Y_HOY + 35) + '">el día 14,</text>' +
+                 '<text class="t-flecha" x="' + (HOJA.x + 146) + '" y="' + (Y_HOY + 46) + '">por WhatsApp</text>');
+  s += cuando(0, flecha(TJ.x + TJ.w + 4, fy(6) - 4, HOJA.x - 6, Y_CON + 74, 'flecha--con') +
+                 '<text class="t-flecha t-flecha--con" x="' + (TJ.x + TJ.w + 8) + '" y="' + (Y_CON + 58) + '">registrada el día 7</text>' +
+                 '<text class="t-flecha t-flecha--con" x="' + (TJ.x + TJ.w + 8) + '" y="' + (Y_CON + 69) + '">aut. J. Pérez</text>', 1);
+
+  /* --- Paso 02 · el cierre. Arriba, la tarjeta se copia a mano a una hoja y un
+         renglón sale mal. Abajo, el cálculo lee la tarjeta tal cual. --- */
+  var hy = Y_HOY + 82;
+  s += cuando(1, '<rect class="hoja" x="' + HOJA.x + '" y="' + hy + '" width="' + HOJA.w + '" height="98" rx="2"/>' +
+                 '<text class="t-tit" x="' + (HOJA.x + 10) + '" y="' + (hy + 16) + '">PRENÓMINA · EXCEL</text>' +
+                 '<text class="t-sub" x="' + (HOJA.x + 10) + '" y="' + (hy + 29) + '">copiada a mano, el día 14</text>' +
+                 '<line class="raya raya--fuerte" x1="' + (HOJA.x + 6) + '" y1="' + (hy + 35) + '" x2="' + (HOJA.x + HOJA.w - 6) + '" y2="' + (hy + 35) + '"/>' +
+                 '<text class="t-dato" x="' + (HOJA.x + 10) + '" y="' + (hy + 50) + '">Ruiz · 15 días</text>' +
+                 '<text class="t-dato t-dato--pain" x="' + (HOJA.x + 10) + '" y="' + (hy + 64) + '">t. extra: 2 h</text>' +
+                 '<ellipse class="error" cx="' + (HOJA.x + 52) + '" cy="' + (hy + 60.5) + '" rx="48" ry="8"/>' +
+                 '<text class="t-dato" x="' + (HOJA.x + 10) + '" y="' + (hy + 78) + '">permiso: 2 h</text>' +
+                 '<text class="t-dato" x="' + (HOJA.x + 10) + '" y="' + (hy + 92) + '">faltas: 1</text>' +
+                 '<text class="t-flecha" x="' + (HOJA.x + 104) + '" y="' + (hy + 64) + '">la tarjeta dice 3</text>' +
+                 flecha(TJ.x + TJ.w + 4, fy(8) - 4, HOJA.x - 6, hy + 60, 'flecha--pain'));
+  var cy0 = Y_CON + 34;
+  s += cuando(1, '<rect class="hoja hoja--con" x="' + HOJA.x + '" y="' + cy0 + '" width="' + HOJA.w + '" height="112" rx="2"/>' +
+                 '<text class="t-tit" x="' + (HOJA.x + 10) + '" y="' + (cy0 + 16) + '">CÁLCULO · CAL-Q18</text>' +
+                 '<text class="t-sub" x="' + (HOJA.x + 10) + '" y="' + (cy0 + 29) + '">lee la tarjeta, sin capturar</text>' +
+                 '<line class="raya raya--fuerte" x1="' + (HOJA.x + 6) + '" y1="' + (cy0 + 35) + '" x2="' + (HOJA.x + HOJA.w - 6) + '" y2="' + (cy0 + 35) + '"/>' +
+                 '<text class="t-dato" x="' + (HOJA.x + 10) + '" y="' + (cy0 + 50) + '">15 días · 3 h extra</text>' +
+                 '<text class="t-dato" x="' + (HOJA.x + 10) + '" y="' + (cy0 + 64) + '">1 permiso · 1 falta</text>' +
+                 '<text class="t-dato t-dato--con" x="' + (HOJA.x + 10) + '" y="' + (cy0 + 82) + '">ISR · IMSS · INFONAVIT</text>' +
+                 '<text class="t-sub" x="' + (HOJA.x + 10) + '" y="' + (cy0 + 95) + '">tablas vigentes · historial</text>' +
+                 flecha(TJ.x + TJ.w + 4, fy(11), HOJA.x - 6, cy0 + 56, 'flecha--con'));
+
+  /* --- Paso 03 · el cálculo: los dos recibos, renglón por renglón --- */
+  function recibo(y, con){
+    var x = REC.x, o = '<rect class="hoja' + (con ? ' hoja--con' : '') + '" x="' + x + '" y="' + y + '" width="' + REC.w + '" height="' + REC.h + '" rx="2"/>' +
+            '<text class="t-tit" x="' + (x + 10) + '" y="' + (y + 16) + '">RECIBO DE NÓMINA · Q1</text>' +
+            '<text class="t-sub" x="' + (x + 10) + '" y="' + (y + 29) + '">M. Ruiz · Operadora · 15 días</text>' +
+            '<line class="raya raya--fuerte" x1="' + (x + 6) + '" y1="' + (y + 35) + '" x2="' + (x + REC.w - 6) + '" y2="' + (y + 35) + '"/>';
+    var lineas = [
+      ['Sueldo · 15 días', '$6,750.00'],
+      con ? ['Tiempo extra · 3 h', '$337.50', 'con'] : ['Tiempo extra · 2 h', '$225.00', 'pain'],
+      ['Permiso sin goce · 2 h', '−$112.50'],
+      ['Falta · 1 día', '−$450.00'],
+      ['ISR', '−$380.00'],
+      ['IMSS', '−$165.00'],
+      con ? ['NETO', '$5,980.00', 'money'] : ['NETO', '$5,867.50', 'neto']
+    ];
+    lineas.forEach(function(l, i){
+      var ly = y + 50 + i * 14, tono = l[2] ? ' t-dato--' + l[2] : '';
+      if (i === 6) o += '<line class="raya raya--fuerte" x1="' + (x + 6) + '" y1="' + (ly - 11) + '" x2="' + (x + REC.w - 6) + '" y2="' + (ly - 11) + '"/>';
+      o += '<text class="t-dato' + tono + '" x="' + (x + 10) + '" y="' + ly + '">' + l[0] + '</text>' +
+           '<text class="t-monto' + (l[2] ? ' t-monto--' + l[2] : '') + '" x="' + (x + REC.w - 10) + '" y="' + ly + '">' + l[1] + '</text>';
+    });
+    if (!con) o += '<ellipse class="error" cx="' + (x + REC.w / 2) + '" cy="' + (y + 60.5) + '" rx="' + (REC.w / 2 - 4) + '" ry="8"/>';
+    return o;
+  }
+  var ry = Y_HOY + 38, rcy = Y_CON + 18;
+  s += cuando(2, recibo(ry, false) + flecha(HOJA.x + HOJA.w + 6, hy + 50, REC.x - 6, ry + 62, 'flecha--pain'));
+  s += cuando(2, recibo(rcy, true) + flecha(HOJA.x + HOJA.w + 6, cy0 + 56, REC.x - 6, rcy + 62, 'flecha--con'));
+
+  /* --- Paso 04 · el timbrado --- */
+  s += cuando(3, sello(REC.x + 112, ry - 30, 'TIMBRADO · 16', 'pain', 6));
+  s += cuando(3, sello(REC.x + 112, rcy - 30, 'CFDI · DÍA 15', 'con', -4));
+
+  /* --- Paso 05 · la dispersión --- */
+  s += cuando(4, sello(REC.x + 2, ry - 30, 'DISPERSADO · 17', 'pain', -5), 5);
+  s += cuando(4, sello(REC.x + 2, rcy - 30, 'SPEI · DÍA 15', 'money', 4));
+
+  /* --- Paso 06 · el reclamo. Arriba llega; abajo el recibo coincide con la tarjeta. --- */
+  s += cuando(5, globo(REC.x + 40, ry + REC.h + 6, '«Me faltó una hora extra»'));
+  s += cuando(5, '<text class="t-sello t-sello--money" x="' + (REC.x + 10) + '" y="' + (rcy + REC.h + 16) + '">✓ COINCIDE CON LA TARJETA</text>');
+
+  document.getElementById("world").innerHTML = s;
+
+  /* ---------- estados ---------- */
+  var STATES = [
+    { label:"01 / 06 · Las incidencias",
+      k:"TARJETA 118 · M. Ruiz",
+      v:"permiso el 7, 3 h extra el 10, falta el 12 · abajo, registradas el día que pasan" },
+    { label:"02 / 06 · El cierre de la quincena",
+      k:"CERRADA · día 15",
+      v:"arriba: la tarjeta se copia a mano y un renglón sale mal · abajo: el cálculo la lee" },
+    { label:"03 / 06 · El cálculo",
+      k:"CAL-Q18 · Cálculo corrido",
+      v:"ISR, IMSS e INFONAVIT con las tablas vigentes · neto $5,980.00 · arriba, $112.50 menos" },
+    { label:"04 / 06 · El timbrado",
+      k:"CFDI-N · Timbrado el día 15",
+      v:"CFDI 4.0 por PAC autorizado · lo timbrado es exactamente lo calculado" },
+    { label:"05 / 06 · La dispersión",
+      k:"DISP-04 · SPEI el día 15",
+      v:"archivo del banco del mismo cálculo · arriba, el dinero cae el día 17" },
+    { label:"06 / 06 · El reclamo",
+      k:"REC-118 · Portal del colaborador",
+      v:"arriba: «me faltó una hora extra» · abajo: el recibo coincide con la tarjeta" }
+  ];
+
+  var labelEl = document.getElementById("stateLabel");
+  var hudK = document.getElementById("hudK");
+  var hudV = document.getElementById("hudV");
+  var elems = Array.prototype.slice.call(document.querySelectorAll("#world .e"));
+  var chipEls = Array.prototype.slice.call(document.querySelectorAll("#chips .chip"));
+  var totEl = document.getElementById("ctot");
+  var stepEls = Array.prototype.slice.call(document.querySelectorAll(".step"));
+  var ULTIMO = STATES.length - 1;
+  var current = -1;
+
+  function apply(i){
+    if (i === current) return;
+    current = i;
+    var st = STATES[i];
+
+    elems.forEach(function(el){
+      var h = el.dataset.h;
+      el.classList.toggle("visible", i >= +el.dataset.d && (h === undefined || i < +h));
+    });
+
+    chipEls.forEach(function(el, n){
+      if (el === totEl) return;
+      el.classList.toggle("on", i === ULTIMO || n <= i);
+      el.classList.toggle("now", i !== ULTIMO && n === i);
+    });
+    totEl.classList.toggle("on", i === ULTIMO);
+
+    labelEl.textContent = st.label;
+    hudK.textContent = st.k;
+    hudV.textContent = st.v;
+    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+  }
+
+  apply(0);
+
+  var reproduciendo = false;
+  var figuraEl = document.querySelector(".figure");
+
+  function elegir(){
+    if (reproduciendo) return;          // mientras reproduce, manda el reproductor
+    /* En escritorio se lee a media pantalla. En celular el dibujo se queda pegado
+       arriba, así que la lectura es el centro de lo que queda debajo de él: se
+       calcula del dibujo mismo, no con una fracción a ojo. */
+    var alto = window.innerHeight, linea = alto * 0.5;
+    if (window.innerWidth <= 880 && figuraEl){
+      linea = (Math.max(figuraEl.getBoundingClientRect().bottom, 0) + alto) / 2;
+    }
+    var idx = 0, cerca = Infinity, dentro = false;
+    for (var n = 0; n < stepEls.length; n++){
+      var r = stepEls[n].getBoundingClientRect();
+      if (r.top <= linea && r.bottom >= linea){ idx = n; dentro = true; break; }
+      if (!dentro){
+        var d = Math.min(Math.abs(r.top - linea), Math.abs(r.bottom - linea));
+        if (d < cerca){ cerca = d; idx = n; }
+      }
+    }
+    apply(idx);
+  }
+
+  window.addEventListener("scroll", elegir, { passive:true });
+  window.addEventListener("resize", elegir, { passive:true });
+  elegir();
+
+  stepEls.forEach(function(el){
+    el.addEventListener("click", function(){ detener(); apply(Number(el.dataset.i)); });
+    el.addEventListener("keydown", function(ev){
+      if (ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); detener(); apply(Number(el.dataset.i)); }
+    });
+  });
+
+  /* Reproducción automática: sirve para grabar el recorrido en video sin tocar nada. */
+  var playEl = document.getElementById("play");
+  var timer = null;
+  var suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function irA(i){
+    stepEls[i].scrollIntoView({ behavior: suave ? "smooth" : "auto", block: "center" });
+    apply(i);
+  }
+  function detener(){
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+    reproduciendo = false;
+    playEl.textContent = "▶ Reproducir";
+    playEl.setAttribute("aria-pressed", "false");
+  }
+  playEl.addEventListener("click", function(){
+    if (timer){ detener(); return; }
+    reproduciendo = true;
+    playEl.textContent = "❚❚ Pausar";
+    playEl.setAttribute("aria-pressed", "true");
+    irA(0);
+    timer = setInterval(function(){
+      var n = current + 1;
+      if (n >= STATES.length){ detener(); return; }
+      irA(n);
+    }, 4500);
+  });
+
+  /* Si la persona toma el control, la reproducción se detiene sola. */
+  ["wheel", "touchstart"].forEach(function(ev){
+    window.addEventListener(ev, function(){ detener(); }, { passive:true });
+  });
+})();
+</script>
+  </body>
+</html>

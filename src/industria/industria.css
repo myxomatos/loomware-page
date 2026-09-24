@@ -1,0 +1,53 @@
+/* Síntomas: la lista con la que el visitante se reconoce */
+.ind__sintomas ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.ind__sintomas li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--text-900);
+}
+.ind__sintomas .icon-tile {
+  margin-top: 1px;
+}
+
+/* Soluciones que aplican a este giro */
+/* 960 y no 900: el contenedor come hasta 32 px de margen por lado, y con 900
+   no cabían dos tarjetas de 420 y se apilaban. */
+.ind__servicios {
+  max-width: 960px;
+}
+/* `auto-fit` con dos tarjetas las estiraba a media pantalla cada una, con una
+   línea de texto adentro. Con tope, la tarjeta mide lo que su contenido pide. */
+.ind__servicios-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 420px));
+  justify-content: center;
+  gap: var(--sp-5);
+}
+.ind__servicio {
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+}
+.ind__servicio:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.ind__servicio a {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  height: 100%;
+  padding: var(--sp-6);
+  border-radius: inherit;
+}
+.ind__servicio p {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  flex: 1;
+}
