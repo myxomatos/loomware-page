@@ -215,6 +215,12 @@
 
   /* ---------- pasos ---------- */
   .steps{display:flex;flex-direction:column;min-width:0;}
+  /* El recorrido no tenía nombre: el índice del documento pasaba de «Todo
+     negocio sigue algo» a «Llega la mercancía», seis encabezados hermanos sin
+     nada que los presentara. Y decir cuántos son es información: el lector
+     sabe cuánto falta. */
+  .steps__t{font-family:var(--mono);font-weight:700;font-size:clamp(15px,1.7vw,18px);
+    letter-spacing:-.035em;margin:0 0 3px;color:var(--ink);text-transform:uppercase;}
   .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
     padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
   /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
@@ -234,7 +240,7 @@
   .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
     color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
     border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
-  .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+  .step h3{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
     margin:0;color:var(--ink);text-wrap:balance;}
 
   /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
@@ -423,7 +429,11 @@
       border-bottom:1px solid var(--rule-soft);}
     .exp{margin:14px 0 4px;}
     .stage svg{max-height:33vh;}
-    .legend{display:none;}
+    /* La leyenda no se escondía por gusto: dentro de lo pegado eran píxeles
+       que le quitaba a la lectura del paso. Fuera de ahí se lee una vez, y en
+       el teléfono es donde más falta hace, porque sin ella la línea punteada
+       del dibujo no significa nada. */
+    .legend{gap:3px 12px;font-size:9.5px;margin:2px 0 0;}
     /* en tablet vertical el texto corría a 100 caracteres por renglón */
     .steps{max-width:660px;}
     .step{min-height:clamp(120px,22vh,190px);padding-left:11px;opacity:.4;}
@@ -606,13 +616,14 @@
         <span>Cifras de ejemplo</span>
       </div>
 
+      </div>
+
       <ul class="legend">
         <li><span class="sw sw--beam"></span>Lo que se anota y viaja al sistema</li>
         <li><span class="sw sw--sys"></span>El sistema: un solo lugar</li>
         <li><span class="sw sw--money"></span>La puerta de salida</li>
       </ul>
 
-      </div>
 
       <div class="exp">
         <div class="exp__t lbl">La ficha · cada dato, una sola vez</div>
@@ -632,10 +643,11 @@
 
     <div class="steps" id="steps">
 
+      <h2 class="steps__t">Seis pasos, un solo pedido</h2>
       <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
 
       <section class="step on" tabindex="0" data-i="0">
-        <div class="step-head"><span class="paso">01</span><h2>Llega la mercancía</h2><span class="gauge">40 de 40 piezas</span></div>
+        <div class="step-head"><span class="paso">01</span><h3>Llega la mercancía</h3><span class="gauge">40 de 40 piezas</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>El papel de entrega se firma en la puerta y alguien lo anota tres días después, en oficinas.</p></div>
@@ -649,7 +661,7 @@
       </section>
 
       <section class="step" tabindex="0" data-i="1">
-        <div class="step-head"><span class="paso">02</span><h2>Dónde quedó y cuánto hay</h2><span class="gauge">A-04-12</span></div>
+        <div class="step-head"><span class="paso">02</span><h3>Dónde quedó y cuánto hay</h3><span class="gauge">A-04-12</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>La mercancía se guarda «allá al fondo» y el Excel se actualiza los viernes.</p></div>
@@ -663,7 +675,7 @@
       </section>
 
       <section class="step" tabindex="0" data-i="2">
-        <div class="step-head"><span class="paso">03</span><h2>Se junta el pedido</h2><span class="gauge">PED-3471</span></div>
+        <div class="step-head"><span class="paso">03</span><h3>Se junta el pedido</h3><span class="gauge">PED-3471</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>El vendedor le habla a la bodega para preguntar si hay. Dos vendedores prometen la
@@ -677,7 +689,7 @@
       </section>
 
       <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>Sale y se factura</h2><span class="gauge">factura enviada al SAT</span></div>
+        <div class="step-head"><span class="paso">04</span><h3>Sale y se factura</h3><span class="gauge">factura enviada al SAT</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Lo que salió se vuelve a anotar en el sistema de facturas, días después.</p></div>
@@ -690,7 +702,7 @@
       </section>
 
       <section class="step" tabindex="0" data-i="4">
-        <div class="step-head"><span class="paso">05</span><h2>Entra el dinero</h2><span class="gauge">sabes quién te debe</span></div>
+        <div class="step-head"><span class="paso">05</span><h3>Entra el dinero</h3><span class="gauge">sabes quién te debe</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Alguien compara el banco contra las facturas a mano, cuando puede.</p></div>
@@ -703,7 +715,7 @@
       </section>
 
       <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>El tablero del dueño</h2><span class="gauge">ganancia 22.4 %</span></div>
+        <div class="step-head"><span class="paso">06</span><h3>El tablero del dueño</h3><span class="gauge">ganancia 22.4 %</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Cuánto ganaste de verdad se sabe a fin de mes, es un promedio, y nadie jura que esté bien.</p></div>
@@ -718,11 +730,18 @@
     </div>
   </div>
 
+  <section class="atajo">
+    <p>¿Te viste en alguno de los seis pasos? Te decimos qué conviene arreglar primero.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
+  </section>
+
   <section class="pant">
     <h2>Y esto es lo que ves</h2>
-    <p>Los seis pasos de arriba pasan en la bodega. Esto es lo que aparece en la computadora
-      mientras pasan: una sola pantalla que ya trae la cuenta hecha, porque cada dato se anotó
-      una vez.</p>
+    <p>Todo eso pasa en la bodega. Esto es lo que aparece en la computadora mientras pasa:
+      una sola pantalla que ya trae la cuenta hecha, porque cada dato se anotó una vez.</p>
 
     <div class="app">
       <div class="app__barra">
@@ -765,14 +784,6 @@
       los $41,760 del paso 04 y su ganancia da el 22.4 % del paso 06. Donde iría el nombre de un
       cliente va un renglón gris: no se enseña la pantalla de un cliente y los nombres no se
       inventan.</p>
-  </section>
-
-  <section class="atajo">
-    <p>¿Te viste en alguno de los seis pasos? Te decimos qué conviene arreglar primero.</p>
-    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
-      Cuéntanos cuál
-    </a>
   </section>
 
   <section class="faq">
