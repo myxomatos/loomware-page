@@ -127,6 +127,17 @@
   /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
   .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
   .antes svg{display:block;width:100%;max-width:620px;height:auto;}
+  /* El mismo dibujo en dos formas. El ancho mide 620 de lienzo y en un teléfono
+     se muestra a 339: su texto de 9.5 px acababa en 5.2 px de pantalla, o sea
+     ilegible justo donde más gente lo lee. El alto mide 340 de lienzo, se
+     muestra casi 1:1 y su texto sale a 11 px de verdad. */
+  .antes .dg-alto{display:none;max-width:340px;}
+  @media (max-width:640px){
+    .antes .dg-ancho{display:none;}
+    .antes .dg-alto{display:block;}
+    .dg-alto .dg-t{font-size:11px;}
+    .dg-alto .dg-k{font-size:9px;}
+  }
   /* Dos pies, no uno: cada mitad del dibujo lleva el suyo debajo. El recuadro
      de la derecha empieza en el 56 % del ancho, así que la rejilla parte ahí. */
   .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);
@@ -184,6 +195,7 @@
   /* expediente: un dato, una sola captura */
   .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
     flex-direction:column;gap:7px;}
+  .exp__nota{margin:2px 0 8px;font-size:11.5px;line-height:1.5;color:var(--ink-3);}
   .exp__t{color:var(--ink-3);}
   .chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
   .chip{display:flex;flex-direction:column;gap:0;padding:4px 8px;border-radius:2px;
@@ -367,12 +379,12 @@
     <div class="eyebrow lbl">ERP · un ejemplo, paso a paso</div>
     <h1>Del trabajo hecho al dinero cobrado</h1>
     <p class="deck">Un <b>ERP</b> es la libreta única del negocio: lo que haces, lo que cobras y
-      lo que gastas se anota <b>una sola vez</b>, y todos lo ven al instante. Abajo lo sigues
-      paso a paso: una caja de mercancía entra a una bodega y sale convertida en dinero
-      cobrado. ¿Lo tuyo no es una bodega? Sigue leyendo: el camino es el mismo con otras palabras.</p>
+      lo que gastas se anota <b>una sola vez</b>, y todos lo ven al instante. Abajo está esa
+      diferencia dibujada, y después el camino completo paso a paso: una caja de mercancía
+      entra a una bodega y sale convertida en dinero cobrado. ¿Lo tuyo no es una bodega? Sigue leyendo: el camino es el mismo con otras palabras.</p>
 
     <figure class="antes">
-      <svg viewBox="0 0 620 124" role="img"
+      <svg class="dg-ancho" viewBox="0 0 620 124" role="img"
            aria-label="A la izquierda, cinco recuadros sueltos —compras, bodega, ventas, facturas y cobros— unidos por líneas cruzadas. A la derecha, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
         <path class="dg-line" d="M52 17 L198 13"/>
         <path class="dg-line" d="M52 17 L212 57"/>
@@ -405,6 +417,40 @@
         <text class="dg-t" x="364" y="71">Ventas</text>
         <text class="dg-t" x="364" y="89">Facturas</text>
         <text class="dg-t" x="364" y="107">Cobros</text>
+      </svg>
+      <svg class="dg-alto" viewBox="0 0 340 306" role="img"
+           aria-label="Arriba, cinco recuadros sueltos —compras, bodega, ventas, facturas y cobros— unidos por líneas cruzadas. Abajo, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
+        <path class="dg-line" d="M90 17 L236 13"/>
+        <path class="dg-line" d="M90 17 L250 57"/>
+        <path class="dg-line" d="M112 61 L236 13"/>
+        <path class="dg-line" d="M112 61 L250 57"/>
+        <path class="dg-line" d="M112 61 L158 105"/>
+        <path class="dg-line" d="M250 57 L158 105"/>
+        <path class="dg-line" d="M90 17 L158 105"/>
+        <rect class="dg-box" x="42"  y="6"  width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="188" y="2"  width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="64"  y="50" width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="202" y="46" width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="110" y="94" width="96" height="22" rx="2"/>
+        <text class="dg-t" x="50"  y="21">Compras</text>
+        <text class="dg-t" x="196" y="17">Bodega</text>
+        <text class="dg-t" x="72"  y="65">Ventas</text>
+        <text class="dg-t" x="210" y="61">Facturas</text>
+        <text class="dg-t" x="118" y="109">Cobros</text>
+        <path class="dg-arrow" d="M170 132 L170 158"/>
+        <path class="dg-arrow" d="M164 150 L170 158 L176 150"/>
+        <rect class="dg-erp" x="6" y="168" width="328" height="132" rx="3"/>
+        <text class="dg-k" x="18" y="184">UN SOLO SISTEMA</text>
+        <rect class="dg-row" x="16" y="192" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="210" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="228" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="246" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="264" width="308" height="15" rx="1"/>
+        <text class="dg-t" x="24" y="203">Compras</text>
+        <text class="dg-t" x="24" y="221">Bodega</text>
+        <text class="dg-t" x="24" y="239">Ventas</text>
+        <text class="dg-t" x="24" y="257">Facturas</text>
+        <text class="dg-t" x="24" y="275">Cobros</text>
       </svg>
       <figcaption>
         <span><b>Hoy.</b> Cinco libretas, y alguien copiando de una a otra.</span>
@@ -451,8 +497,8 @@
     <div class="figure">
 
       <div class="readout" aria-live="polite">
-        <span class="readout__k lbl" id="hudK">OC-1182 · Recepción</span>
-        <span class="readout__v" id="hudV">40 de 40 piezas · proveedor revisado · ya sabes cuánto le debes</span>
+        <span class="readout__k lbl" id="hudK">Lo que vamos a seguir</span>
+        <span class="readout__v" id="hudV">una compra de 40 piezas, desde que llega hasta que está cobrada</span>
       </div>
 
       <div class="stage">
@@ -476,6 +522,8 @@
 
       <div class="exp">
         <div class="exp__t lbl">La ficha · cada dato, una sola vez</div>
+        <p class="exp__nota">Cada papel lleva su número. Así el sistema sabe que los cinco
+          hablan del mismo pedido, y por eso no hay que volver a escribirlo.</p>
         <ul class="chips" id="chips">
           <li class="chip" id="c0"><b>OC-1182</b><span>recepción</span></li>
           <li class="chip" id="c1"><b>ENT-2207</b><span>entrada</span></li>
@@ -798,7 +846,7 @@
     { truck:move(14,-4),  truckOn:true,  propio:false, mont:move(-86,-16), montOn:true,  beams:[0],
       label:"01 / 06 · La puerta de entrada",
       k:"OC-1182 · Recepción",
-      v:"40 de 40 piezas · proveedor revisado · ya sabes cuánto le debes" },
+      v:"40 de 40 piezas · llegó completo · ya sabes cuánto le debes" },
 
     { truck:move(14,-4),  truckOn:false, propio:false, mont:move(26,-172), montOn:true,  beams:[1],
       label:"02 / 06 · Estante A-04, nivel 12",
