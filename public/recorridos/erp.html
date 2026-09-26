@@ -182,7 +182,7 @@
         .dg-alto .dg-k{font-size:9px;}
       }
       /* Dos pies, no uno: cada mitad del dibujo lleva el suyo debajo. El recuadro
-         de la derecha empieza en el 56 % del ancho, así que la rejilla parte ahí. */
+         de la derecha empieza en el 56 % del ancho, así que la rejilla parte ahí. */
       .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);
         line-height:1.6;max-width:620px;display:grid;grid-template-columns:56% 1fr;gap:0 16px;}
       .antes figcaption b{color:var(--ink-2);font-weight:700;}
@@ -280,6 +280,10 @@
         min-height:clamp(140px,27vh,240px);padding-block:12px;padding-left:14px;
         border-left:3px solid transparent;cursor:pointer;min-width:0;
         transition:opacity .35s ease,border-color .35s ease;opacity:.34;}
+      /* En una pantalla ancha caben hasta cuatro pasos a la vez: al 34 % había que
+         desplazarse para leer algo que ya estaba enfrente. El activo se sigue
+         distinguiendo por la raya de color y por su número en cobre. */
+      @media (min-width:881px){ .step{opacity:.62;} }
       .step.on{opacity:1;border-left-color:var(--signal);}
       .step:hover{opacity:.7;border-left-color:var(--rule);}
       .step.on:hover{opacity:1;border-left-color:var(--signal);}
@@ -337,7 +341,15 @@
       .giros__cierre{margin:14px 0 0 !important;font-size:13.5px;color:var(--ink);}
 
       /* preguntas que el comprador hace antes de llamar */
-      .faq .rejilla b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+      /* Sólo la pregunta, que es el hijo directo del renglón. Sin el «> li >», esta
+         regla alcanzaba también las negritas de la respuesta y las tres frases más
+         comprometidas de la página —la fecha en el contrato, «no vendemos un
+         paquete», el precio cerrado por escrito— salían en monoespaciada cobre
+         dentro de un párrafo normal, como código pegado por accidente. */
+      .faq .rejilla > li > b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+      /* La negrita de una respuesta es una negrita: hereda la tipografía del texto. */
+      .faq .rejilla span b{font-family:inherit;font-size:inherit;letter-spacing:normal;
+        text-transform:none;font-weight:700;color:var(--ink);}
 
       .costo .rejilla{grid-template-columns:minmax(0,1fr);max-width:780px;}
       .costo .rejilla li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;
@@ -478,7 +490,7 @@
         .cols{display:block;margin-top:16px;}
         /* Medido a 390x844: con la ficha adentro, lo pegado media 590 px de los
            844 del telefono y dejaba 254 para leer, cuando los pasos miden de 269 a
-           386. Ninguno cabia: el mejor se veia al 69 %. Y la ficha sola pesaba
+           386. Ninguno cabia: el mejor se veia al 69 %. Y la ficha sola pesaba
            214 px —lo mismo que el dibujo— repitiendo el codigo que el rotulo ya
            dice arriba. Aqui se queda pegado el dibujo, y la ficha se lee una vez
            antes de los pasos. Quedan 488 px de lectura y los seis caben. */
@@ -626,7 +638,7 @@
         <text class="dg-t" x="24" y="275">Cobros</text>
       </svg>
       <figcaption>
-        <span><b>Hoy.</b> Cinco libretas, y alguien copiando de una a otra.</span>
+        <span><b>Hoy.</b> Cada área lleva su libreta, y alguien copia de una a otra.</span>
         <span><b>Con el sistema.</b> Una sola. Nadie vuelve a copiar.</span>
       </figcaption>
     </figure>
@@ -672,8 +684,11 @@
       <div class="figura__fijo">
 
       <div class="readout" aria-live="polite">
-        <span class="readout__k lbl" id="hudK">Lo que vamos a seguir</span>
-        <span class="readout__v" id="hudV">una compra de 40 piezas, desde que llega hasta que está cobrada</span>
+        <!-- Lo mismo que el estado 0 de la tabla de abajo: el guion lo escribe en
+             cuanto arranca, así que cualquier otro texto aquí no se ve nunca y de
+             paso parpadea al cargar. -->
+        <span class="readout__k lbl" id="hudK">OC-1182 · Recepción</span>
+        <span class="readout__v" id="hudV">40 de 40 piezas · llegó completo · ya sabes cuánto le debes</span>
       </div>
 
       <div class="stage">
@@ -784,6 +799,8 @@
               y sabes cuánto lleva esperando cada factura.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Cobras antes porque sabes a quién seguirle hoy.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una clínica es saber qué le falta pagar
+            al seguro; en un despacho, qué cliente lleva dos meses sin liquidar.</p>
         </div>
       </section>
 
@@ -797,6 +814,8 @@
               por cliente y por vendedor es la de verdad.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Decides con el número de hoy, no con el del mes pasado.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una obra, cuál dejó dinero; en una
+            tienda, qué conviene reponer.</p>
         </div>
       </section>
 
@@ -833,32 +852,32 @@
         </nav>
         <div class="app__main">
           <div class="kpis">
-            <div class="kpi kpi--gana"><b>22.4 %</b><span>ganancia real</span></div>
-            <div class="kpi"><b>$41,760</b><span>facturado hoy</span></div>
+            <div class="kpi kpi--gana"><b>22.4 %</b><span>ganancia real</span></div>
+            <div class="kpi"><b>$186,400</b><span>facturado este mes</span></div>
             <div class="kpi"><b>1 vez</b><span>cada dato</span></div>
           </div>
           <div class="tabla">
             <div class="tabla__t">Ganancia por cliente · este mes</div>
             <div class="fila fila--enc"><span>Cliente</span>
               <span class="mon">Facturado</span><span class="mar">Ganancia</span></div>
-        <div class="fila"><div class="anon" style="width:62%"></div><span class="mon">$14,900</span><span class="mar">21.8 %</span></div>
-        <div class="fila"><div class="anon" style="width:47%"></div><span class="mon">$11,240</span><span class="mar">25.0 %</span></div>
-        <div class="fila"><div class="anon" style="width:39%"></div><span class="mon">$9,380</span><span class="mar">19.6 %</span></div>
-        <div class="fila"><div class="anon" style="width:26%"></div><span class="mon">$6,240</span><span class="mar">23.4 %</span></div>
+        <div class="fila"><div class="anon" style="width:62%"></div><span class="mon">$62,800</span><span class="mar">21.8 %</span></div>
+        <div class="fila"><div class="anon" style="width:47%"></div><span class="mon">$48,300</span><span class="mar">25.0 %</span></div>
+        <div class="fila"><div class="anon" style="width:39%"></div><span class="mon">$41,100</span><span class="mar">19.6 %</span></div>
+        <div class="fila"><div class="anon" style="width:26%"></div><span class="mon">$34,200</span><span class="mar">23.4 %</span></div>
             <div class="fila fila--suma"><span class="lbl">Suma</span>
-              <span class="mon">$41,760</span><span class="mar">22.4 %</span></div>
+              <span class="mon">$186,400</span><span class="mar">22.4 %</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <p class="pant__pie">Cifras de ejemplo, las mismas del recorrido: los cuatro renglones
-      suman los $41,760 del paso 04 y su ganancia da el 22.4 % del paso 06.</p>
+    <p class="pant__pie">Cifras de ejemplo. Lo de aquí es el mes completo; los $41,760 del
+      paso 04 son un pedido de ese mes.</p>
   </section>
 
   <section class="faq">
     <h2>Antes de que preguntes</h2>
-    <p>Las seis preguntas que hace cualquiera antes de sentarse a ver un ERP, contestadas sin
+    <p>Las seis preguntas que hace cualquiera antes de contratar algo así, contestadas sin
       rodeos.</p>
     <ul class="rejilla">
       <li><b>¿Qué compro exactamente?</b>
@@ -896,7 +915,8 @@
   <section class="costo">
     <h2>¿Cuánto te está costando hoy?</h2>
     <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
-      Si no sabes alguna, esa ya es la respuesta.</p>
+      Si no sabes alguna, esa ya es la respuesta. Y si quieres el costo en pesos sin hablar
+      con nadie, <a href="/calculadora">la calculadora lo saca en seis preguntas</a>.</p>
     <ul class="rejilla">
       <li><b>01</b><span>¿Cuánto gastaste el año pasado en algo que ya tenías?</span></li>
       <li><b>02</b><span>¿Cuántas veces prometiste algo que no podías entregar?</span></li>
@@ -922,8 +942,7 @@
   </section>
 
   <p class="colofon">
-    Las cifras de este recorrido son de <b>una operación de ejemplo</b> y sirven para mostrar
-    el flujo. El ERP se ajusta al tipo de negocio y a la forma de trabajar de cada empresa: el recorrido de la tuya
+    Las cifras de este recorrido son de <b>una operación de ejemplo</b>. El recorrido del tuyo
     se dibuja en el diagnóstico, con tus números.
   </p>
 
@@ -1093,8 +1112,8 @@
 
     { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[0,1,2,3,4],
       label:"06 / 06 · Tablero de dirección",
-      k:"Ganancia real · 22.4 %",
-      v:"cinco pasos, una sola anotación · envío y pérdidas ya descontados" }
+      k:"Ganancia real · 22.4 %",
+      v:"en todo el camino, una sola anotación · con el envío ya descontado" }
   ];
 
   var truckEl = document.getElementById("truck");
