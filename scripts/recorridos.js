@@ -19,6 +19,20 @@ import { DOMINIO, EMPRESA } from '../src/data/contacto.js'
 import { basePublica } from './base-publica.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+
+/* Las dos tipografías de los recorridos, servidas desde el sitio. Son
+   variables y llevan el eje de peso abierto, así que un archivo por familia
+   cubre los cuatro pesos que usa el recorrido: 26.4 KB las dos, contra las dos
+   conexiones a un tercero que además la CSP no deja pasar. `swap` para que el
+   texto se lea desde el primer momento con la del aparato y cambie al llegar
+   la nuestra. */
+const FUENTES_LOCALES = `    <link rel="preload" href="/fonts/azeret-mono-recorridos.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+      @font-face{font-family:'Azeret Mono';src:url('/fonts/azeret-mono-recorridos.woff2') format('woff2');
+        font-weight:400 700;font-style:normal;font-display:swap}
+      @font-face{font-family:'Archivo';src:url('/fonts/archivo-recorridos.woff2') format('woff2');
+        font-weight:400 600;font-style:normal;font-display:swap}
+    </style>`
 const destino = resolve(raiz, 'public/recorridos')
 mkdirSync(destino, { recursive: true })
 
@@ -38,7 +52,7 @@ for (const r of RECORRIDOS) {
 
   const corte = fuente.indexOf('</style>')
   if (corte < 0) throw new Error(`recorridos-fuente/${r.slug}.html no tiene <style>`)
-  const cabeza = fuente.slice(0, corte + '</style>'.length).replace(/<title>[\s\S]*?<\/title>\s*/, '')
+  let cabeza = fuente.slice(0, corte + '</style>'.length).replace(/<title>[\s\S]*?<\/title>\s*/, '')
   let cuerpo = fuente.slice(corte + '</style>'.length).trim()
 
   /* --- Ajustes de la versión que vive dentro del sitio ---
@@ -71,6 +85,22 @@ for (const r of RECORRIDOS) {
     /<a href="https:\/\/[^"]*?\/servicios\/[^"]*"[^>]*>formulario del sitio<\/a>/,
     '<a href="/#contacto">formulario del sitio</a>'
   )
+
+  // 4. Las tipografías, desde el propio dominio. La fuente las pide a Google
+  //    Fonts porque el artifact suelto no tiene dónde más sacarlas; aquí eso no
+  //    sirve, porque la CSP del sitio dice `style-src 'self'` y `font-src
+  //    'self'` y bloquea las dos peticiones. Resultado medido antes de esto:
+  //    cero tipografías cargadas y el recorrido en la monoespaciada del
+  //    aparato. Las recortadas se generan con `npm run fuente:recorridos`.
+  cabeza = cabeza
+    .replace(/\s*<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com"[^>]*>/, '')
+    .replace(
+      /\s*<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]*>/,
+      '\n' + FUENTES_LOCALES,
+    )
+  if (cabeza.includes('fonts.googleapis.com')) {
+    throw new Error(`recorridos: ${r.slug} sigue pidiendo tipografías a Google Fonts`)
+  }
 
   const url = `${DOMINIO}/recorridos/${r.slug}`
   // El nombre del servicio tal como lo dice el sitio: "Nómina", no "NOMINA".

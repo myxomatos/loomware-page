@@ -45,8 +45,13 @@
         1. la barra de marca (brand__site)
         2. la liga "formulario del sitio" del cierre (.otras)
     -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
+        <link rel="preload" href="/fonts/azeret-mono-recorridos.woff2" as="font" type="font/woff2" crossorigin>
+        <style>
+          @font-face{font-family:'Azeret Mono';src:url('/fonts/azeret-mono-recorridos.woff2') format('woff2');
+            font-weight:400 700;font-style:normal;font-display:swap}
+          @font-face{font-family:'Archivo';src:url('/fonts/archivo-recorridos.woff2') format('woff2');
+            font-weight:400 600;font-style:normal;font-display:swap}
+        </style>
     <style>
       *,*::before,*::after{box-sizing:border-box;}
 
