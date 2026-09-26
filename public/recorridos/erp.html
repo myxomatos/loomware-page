@@ -1134,7 +1134,14 @@
     labelEl.textContent = st.label;
     hudK.textContent = st.k;
     hudV.textContent = st.v;
-    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+    stepEls.forEach(function(el, n){
+      el.classList.toggle("on", n === i);
+      /* El color y la raya marcan el paso actual para quien ve; esto lo marca
+         para quien no. No se le pone role="button" a la sección: eso la
+         volvería una hoja del árbol y se perdería su estructura. */
+      if (n === i) el.setAttribute("aria-current", "step");
+      else el.removeAttribute("aria-current");
+    });
   }
 
   apply(0);
