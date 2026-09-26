@@ -501,7 +501,35 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
          `src/data/recorridos.js`, **hay que volver a correrlo**: la tarjeta trae ese texto
          horneado y el build no la regenera, porque necesita el sitio servido.
 
-      **Estado: ERP en curso (siete pasadas). CRM, nómina, tienda en línea, automatización,
+      **Lo que la comparación del 2026-09-25 dejó abierto en el ERP, y vale para los ocho:**
+
+      - **La primera pantalla no vende.** Bind mete en esos mismos 844 px: «HECHO EN MÉXICO ·
+        CERTIFICACIÓN OFICIAL», «El ERP mexicano en la nube para PyMES», para quién es, un
+        botón grande, un segundo botón asomando y un rostro. Nosotros: etiqueta, titular, ocho
+        renglones de párrafo y un diagrama. **Cero botones, cero prueba, y no decimos para
+        quién es.** Nuestra primera puerta está a **5.3 pantallas**; la de Bind a **0.7**.
+      - **El título de búsqueda no compite.** El nuestro es «Del trabajo hecho al dinero
+        cobrado · ERP | Loomware»: la palabra que la gente teclea va en sexta posición. Bind
+        abre con «ERP mexicano en la nube para PyMEs», Alegra con «Sistema de Facturación
+        Electrónica #1 en México», Xero con «Accounting Software for Your Small Business».
+        **Y estas páginas están en el sitemap**, o sea que sí reciben tráfico frío.
+      - **Seis imágenes, y las seis son dibujos nuestros.** Cero fotos, cero capturas de
+        software funcionando, cero rostros. Misma conclusión que el estudio de los 22.
+      - **El titular no dice qué vendemos.** Funciona para quien ya sabe qué es esto; para
+        quien llega de Google no dice ni producto ni destinatario.
+
+      *La lectura:* la página es técnicamente la mejor del grupo y por mucho. Pierde en lo que
+      decide una venta fría, y no por mala ejecución sino porque hoy hace dos trabajos: es un
+      **explicador** para quien ya te conoce —y ahí es excelente— y una **página de aterrizaje**
+      para quien te busca —y ahí está desnuda—. Se arregla sin tocar lo que funciona: una franja
+      de acción arriba y un título que empiece por la palabra buscada.
+
+      **Y tres de texto, pendientes de decidir con Aldo:** la entrada de 61 palabras y ocho
+      renglones; el título «Todo negocio sigue algo», que no significa nada hasta que ya leíste
+      las seis tarjetas de abajo; y el «Hoy:» de esas tarjetas en el color más apagado de la
+      tarjeta, cuando es la parte que engancha.
+
+      **Estado: ERP en curso (nueve pasadas). CRM, nómina, tienda en línea, automatización,
       software a medida, infraestructura cloud y apps móviles: sin empezar.**
 
       **Lo que falta del ERP y no es mío:** los blancos táctiles —el logotipo mide 26 px de
@@ -577,7 +605,52 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
       Se cambia el `<picture>` de `src/components/Hero.jsx`.
 
-### Resueltas el 2026-09-25 (séptima pasada: lo que nunca se había medido)
+### Resueltas el 2026-09-25 (séptima y octava pasada del ERP, y la medición contra el grupo)
+
+- [x] **Dónde queda el recorrido del ERP contra siete páginas comparables.** No es el estudio
+      de la portada: se midieron páginas que hacen **el mismo trabajo** —explicarle un módulo a
+      un prospecto—, el 2026-09-25.
+
+      | | TTFB | HTML | nodos | scripts | terceros | palabras | imágenes |
+      | --- | --- | --- | --- | --- | --- | --- | --- |
+      | **Loomware · ERP** | **233 ms** | **70 KB** | **655** | **1** | **0** | 1 693 | **6** |
+      | Bind · ERP | 399 ms | 155 KB | 998 | 50 | 31 | 1 663 | 28 |
+      | Alegra · Facturación | 553 ms | 289 KB | 1 570 | 24 | 29 | 3 733 | 140 |
+      | Siigo · Contable | 478 ms | 1 106 KB | 1 565 | 28 | 43 | 2 636 | 39 |
+      | Xero · Accounting | 612 ms | 480 KB | 2 691 | 39 | 18 | 2 688 | 139 |
+      | Holded | 684 ms | 906 KB | 2 979 | 9 | 25 | 3 126 | 301 |
+      | Zoho · Books | 512 ms | 210 KB | 2 899 | 34 | 17 | 4 096 | 192 |
+      | Stripe · Payments | 438 ms | 1 186 KB | 5 841 | 2 | 10 | 5 195 | 557 |
+
+      **Primeros de ocho en las cinco medidas técnicas, y con margen**: la segunda página más
+      ligera pesa el doble, el segundo sitio más rápido tarda 70 % más, y **somos los únicos
+      que no le piden nada a ningún tercero** —los demás van de 10 a 43 dominios—. Un script
+      contra los 50 de Bind.
+
+      **Penúltimos en palabras y últimos en imágenes.** Las cifras de Stripe conviene tomarlas
+      con reserva: su conteo de encabezados salió absurdo (68 `h1`), señal de que el método
+      de conteo no distingue bien en páginas armadas por componentes.
+
+#### Octava pasada: la página publicada, tramo por tramo
+
+- [x] **Diecinueve hallazgos, nueve de ellos metidos por Claude en las siete pasadas
+      anteriores.** Los que se cerraron: los **$41,760 valían tres cosas a la vez** —un pedido
+      en el paso 04, «facturado hoy» en la pantalla y la ganancia de cuatro clientes «este mes»
+      en la tabla—, y la pantalla pasa a ser del mes de punta a punta; **«cinco pasos» contra
+      «Seis pasos»** a doscientos píxeles de distancia; **«pérdidas»**, que salía una sola vez
+      en toda la página sin que ningún paso hablara de ellas; **un rótulo que nunca se veía**
+      porque el guion lo pisaba al cargar; **«En otro negocio» faltaba en los pasos 05 y 06**,
+      justo los del dinero; **la calculadora no se enlazaba** aunque contesta exactamente las
+      cinco preguntas del cierre; y **tres frases del FAQ salían en monoespaciada cobre** dentro
+      de párrafos normales —las tres más comprometidas de la página— por un selector demasiado
+      ancho.
+
+      **Una corrección:** dije que «un ERP es la libreta única» choca con su dibujo. No choca
+      —el dibujo dice cinco arriba y una sola abajo, que es lo que la frase promete—. Lo que no
+      encajaba era que los recuadros están rotulados como áreas y el pie los llamaba libretas.
+
+#### Séptima pasada: lo que nunca se había medido
+
 
 - [x] **Los ocho recorridos se veían con la tipografía del teléfono, no con la nuestra.**
       Pedían Azeret Mono y Archivo a Google Fonts, y **nuestra propia CSP las bloquea**:
