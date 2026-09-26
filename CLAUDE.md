@@ -474,7 +474,11 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       3. **Cacería de palabras de oficina.** En el ERP sobrevivieron tres rondas: «timbrada»,
          «padrón», «en paralelo». Hay que buscarlas también **en el guion**, no sólo en el
          texto: la del paso 04 vivía en la tabla de estados.
-      4. **Medir el teléfono, no verlo.** Cuánto ocupa lo que se queda pegado y si el paso cabe
+      4. **Medir con la CSP puesta, no en local a secas.** `http-server` no manda
+         encabezados, así que en local carga cosas que el sitio publicado bloquea. Los ocho
+         recorridos se vieron tres días con la tipografía equivocada por eso. Se inyecta la CSP
+         como `meta` en una copia, o se mide contra el preview.
+      5. **Medir el teléfono, no verlo.** Cuánto ocupa lo que se queda pegado y si el paso cabe
          en lo que sobra. El ERP dejaba 254 px para pasos de hasta 386 y **ninguno cabía**.
 
          **Medido el 2026-09-24 en los siete que faltan, a 360×740 —un teléfono chico—: los
@@ -484,20 +488,20 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
          pegado todo lo que no sea el dibujo con su rótulo y su pie, y `display:contents` en
          el contenedor para que lo pegado cuelgue de la columna y no se despegue a medio
          camino.
-      5. **Contar los botones** y que cada uno diga qué hace.
-      6. **La pantalla del sistema.** El ERP ya la tiene; las otras siete enseñan sólo su
+      6. **Contar los botones** y que cada uno diga qué hace.
+      7. **La pantalla del sistema.** El ERP ya la tiene; las otras siete enseñan sólo su
          objeto —el tablero de corcho, la tarjeta de checado, los dos maniquíes—, que es el
          mundo y no el sistema. La pieza es reusable —HTML con las variables de la propia
          página, hereda el modo oscuro y reflúye—, pero **los números son el trabajo de
          verdad**: los del ERP cuadran con los de su recorrido a propósito, y eso no se copia
          y se pega.
 
-      7. **La tarjeta del enlace.** Los ocho ya la tienen, una por recorrido
+      8. **La tarjeta del enlace.** Los ocho ya la tienen, una por recorrido
          (`npm run og:recorridos`). Cuando cambie el título o el resumen de uno en
          `src/data/recorridos.js`, **hay que volver a correrlo**: la tarjeta trae ese texto
          horneado y el build no la regenera, porque necesita el sitio servido.
 
-      **Estado: ERP en curso (seis pasadas). CRM, nómina, tienda en línea, automatización,
+      **Estado: ERP en curso (siete pasadas). CRM, nómina, tienda en línea, automatización,
       software a medida, infraestructura cloud y apps móviles: sin empezar.**
 
       **Lo que falta del ERP y no es mío:** los blancos táctiles —el logotipo mide 26 px de
@@ -572,6 +576,46 @@ tachadas abajo con su medición; la que sigue abierta es la de enseñar lo que c
       captura real** —con autorización del cliente y los datos cubiertos— vale más que cualquier
       dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
       Se cambia el `<picture>` de `src/components/Hero.jsx`.
+
+### Resueltas el 2026-09-25 (séptima pasada: lo que nunca se había medido)
+
+- [x] **Los ocho recorridos se veían con la tipografía del teléfono, no con la nuestra.**
+      Pedían Azeret Mono y Archivo a Google Fonts, y **nuestra propia CSP las bloquea**:
+      `style-src 'self'` y `font-src 'self'`, comprobado en el encabezado que manda el
+      preview. Medido con esa CSP inyectada: **cero tipografías en el documento** y el titular
+      a 280.4 px en vez de 331.5. **Desde que la CSP entró, el 22 de septiembre**, los ocho se
+      veían con la monoespaciada que trajera el aparato —Consolas, Menlo, lo que hubiera— y
+      distinta en cada teléfono. Es la pieza que este archivo llama lo mejor diseñado que tiene
+      Loomware, y la que se manda por WhatsApp.
+
+      **Por qué se tardó tres días en verse:** en local se sirve con `http-server`, que no manda
+      encabezados, así que las fuentes cargaban desde Google y todo se veía bien. **Una medición
+      local no dice nada sobre lo que la CSP deja pasar**; hay que inyectarla como `meta` o
+      mirar el sitio publicado.
+
+      Ahora se sirven desde el dominio. Los subconjuntos que ya existían no servían —el de
+      Azeret Mono es sólo mayúsculas y el de Archivo tiene el eje fijo en 700—, así que
+      `npm run fuente:recorridos` saca los suyos con el eje de peso abierto, y **los caracteres
+      salen de los propios ocho archivos**: 127 glifos, 12.1 KB y 14.3 KB. La fuente en
+      `recorridos-fuente/` se queda con Google Fonts porque el artifact suelto de WhatsApp no
+      tiene `/fonts/`; y si algún día una se cuela, **el empaquetador falla en vez de
+      publicarlo**.
+
+      Comprobado después, con la CSP puesta: los ocho cargan las dos familias, **cero caracteres
+      sin glifo**, y el titular vuelve a 331.5 px —idéntico a la versión con Google Fonts, o sea
+      que el recorte es la misma tipografía—. El visitante baja **43.4 KB en tres peticiones**,
+      todas al mismo dominio.
+
+- [x] **El paso que se está leyendo se anuncia a quien no ve la pantalla.** El teclado ya
+      funcionaba —doce elementos en orden, los seis pasos reciben el foco y responden a Enter,
+      los tres controles con contorno visible—, pero el paso actual sólo se marcaba con color
+      y con la raya: un lector de pantalla anunciaba seis secciones iguales. Ahora lleva
+      `aria-current="step"`, puesto donde ya se pone la clase.
+
+      **Lo que no se hizo, y por poco:** `role="button"` en la sección. Convierte al elemento
+      en una hoja del árbol de accesibilidad, así que se anunciaría todo el texto del paso como
+      el nombre de un botón y se perderían su título y sus tres renglones. El paso es contenido
+      que además se puede picar.
 
 ### Resueltas el 2026-09-24 (sexta pasada del ERP, y lo que salió midiéndola)
 
