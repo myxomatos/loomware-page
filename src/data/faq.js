@@ -13,7 +13,7 @@
 export const FAQ = [
   {
     p: '¿Cuánto cuesta?',
-    r: 'No publicamos precios porque cada sistema se hace a la medida. No competimos por ser los más baratos, sino por que funcione: el precio corresponde al tamaño de lo que resolvemos —usuarios, sedes, volumen y cuántos procesos conectamos—. Del tamaño de tu operación depende el alcance, no nuestra capacidad: trabajamos igual con una sucursal que con una operación de varias sedes y miles de usuarios.\n\nEmpezamos con una llamada de 30 minutos, sin costo, para entender tu operación y lo que quieres resolver. Con eso te proponemos un diagnóstico, con su precio según el tamaño de tu empresa, y del diagnóstico sale una propuesta con precio cerrado por ese alcance, antes de decidir nada. Si después quieres ampliarlo, se cotiza aparte y lo apruebas tú. El soporte y las actualizaciones posteriores a la entrega van en un contrato aparte, que decides tú.',
+    r: 'No publicamos precios porque cada sistema se hace a la medida. No competimos por ser los más baratos, sino por que funcione: el precio corresponde al tamaño de lo que resolvemos —usuarios, sedes, volumen y cuántos procesos conectamos—. Del tamaño de tu operación depende el alcance, no nuestra capacidad: trabajamos igual con una sucursal que con una operación de varias sedes y miles de usuarios.\n\nEmpezamos con una llamada de 30 minutos, sin costo, para entender tu operación y lo que quieres resolver. Con eso te proponemos un diagnóstico, con su precio según el tamaño de tu empresa, y del diagnóstico sale una propuesta con precio cerrado por ese alcance, antes de decidir nada. Si después quieres ampliarlo, se cotiza aparte y lo apruebas tú. Si usas uno de nuestros sistemas, además hay una cuota mensual por hospedaje, mantenimiento y actualizaciones, y te la decimos en la propuesta. El soporte posterior a la entrega va en un contrato aparte, que decides tú.',
     cta: { texto: '¿Cuánto costaría en tu empresa?', href: '#contacto' },
   },
   {
@@ -22,7 +22,7 @@ export const FAQ = [
   },
   {
     p: '¿Migran mis datos de Excel o de mi sistema actual?',
-    r: 'Sí. La carga de clientes, productos, inventario, saldos o lo que corresponda es parte del proyecto, no un extra. Si los datos vienen sucios —que es lo normal—, los limpiamos contigo antes de cargarlos.',
+    r: 'Sí. Clientes, productos, inventario, saldos o lo que corresponda: qué datos se migran y cómo se limpian lo definimos en el diagnóstico, y va en la propuesta desde el principio, para que no aparezca después. Si vienen sucios —que es lo normal—, los limpiamos contigo antes de cargarlos.',
   },
   {
     p: '¿Los sistemas facturan al SAT?',
@@ -34,7 +34,7 @@ export const FAQ = [
   },
   {
     p: '¿Necesito comprar servidores o licencias?',
-    r: 'No. Todo corre en infraestructura en la nube que administramos nosotros; no compras ni mantienes equipo. En software a medida, el sistema es tuyo: no pagas licencias por usuario.',
+    r: 'No necesitas comprar servidores: el sistema vive en nuestra infraestructura o en la tuya, según convenga. Puedes usar nuestros sistemas, con una cuota mensual que se define en tu contrato, o que te construyamos uno a la medida que es tuyo, sin licencias.',
   },
   {
     p: '¿Y si mi equipo no sabe de sistemas?',
@@ -42,7 +42,7 @@ export const FAQ = [
   },
   {
     p: '¿Qué pasa después de la entrega?',
-    r: 'Seguimos. Ofrecemos soporte y mantenimiento, medimos que el sistema se use y lo hacemos crecer con la operación. La entrega es el inicio de la relación, no el final.',
+    r: 'Seguimos, si tú quieres: el soporte, el mantenimiento y la evolución del sistema van en un contrato aparte. Medimos que el sistema se use y lo hacemos crecer con tu operación.',
   },
   {
     p: '¿Trabajan fuera de la Ciudad de México?',

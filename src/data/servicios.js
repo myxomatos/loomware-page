@@ -61,7 +61,7 @@ export const SERVICIOS = [
     faq: [
       { p: '¿Se integra con WhatsApp?', r: 'Sí. Los mensajes de WhatsApp Business pueden registrarse en la ficha del cliente y generar prospectos nuevos automáticamente, según el alcance que definamos.' },
       { p: '¿Mis vendedores lo van a usar?', r: 'Ese es el criterio de éxito del proyecto. Por eso el embudo se diseña con ellos, se captura lo mínimo necesario y se mide la adopción las primeras semanas.' },
-      { p: '¿Puedo migrar mis clientes actuales desde Excel?', r: 'Sí. La carga inicial de clientes, contactos y oportunidades abiertas es parte del proyecto.' },
+      { p: '¿Puedo migrar mis clientes actuales desde Excel?', r: 'Sí. Clientes, contactos y oportunidades abiertas: qué se carga y cómo se limpia lo definimos en el diagnóstico, y va en la propuesta desde el principio.' },
       { p: '¿Funciona en el celular?', r: 'Sí. El CRM se usa desde el teléfono para consultar, registrar visitas y recibir recordatorios.' },
     ],
     relacionados: ['erp', 'automatizacion'],
@@ -119,7 +119,7 @@ export const SERVICIOS = [
       { p: '¿Cuánto tarda implementar un ERP?', r: 'Depende de cuántos módulos y de qué tan limpios estén tus datos. Por eso arrancamos por etapas: el primer módulo en operación en semanas, no en meses, y el resto va entrando sobre esa base.' },
       { p: '¿Factura al SAT?', r: 'Sí. La facturación emite CFDI 4.0 a través de un PAC autorizado, con complementos de pago y notas de crédito.' },
       { p: '¿Tengo que dejar de operar durante el cambio?', r: 'No. El arranque es por módulos y en paralelo con tu operación actual hasta que el nuevo sistema quede validado.' },
-      { p: '¿Y si mi inventario actual está mal?', r: 'Es lo más común. La migración incluye un conteo físico de arranque para que el sistema empiece con la verdad, no con el Excel.' },
+      { p: '¿Y si mi inventario actual está mal?', r: 'Es lo más común. Te ayudamos a organizar un conteo de arranque para que el sistema empiece con la verdad, no con el Excel; su alcance se define en el diagnóstico.' },
     ],
     relacionados: ['nomina', 'automatizacion'],
   },
@@ -172,7 +172,7 @@ export const SERVICIOS = [
     ],
     faq: [
       { p: '¿Cumple con las obligaciones del SAT y el IMSS?', r: 'Sí. Calcula conforme a las tablas vigentes, timbra CFDI 4.0 de nómina y genera los reportes para el SUA y la declaración anual.' },
-      { p: '¿Puedo seguir con mi despacho contable?', r: 'Sí. El sistema entrega al despacho los acumulados y pólizas que necesita; muchos clientes lo usan para dejar de pagar el cálculo y conservar la asesoría.' },
+      { p: '¿Puedo seguir con mi despacho contable?', r: 'Sí. El sistema entrega al despacho los acumulados y pólizas que necesita; puedes usarlo para dejar de pagar el cálculo y conservar la asesoría.' },
       { p: '¿Qué pasa con las quincenas anteriores?', r: 'Cargamos los acumulados del año en curso para que ISR y prestaciones se calculen correctamente desde la primera nómina.' },
       { p: '¿Cómo reciben su recibo los colaboradores?', r: 'Por correo o desde un portal donde cada persona consulta sus recibos y acumulados. RH deja de enviarlos uno por uno.' },
     ],
@@ -225,7 +225,7 @@ export const SERVICIOS = [
       { titulo: 'Lanzamiento', texto: 'Pruebas de compra reales, arranque y seguimiento de los primeros pedidos.' },
     ],
     faq: [
-      { p: '¿Es mejor que Mercado Libre o Shopify?', r: 'Son complementos, no rivales. Muchos clientes venden en marketplaces y además tienen su tienda propia, conectada a su inventario, sin comisiones por venta y con sus clientes como suyos.' },
+      { p: '¿Es mejor que Mercado Libre o Shopify?', r: 'Son complementos, no rivales. Puedes seguir vendiendo en marketplaces y además tener tu tienda propia, conectada a tu inventario, sin comisiones por venta y con tus clientes como tuyos.' },
       { p: '¿Qué pasa con mi inventario de mostrador?', r: 'Es el mismo. La tienda vende del inventario real y lo descuenta al momento, igual que una venta en piso.' },
       { p: '¿Puedo vender a crédito a mis clientes de mayoreo?', r: 'Sí. El portal mayorista aplica los precios y condiciones de cada cliente y registra el pedido a su cuenta.' },
       { p: '¿Quién administra la tienda después?', r: 'Tu equipo, desde el mismo sistema con el que ya opera. No hay un catálogo aparte que mantener.' },
@@ -305,7 +305,7 @@ export const SERVICIOS = [
     icon: 'code',
     titulo: 'Software a la medida para empresas | Loomware',
     descripcion:
-      'Software construido sobre cómo trabaja tu empresa, integrado con lo que ya usas, entregado por etapas. Desarrollo a medida para pymes en México.',
+      'Software construido sobre cómo trabaja tu empresa, integrado con lo que ya usas, entregado por etapas. Desarrollo a medida para empresas en México.',
     h1: 'Software a medida: cuando ningún sistema de catálogo te queda',
     intro: [
       'Hay procesos que ningún software comercial resuelve bien, porque son la forma en que tu empresa compite: cómo cotizas, cómo produces, cómo atiendes. Forzarlos a caber en un sistema genérico significa perder justo lo que te hace distinto.',
@@ -315,7 +315,7 @@ export const SERVICIOS = [
       'Empresas con un proceso central que los sistemas comerciales no cubren o cubren mal.',
       'Negocios que ya probaron dos o tres sistemas de catálogo y siguen operando en Excel.',
       'Operaciones que necesitan que varios sistemas trabajen como uno solo.',
-      'Empresas que quieren ser dueñas de su herramienta y no depender de licencias por usuario.',
+      'Empresas que prefieren ser dueñas de su herramienta: el código, los datos y la documentación a su nombre.',
     ],
     incluye: [
       { titulo: 'Análisis del proceso', texto: 'Documentamos cómo trabaja tu equipo hoy —lo que funciona y lo que estorba— antes de diseñar nada.' },
@@ -323,7 +323,7 @@ export const SERVICIOS = [
       { titulo: 'Desarrollo por etapas', texto: 'Entregas cada pocas semanas con funcionalidad que ya se puede usar. Nada de esperar meses para ver algo.' },
       { titulo: 'Integraciones', texto: 'Conexión con tu ERP, CRM, banco, facturación, WhatsApp o lo que tu operación necesite.' },
       { titulo: 'Web y móvil', texto: 'Aplicaciones que se usan desde el navegador, el celular o ambos, según dónde ocurre el trabajo.' },
-      { titulo: 'Propiedad y documentación', texto: 'El contrato te transfiere el código fuente, la base de datos y la documentación. Quedan a tu nombre, sin licencias por usuario.' },
+      { titulo: 'Propiedad y documentación', texto: 'El contrato te transfiere el código fuente, la base de datos y la documentación. Quedan a tu nombre.' },
     ],
     proceso: [
       { titulo: 'Diagnóstico', texto: 'Entendemos el proceso, sus excepciones y qué resultado esperas del sistema.' },
@@ -332,10 +332,10 @@ export const SERVICIOS = [
       { titulo: 'Operación', texto: 'Arranque, capacitación y soporte. El sistema evoluciona con tu negocio.' },
     ],
     faq: [
-      { p: '¿No es más caro que un sistema comercial?', r: 'A veces sí, a veces no. Un sistema comercial cobra por usuario cada mes, para siempre, y aun así puede no cubrir tu proceso. En el diagnóstico te decimos con franqueza cuál conviene en tu caso.' },
+      { p: '¿No es más caro que un sistema comercial?', r: 'A veces sí, a veces no. Un sistema de catálogo puede salir más barato, pero si no cubre tu proceso lo pagas en Excel y en recaptura. En el diagnóstico te decimos con franqueza cuál conviene: uno de catálogo, uno de nuestros sistemas o uno a la medida.' },
       { p: '¿Cuánto tarda?', r: 'Depende del alcance, y por eso trabajamos por etapas: la primera funcionalidad útil en semanas, y el resto sobre esa base. Nunca meses sin ver nada.' },
       { p: '¿Qué pasa si después quiero cambiar de proveedor?', r: 'El contrato te entrega el código, la base de datos y la documentación. Cualquier equipo competente puede continuar el trabajo sin depender de nosotros.' },
-      { p: '¿Lo pueden mantener después?', r: 'Sí. Ofrecemos soporte y evolución continua, sin obligación de contratarlo.' },
+      { p: '¿Lo pueden mantener después?', r: 'Sí, si tú quieres: el soporte y la evolución van en un contrato aparte, sin obligación de contratarlo.' },
     ],
     relacionados: ['apps-moviles', 'automatizacion'],
   },

@@ -482,7 +482,7 @@
 
       <div class="stage">
         <svg id="scene" viewBox="0 0 680 344" role="img"
-             aria-label="Dos maniquíes de sastre. A la izquierda, el traje de talla única: un sistema de catálogo con mangas que sobran, apretado en el pecho donde tu cotización no cabe, y una etiqueta de renta mensual por usuario. A la derecha, el traje a medida se construye paso a paso: la cinta métrica con tus catorce datos, el patrón de papel, la primera prueba hilvanada a la semana cinco, los ajustes de las tres excepciones con alfileres, los botones que son las conexiones con tu ERP, el SAT, tu banco y WhatsApp, y al final el patrón doblado a nombre de tu empresa.">
+             aria-label="Dos maniquíes de sastre. A la izquierda, el traje de talla única: un sistema de catálogo con mangas que sobran, apretado en el pecho donde tu cotización no cabe, y una etiqueta de talla única. A la derecha, el traje a medida se construye paso a paso: la cinta métrica con tus catorce datos, el patrón de papel, la primera prueba hilvanada a la semana cinco, los ajustes de las tres excepciones con alfileres, los botones que son las conexiones con tu ERP, el SAT, tu banco y WhatsApp, y al final el patrón doblado a nombre de tu empresa.">
           <g id="world"></g>
         </svg>
       </div>
@@ -593,13 +593,13 @@
         <div class="step-head"><span class="paso">06</span><h2>El patrón es tuyo</h2><span class="gauge">por contrato</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El traje de catálogo es rentado: cada usuario paga cada mes, y el sistema sigue
-              siendo de quien lo renta.</p></div>
+            <p>El traje de catálogo es de quien lo vende: lo usas como viene, y cuando tu proceso
+              necesita un cambio, esperas a que ellos quieran hacerlo.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
             <p>El contrato te entrega el código fuente, la base de datos y la documentación. El
               patrón queda a nombre de tu empresa, y cualquier equipo competente puede seguirlo.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Eres dueño de tu herramienta, con cero licencias por usuario.</p></div>
+            <p>Eres dueño de tu herramienta, y la cambias cuando cambie tu proceso.</p></div>
         </div>
       </section>
 
@@ -642,9 +642,10 @@
       rodeos.</p>
     <ul class="rejilla">
       <li><b>¿Cuesta más que un sistema comercial?</b>
-        <span>A veces sí, a veces no. Un sistema comercial cobra por usuario cada mes, para
-          siempre, y aun así puede dejar tu proceso en Excel. En el diagnóstico te decimos con
-          franqueza cuál conviene en tu caso.</span></li>
+        <span>A veces sí, a veces no. Un sistema de catálogo puede salir más barato, pero si
+          deja tu proceso en Excel lo pagas en recaptura. En el diagnóstico te decimos con
+          franqueza cuál conviene: uno de catálogo, uno de nuestros sistemas o uno a la
+          medida.</span></li>
       <li><b>¿Qué compro exactamente?</b>
         <span>Un sistema construido sobre tu proceso, entregado por etapas, integrado con lo que
           ya usas, y con el código, la base de datos y la documentación a tu nombre.</span></li>
@@ -669,7 +670,7 @@
       Si no sabes alguna, esa ya es la respuesta.</p>
     <ul class="rejilla">
       <li><b>01</b><span>¿Cuántos datos de tu cotización viven fuera del sistema, en un Excel?</span></li>
-      <li><b>02</b><span>¿Cuántas licencias por usuario pagas al mes, y cuántas se usan de verdad?</span></li>
+      <li><b>02</b><span>¿Cuántas funciones de tu sistema actual no usas, y cuántas te faltan?</span></li>
       <li><b>03</b><span>¿Cuántos sistemas de catálogo has probado para el mismo proceso?</span></li>
       <li><b>04</b><span>¿Cuánto tarda una cotización desde que la piden hasta que sale?</span></li>
       <li><b>05</b><span>¿Quién es la única persona que sabe cómo se cotiza en tu empresa?</span></li>
@@ -707,7 +708,7 @@
   /* «A medida» se entiende en la sastrería antes que en ningún otro lado. El
      dibujo son dos maniquíes. A la izquierda, el traje de talla única: el
      sistema de catálogo, con mangas que sobran, apretado donde tu proceso no
-     cabe y rentado cada mes. A la derecha, el traje a medida se construye paso
+     cabe y de quien lo vende. A la derecha, el traje a medida se construye paso
      a paso: las medidas, el patrón de papel, la primera prueba hilvanada, los
      ajustes con alfileres, los botones que son las conexiones, y al final el
      patrón doblado a nombre de tu empresa. */
@@ -770,11 +771,11 @@
                  '<text class="t-cat" x="' + (c + 78) + '" y="' + (y + 56) + '">aprieta aquí</text>' +
                  '<text class="t-cat t-cat--sub" x="' + (c + 78) + '" y="' + (y + 67) + '">tu cotización: 3 campos</text>' +
                  '<text class="t-cat t-cat--sub" x="' + (c + 78) + '" y="' + (y + 77) + '">de 14 · el resto en Excel</text>', 3);
-  /* la etiqueta de renta, colgada del cuello */
+  /* la etiqueta de talla única, colgada del cuello */
   s += cuando(5, '<path class="hilo-etq" d="M' + (c + 16) + ' ' + (y - 2) + ' q14 8 18 26"/>' +
                  '<rect class="etiqueta" x="' + (c + 26) + '" y="' + (y + 22) + '" width="86" height="28" rx="2"/>' +
-                 '<text class="t-cat" x="' + (c + 32) + '" y="' + (y + 34) + '">RENTA · POR USUARIO</text>' +
-                 '<text class="t-cat t-cat--sub" x="' + (c + 32) + '" y="' + (y + 45) + '">cada mes, para siempre</text>');
+                 '<text class="t-cat" x="' + (c + 32) + '" y="' + (y + 34) + '">TALLA ÚNICA</text>' +
+                 '<text class="t-cat t-cat--sub" x="' + (c + 32) + '" y="' + (y + 45) + '">no se ajusta a ti</text>');
 
   /* --- el traje a medida, paso a paso --- */
   c = CX_CON;
@@ -851,7 +852,7 @@
                  '<g transform="rotate(-8 ' + (px + 56) + ' ' + (py + 84) + ')">' +
                  '<rect class="sello" x="' + (px + 6) + '" y="' + (py + 75) + '" width="100" height="18" rx="2"/>' +
                  '<text class="t-sello" x="' + (px + 14) + '" y="' + (py + 87) + '">A TU NOMBRE</text></g>' +
-                 '<text class="t-gana" x="' + (c - 78) + '" y="' + (y + 80) + '" text-anchor="end">0 licencias por usuario</text>');
+                 '<text class="t-gana" x="' + (c - 78) + '" y="' + (y + 80) + '" text-anchor="end">la cambias cuando quieras</text>');
 
   document.getElementById("world").innerHTML = s;
 
@@ -874,7 +875,7 @@
       v:"la cotización aprobada se vuelve pedido, factura, cobro y aviso" },
     { label:"06 / 06 · El patrón es tuyo",
       k:"COT-14 · A nombre de tu empresa",
-      v:"código, base de datos y documentación por contrato · izquierda: renta por usuario" }
+      v:"código, base de datos y documentación por contrato · izquierda: talla única, de quien la vende" }
   ];
 
   var labelEl = document.getElementById("stateLabel");
