@@ -13,7 +13,7 @@
  * como nombres en una lista. Ésta enseña **el inicio del sistema, donde cada uno
  * de los ocho módulos pone su propio recuadro**: el embudo del CRM, el dinero
  * por cobrar del ERP, la dispersión de la nómina, los pedidos de la tienda, los
- * flujos que corren solos, el módulo a medida en producción, la disponibilidad
+ * flujos que corren solos, el módulo a medida en producción, los respaldos
  * de la nube y los técnicos en ruta. Es lo que de verdad ve alguien al abrir un
  * sistema de ocho módulos, y de paso dice en una imagen lo que el sitio dice en
  * palabras: que son ocho piezas de una sola cosa.
@@ -86,7 +86,7 @@ const MODULOS = [
   { nombre: 'Comercio en línea', corto: 'COMERCIO', cifra: '37', pie: 'pedidos hoy', figura: 'linea' },
   { nombre: 'Automatización', corto: 'AUTOMATIZACIÓN', cifra: '6', pie: 'flujos corriendo', figura: 'flujo' },
   { nombre: 'Software a medida', corto: 'A MEDIDA', cifra: 'v2.4', pie: 'módulo de rutas', figura: 'sello' },
-  { nombre: 'Infraestructura cloud', corto: 'CLOUD', cifra: '99.9%', pie: 'disponibilidad', figura: 'dias' },
+  { nombre: 'Infraestructura cloud', corto: 'CLOUD', cifra: 'al día', pie: 'respaldos', figura: 'dias' },
   { nombre: 'Apps móviles', corto: 'APPS', cifra: '12', pie: 'técnicos en ruta', figura: 'checks' },
 ]
 
@@ -95,7 +95,7 @@ const ALT =
   'ERP, nómina, comercio en línea, automatización, software a medida, ' +
   'infraestructura cloud y apps móviles— cada uno con su propio dato: tratos ' +
   'abiertos, dinero por cobrar, gente en la dispersión, pedidos del día, flujos ' +
-  'corriendo, el módulo a medida en producción, la disponibilidad y los técnicos ' +
+  'corriendo, el módulo a medida en producción, los respaldos al día y los técnicos ' +
   'en ruta.'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
@@ -172,7 +172,7 @@ function figura(tipo, x, y) {
       g.push(caja(x, y + 8, 58, 17, { r: 8.5, fill: C.verdeSuave }))
       g.push(texto(x + 29, y + 20, 'en producción', { tam: 7.5, peso: 600, color: C.verde, centro: true }))
       break
-    case 'dias': // Cloud: siete días en verde
+    case 'dias': // Cloud: siete días de respaldo en verde
       ;[0, 1, 2, 3, 4, 5, 6].forEach((i) => {
         g.push(`<rect x="${x + i * 8.6}" y="${y + 12}" width="6" height="12" rx="1.6" fill="${C.verde}" opacity="${0.55 + i * 0.07}"/>`)
       })

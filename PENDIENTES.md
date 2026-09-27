@@ -136,22 +136,14 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       escrita en un archivo público deja de ser contraseña. Se acuerda por el mismo canal
       privado que el token, y vive nada más en Cloudflare.
 
-- [ ] **Las cuatro afirmaciones de seguridad**, que pesan más que las del contrato. Al revisar
-      el tema de ciberseguridad salió que **Loomware ya la vende**, aunque no la llame así. La
-      página de Infraestructura Cloud promete hoy, en `src/data/servicios.js`:
-
-      - «Datos cifrados»
-      - «Cifrado, accesos por rol y persona, autenticación de dos factores y registro de quién
-        entró a qué»
-      - «Respaldo automático diario, retención definida y **pruebas periódicas de restauración**»
-      - «**Monitoreo**, respaldos, actualizaciones y soporte **continuos**»
-
-      Eso es un contrato de seguridad administrada escrito en la página, y es distinto en
-      naturaleza a todo lo demás: si un ERP falla el cliente pierde tiempo, pero si falla la
-      seguridad **Loomware es quien dijo que estaba protegida**. «Monitoreo continuo» es una
-      obligación permanente y «pruebas de restauración» es algo que alguien puede exigir que
-      se demuestre. O el contrato lo cubre con su alcance y sus límites, o el texto se ajusta a
-      lo que sí se hace. Es lo más urgente de este bloque.
+- [x] ~~**Las cuatro afirmaciones de seguridad**~~ — 2026-09-27, decidido con Aldo. Todo lo
+      que promete Infraestructura Cloud se hace, pero **se vende a la medida**: qué incluye, con
+      qué frecuencia y quién lo opera se define en el diagnóstico y queda en el contrato; Loomware
+      hospeda en su infraestructura o en la del cliente, y lo opera Loomware o el equipo del
+      cliente. La página de servicio, su FAQ y el recorrido lo dicen así; salieron «vigilancia
+      permanente», «nos enteramos antes que tus usuarios», «24 horas» y las cifras de respaldo
+      (2:00 am, 30 días, cada mes). **Sigue en pie que el contrato lo refleje**, dentro del punto
+      del contrato de arriba.
 
 - [ ] **La página del ERP promete que la fecha de entrega va en el contrato.** El recorrido
       decía antes «el primer módulo operando en semanas», que era un plazo al aire. Se cambió
@@ -162,14 +154,8 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       comprometer fecha, se quita esa línea de `recorridos-fuente/erp.html`; y si tiene un
       rango real —«el primero entre 4 y 8 semanas»—, se pone y queda mejor que las dos.
 
-- [ ] **Decidir si el «99.9% de disponibilidad» se queda en el dibujo del hero.** La pantalla de
-      ejemplo trae ocho cifras y siete son inofensivas —tratos abiertos, pedidos del día, técnicos
-      en ruta—. La octava no: **99.9%** es el número con el que se escriben los acuerdos de nivel
-      de servicio. Va dentro de una imagen rotulada «pantalla de ejemplo», así que a mi juicio se
-      lee como ilustración; pero junto a lo que promete la página de Infraestructura Cloud
-      —monitoreo continuo, respaldos probados— alguien podría citarla como compromiso. Si a Aldo
-      le parece, se cambia por algo que no tenga esa forma («al día», «respaldo probado») en un
-      minuto: es una línea de `scripts/hero-sistema.js`. Va junto a los otros puntos de contrato.
+- [x] ~~**Decidir si el «99.9% de disponibilidad» se queda en el dibujo del hero.**~~ —
+      2026-09-27: se cambió por «al día · respaldos» en `scripts/hero-sistema.js`.
 
 ## Alan
 

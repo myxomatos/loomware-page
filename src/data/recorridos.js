@@ -63,7 +63,7 @@ export const RECORRIDOS = [
     resumen:
       'Una semana de tu empresa dos veces: con el servidor en el cuartito de la oficina, y con la operación viviendo en otro lado, disponible desde donde estés.',
     descripcion:
-      'Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída vigilada, los accesos por persona y la oficina sin cuartito del servidor.',
+      'Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída con alertas, los accesos por persona y la oficina sin cuartito del servidor.',
   },
   {
     slug: 'apps-moviles',
