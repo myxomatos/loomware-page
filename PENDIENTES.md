@@ -68,8 +68,14 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 - [ ] **Que el contrato respalde lo que dice el sitio** — *[material de venta]*: «el contrato te
       entrega el código, la base de datos y la documentación» y «precio cerrado por ese alcance;
       si lo amplías, se cotiza aparte y lo apruebas tú». También va en el recorrido del ERP.
-- [ ] **Validar precio, plazos, migración y SAT** en `src/data/faq.js` y en cada `faq` de
-      `src/data/servicios.js`.
+- [x] ~~**Validar precio, plazos, migración y SAT**~~ — 2026-09-27, con Aldo. Plazos y SAT se
+      quedan como estaban. La migración se define en el diagnóstico y va en la propuesta (ya no
+      «parte del proyecto, no un extra»; el conteo físico del ERP pasó a «te ayudamos a
+      organizarlo»). Hay dos formas de tener un sistema: **los de Loomware, con cuota mensual
+      que se define en cada contrato**, o **uno a la medida que es del cliente**; la FAQ lo dice
+      como elección y «¿Cuánto cuesta?» menciona la cuota. Software a medida dejó de pintar la
+      renta por usuario como lo malo: el contraste es el sistema de catálogo que no se ajusta.
+      Fuera «muchos clientes» de nómina y tienda en línea.
 - [ ] **Validar las seis páginas de industria** (`src/data/industrias.js`) — *[material de
       venta]*: síntomas y solución por giro, junto con el «Hoy» por giro del recorrido del ERP.
 - [ ] **Confirmar que nómina y comercio en línea se ofrecen.** Si no, se quitan de
@@ -145,7 +151,7 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       (2:00 am, 30 días, cada mes). **Sigue en pie que el contrato lo refleje**, dentro del punto
       del contrato de arriba.
 
-- [ ] **La página del ERP promete que la fecha de entrega va en el contrato.** El recorrido
+- [x] ~~**La página del ERP promete que la fecha de entrega va en el contrato.**~~ Confirmado por Aldo el 2026-09-27: se queda. El recorrido
       decía antes «el primer módulo operando en semanas», que era un plazo al aire. Se cambió
       por algo más honesto y **más obligante**: *«La fecha te la damos en el diagnóstico, y esa
       fecha va en el contrato»*. Para sostenerlo hacen falta dos cosas: que **cada diagnóstico
