@@ -1,6 +1,6 @@
 # Pendientes de loomware-page
 
-Estado al 26 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
+Estado al 27 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
 > **Revisión de Aldo en curso desde el 22 de septiembre de 2026.** La rama `aldo` trae los 68
 > commits de `alan` más los ajustes de la revisión (ver «Resueltas el 2026-09-22/23»), así que
@@ -22,8 +22,8 @@ responde 500.
 | 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | `RESEND_API_KEY` ✅ 2026-09-24; faltan `DENUE_TOKEN`, `PROSPECT_KEY` y `VITE_GA_ID` |
 | 4 | **Retry deployment** (las variables no aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último de la rama → ⋯ | Repetir tras cada variable nueva |
 | 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | Formulario ✅ 2026-09-24: llega de `web@` a `aldo_sanchez@` y «Responder» va al prospecto |
-| 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | |
-| 7 | Probar en producción, y confirmar que aparece la banda de cookies si ya está `VITE_GA_ID` | <https://loomware.com.mx> | |
+| 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | ✅ 2026-09-27 (PR #4). Se mezcló sin cerrar las validaciones de contenido de «Aldo»; lo que no cuadre entra en otro PR |
+| 7 | Probar en producción, y confirmar que aparece la banda de cookies si ya está `VITE_GA_ID` | <https://loomware.com.mx> | 2026-09-27: las 25 URLs del sitemap dan 200, `/api/contacto` contesta y la CSP está puesta. Formulario probado en producción: el correo llega y «Responder» va al prospecto. Falta la banda de cookies (sin `VITE_GA_ID`) |
 | 8 | Search Console: confirmar la propiedad y enviar el sitemap (25 URLs) | <https://search.google.com/search-console> | |
 | 9 | Invitar a Alan a Cloudflare como Administrator | Manage Account → Members → Invite | |
 
@@ -81,7 +81,9 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       `src/data/video.js`; también acepta un MP4 de menos de ~15 MB en `public/video/`.
 - [ ] **Analítica.** Crear la propiedad de GA4 y marcar como conversiones los eventos que el
       código ya reporta: `generate_lead` (con `metodo` = formulario o calculadora),
-      `click_whatsapp` con el origen, y `calculadora_inicio`.
+      `click_whatsapp` con el origen, y `calculadora_inicio`. Desde el 2026-09-27
+      `generate_lead` se cuenta una vez por envío: antes la calculadora contaba doble y abrir o
+      recargar `/gracias` contaba uno falso.
 - [ ] **Logo en otros lados.** El logo del sitio es ahora la nube de cuatro lóbulos, sin
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
@@ -134,22 +136,14 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       escrita en un archivo público deja de ser contraseña. Se acuerda por el mismo canal
       privado que el token, y vive nada más en Cloudflare.
 
-- [ ] **Las cuatro afirmaciones de seguridad**, que pesan más que las del contrato. Al revisar
-      el tema de ciberseguridad salió que **Loomware ya la vende**, aunque no la llame así. La
-      página de Infraestructura Cloud promete hoy, en `src/data/servicios.js`:
-
-      - «Datos cifrados»
-      - «Cifrado, accesos por rol y persona, autenticación de dos factores y registro de quién
-        entró a qué»
-      - «Respaldo automático diario, retención definida y **pruebas periódicas de restauración**»
-      - «**Monitoreo**, respaldos, actualizaciones y soporte **continuos**»
-
-      Eso es un contrato de seguridad administrada escrito en la página, y es distinto en
-      naturaleza a todo lo demás: si un ERP falla el cliente pierde tiempo, pero si falla la
-      seguridad **Loomware es quien dijo que estaba protegida**. «Monitoreo continuo» es una
-      obligación permanente y «pruebas de restauración» es algo que alguien puede exigir que
-      se demuestre. O el contrato lo cubre con su alcance y sus límites, o el texto se ajusta a
-      lo que sí se hace. Es lo más urgente de este bloque.
+- [x] ~~**Las cuatro afirmaciones de seguridad**~~ — 2026-09-27, decidido con Aldo. Todo lo
+      que promete Infraestructura Cloud se hace, pero **se vende a la medida**: qué incluye, con
+      qué frecuencia y quién lo opera se define en el diagnóstico y queda en el contrato; Loomware
+      hospeda en su infraestructura o en la del cliente, y lo opera Loomware o el equipo del
+      cliente. La página de servicio, su FAQ y el recorrido lo dicen así; salieron «vigilancia
+      permanente», «nos enteramos antes que tus usuarios», «24 horas» y las cifras de respaldo
+      (2:00 am, 30 días, cada mes). **Sigue en pie que el contrato lo refleje**, dentro del punto
+      del contrato de arriba.
 
 - [ ] **La página del ERP promete que la fecha de entrega va en el contrato.** El recorrido
       decía antes «el primer módulo operando en semanas», que era un plazo al aire. Se cambió
@@ -160,14 +154,8 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       comprometer fecha, se quita esa línea de `recorridos-fuente/erp.html`; y si tiene un
       rango real —«el primero entre 4 y 8 semanas»—, se pone y queda mejor que las dos.
 
-- [ ] **Decidir si el «99.9% de disponibilidad» se queda en el dibujo del hero.** La pantalla de
-      ejemplo trae ocho cifras y siete son inofensivas —tratos abiertos, pedidos del día, técnicos
-      en ruta—. La octava no: **99.9%** es el número con el que se escriben los acuerdos de nivel
-      de servicio. Va dentro de una imagen rotulada «pantalla de ejemplo», así que a mi juicio se
-      lee como ilustración; pero junto a lo que promete la página de Infraestructura Cloud
-      —monitoreo continuo, respaldos probados— alguien podría citarla como compromiso. Si a Aldo
-      le parece, se cambia por algo que no tenga esa forma («al día», «respaldo probado») en un
-      minuto: es una línea de `scripts/hero-sistema.js`. Va junto a los otros puntos de contrato.
+- [x] ~~**Decidir si el «99.9% de disponibilidad» se queda en el dibujo del hero.**~~ —
+      2026-09-27: se cambió por «al día · respaldos» en `scripts/hero-sistema.js`.
 
 ## Alan
 
