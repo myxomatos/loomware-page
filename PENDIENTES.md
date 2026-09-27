@@ -1,6 +1,6 @@
 # Pendientes de loomware-page
 
-Estado al 26 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
+Estado al 27 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
 > **Revisión de Aldo en curso desde el 22 de septiembre de 2026.** La rama `aldo` trae los 68
 > commits de `alan` más los ajustes de la revisión (ver «Resueltas el 2026-09-22/23»), así que
@@ -22,8 +22,8 @@ responde 500.
 | 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | `RESEND_API_KEY` ✅ 2026-09-24; faltan `DENUE_TOKEN`, `PROSPECT_KEY` y `VITE_GA_ID` |
 | 4 | **Retry deployment** (las variables no aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último de la rama → ⋯ | Repetir tras cada variable nueva |
 | 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | Formulario ✅ 2026-09-24: llega de `web@` a `aldo_sanchez@` y «Responder» va al prospecto |
-| 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | |
-| 7 | Probar en producción, y confirmar que aparece la banda de cookies si ya está `VITE_GA_ID` | <https://loomware.com.mx> | |
+| 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | ✅ 2026-09-27 (PR #4). Se mezcló sin cerrar las validaciones de contenido de «Aldo»; lo que no cuadre entra en otro PR |
+| 7 | Probar en producción, y confirmar que aparece la banda de cookies si ya está `VITE_GA_ID` | <https://loomware.com.mx> | 2026-09-27: las 25 URLs del sitemap dan 200, `/api/contacto` contesta y la CSP está puesta. Falta enviar el formulario desde producción y la banda de cookies (sin `VITE_GA_ID`) |
 | 8 | Search Console: confirmar la propiedad y enviar el sitemap (25 URLs) | <https://search.google.com/search-console> | |
 | 9 | Invitar a Alan a Cloudflare como Administrator | Manage Account → Members → Invite | |
 
