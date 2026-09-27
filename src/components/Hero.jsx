@@ -7,7 +7,7 @@ import './Hero.css'
 
 const HIGHLIGHTS = [
   { icon: 'map-pin', label: 'Hecho en México' },
-  { icon: 'search', label: 'Precios competitivos' },
+  { icon: 'search', label: 'Quien diagnostica, diseña' },
   { icon: 'list-checks', label: 'Entregas por etapas' },
 ]
 

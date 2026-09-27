@@ -54,6 +54,9 @@
   font-size: var(--fs-sm);
   line-height: var(--lh-body);
 }
+.faq__cta {
+  padding: 0 var(--sp-5) var(--sp-5);
+}
 
 @media (max-width: 991px) {
   .faq__inner {

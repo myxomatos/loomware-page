@@ -4,12 +4,17 @@
  * (FAQPage) para que Google las muestre en resultados.
  *
  * Las respuestas sobre precio, plazos, migración y SAT describen la política
- * de la empresa: hay que validarlas con Aldo antes de producción.
+ * de la empresa: hay que validarlas con Aldo antes de producción. La de precio
+ * ya lo está (2026-09-27): no se publica ninguna cifra.
+ *
+ * `r` separa párrafos con una línea en blanco; `cta`, si existe, pone un botón
+ * debajo de la respuesta.
  */
 export const FAQ = [
   {
     p: '¿Cuánto cuesta?',
-    r: 'Trabajamos soluciones a la medida, así que el precio depende del alcance: por eso empezamos con una llamada sin costo y un diagnóstico a precio competitivo. Después recibes una propuesta con precio cerrado por ese alcance, antes de decidir nada. Si más adelante quieres ampliarlo, se cotiza aparte y lo apruebas tú; nunca aparece un cargo que no hayas autorizado.',
+    r: 'No publicamos precios porque cada sistema se hace a la medida. No competimos por ser los más baratos, sino por que funcione: el precio corresponde al tamaño de lo que resolvemos —usuarios, sedes, volumen y cuántos procesos conectamos—. Del tamaño de tu operación depende el alcance, no nuestra capacidad: trabajamos igual con una sucursal que con una operación de varias sedes y miles de usuarios.\n\nEmpezamos con una llamada de 30 minutos, sin costo, para entender tu operación y lo que quieres resolver. Con eso te proponemos un diagnóstico, con su precio según el tamaño de tu empresa, y del diagnóstico sale una propuesta con precio cerrado por ese alcance, antes de decidir nada. Si después quieres ampliarlo, se cotiza aparte y lo apruebas tú. El soporte y las actualizaciones posteriores a la entrega van en un contrato aparte, que decides tú.',
+    cta: { texto: '¿Cuánto costaría en tu empresa?', href: '#contacto' },
   },
   {
     p: '¿Cuánto tarda una implementación?',
