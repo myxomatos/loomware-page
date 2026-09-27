@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
 import { PREGUNTAS, calcular, pesos, FACTOR_PRESTACIONES, HORAS_MES, DIAS_HABILES } from '../data/calculadora'
 import { EMAIL, whatsappUrl } from '../data/contacto'
-import { rastrear } from '../lib/analytics'
+import { marcarLead, rastrear } from '../lib/analytics'
 import './calculadora.css'
 
 /*
@@ -67,7 +67,7 @@ export default function Calculadora() {
       })
       const data = await resp.json().catch(() => null)
       if (!resp.ok) throw new Error((data && data.error) || `Error ${resp.status}`)
-      rastrear('generate_lead', { metodo: 'calculadora' })
+      marcarLead('calculadora')
       window.location.assign('/gracias')
     } catch (err) {
       setEstado('error')

@@ -81,7 +81,9 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       `src/data/video.js`; también acepta un MP4 de menos de ~15 MB en `public/video/`.
 - [ ] **Analítica.** Crear la propiedad de GA4 y marcar como conversiones los eventos que el
       código ya reporta: `generate_lead` (con `metodo` = formulario o calculadora),
-      `click_whatsapp` con el origen, y `calculadora_inicio`.
+      `click_whatsapp` con el origen, y `calculadora_inicio`. Desde el 2026-09-27
+      `generate_lead` se cuenta una vez por envío: antes la calculadora contaba doble y abrir o
+      recargar `/gracias` contaba uno falso.
 - [ ] **Logo en otros lados.** El logo del sitio es ahora la nube de cuatro lóbulos, sin
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.

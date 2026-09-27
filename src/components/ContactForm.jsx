@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Icon from './Icon'
 import { EMAIL, WHATSAPP, whatsappUrl } from '../data/contacto'
-import { clicWhatsApp } from '../lib/analytics'
+import { clicWhatsApp, marcarLead } from '../lib/analytics'
 import './ContactForm.css'
 
 /*
@@ -60,6 +60,7 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
       })
       const data = await res.json().catch(() => null)
       if (!res.ok) throw new Error((data && data.error) || `Error ${res.status}`)
+      marcarLead('formulario')
       window.location.assign('/gracias')
     } catch (err) {
       setStatus('error')
