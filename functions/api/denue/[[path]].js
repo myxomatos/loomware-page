@@ -45,6 +45,9 @@ export async function onRequestGet({ request, env, params }) {
 
   const path = Array.isArray(params.path) ? params.path : [params.path]
   if (!METHODS.has(path[0])) return json({ error: 'Método DENUE no permitido' }, 400)
+  // encodeURIComponent deja «.» y «..» como están, y fetch los resuelve: la
+  // petición saldría de la API hacia otra ruta del INEGI con el token al final.
+  if (path.some((s) => s === '.' || s === '..')) return json({ error: 'Ruta no permitida' }, 400)
 
   const url = `${INEGI}/${path.map(segment).join('/')}/${env.DENUE_TOKEN}`
   const upstream = await fetch(url, { headers: { accept: 'application/json' } })

@@ -1,7 +1,7 @@
 /*
  * Dibuja la tarjeta social (og-image.png, 1200×630) con el sistema actual:
  * papel cálido, etiqueta monoespaciada en cobre, titular en morado sólido y la
- * nave isométrica que también abre el sitio.
+ * ilustración de la operación (hero-operacion.svg).
  *
  *   npm run og:imagen           (necesita el sitio servido; BASE_URL si no es :4173)
  *

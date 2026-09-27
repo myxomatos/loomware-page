@@ -120,7 +120,7 @@ const caja = (x, y, w, h, o = {}) =>
 /* La marca, dibujada como en el logotipo del sitio. */
 const marca = (x, y, e) =>
   `<g transform="translate(${x} ${y}) scale(${e})">` +
-  `<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" fill="none" stroke="${C.tinta}" stroke-width="1.8" stroke-linejoin="round"/>` +
+  `<path d="M19 19H4.8a2.8 2.8 0 1 1 .05-5.6 4 4 0 0 1 4.58-5.31A5 5 0 0 1 19 11a4 4 0 0 1 0 8Z" fill="none" stroke="${C.tinta}" stroke-width="1.8" stroke-linejoin="round"/>` +
   `<path d="M6.5 15.5 10.5 11.5l2.5 2.5L19.5 8" fill="none" stroke="${C.morado}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
   `<path d="M15.5 8h4v4" fill="none" stroke="${C.morado}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
   '</g>'

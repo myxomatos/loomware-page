@@ -86,6 +86,12 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
 
+- [ ] **Límite de intentos para `/prospectar`.** La Function compara la contraseña sin tope de
+      intentos y el repositorio es público, así que cualquiera sabe dónde probar. Se cierra sin
+      código: Cloudflare → Security → WAF → *Rate limiting rules*, una regla para la ruta
+      `/api/denue/` (por ejemplo, 10 peticiones por minuto por IP y bloqueo de 10 minutos).
+      Salió de la revisión del PR #4 (2026-09-26).
+
 - [ ] **Revisar lo que Alan cambió del 23 al 25 de septiembre**, antes de mezclar:
       1. **La sección de casos de éxito quedó rehecha** (`#casos`). El caso de Eduardo es el
          mismo, palabra por palabra; ahora va en tres bandas numeradas —quién es · 01 qué

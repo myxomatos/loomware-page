@@ -68,6 +68,8 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: ${GA}`,
   "font-src 'self'",
+  // El video de «Ver cómo funciona» (src/data/video.js): YouTube sin cookies.
+  'frame-src https://www.youtube-nocookie.com',
   `connect-src 'self' ${GTM} ${GA}`,
   "form-action 'self'",
   "frame-ancestors 'none'",
