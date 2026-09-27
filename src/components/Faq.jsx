@@ -12,7 +12,7 @@ const ldJson = JSON.stringify({
   mainEntity: FAQ.map((f) => ({
     '@type': 'Question',
     name: f.p,
-    acceptedAnswer: { '@type': 'Answer', text: f.r },
+    acceptedAnswer: { '@type': 'Answer', text: f.r.replace(/\n\n/g, ' ') },
   })),
 })
 
@@ -35,7 +35,16 @@ export default function Faq() {
                 <span>{f.p}</span>
                 <Icon name="chevron-right" size={18} className="faq__flecha" />
               </summary>
-              <p>{f.r}</p>
+              {f.r.split('\n\n').map((parrafo) => (
+                <p key={parrafo.slice(0, 24)}>{parrafo}</p>
+              ))}
+              {f.cta && (
+                <div className="faq__cta">
+                  <a href={f.cta.href} className="btn btn--outline btn--sm">
+                    {f.cta.texto}
+                  </a>
+                </div>
+              )}
             </details>
           ))}
         </div>

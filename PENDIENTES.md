@@ -268,9 +268,16 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
 
 ## Decisiones abiertas
 
-- [ ] **Precio — movimiento 05 del estudio comparativo.** Los 22 sitios medidos publican precio.
-      Basta un rango, un «desde» o una franja por tipo de proyecto. Es el pendiente de mayor
-      impacto en conversión y lo decide Aldo; `mattpocock-skills:grilling` ayuda a cerrarlo.
+- [x] ~~**Precio — movimiento 05 del estudio comparativo.**~~ — 2026-09-27, decidido por Aldo:
+      **no se publica ninguna cifra**, ni del proyecto ni del diagnóstico (el diagnóstico no tiene
+      precio fijo: depende del tipo y del tamaño de la empresa). En su lugar, se presume con
+      hechos y el precio se dice proporcional: «No competimos por ser los más baratos, sino por
+      que funcione», «trabajamos igual con una sucursal que con una operación de varias sedes y
+      miles de usuarios» —sin un número de usuarios, que se volvería techo—, y el camino
+      completo: llamada de 30 minutos sin costo → diagnóstico con su precio → propuesta con
+      precio cerrado → soporte en contrato aparte. En la FAQ, con un botón «¿Cuánto costaría en
+      tu empresa?», y en el recorrido del ERP. La insignia «Precios competitivos» del hero pasó a
+      «Quien diagnostica, diseña».
 - [ ] **Más casos de éxito.** GT-SHOP es el primero. Los siguientes se preparan con
       `npm run logo:cliente <origen> <destino>` y se escriben en `src/data/casos.js`.
 - [ ] **Conversión de bajo compromiso.** Una guía descargable («Checklist: ¿tu empresa necesita
