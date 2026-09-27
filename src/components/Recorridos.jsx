@@ -22,7 +22,25 @@ import './Recorridos.css'
  */
 const PREFIJO = '#recorrido-'
 
+/*
+ * En celular no se dibujan las escenas, y no basta con esconderlas: una imagen
+ * con `display:none` se descarga igual, así que serían diecisiete kilobytes
+ * tirados en el aparato donde más pesan. Aquí no se pintan siquiera.
+ */
+function useEscritorio() {
+  const [ancho, setAncho] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 600px)')
+    const ver = () => setAncho(mq.matches)
+    ver()
+    mq.addEventListener('change', ver)
+    return () => mq.removeEventListener('change', ver)
+  }, [])
+  return ancho
+}
+
 export default function Recorridos() {
+  const escritorio = useEscritorio()
   const [destacado, setDestacado] = useState(null)
 
   useEffect(() => {
@@ -59,8 +77,23 @@ export default function Recorridos() {
                   className={`recorrido${destacado === r.slug ? ' recorrido--destacado' : ''}`}
                   onClick={() => rastrear('recorrido_desde_inicio', { recorrido: r.slug })}
                 >
+                  {/* El primer paso del recorrido, como dibujo. Sale de la escena real
+                      con `npm run recorridos:escenas`; no es una ilustración aparte. */}
+                  {escritorio && (
+                  <img
+                    className="recorrido__escena"
+                    src={`/recorridos/escena-${r.slug}.svg`}
+                    alt={`Primer paso del recorrido: ${r.titulo}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  )}
                   <span className="recorrido__sol">{s ? s.nombre : r.servicio}</span>
                   <span className="recorrido__titulo">{r.titulo}</span>
+                  {/* El resumen ya estaba escrito en src/data/recorridos.js y el inicio no lo
+                      usaba. Se esconde en celular —ocho resúmenes eran media pantalla más— pero
+                      sigue en el documento, que es lo que lee un buscador. */}
+                  <span className="recorrido__resumen">{r.resumen}</span>
                   <span className="recorrido__pie">
                     <span className="recorrido__pasos">6 pasos</span>
                     <Icon name="arrow-right" size={14} />

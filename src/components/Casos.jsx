@@ -1,13 +1,25 @@
-import Icon from './Icon'
 import { CASOS } from '../data/casos'
 import './Casos.css'
 
 /*
- * Casos de éxito. No renderiza nada hasta que src/data/casos.js tenga al menos
- * un caso real; el footer también oculta su enlace mientras tanto.
+ * Casos de éxito. **Viven aquí y sólo aquí**: es la sección de la portada donde
+ * el sitio enseña clientes reales. Ningún caso se cita, se resume ni se enseña
+ * en otra página —ni en los recorridos, ni en las de servicio—, porque un
+ * cliente autoriza su nombre para lo que contrató, no para ilustrar otra cosa.
+ * Cuando entren más casos, entran aquí.
  *
- * La cita cierra la tarjeta y va firmada: la frase del dueño convence más que
- * cualquier párrafo nuestro, y firmada se puede comprobar.
+ * No renderiza nada hasta que src/data/casos.js tenga al menos un caso real; el
+ * footer también oculta su enlace mientras tanto.
+ *
+ * La tarjeta se lee de arriba abajo y en un solo orden, que es lo que antes no
+ * pasaba: la reja ponía la cita abajo a la izquierda y el resultado abajo a la
+ * derecha, así que dos cosas sin relación quedaban lado a lado y se leían como
+ * pareja. Ahora son tres bandas: quién es, qué pasó —numerado 01·02·03— y lo
+ * que dice el dueño.
+ *
+ * Los tres pasos llevan los nombres que el subtítulo de la sección promete. Se
+ * llamaban «Reto · Solución · Resultado» y el subtítulo anunciaba otras tres
+ * cosas: quien leía tenía que adivinar cuál era cuál.
  */
 export default function Casos() {
   if (CASOS.length === 0) return null
@@ -19,17 +31,15 @@ export default function Casos() {
           <span className="eyebrow">Clientes</span>
           <h2>Casos de éxito</h2>
           <p className="section__subtitle">
-            Qué se construyó, qué cambió y lo que dice quien lo opera todos los días.
+            Qué necesitaba, qué se construyó, qué cambió — y lo que dice quien lo opera todos
+            los días.
           </p>
         </header>
 
-        {/* Con un solo caso, la tarjeta angosta dejaba media pantalla en blanco y
-            estiraba el texto a diez renglones. Con uno solo se abre a dos columnas:
-            quién es y qué dijo a la izquierda, qué se hizo a la derecha. */}
         <ul className={`casos__grid${CASOS.length === 1 ? ' casos__grid--uno' : ''}`}>
           {CASOS.map((c) => (
             <li key={c.descripcion} className="card caso">
-              <div className="caso__head">
+              <header className="caso__quien">
                 {/* El logotipo va en un solo tono, para que acompañe sin competir
                     con la marca de la casa. Sólo aparece si el cliente autorizó
                     el uso de su marca. */}
@@ -42,29 +52,44 @@ export default function Casos() {
                     decoding="async"
                   />
                 )}
-                <span className="chip chip--soft">{c.servicio}</span>
-                <p className="caso__quien">
-                  {c.cliente ? <strong>{c.cliente}</strong> : null}
-                  {c.cliente ? ' · ' : ''}
+                {/* El nombre sólo se escribe si el logotipo no lo trae ya: con los
+                    dos, la tarjeta decía «GT-SHOP» tres veces contando la firma. */}
+                <p className="caso__giro">
+                  {c.cliente && !c.logo ? <strong>{c.cliente}</strong> : null}
+                  {c.cliente && !c.logo ? ' · ' : ''}
                   {c.descripcion}
                 </p>
-              </div>
-              <dl className="caso__detalle">
-                <div>
-                  <dt>Reto</dt>
+              </header>
+
+              <dl className="caso__pasos">
+                <div className="caso__paso">
+                  <dt>
+                    <span className="caso__n">01</span> Qué necesitaba
+                  </dt>
                   <dd>{c.reto}</dd>
                 </div>
-                <div>
-                  <dt>Solución</dt>
-                  <dd>{c.solucion}</dd>
-                </div>
-                <div className="caso__resultado">
+                <div className="caso__paso">
                   <dt>
-                    <Icon name="trending-up" size={16} /> Resultado
+                    <span className="caso__n">02</span> Qué se construyó
+                  </dt>
+                  {/* El distintivo del servicio va al principio de lo que se
+                      construyó, no suelto arriba de la tarjeta: ahí flotaba sin
+                      decir si era el giro del cliente, una categoría o lo que le
+                      vendimos. Y adentro del renglón, no en el título, para que
+                      las tres columnas empiecen a la misma altura. */}
+                  <dd>
+                    {c.servicio && <span className="caso__servicio">{c.servicio}</span>}
+                    {c.solucion}
+                  </dd>
+                </div>
+                <div className="caso__paso caso__paso--cambio">
+                  <dt>
+                    <span className="caso__n">03</span> Qué cambió
                   </dt>
                   <dd>{c.resultado}</dd>
                 </div>
               </dl>
+
               {c.cita && (
                 <blockquote className="caso__cita">
                   <p>“{c.cita}”</p>

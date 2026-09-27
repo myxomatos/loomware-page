@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Del andén al cobro · ERP | Loomware</title>
-    <meta name="description" content="Recorrido paso a paso de un ERP en una distribuidora: recepción contra la orden, ubicación, surtido, CFDI, cobro y margen real." />
+    <title>Del trabajo hecho al dinero cobrado · ERP | Loomware</title>
+    <meta name="description" content="Qué es un ERP y para qué sirve, paso a paso: lo que haces, lo que cobras y lo que gastas anotado una sola vez, y el dinero cuadrando al día." />
     <link rel="canonical" href="https://loomware.com.mx/recorridos/erp" />
     <meta name="theme-color" content="#A35C23" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -13,16 +13,16 @@
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Loomware" />
     <meta property="og:url" content="https://loomware.com.mx/recorridos/erp" />
-    <meta property="og:title" content="Del andén al cobro · ERP | Loomware" />
-    <meta property="og:description" content="Recorrido paso a paso de un ERP en una distribuidora: recepción contra la orden, ubicación, surtido, CFDI, cobro y margen real." />
-    <meta property="og:image" content="https://loomware.com.mx/og-image.png" />
+    <meta property="og:title" content="Del trabajo hecho al dinero cobrado · ERP | Loomware" />
+    <meta property="og:description" content="Qué es un ERP y para qué sirve, paso a paso: lo que haces, lo que cobras y lo que gastas anotado una sola vez, y el dinero cuadrando al día." />
+    <meta property="og:image" content="https://loomware.com.mx/recorridos/og-erp.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Del andén al cobro · ERP | Loomware" />
-    <meta name="twitter:description" content="Recorrido paso a paso de un ERP en una distribuidora: recepción contra la orden, ubicación, surtido, CFDI, cobro y margen real." />
-    <meta name="twitter:image" content="https://loomware.com.mx/og-image.png" />
+    <meta name="twitter:title" content="Del trabajo hecho al dinero cobrado · ERP | Loomware" />
+    <meta name="twitter:description" content="Qué es un ERP y para qué sirve, paso a paso: lo que haces, lo que cobras y lo que gastas anotado una sola vez, y el dinero cuadrando al día." />
+    <meta name="twitter:image" content="https://loomware.com.mx/recorridos/og-erp.png" />
 
     <style>
       :root {
@@ -41,8 +41,13 @@
         1. la barra de marca (brand__site) regresa al inicio, a la tarjeta de este recorrido
         2. la liga "formulario del sitio" del cierre (.otras) lleva al formulario de su servicio
     -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Archivo:wght@400;500;600&display=swap">
+        <link rel="preload" href="/fonts/azeret-mono-recorridos.woff2" as="font" type="font/woff2" crossorigin>
+        <style>
+          @font-face{font-family:'Azeret Mono';src:url('/fonts/azeret-mono-recorridos.woff2') format('woff2');
+            font-weight:400 700;font-style:normal;font-display:swap}
+          @font-face{font-family:'Archivo';src:url('/fonts/archivo-recorridos.woff2') format('woff2');
+            font-weight:400 600;font-style:normal;font-display:swap}
+        </style>
     <style>
       *,*::before,*::after{box-sizing:border-box;}
 
@@ -138,7 +143,9 @@
       /* ---------- barra de marca ---------- */
       .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
         padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
-      .brand__id{display:flex;align-items:center;gap:8px;}
+      /* El logotipo lleva al inicio y es el único camino de regreso: medía 26 px
+         de alto, la mitad de lo que se puede picar con el dedo. */
+      .brand__id{display:flex;align-items:center;gap:8px;min-height:44px;}
       .brand__id svg{display:block;flex:none;}
       .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
         letter-spacing:-.03em;color:var(--ink);}
@@ -159,8 +166,25 @@
       /* qué es un ERP, dibujado: cinco islas contra un solo sistema */
       .antes{margin:2px 0 0;display:flex;flex-direction:column;gap:6px;}
       .antes svg{display:block;width:100%;max-width:620px;height:auto;}
-      .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);max-width:70ch;
-        line-height:1.6;}
+      /* El mismo dibujo en dos formas. El ancho mide 620 de lienzo y en un teléfono
+         se muestra a 339: su texto de 9.5 px acababa en 5.2 px de pantalla, o sea
+         ilegible justo donde más gente lo lee. El alto mide 340 de lienzo, se
+         muestra casi 1:1 y su texto sale a 11 px de verdad. */
+      .antes .dg-alto{display:none;max-width:340px;}
+      @media (max-width:640px){
+        .antes .dg-ancho{display:none;}
+        .antes .dg-alto{display:block;}
+        .dg-alto .dg-t{font-size:11px;}
+        .dg-alto .dg-k{font-size:9px;}
+      }
+      /* Dos pies, no uno: cada mitad del dibujo lleva el suyo debajo. El recuadro
+         de la derecha empieza en el 56 % del ancho, así que la rejilla parte ahí. */
+      .antes figcaption{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+        line-height:1.6;max-width:620px;display:grid;grid-template-columns:56% 1fr;gap:0 16px;}
+      .antes figcaption b{color:var(--ink-2);font-weight:700;}
+      @media (max-width:640px){
+        .antes figcaption{grid-template-columns:1fr;gap:4px;}
+      }
       .dg-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;}
       .dg-line{stroke:var(--pain);stroke-width:1;fill:none;opacity:.6;}
       .dg-t{font-family:var(--mono);font-size:9.5px;fill:var(--ink-2);}
@@ -178,6 +202,10 @@
         gap:30px;margin-top:22px;align-items:start;}
       .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
         display:flex;flex-direction:column;gap:8px;min-width:0;}
+      /* En escritorio no cambia nada: el dibujo y la ficha viajan juntos en la
+         columna pegada. En celular se separan, y por qué está abajo, en la
+         consulta de 880. */
+      .figura__fijo{display:flex;flex-direction:column;gap:8px;min-width:0;}
 
       /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
       .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
@@ -193,9 +221,17 @@
 
       .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
         font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
-      .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+      /* 44 px de blanco táctil **sin** crecer la caja. Subirlo a min-height:44px
+         —como estaba— le sumaba 15 px al bloque que se queda pegado arriba, y a
+         360×740 eso dejaba fuera cuatro de los seis pasos por entre 2 y 11 px. El
+         área transparente de abajo hace el mismo trabajo sin ocupar pantalla. */
+      .play{position:relative;display:inline-flex;align-items:center;
+        font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
         color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
         border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+      /* Crece el blanco, no el botón: la caja mide 29 y 8 px arriba y abajo la
+         llevan a 45, por encima del mínimo. */
+      .play::after{content:"";position:absolute;inset:-8px -4px;}
       .play:hover{background:var(--signal);color:var(--surface);}
       .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
 
@@ -210,6 +246,7 @@
       /* expediente: un dato, una sola captura */
       .exp{border-top:1px solid var(--rule-soft);padding-top:9px;display:flex;
         flex-direction:column;gap:7px;}
+      .exp__nota{margin:2px 0 8px;font-size:11.5px;line-height:1.5;color:var(--ink-3);}
       .exp__t{color:var(--ink-3);}
       .chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
       .chip{display:flex;flex-direction:column;gap:0;padding:4px 8px;border-radius:2px;
@@ -225,6 +262,12 @@
 
       /* ---------- pasos ---------- */
       .steps{display:flex;flex-direction:column;min-width:0;}
+      /* El recorrido no tenía nombre: el índice del documento pasaba de «Todo
+         negocio sigue algo» a «Llega la mercancía», seis encabezados hermanos sin
+         nada que los presentara. Y decir cuántos son es información: el lector
+         sabe cuánto falta. */
+      .steps__t{font-family:var(--mono);font-weight:700;font-size:clamp(15px,1.7vw,18px);
+        letter-spacing:-.035em;margin:0 0 3px;color:var(--ink);text-transform:uppercase;}
       .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
         padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
       /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
@@ -233,6 +276,10 @@
         min-height:clamp(140px,27vh,240px);padding-block:12px;padding-left:14px;
         border-left:3px solid transparent;cursor:pointer;min-width:0;
         transition:opacity .35s ease,border-color .35s ease;opacity:.34;}
+      /* En una pantalla ancha caben hasta cuatro pasos a la vez: al 34 % había que
+         desplazarse para leer algo que ya estaba enfrente. El activo se sigue
+         distinguiendo por la raya de color y por su número en cobre. */
+      @media (min-width:881px){ .step{opacity:.62;} }
       .step.on{opacity:1;border-left-color:var(--signal);}
       .step:hover{opacity:.7;border-left-color:var(--rule);}
       .step.on:hover{opacity:1;border-left-color:var(--signal);}
@@ -244,7 +291,7 @@
       .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
         color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
         border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
-      .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+      .step h3{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
         margin:0;color:var(--ink);text-wrap:balance;}
 
       /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
@@ -258,16 +305,21 @@
       .vs__row--hoy p{color:var(--ink-2);}
       .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
       .vs__row--con .vs__lbl{color:var(--signal);}
+      /* La línea que traduce el paso a otro negocio. Va apagada y en cursiva
+         porque no es el paso: es la nota al margen de quien no tiene bodega. */
+      .enotro{margin:10px 0 0;font-size:13px;line-height:1.55;color:var(--ink-3);
+        padding-left:12px;border-left:2px solid var(--rule);}
+      .enotro b{color:var(--ink-2);font-weight:600;}
       .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
       .vs__row--gana .vs__lbl{color:var(--money);}
       .vs__row--gana p{font-weight:500;}
 
       /* ---------- secciones de abajo ---------- */
-      .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
-      .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
+      .giros,.faq,.costo,.pant{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
+      .giros h2,.faq h2,.costo h2,.cierre h2,.pant h2{font-family:var(--mono);font-weight:700;
         font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
         text-wrap:balance;color:var(--ink);text-transform:uppercase;}
-      .giros p,.faq p,.costo p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
+      .giros p,.faq p,.costo p,.pant p{margin:0 0 14px;max-width:78ch;color:var(--ink-2);font-size:13.5px;}
 
       /* 320px: da 3 columnas en escritorio y 2 en tablet, y las seis tarjetas
          de giros y de preguntas llenan las filas sin dejar celdas vacías. */
@@ -285,7 +337,15 @@
       .giros__cierre{margin:14px 0 0 !important;font-size:13.5px;color:var(--ink);}
 
       /* preguntas que el comprador hace antes de llamar */
-      .faq .rejilla b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+      /* Sólo la pregunta, que es el hijo directo del renglón. Sin el «> li >», esta
+         regla alcanzaba también las negritas de la respuesta y las tres frases más
+         comprometidas de la página —la fecha en el contrato, «no vendemos un
+         paquete», el precio cerrado por escrito— salían en monoespaciada cobre
+         dentro de un párrafo normal, como código pegado por accidente. */
+      .faq .rejilla > li > b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
+      /* La negrita de una respuesta es una negrita: hereda la tipografía del texto. */
+      .faq .rejilla span b{font-family:inherit;font-size:inherit;letter-spacing:normal;
+        text-transform:none;font-weight:700;color:var(--ink);}
 
       .costo .rejilla{grid-template-columns:minmax(0,1fr);max-width:780px;}
       .costo .rejilla li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;
@@ -293,20 +353,107 @@
       .costo .rejilla b{font-size:10px;color:var(--signal);line-height:1.6;
         font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
 
+      /* ---------- la pantalla: lo que se ve en la computadora ---------- */
+      /* En HTML y no en SVG: reflúye en el teléfono sin encoger su texto, hereda el
+         modo oscuro de la página y un buscador la lee. */
+      .pant .app{border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+        background:var(--surface);box-shadow:var(--shadow);max-width:760px;}
+      .pant .app__barra{display:flex;align-items:center;gap:10px;padding:7px 11px;
+        background:var(--paper);border-bottom:1px solid var(--rule-soft);
+        font-family:var(--mono);font-size:10px;}
+      .pant .app__marca{font-weight:700;letter-spacing:.06em;color:var(--ink);}
+      .pant .app__per{color:var(--ink-2);border:1px solid var(--rule-soft);
+        border-radius:2px;padding:2px 7px;}
+      .pant .app__nota{margin-left:auto;letter-spacing:.1em;color:var(--ink-3);
+        text-transform:uppercase;}
+      .pant .app__cuerpo{display:grid;grid-template-columns:122px minmax(0,1fr);}
+      .pant .app__lado{display:flex;flex-direction:column;gap:1px;padding:9px 0;
+        background:var(--paper);border-right:1px solid var(--rule-soft);
+        font-family:var(--mono);font-size:10.5px;}
+      .pant .app__lado span{padding:5px 11px;color:var(--ink-3);}
+      .pant .app__lado .es{color:var(--signal);background:var(--signal-soft);
+        border-left:2px solid var(--signal);padding-left:9px;}
+      .pant .app__main{padding:12px 13px;display:flex;flex-direction:column;gap:12px;min-width:0;}
+
+      .pant .kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+        background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:2px;}
+      .pant .kpi{background:var(--surface);padding:8px 10px;display:flex;flex-direction:column;gap:1px;}
+      .pant .kpi b{font-family:var(--mono);font-size:16px;font-weight:700;letter-spacing:-.03em;
+        color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.3;}
+      .pant .kpi--gana b{color:var(--money);}
+      .pant .kpi span{font-family:var(--mono);font-size:9px;color:var(--ink-3);line-height:1.4;}
+
+      .pant .tabla__t{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+        text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
+      .pant .fila{display:grid;grid-template-columns:minmax(0,1fr) 74px 52px;
+        align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);}
+      .pant .fila:first-of-type{border-top:0;}
+      .pant .tabla__t + .fila{border-top:0;}
+      /* Donde iría la razón social de un cliente va un renglón gris: los nombres no
+         se inventan, y así se ve de verdad un tablero con datos de terceros. */
+      .pant .anon{height:8px;border-radius:1px;background:var(--rule);opacity:.65;}
+      .pant .mon{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);
+        font-variant-numeric:tabular-nums;text-align:right;}
+      .pant .mar{font-family:var(--mono);font-size:11.5px;color:var(--signal);
+        font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;}
+      /* Con los encabezados, el renglón gris se explica solo: es la columna del
+         cliente, cubierta. Antes hacía falta un párrafo abajo para decirlo, y ese
+         párrafo le explicaba al lector una regla nuestra que no pidió. */
+      .pant .fila--enc{padding:0 0 5px;border-top:0;}
+      .pant .fila--enc span{font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+        text-transform:uppercase;color:var(--ink-3);}
+      .pant .fila--enc + .fila{border-top:1px solid var(--rule-soft);}
+      .pant .fila--suma{border-top:1px solid var(--rule);}
+      .pant .fila--suma .mon,.pant .fila--suma .mar{color:var(--ink);font-weight:700;}
+      .pant .fila--suma .lbl{font-size:9.5px;color:var(--ink-3);}
+
+      /* Con el padre delante: .pant p les gana por especificidad y el pie salía a
+         13.5 px, más fuerte que la frase que explica la tabla. */
+      .pant .pant__lee{margin:13px 0 0;font-size:13.5px;color:var(--ink);max-width:62ch;}
+      .pant .pant__pie{margin:9px 0 0;font-family:var(--mono);font-size:10px;
+        line-height:1.7;color:var(--ink-3);max-width:70ch;}
+
+      @media (max-width:560px){
+        /* La barra lateral de 122 px se comía un tercio del teléfono: pasa a ser un
+           renglón de pestañas, que es como se ve un sistema en un celular. */
+        .pant .app__cuerpo{grid-template-columns:minmax(0,1fr);}
+        .pant .app__lado{flex-direction:row;overflow-x:auto;gap:0;padding:0;
+          border-right:0;border-bottom:1px solid var(--rule-soft);
+          scrollbar-width:none;-ms-overflow-style:none;}
+        .pant .app__lado::-webkit-scrollbar{display:none;}
+        .pant .app__lado span{padding:7px 10px;white-space:nowrap;}
+        .pant .app__lado .es{border-left:0;border-bottom:2px solid var(--signal);padding-left:10px;}
+        .pant .fila{grid-template-columns:minmax(0,1fr) 66px 52px;gap:7px;}
+      }
+
       /* ---------- cierre ---------- */
+      /* La puerta de en medio: aparece en cuanto terminan los seis pasos, que es
+         donde el lector ya se convenció. Antes el único botón estaba a 6.6 pantallas
+         del inicio y había que aguantar tres más para encontrarlo. */
+      .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+        padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+      .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+      @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
+
       .cierre{margin-top:26px;max-width:640px;padding-left:16px;
         border-left:3px solid var(--signal);}
       .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
-      .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+      /* 48 px de alto: es la medida que el sistema del sitio fija para botones y
+         campos. Medido antes: 42. Va con min-height y no con más relleno, para que
+         el texto no se mueva. */
+      .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;
+        gap:9px;padding:11px 18px;border-radius:2px;
         font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
         text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
       .btn svg{flex:none;}
       .btn:hover{filter:brightness(1.1);}
       .btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
-      .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
-        color:var(--ink-3);line-height:1.8;}
+      /* 10 px escondía la segunda vía dentro de un párrafo. A 12.5 se lee como
+         lo que es: la otra forma de escribirnos. */
+      .cierre .otras{margin:14px 0 0;max-width:none;font-family:var(--mono);font-size:12.5px;
+        color:var(--ink-3);line-height:1.9;}
       /* El correo no se parte a media dirección: se baja entero. */
-      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+      .cierre .otras a{color:var(--signal);font-weight:500;text-underline-offset:3px;
         overflow-wrap:normal;word-break:normal;white-space:nowrap;}
       .cierre .otras .par{display:inline;}
       .cierre .otras a:hover{color:var(--signal);}
@@ -337,11 +484,27 @@
         /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
            los pasos pasan por debajo, igual que en escritorio */
         .cols{display:block;margin-top:16px;}
-        .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+        /* Medido a 390x844: con la ficha adentro, lo pegado media 590 px de los
+           844 del telefono y dejaba 254 para leer, cuando los pasos miden de 269 a
+           386. Ninguno cabia: el mejor se veia al 69 %. Y la ficha sola pesaba
+           214 px —lo mismo que el dibujo— repitiendo el codigo que el rotulo ya
+           dice arriba. Aqui se queda pegado el dibujo, y la ficha se lee una vez
+           antes de los pasos. Quedan 488 px de lectura y los seis caben. */
+        /* display:contents y no static: un elemento pegado sólo se queda dentro de
+           la caja de su padre, y la de .figure termina donde empiezan los pasos, así
+           que el dibujo se despegaba en el paso 03. Sin caja, lo pegado cuelga de
+           .cols, que abarca los seis. */
+        .figure{display:contents;}
+        .figura__fijo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
           background:var(--paper);padding-block:8px;margin-bottom:6px;
           border-bottom:1px solid var(--rule-soft);}
+        .exp{margin:14px 0 4px;}
         .stage svg{max-height:33vh;}
-        .legend{display:none;}
+        /* La leyenda no se escondía por gusto: dentro de lo pegado eran píxeles
+           que le quitaba a la lectura del paso. Fuera de ahí se lee una vez, y en
+           el teléfono es donde más falta hace, porque sin ella la línea punteada
+           del dibujo no significa nada. */
+        .legend{gap:3px 12px;font-size:9.5px;margin:2px 0 0;}
         /* en tablet vertical el texto corría a 100 caracteres por renglón */
         .steps{max-width:660px;}
         .step{min-height:clamp(120px,22vh,190px);padding-left:11px;opacity:.4;}
@@ -356,12 +519,30 @@
         .gauge{margin-left:0;}
       }
     </style>
+
+    <style>
+      /* El logotipo es un enlace al inicio sólo en la versión del sitio, así que
+         su estilo vive aquí y no en la fuente: sin subrayado ni azul de enlace,
+         y con una señal al pasar encima para que se note que lleva a algún lado. */
+      .brand__id { color: inherit; text-decoration: none; border-radius: 6px; }
+      .brand__id:hover .brand__name { color: var(--signal); }
+      .brand__id:focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
+    </style>
   </head>
   <body>
+<noscript><style>
+  /* Sin guion la escena llega vacía: se retira el recuadro, el botón que no
+     avanza y el rótulo del paso, y los seis pasos se encienden. Queda un
+     artículo que se lee entero. */
+  .stage, .play, #stateLabel{display:none;}
+  .step{opacity:1;cursor:default;border-left-color:var(--rule-soft);}
+  .chip{opacity:1;}
+</style></noscript>
+
 <div class="wrap">
 
   <div class="brand">
-    <span class="brand__id">
+    <a class="brand__id" href="/#recorrido-erp" aria-label="Ir al inicio de Loomware">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
         <path d="M19 19H4.8a2.8 2.8 0 1 1 .05-5.6 4 4 0 0 1 4.58-5.31A5 5 0 0 1 19 11a4 4 0 0 1 0 8Z" stroke="var(--ink)" stroke-width="1.8"/>
@@ -371,22 +552,20 @@
         <path d="M15.5 8h4v4" stroke="var(--signal)" stroke-width="2"/>
       </svg>
       <span class="brand__name">Loomware</span>
-    </span>
-    <a class="brand__site" href="/#recorrido-erp">loomware.com.mx</a>
+    </a>
   </div>
 
   <header class="mast">
     <div class="eyebrow lbl">ERP · un ejemplo, paso a paso</div>
-    <h1>Del andén al cobro</h1>
-    <p class="deck">Un <b>ERP</b> es un solo sistema donde compras, almacén, ventas, facturación y
-      cobranza escriben y leen lo mismo. Para verlo seguimos una tarima en una distribuidora:
-      entra por el andén y sale convertida en dinero cobrado. Seis paradas y
-      <b>una sola captura</b>. El giro no cambia la idea: abajo está el mismo recorrido en
-      otros cinco.</p>
+    <h1>Del trabajo hecho al dinero cobrado</h1>
+    <p class="deck">Un <b>ERP</b> es la libreta única del negocio: lo que haces, lo que cobras y
+      lo que gastas se anota <b>una sola vez</b>, y todos lo ven al instante. Abajo está esa
+      diferencia dibujada, y después el camino completo paso a paso: una caja de mercancía
+      entra a una bodega y sale convertida en dinero cobrado. ¿Lo tuyo no es una bodega? Sigue leyendo: el camino es el mismo con otras palabras.</p>
 
     <figure class="antes">
-      <svg viewBox="0 0 620 124" role="img"
-           aria-label="A la izquierda, cinco recuadros sueltos —compras, almacén, ventas, facturación y cobranza— unidos por líneas cruzadas. A la derecha, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
+      <svg class="dg-ancho" viewBox="0 0 620 124" role="img"
+           aria-label="A la izquierda, cinco recuadros sueltos —compras, bodega, ventas, facturas y cobros— unidos por líneas cruzadas. A la derecha, un solo recuadro que contiene las cinco áreas en renglones ordenados.">
         <path class="dg-line" d="M52 17 L198 13"/>
         <path class="dg-line" d="M52 17 L212 57"/>
         <path class="dg-line" d="M74 61 L198 13"/>
@@ -400,10 +579,10 @@
         <rect class="dg-box" x="164" y="46" width="96" height="22" rx="2"/>
         <rect class="dg-box" x="72"  y="94" width="96" height="22" rx="2"/>
         <text class="dg-t" x="12"  y="21">Compras</text>
-        <text class="dg-t" x="158" y="17">Almacén</text>
+        <text class="dg-t" x="158" y="17">Bodega</text>
         <text class="dg-t" x="34"  y="65">Ventas</text>
-        <text class="dg-t" x="172" y="61">Facturación</text>
-        <text class="dg-t" x="80"  y="109">Cobranza</text>
+        <text class="dg-t" x="172" y="61">Facturas</text>
+        <text class="dg-t" x="80"  y="109">Cobros</text>
         <path class="dg-arrow" d="M288 62 L326 62"/>
         <path class="dg-arrow" d="M318 56 L326 62 L318 68"/>
         <rect class="dg-erp" x="346" y="2" width="268" height="118" rx="3"/>
@@ -414,59 +593,133 @@
         <rect class="dg-row" x="356" y="78" width="248" height="15" rx="1"/>
         <rect class="dg-row" x="356" y="96" width="248" height="15" rx="1"/>
         <text class="dg-t" x="364" y="35">Compras</text>
-        <text class="dg-t" x="364" y="53">Almacén</text>
+        <text class="dg-t" x="364" y="53">Bodega</text>
         <text class="dg-t" x="364" y="71">Ventas</text>
-        <text class="dg-t" x="364" y="89">Facturación</text>
-        <text class="dg-t" x="364" y="107">Cobranza</text>
+        <text class="dg-t" x="364" y="89">Facturas</text>
+        <text class="dg-t" x="364" y="107">Cobros</text>
       </svg>
-      <figcaption>Izquierda: cinco lugares que se copian datos a mano. Derecha: un lugar donde
-        los cinco escriben y leen. Eso es todo lo que es un ERP.</figcaption>
+      <!-- Misma escena que la de arriba, apilada para el teléfono. Se calla ante
+           un lector de pantalla: quien no la ve ya la oyó una vez. -->
+      <svg class="dg-alto" viewBox="0 0 340 306" aria-hidden="true" focusable="false">
+        <path class="dg-line" d="M90 17 L236 13"/>
+        <path class="dg-line" d="M90 17 L250 57"/>
+        <path class="dg-line" d="M112 61 L236 13"/>
+        <path class="dg-line" d="M112 61 L250 57"/>
+        <path class="dg-line" d="M112 61 L158 105"/>
+        <path class="dg-line" d="M250 57 L158 105"/>
+        <path class="dg-line" d="M90 17 L158 105"/>
+        <rect class="dg-box" x="42"  y="6"  width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="188" y="2"  width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="64"  y="50" width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="202" y="46" width="96" height="22" rx="2"/>
+        <rect class="dg-box" x="110" y="94" width="96" height="22" rx="2"/>
+        <text class="dg-t" x="50"  y="21">Compras</text>
+        <text class="dg-t" x="196" y="17">Bodega</text>
+        <text class="dg-t" x="72"  y="65">Ventas</text>
+        <text class="dg-t" x="210" y="61">Facturas</text>
+        <text class="dg-t" x="118" y="109">Cobros</text>
+        <path class="dg-arrow" d="M170 132 L170 158"/>
+        <path class="dg-arrow" d="M164 150 L170 158 L176 150"/>
+        <rect class="dg-erp" x="6" y="168" width="328" height="132" rx="3"/>
+        <text class="dg-k" x="18" y="184">UN SOLO SISTEMA</text>
+        <rect class="dg-row" x="16" y="192" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="210" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="228" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="246" width="308" height="15" rx="1"/>
+        <rect class="dg-row" x="16" y="264" width="308" height="15" rx="1"/>
+        <text class="dg-t" x="24" y="203">Compras</text>
+        <text class="dg-t" x="24" y="221">Bodega</text>
+        <text class="dg-t" x="24" y="239">Ventas</text>
+        <text class="dg-t" x="24" y="257">Facturas</text>
+        <text class="dg-t" x="24" y="275">Cobros</text>
+      </svg>
+      <figcaption>
+        <span><b>Hoy.</b> Cada área lleva su libreta, y alguien copia de una a otra.</span>
+        <span><b>Con el sistema.</b> Una sola. Nadie vuelve a copiar.</span>
+      </figcaption>
     </figure>
 
     <div class="specline">
-      <span>El dato se captura <b>1 vez</b></span>
-      <span>Inventario valuado <b>al momento</b></span>
-      <span>Facturación <b>CFDI 4.0</b></span>
-      <span>Arranque <b>módulo por módulo</b></span>
+      <span>Cada dato se anota <b>1 vez</b></span>
+      <span>Sabes qué hay y cuánto vale <b>al momento</b></span>
+      <span>Facturas <b>que acepta el SAT</b></span>
+      <span>Arranca <b>por partes, no de golpe</b></span>
     </div>
   </header>
+  <section class="giros">
+    <h2>Todo negocio sigue algo</h2>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Sigues la caja de mercancía: llega, se guarda, se separa para un cliente, se entrega y se cobra.</span>
+        <span class="hoy">Hoy: lo que dice el sistema y lo que hay en la bodega no es lo mismo.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Sigues la pieza que fabricas: entra el material, se arma, sale terminada y se cobra.</span>
+        <span class="hoy">Hoy: cuánto costó hacerla se sabe hasta fin de mes.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Sigues la obra: lo que dijiste que iba a costar, el material que mandas, cómo va y lo que cobras por etapa.</span>
+        <span class="hoy">Hoy: el material sale a la obra y nadie lo descuenta de esa obra.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Sigues el trabajo de tu gente: las horas, los gastos, lo que entregas y lo que cobras.</span>
+        <span class="hoy">Hoy: cobras lo que dijiste al principio, no lo que de verdad te costó.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Sigues el producto: entra, se reparte entre tus tiendas y tu página, se vende y se repone.</span>
+        <span class="hoy">Hoy: vendes en la página algo que ya se acabó en la tienda.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>Sigues la cita: la agenda, el material que se usa, el servicio que das y el cobro.</span>
+        <span class="hoy">Hoy: el material se descuenta a mano y el seguro rechaza por datos que no cuadran.</span></li>
+    </ul>
+    <p class="giros__cierre">¿No está el tuyo? <b>Si alguien en tu negocio anota lo mismo en dos
+      lados, esto es para ti.</b> Abajo seguimos el primero paso a paso: cambia la palabra y es
+      tu negocio.</p>
+  </section>
+
 
   <div class="cols">
     <div class="figure">
 
+      <div class="figura__fijo">
+
       <div class="readout" aria-live="polite">
+        <!-- Lo mismo que el estado 0 de la tabla de abajo: el guion lo escribe en
+             cuanto arranca, así que cualquier otro texto aquí no se ve nunca y de
+             paso parpadea al cargar. -->
         <span class="readout__k lbl" id="hudK">OC-1182 · Recepción</span>
-        <span class="readout__v" id="hudV">40 de 40 pzas · proveedor validado · cuenta por pagar abierta</span>
+        <span class="readout__v" id="hudV">40 de 40 piezas · llegó completo · ya sabes cuánto le debes</span>
       </div>
 
       <div class="stage">
         <svg id="scene" viewBox="14 44 744 462" role="img"
-             aria-label="Vista isométrica de una distribuidora: al fondo la oficina con el sistema y los racks de almacén, al centro la mesa de surtido, al frente los andenes de recepción y embarque. Un montacargas recorre el ciclo y de cada parada sale una línea de color hacia el sistema.">
+             aria-label="Dibujo de una bodega vista desde arriba: al fondo la oficina con el sistema y los estantes de la bodega, al centro la mesa donde se junta el pedido, al frente las puertas de entrada y salida. Un montacargas recorre el ciclo y de cada parada sale una línea de color hacia el sistema.">
           <g id="world"></g>
         </svg>
       </div>
 
       <div class="cap">
         <span id="stateLabel">01 / 06 · Andén de recepción</span>
-        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Que avance solo</button>
         <span>Cifras de ejemplo</span>
       </div>
 
+      </div>
+
       <ul class="legend">
-        <li><span class="sw sw--beam"></span>El dato que viaja al sistema</li>
+        <li><span class="sw sw--beam"></span>Lo que se anota y viaja al sistema</li>
         <li><span class="sw sw--sys"></span>El sistema: un solo lugar</li>
-        <li><span class="sw sw--money"></span>Andén de embarque</li>
+        <li><span class="sw sw--money"></span>La puerta de salida</li>
       </ul>
 
+
       <div class="exp">
-        <div class="exp__t lbl">Expediente · un dato, una sola captura</div>
+        <div class="exp__t lbl">La ficha · cada dato, una sola vez</div>
+        <p class="exp__nota">Cada papel lleva su número. Así el sistema sabe que los cinco
+          hablan del mismo pedido, y por eso no hay que volver a escribirlo.</p>
         <ul class="chips" id="chips">
           <li class="chip" id="c0"><b>OC-1182</b><span>recepción</span></li>
           <li class="chip" id="c1"><b>ENT-2207</b><span>entrada</span></li>
-          <li class="chip" id="c2"><b>PED-3471</b><span>apartado</span></li>
-          <li class="chip" id="c3"><b>A-1140</b><span>CFDI timbrado</span></li>
-          <li class="chip" id="c4"><b>REP-0915</b><span>pago aplicado</span></li>
-          <li class="chip chip--tot" id="ctot"><b>1 captura</b><span>en todo el ciclo</span></li>
+          <li class="chip" id="c2"><b>PED-3471</b><span>apartado para el cliente</span></li>
+          <li class="chip" id="c3"><b>A-1140</b><span>factura enviada al SAT</span></li>
+          <li class="chip" id="c4"><b>REP-0915</b><span>pago registrado</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 sola vez</b><span>en todo el camino</span></li>
         </ul>
       </div>
 
@@ -474,168 +727,210 @@
 
     <div class="steps" id="steps">
 
+      <h2 class="steps__t">Seis pasos, un solo pedido</h2>
       <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
 
       <section class="step on" tabindex="0" data-i="0">
-        <div class="step-head"><span class="paso">01</span><h2>Recepción contra la orden</h2><span class="gauge">40 / 40 pzas</span></div>
+        <div class="step-head"><span class="paso">01</span><h3>Llega la mercancía</h3><span class="gauge">40 de 40 piezas</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>La remisión se firma en el andén y alguien la captura tres días después, en oficinas.</p></div>
+            <p>El papel de entrega se firma en la puerta y alguien lo anota tres días después, en oficinas.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Se recibe contra la orden de compra en pantalla. Si llegan 38 de 40, la diferencia
-              queda registrada en la orden en ese momento.</p></div>
+            <p>En la pantalla se compara con el pedido que le hiciste al proveedor. Si llegan
+                  38 de 40, la diferencia queda anotada ahí mismo.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Le pagas al proveedor lo que de verdad te entregó.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en una clínica es el material que llega del proveedor; en una obra, el cemento que baja del camión.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="1">
-        <div class="step-head"><span class="paso">02</span><h2>Ubicación y existencia</h2><span class="gauge">A-04-12</span></div>
+        <div class="step-head"><span class="paso">02</span><h3>Dónde quedó y cuánto hay</h3><span class="gauge">A-04-12</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>La tarima se guarda «allá al fondo» y el Excel se actualiza los viernes.</p></div>
+            <p>La mercancía se guarda «allá al fondo» y el Excel se actualiza los viernes.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Se guarda en una ubicación con nombre, la existencia sube al instante y el costo
-              ya trae el flete prorrateado.</p></div>
+            <p>Se guarda en un lugar con nombre, lo que hay sube al instante, y el costo ya
+                  incluye lo que pagaste de envío.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Compras sobre lo que hay, no sobre el susto de quedarte sin.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en un despacho son las horas que ya lleva cada trabajo; en una tienda, cuántas piezas quedan.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="2">
-        <div class="step-head"><span class="paso">03</span><h2>Pedido y surtido</h2><span class="gauge">PED-3471</span></div>
+        <div class="step-head"><span class="paso">03</span><h3>Se junta el pedido</h3><span class="gauge">PED-3471</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El vendedor le habla al almacén para preguntar si hay. Dos vendedores prometen la
+            <p>El vendedor le habla a la bodega para preguntar si hay. Dos vendedores prometen la
               misma pieza y uno queda mal.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El pedido aparta la mercancía al instante y arma la lista de surtido por ubicación.</p></div>
+            <p>El pedido aparta la mercancía al instante y arma la lista de lo que hay que juntar, en el orden de los pasillos.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Prometes fechas que sí cumples y se surte en un solo recorrido.</p></div>
+            <p>Prometes fechas que sí cumples, y se junta todo en una sola vuelta.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en una clínica es preparar la charola de la cita; en una obra, cargar lo que sale hoy.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>Embarque y factura</h2><span class="gauge">CFDI 4.0</span></div>
+        <div class="step-head"><span class="paso">04</span><h3>Sale y se factura</h3><span class="gauge">factura enviada al SAT</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Lo que se embarcó se vuelve a capturar en el sistema de facturación, días después.</p></div>
+            <p>Lo que salió se vuelve a anotar en el sistema de facturas, días después.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>La remisión y el CFDI salen del mismo pedido que se surtió, el mismo día.</p></div>
+            <p>El papel de entrega y la factura salen del mismo pedido que se juntó, el mismo día.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Facturas el día que sale el camión, así el plazo de crédito empieza antes.</p></div>
+            <p>Facturas el día que sale el camión. Y como el plazo para pagarte empieza con la factura, te pagan antes.</p></div>
         </div>
+        <p class="enotro"><b>En otro negocio:</b> en un despacho es entregar el trabajo y facturarlo el mismo día, no tres semanas después.</p>
       </section>
 
       <section class="step" tabindex="0" data-i="4">
-        <div class="step-head"><span class="paso">05</span><h2>Cobro y complemento</h2><span class="gauge">cartera al día</span></div>
+        <div class="step-head"><span class="paso">05</span><h3>Entra el dinero</h3><span class="gauge">sabes quién te debe</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Alguien concilia el banco contra las facturas a mano, cuando puede.</p></div>
+            <p>Alguien compara el banco contra las facturas a mano, cuando puede.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El pago se aplica a la factura que le corresponde, el complemento se timbra solo
-              y la antigüedad de saldos se actualiza.</p></div>
+            <p>El pago se pega a la factura que le toca, el comprobante del pago se hace solo
+              y sabes cuánto lleva esperando cada factura.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Cobras antes porque sabes a quién seguirle hoy.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una clínica es saber qué le falta pagar
+            al seguro; en un despacho, qué cliente lleva dos meses sin liquidar.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>Tablero de dirección</h2><span class="gauge">margen 22.4 %</span></div>
+        <div class="step-head"><span class="paso">06</span><h3>El tablero del dueño</h3><span class="gauge">ganancia 22.4 %</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El margen se sabe hasta el cierre, es un promedio y nadie jura que esté bien.</p></div>
+            <p>Cuánto ganaste de verdad se sabe a fin de mes, es un promedio, y nadie jura que esté bien.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Ningún dato se capturó dos veces en todo el recorrido: el margen por producto,
-              por cliente y por vendedor es el real.</p></div>
+            <p>Ningún dato se anotó dos veces en todo el camino: la ganancia por producto,
+              por cliente y por vendedor es la de verdad.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Decides con el número de hoy, no con el del mes pasado.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una obra, cuál dejó dinero; en una
+            tienda, qué conviene reponer.</p>
         </div>
       </section>
 
     </div>
   </div>
 
-  <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos una distribuidora porque ahí el recorrido se ve con los ojos. El ERP no cambia
-      entre un giro y otro; cambia <b>qué se sigue</b> y qué duele hoy.</p>
-    <ul class="rejilla">
-      <li class="este"><b>Distribuidoras y mayoristas</b>
-        <span>Se sigue la tarima: se recibe, se guarda, se surte, se embarca y se cobra.</span>
-        <span class="hoy">Hoy: el inventario del sistema no es el del piso.</span></li>
-      <li><b>Manufactura y talleres</b>
-        <span>Se sigue la orden de producción: insumos que entran, lote que se consume, producto terminado que sale facturado.</span>
-        <span class="hoy">Hoy: el costo real de la pieza se conoce hasta el cierre.</span></li>
-      <li><b>Constructoras y servicios en campo</b>
-        <span>Se sigue la obra: presupuesto, material que sale a obra, avance, estimación y cobro por etapa.</span>
-        <span class="hoy">Hoy: el material se va a la obra sin que nadie lo descuente de ella.</span></li>
-      <li><b>Despachos y consultorías</b>
-        <span>Se sigue el proyecto: horas del equipo, gastos, entregable, factura y cobranza.</span>
-        <span class="hoy">Hoy: se factura lo presupuestado, no lo que de verdad costó.</span></li>
-      <li><b>Comercio y retail</b>
-        <span>Se sigue la pieza: entra al almacén, se reparte entre sucursales y tienda en línea, se vende y se repone.</span>
-        <span class="hoy">Hoy: se vende en línea lo que ya se acabó en la sucursal.</span></li>
-      <li><b>Clínicas y servicios profesionales</b>
-        <span>Se sigue la cita: agenda, insumos que se consumen, servicio prestado, factura y cobro al paciente o a la aseguradora.</span>
-        <span class="hoy">Hoy: el insumo se descuenta a mano y la aseguradora rechaza por datos que no cuadran.</span></li>
-    </ul>
-    <p class="giros__cierre">Cambia el objeto que se sigue. No cambia la idea: <b>el dato se
-      captura una vez y todas las áreas leen el mismo.</b> Si tu giro no está en la lista,
-      también aplica: se define en el diagnóstico.</p>
+  <section class="atajo">
+    <p>¿Te viste en alguno de los seis pasos? Te decimos qué conviene arreglar primero.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
+  </section>
+
+  <section class="pant">
+    <h2>Y esto es lo que ves</h2>
+    <p>Todo eso pasa en la bodega. Esto es lo que aparece en la computadora mientras pasa:
+      una sola pantalla que ya trae la cuenta hecha, porque cada dato se anotó una vez.</p>
+
+    <div class="app">
+      <div class="app__barra">
+        <span class="app__marca">ERP</span>
+        <span class="app__per">Este mes</span>
+        <span class="app__nota">Pantalla de ejemplo</span>
+      </div>
+      <div class="app__cuerpo">
+        <nav class="app__lado" aria-label="Áreas del sistema">
+          <span class="es">Tablero</span>
+          <span>Compras</span>
+          <span>Bodega</span>
+          <span>Ventas</span>
+          <span>Facturas</span>
+          <span>Cobros</span>
+        </nav>
+        <div class="app__main">
+          <div class="kpis">
+            <div class="kpi kpi--gana"><b>22.4 %</b><span>ganancia real</span></div>
+            <div class="kpi"><b>$186,400</b><span>facturado este mes</span></div>
+            <div class="kpi"><b>1 vez</b><span>cada dato</span></div>
+          </div>
+          <div class="tabla">
+            <div class="tabla__t">Ganancia por cliente · este mes</div>
+            <div class="fila fila--enc"><span>Cliente</span>
+              <span class="mon">Facturado</span><span class="mar">Ganancia</span></div>
+        <div class="fila"><div class="anon" style="width:62%"></div><span class="mon">$62,800</span><span class="mar">21.8 %</span></div>
+        <div class="fila"><div class="anon" style="width:47%"></div><span class="mon">$48,300</span><span class="mar">25.0 %</span></div>
+        <div class="fila"><div class="anon" style="width:39%"></div><span class="mon">$41,100</span><span class="mar">19.6 %</span></div>
+        <div class="fila"><div class="anon" style="width:26%"></div><span class="mon">$34,200</span><span class="mar">23.4 %</span></div>
+            <div class="fila fila--suma"><span class="lbl">Suma</span>
+              <span class="mon">$186,400</span><span class="mar">22.4 %</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="pant__pie">Cifras de ejemplo. Lo de aquí es el mes completo; los $41,760 del
+      paso 04 son un pedido de ese mes.</p>
   </section>
 
   <section class="faq">
     <h2>Antes de que preguntes</h2>
-    <p>Las seis dudas que sale todo director antes de sentarse a ver un ERP, contestadas sin
+    <p>Las seis preguntas que hace cualquiera antes de contratar algo así, contestadas sin
       rodeos.</p>
     <ul class="rejilla">
       <li><b>¿Qué compro exactamente?</b>
-        <span>Un ERP implementado sobre tu operación: catálogos, almacenes, flujos y reportes
-          configurados contigo, migración de tus datos y facturación conectada. No es una
-          licencia que te entregan y ahí te ves.</span></li>
+        <span>El sistema armado para tu negocio y funcionando: lo configuramos contigo,
+          pasamos tus datos de donde estén hoy —Excel, libretas, el sistema viejo— y lo
+          dejamos facturando. No es un programa que te entregan y ahí te ves.</span></li>
       <li><b>¿Cuánto tarda?</b>
-        <span>Depende de cuántos módulos y de qué tan limpios estén tus datos. Por eso el
-          arranque es por etapas: el primer módulo operando en semanas, y el resto entra
-          sobre esa base.</span></li>
-      <li><b>¿Cómo se cotiza?</b>
-        <span>Por alcance, con precio cerrado para ese alcance. Si lo amplías después, se
-          cotiza aparte y lo apruebas tú antes de que se haga.</span></li>
+        <span>Depende de dos cosas, y las dos se miden en el diagnóstico: cuántas partes
+          quieres y qué tan ordenados están tus datos de hoy. Por eso no arranca todo de
+          golpe: primero la parte que más te duele, y el resto entra sobre esa base.
+          <b>La fecha te la damos en el diagnóstico, y esa fecha va en el contrato.</b></span></li>
+      <li><b>¿Cuánto cuesta?</b>
+        <span>No hay lista de precios, y no es por misterio: <b>no vendemos un paquete</b>.
+          Cada sistema se hace a la medida, así que el número depende de lo que tú necesites
+          —sirve igual para un consultorio de una persona que para una fábrica de cien—.
+          Y nadie empieza con todo: se arranca por el área que más te duele, que es la parte
+          más chica. <b>El diagnóstico no tiene costo y termina con un precio cerrado por
+          escrito</b>: ese trabajo, ese precio. Si después quieres más, se cotiza aparte y lo
+          apruebas tú. Y si el número no te cuadra, ahí se queda.</span></li>
       <li><b>¿Tengo que parar la operación?</b>
-        <span>No. El arranque es por módulos y corre en paralelo con lo que usas hoy, hasta
-          que el nuevo queda validado contra la realidad.</span></li>
+        <span>No. Arranca por partes y trabaja al mismo tiempo que lo que usas hoy, hasta
+          que el nuevo queda comprobado contra la realidad.</span></li>
       <li><b>¿Y si mi gente no lo usa?</b>
         <span>Ese es el riesgo real de un ERP, no el precio. El flujo se diseña con quien va a
-          capturar, se pide lo mínimo necesario y las primeras semanas se concilia contra la
-          operación hasta que el sistema es la única fuente.</span></li>
-      <li><b>¿Y si mi inventario está mal?</b>
-        <span>Es lo más común. La migración incluye un conteo físico de arranque para que el
-          sistema empiece con la verdad y no con el Excel.</span></li>
+          anotar, se pide lo mínimo necesario y las primeras semanas se compara contra la
+          operación hasta que todo se anota en un solo lugar.</span></li>
+      <li><b>¿Y si mis datos están hechos un desastre?</b>
+        <span>Es lo más común, y no es un problema: es el primer trabajo. Antes de arrancar se pone
+          en orden lo que hoy está regado —contar el almacén si es inventario, revisar la
+          lista si son clientes— para que el sistema empiece con la verdad y no con el
+          Excel.</span></li>
     </ul>
   </section>
 
   <section class="costo">
     <h2>¿Cuánto te está costando hoy?</h2>
     <p>Estas cinco se contestan con tus números, y son por donde empieza el diagnóstico.
-      Si no sabes alguna, esa ya es la respuesta.</p>
+      Si no sabes alguna, esa ya es la respuesta. Y si quieres el costo en pesos sin hablar
+      con nadie, <a href="/calculadora">la calculadora lo saca en seis preguntas</a>.</p>
     <ul class="rejilla">
-      <li><b>01</b><span>¿Cuánto compraste el año pasado de algo que ya tenías?</span></li>
-      <li><b>02</b><span>¿Cuántas veces prometiste producto que ya estaba vendido?</span></li>
-      <li><b>03</b><span>¿Cuántos días pasan entre que entregas y se timbra la factura?</span></li>
+      <li><b>01</b><span>¿Cuánto gastaste el año pasado en algo que ya tenías?</span></li>
+      <li><b>02</b><span>¿Cuántas veces prometiste algo que no podías entregar?</span></li>
+      <li><b>03</b><span>¿Cuántos días pasan entre que entregas y sale la factura?</span></li>
       <li><b>04</b><span>¿Cuántas facturas al mes no cuadran con lo entregado?</span></li>
-      <li><b>05</b><span>¿Sabes el margen de tu mejor cliente sin esperar al cierre?</span></li>
+      <li><b>05</b><span>¿Sabes cuánto ganas con tu mejor cliente sin esperar a fin de mes?</span></li>
     </ul>
   </section>
 
   <section class="cierre">
     <h2>Te decimos dónde se está yendo el dinero</h2>
-    <p>Recorremos tu operación completa —qué se compra, cómo se almacena, cómo se vende y cómo se
+    <p>Recorremos tu operación completa —qué se compra, cómo se trabaja, cómo se vende y cómo se
       cobra— y te decimos qué conviene resolver primero. La primera llamada es sin costo y sin compromiso.</p>
     <a class="btn"
        href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
        target="_blank" rel="noopener noreferrer">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
-      WhatsApp · 55 8096 8928
+      Hablar por WhatsApp
     </a>
     <p class="otras">
       <span class="par">o llena el <a href="/servicios/erp#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
@@ -643,8 +938,7 @@
   </section>
 
   <p class="colofon">
-    Las cifras de este recorrido son de <b>una operación de ejemplo</b> y sirven para mostrar
-    el flujo. El ERP se ajusta al giro y a la operación de cada empresa: el recorrido de la tuya
+    Las cifras de este recorrido son de <b>una operación de ejemplo</b>. El recorrido del tuyo
     se dibuja en el diagnóstico, con tus números.
   </p>
 
@@ -788,34 +1082,34 @@
   }
   var STATES = [
     { truck:move(14,-4),  truckOn:true,  propio:false, mont:move(-86,-16), montOn:true,  beams:[0],
-      label:"01 / 06 · Andén de recepción",
+      label:"01 / 06 · La puerta de entrada",
       k:"OC-1182 · Recepción",
-      v:"40 de 40 pzas · proveedor validado · cuenta por pagar abierta" },
+      v:"40 de 40 piezas · llegó completo · ya sabes cuánto le debes" },
 
     { truck:move(14,-4),  truckOn:false, propio:false, mont:move(26,-172), montOn:true,  beams:[1],
-      label:"02 / 06 · Rack A-04, nivel 12",
-      k:"Existencia · 312 pzas",
-      v:"ubicación A-04-12 · costo con flete $184.20 por pieza" },
+      label:"02 / 06 · Estante A-04, nivel 12",
+      k:"ENT-2207 · Entró a su lugar",
+      v:"312 piezas en A-04-12 · costo con envío $184.20 por pieza" },
 
     { truck:move(14,-4),  truckOn:false, propio:false, mont:move(34,-64),  montOn:true,  beams:[2],
-      label:"03 / 06 · Mesa de surtido",
+      label:"03 / 06 · La mesa donde se junta",
       k:"PED-3471 · Apartado",
-      v:"18 pzas · 3 ubicaciones · un solo recorrido" },
+      v:"18 piezas · 3 lugares · una sola vuelta" },
 
     { truck:move(292,-6), truckOn:true,  propio:true,  mont:move(150,-30), montOn:true,  beams:[3],
-      label:"04 / 06 · Andén de embarque",
-      k:"CFDI A-1140 · Timbrado",
-      v:"18 pzas · $41,760 · remisión y factura del mismo pedido" },
+      label:"04 / 06 · La puerta de salida",
+      k:"Factura A-1140 · Enviada al SAT",
+      v:"18 piezas · $41,760 · entrega y factura del mismo pedido" },
 
     { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[4],
-      label:"05 / 06 · Ruta y cobranza",
+      label:"05 / 06 · Entrega y cobro",
       k:"REP-0915 · Pago aplicado",
-      v:"complemento timbrado · antigüedad de saldos al momento" },
+      v:"comprobante del pago hecho · sabes quién te debe y desde cuándo" },
 
     { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[0,1,2,3,4],
       label:"06 / 06 · Tablero de dirección",
-      k:"Margen real · 22.4 %",
-      v:"cinco registros, una sola captura · flete y merma ya descontados" }
+      k:"Ganancia real · 22.4 %",
+      v:"en todo el camino, una sola anotación · con el envío ya descontado" }
   ];
 
   var truckEl = document.getElementById("truck");
@@ -855,7 +1149,14 @@
     labelEl.textContent = st.label;
     hudK.textContent = st.k;
     hudV.textContent = st.v;
-    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+    stepEls.forEach(function(el, n){
+      el.classList.toggle("on", n === i);
+      /* El color y la raya marcan el paso actual para quien ve; esto lo marca
+         para quien no. No se le pone role="button" a la sección: eso la
+         volvería una hoja del árbol y se perdería su estructura. */
+      if (n === i) el.setAttribute("aria-current", "step");
+      else el.removeAttribute("aria-current");
+    });
   }
 
   apply(0);
@@ -864,7 +1165,9 @@
      lectura, no el último que la cruzó por arriba: con esa regla la escena iba
      siempre un paso atrasada respecto al texto. */
   var reproduciendo = false;
-  var figuraEl = document.querySelector(".figure");
+  /* La linea de lectura se calcula contra lo que de verdad se queda pegado.
+     En celular eso es .figura__fijo; en escritorio, la columna entera. */
+  var figuraEl = document.querySelector(".figura__fijo") || document.querySelector(".figure");
 
   function elegir(){
     if (reproduciendo) return;          // mientras reproduce, manda el reproductor
@@ -914,7 +1217,7 @@
     clearInterval(timer);
     timer = null;
     reproduciendo = false;
-    playEl.textContent = "▶ Reproducir";
+    playEl.textContent = "▶ Que avance solo";
     playEl.setAttribute("aria-pressed", "false");
   }
   playEl.addEventListener("click", function(){

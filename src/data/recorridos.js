@@ -14,11 +14,11 @@ export const RECORRIDOS = [
   {
     slug: 'erp',
     servicio: 'erp',
-    titulo: 'Del andén al cobro',
+    titulo: 'Del trabajo hecho al dinero cobrado',
     resumen:
-      'Una tarima entra por el andén de recepción y sale convertida en dinero cobrado. Seis paradas y una sola captura.',
+      'La libreta única del negocio: lo que haces, lo que cobras y lo que gastas se anota una sola vez, y todos lo ven al instante.',
     descripcion:
-      'Recorrido paso a paso de un ERP en una distribuidora: recepción contra la orden, ubicación, surtido, CFDI, cobro y margen real.',
+      'Qué es un ERP y para qué sirve, paso a paso: lo que haces, lo que cobras y lo que gastas anotado una sola vez, y el dinero cuadrando al día.',
   },
   {
     slug: 'crm',

@@ -10,16 +10,40 @@
  * sitio: canonical, Open Graph, favicon y el ajuste de las áreas seguras del
  * teléfono. Sin `noindex`: son contenido, y contestan lo que la gente busca.
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { RECORRIDOS } from '../src/data/recorridos.js'
 import { servicioPorSlug } from '../src/data/servicios.js'
 import { DOMINIO, EMPRESA } from '../src/data/contacto.js'
+import { basePublica } from './base-publica.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+
+/* Las dos tipografías de los recorridos, servidas desde el sitio. Son
+   variables y llevan el eje de peso abierto, así que un archivo por familia
+   cubre los cuatro pesos que usa el recorrido: 26.4 KB las dos, contra las dos
+   conexiones a un tercero que además la CSP no deja pasar. `swap` para que el
+   texto se lea desde el primer momento con la del aparato y cambie al llegar
+   la nuestra. */
+const FUENTES_LOCALES = `    <link rel="preload" href="/fonts/azeret-mono-recorridos.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+      @font-face{font-family:'Azeret Mono';src:url('/fonts/azeret-mono-recorridos.woff2') format('woff2');
+        font-weight:400 700;font-style:normal;font-display:swap}
+      @font-face{font-family:'Archivo';src:url('/fonts/archivo-recorridos.woff2') format('woff2');
+        font-weight:400 600;font-style:normal;font-display:swap}
+    </style>`
 const destino = resolve(raiz, 'public/recorridos')
 mkdirSync(destino, { recursive: true })
+
+/* Reemplaza una vez y se queja si no encontró nada: si un recorrido cambia de
+   forma, más vale que el build lo diga a que publique una página a medias. */
+function reemplazarUna(texto, de, a, slug, que) {
+  if (!texto.includes(de)) {
+    throw new Error(`recorridos: en "${slug}" no se pudo ${que}. ¿Cambió recorridos-fuente/${slug}.html?`)
+  }
+  return texto.replace(de, a)
+}
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 
@@ -28,14 +52,73 @@ for (const r of RECORRIDOS) {
 
   const corte = fuente.indexOf('</style>')
   if (corte < 0) throw new Error(`recorridos-fuente/${r.slug}.html no tiene <style>`)
-  const cabeza = fuente.slice(0, corte + '</style>'.length).replace(/<title>[\s\S]*?<\/title>\s*/, '')
-  const cuerpo = fuente.slice(corte + '</style>'.length).trim()
+  let cabeza = fuente.slice(0, corte + '</style>'.length).replace(/<title>[\s\S]*?<\/title>\s*/, '')
+  let cuerpo = fuente.slice(corte + '</style>'.length).trim()
+
+  /* --- Ajustes de la versión que vive dentro del sitio ---
+   *
+   * La fuente se queda como está, porque también se publica como artifact
+   * suelto para mandar por WhatsApp, y ahí sí hace falta decir de dónde viene
+   * y enlazar en absoluto. Aquí, dentro del sitio, sobra.
+   */
+
+  // 1. El logotipo regresa al inicio, a la tarjeta de este recorrido, que
+  //    Recorridos.jsx resalta. Suelto no llevaba a ningún lado, y quien
+  //    terminaba el recorrido tenía que usar el botón de atrás del navegador.
+  cuerpo = reemplazarUna(cuerpo, '<span class="brand__id">', `<a class="brand__id" href="/#recorrido-${r.slug}" aria-label="Ir al inicio de Loomware">`, r.slug, 'abrir el logotipo')
+  cuerpo = reemplazarUna(
+    cuerpo,
+    '<span class="brand__name">Loomware</span>\n    </span>',
+    '<span class="brand__name">Loomware</span>\n    </a>',
+    r.slug, 'cerrar el logotipo'
+  )
+
+  // 2. Fuera la etiqueta del dominio: ya estás en él.
+  cuerpo = cuerpo.replace(
+    /\s*<a class="brand__site"[\s\S]*?<\/a>/,
+    ''
+  )
+
+  // 3. «Formulario del sitio» va al formulario, en esta misma pestaña. Antes
+  //    apuntaba a la página del servicio y abría una pestaña nueva, así que
+  //    aterrizabas arriba de otra página en vez de en el formulario.
+  cuerpo = cuerpo.replace(
+    /<a href="https:\/\/[^"]*?\/servicios\/[^"]*"[^>]*>formulario del sitio<\/a>/,
+    '<a href="/#contacto">formulario del sitio</a>'
+  )
+
+  // 4. Las tipografías, desde el propio dominio. La fuente las pide a Google
+  //    Fonts porque el artifact suelto no tiene dónde más sacarlas; aquí eso no
+  //    sirve, porque la CSP del sitio dice `style-src 'self'` y `font-src
+  //    'self'` y bloquea las dos peticiones. Resultado medido antes de esto:
+  //    cero tipografías cargadas y el recorrido en la monoespaciada del
+  //    aparato. Las recortadas se generan con `npm run fuente:recorridos`.
+  cabeza = cabeza
+    .replace(/\s*<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com"[^>]*>/, '')
+    .replace(
+      /\s*<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]*>/,
+      '\n' + FUENTES_LOCALES,
+    )
+  if (cabeza.includes('fonts.googleapis.com')) {
+    throw new Error(`recorridos: ${r.slug} sigue pidiendo tipografías a Google Fonts`)
+  }
 
   const url = `${DOMINIO}/recorridos/${r.slug}`
   // El nombre del servicio tal como lo dice el sitio: "Nómina", no "NOMINA".
   const servicio = servicioPorSlug(r.servicio)
   if (!servicio) throw new Error(`recorridos: el servicio "${r.servicio}" no existe en servicios.js`)
   const titulo = `${r.titulo} · ${servicio.nombre} | ${EMPRESA}`
+
+  /* Cada recorrido lleva su propia tarjeta social: estas páginas existen para
+     mandarse por WhatsApp y lo primero que ve el prospecto es la tarjeta del
+     enlace, no la página. Con la genérica, ocho enlaces distintos se
+     previsualizaban idénticos. Se dibujan con `npm run og:recorridos`, que
+     necesita el sitio servido; si una falta, esa se queda con la del sitio y
+     nunca se publica una tarjeta rota. */
+  const BASE = basePublica()
+  const tarjeta = existsSync(resolve(raiz, `public/recorridos/og-${r.slug}.png`))
+    ? `${BASE}/recorridos/og-${r.slug}.png`
+    : `${BASE}/og-image.png`
 
   const pagina = `<!DOCTYPE html>
 <html lang="es-MX">
@@ -54,14 +137,14 @@ for (const r of RECORRIDOS) {
     <meta property="og:url" content="${url}" />
     <meta property="og:title" content="${esc(titulo)}" />
     <meta property="og:description" content="${esc(r.descripcion)}" />
-    <meta property="og:image" content="${DOMINIO}/og-image.png" />
+    <meta property="og:image" content="${tarjeta}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(titulo)}" />
     <meta name="twitter:description" content="${esc(r.descripcion)}" />
-    <meta name="twitter:image" content="${DOMINIO}/og-image.png" />
+    <meta name="twitter:image" content="${tarjeta}" />
 
     <style>
       :root {
@@ -75,6 +158,15 @@ for (const r of RECORRIDOS) {
       [hidden] { display: none !important; }
     </style>
 ${cabeza.split('\n').map((l) => (l.trim() ? '    ' + l : l)).join('\n')}
+
+    <style>
+      /* El logotipo es un enlace al inicio sólo en la versión del sitio, así que
+         su estilo vive aquí y no en la fuente: sin subrayado ni azul de enlace,
+         y con una señal al pasar encima para que se note que lleva a algún lado. */
+      .brand__id { color: inherit; text-decoration: none; border-radius: 6px; }
+      .brand__id:hover .brand__name { color: var(--signal); }
+      .brand__id:focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
+    </style>
   </head>
   <body>
 ${cuerpo}

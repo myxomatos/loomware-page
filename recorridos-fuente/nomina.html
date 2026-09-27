@@ -102,7 +102,9 @@
   /* ---------- barra de marca ---------- */
   .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
     padding-bottom:13px;border-bottom:1px solid var(--rule-soft);}
-  .brand__id{display:flex;align-items:center;gap:8px;}
+  /* El logotipo lleva al inicio y es el único camino de regreso: medía 26 px
+     de alto, la mitad de lo que se puede picar con el dedo. */
+  .brand__id{display:flex;align-items:center;gap:8px;min-height:44px;}
   .brand__id svg{display:block;flex:none;}
   .brand__name{font-family:var(--mono);font-weight:700;font-size:15px;
     letter-spacing:-.03em;color:var(--ink);}
@@ -157,9 +159,17 @@
 
   .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
     font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
-  .play{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
+  /* 44 px de blanco táctil **sin** crecer la caja. Subirlo a min-height:44px
+     —como estaba— le sumaba 15 px al bloque que se queda pegado arriba, y a
+     360×740 eso dejaba fuera cuatro de los seis pasos por entre 2 y 11 px. El
+     área transparente de abajo hace el mismo trabajo sin ocupar pantalla. */
+  .play{position:relative;display:inline-flex;align-items:center;
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;
     color:var(--signal);background:var(--signal-soft);border:1px solid currentColor;
     border-radius:2px;padding:6px 13px;cursor:pointer;white-space:nowrap;}
+  /* Crece el blanco, no el botón: la caja mide 29 y 8 px arriba y abajo la
+     llevan a 45, por encima del mínimo. */
+  .play::after{content:"";position:absolute;inset:-8px -4px;}
   .play:hover{background:var(--signal);color:var(--surface);}
   .play:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
 
@@ -261,7 +271,11 @@
   .cierre{margin-top:26px;max-width:640px;padding-left:16px;
     border-left:3px solid var(--signal);}
   .cierre p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;}
-  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:2px;
+  /* 48 px de alto: es la medida que el sistema del sitio fija para botones y
+     campos. Medido antes: 42. Va con min-height y no con más relleno, para que
+     el texto no se mueva. */
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;
+    gap:9px;padding:11px 18px;border-radius:2px;
     font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.01em;
     text-decoration:none;background:var(--signal);color:#fff;border:1px solid var(--signal);}
   .btn svg{flex:none;}
@@ -369,6 +383,14 @@
     .gauge{margin-left:0;}
   }
 </style>
+<noscript><style>
+  /* Sin guion la escena llega vacía: se retira el recuadro, el botón que no
+     avanza y el rótulo del paso, y los seis pasos se encienden. Queda un
+     artículo que se lee entero. */
+  .stage, .play, #stateLabel{display:none;}
+  .step{opacity:1;cursor:default;border-left-color:var(--rule-soft);}
+  .chip{opacity:1;}
+</style></noscript>
 
 <div class="wrap">
 
@@ -650,7 +672,7 @@
        href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20n%C3%B3mina%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
        target="_blank" rel="noopener noreferrer">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
-      WhatsApp · 55 8096 8928
+      Hablar por WhatsApp
     </a>
     <p class="otras">
       <span class="par">o llena el <a href="/servicios/nomina#contacto">formulario del sitio</a></span><span class="sep">·</span><span class="par">correo <a href="mailto:aldo_sanchez@loomware.com.mx">aldo_sanchez@loomware.com.mx</a></span>
@@ -876,7 +898,14 @@
     labelEl.textContent = st.label;
     hudK.textContent = st.k;
     hudV.textContent = st.v;
-    stepEls.forEach(function(el, n){ el.classList.toggle("on", n === i); });
+    stepEls.forEach(function(el, n){
+      el.classList.toggle("on", n === i);
+      /* El color y la raya marcan el paso actual para quien ve; esto lo marca
+         para quien no. No se le pone role="button" a la sección: eso la
+         volvería una hoja del árbol y se perdería su estructura. */
+      if (n === i) el.setAttribute("aria-current", "step");
+      else el.removeAttribute("aria-current");
+    });
   }
 
   apply(0);

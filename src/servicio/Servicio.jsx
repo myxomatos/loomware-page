@@ -9,6 +9,7 @@ import { recorridoDeServicio } from '../data/recorridos'
 import { centrarActual } from '../lib/centrarActual'
 import '../components/Faq.css'
 import './servicio.css'
+import { useCtaOculta, propsCta } from '../lib/ctaNavbar'
 
 /*
  * Página de un servicio. El slug viene del atributo data-servicio que el
@@ -16,6 +17,8 @@ import './servicio.css'
  * ocho páginas.
  */
 export default function Servicio({ slug }) {
+  // El hero de esta página ya trae su «Solicitar diagnóstico».
+  const ctaOculta = useCtaOculta()
   const s = servicioPorSlug(slug)
   if (!s) {
     return (
@@ -51,7 +54,7 @@ export default function Servicio({ slug }) {
               </a>
             ))}
           </nav>
-          <a href="#contacto" className="btn btn--outline btn--pill btn--sm">
+          <a href="#contacto" {...propsCta(ctaOculta)}>
             Diagnóstico
             <Icon name="arrow-right" size={16} />
           </a>

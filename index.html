@@ -36,7 +36,10 @@
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <!-- El titular es el elemento que decide el tiempo de pintado: su fuente se precarga. -->
     <link rel="preload" href="/fonts/archivo-subset.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" as="image" type="image/svg+xml" href="/hero-operacion.svg" />
+    <!-- La pantalla del hero, cada una en su ancho: sin el media, el celular se
+         bajaría también la de escritorio y serían 10 KB tirados. -->
+    <link rel="preload" as="image" type="image/svg+xml" href="/hero-sistema.svg" media="(min-width: 600px)" />
+    <link rel="preload" as="image" type="image/svg+xml" href="/hero-sistema-movil.svg" media="(max-width: 599px)" />
 
     <script type="application/ld+json">
       {

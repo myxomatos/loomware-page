@@ -1,10 +1,13 @@
 # Pendientes de loomware-page
 
-Estado al 23 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
+Estado al 26 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
 > **Revisión de Aldo en curso desde el 22 de septiembre de 2026.** La rama `aldo` trae los 68
 > commits de `alan` más los ajustes de la revisión (ver «Resueltas el 2026-09-22/23»), así que
 > **el PR a `main` sale de `aldo`**. Preview: <https://aldo.loomware-page.pages.dev>.
+> El 2026-09-26 entraron a `aldo` los 49 commits que Alan hizo del 23 al 25 (segunda pasada del
+> estudio y pasadas del ERP); sus pendientes, que él seguía escribiendo en `CLAUDE.md`, viven ya
+> aquí, repartidos entre «Aldo» y «Alan».
 > Después del merge, Alan hace `git merge main` en `alan` para seguir al día.
 
 ## Ruta a producción — Aldo, en este orden
@@ -40,6 +43,11 @@ responde 500.
 `functions/api/contacto.js`). Sólo se cargan para cambiar esos destinos.
 
 Las variables `VITE_` se hornean en el build: al cargarlas o cambiarlas hay que redesplegar.
+
+Para saber si `DENUE_TOKEN` y `PROSPECT_KEY` quedaron, sin entrar a nada:
+`curl https://aldo.loomware-page.pages.dev/api/denue/BuscarEntidad/todos/09/1/1`. Mientras falten
+responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las que faltan desde el
+2026-09-24); cuando las dos estén, **401 «Contraseña incorrecta»**, que es la señal de que quedó.
 
 ## Aldo
 
@@ -78,6 +86,192 @@ Las variables `VITE_` se hornean en el build: al cargarlas o cambiarlas hay que 
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
 
+- [ ] **Revisar lo que Alan cambió del 23 al 25 de septiembre**, antes de mezclar:
+      1. **La sección de casos de éxito quedó rehecha** (`#casos`). El caso de Eduardo es el
+         mismo, palabra por palabra; ahora va en tres bandas numeradas —quién es · 01 qué
+         necesitaba · 02 qué se construyó · 03 qué cambió— y cierra con su cita.
+      2. **El recorrido del ERP enseña la pantalla del sistema** al terminar los seis pasos. Son
+         cifras de ejemplo y lo dice tres veces; aun así, échales un ojo.
+      3. **Cada recorrido trae su propia imagen de vista previa** para WhatsApp. Se ve pegando el
+         enlace en una conversación contigo mismo.
+
+- [ ] **Alan: pasarle a Aldo el token del INEGI, y Aldo cargarlo.** Desbloquea `/prospectar`
+      (paso 3 de la ruta): `DENUE_TOKEN` es de Alan y Aldo no puede capturarlo hasta que se lo manden por
+      un canal privado. **Probado contra el INEGI el 2026-09-24: el token sirve.** El mensaje,
+      listo para copiar —el token va en **otro mensaje**, nunca junto con estas instrucciones—:
+
+      > Aldo, esto desbloquea `/prospectar`. Son 10 minutos en Cloudflare.
+      >
+      > En el siguiente mensaje te mando el token del INEGI. Va en **Workers & Pages →
+      > `loomware-page` → Settings → Variables and Secrets**, y hay que capturarlo **dos
+      > veces**: una en *Production* y otra en *Preview*, las dos con **Encrypt** activado.
+      >
+      > • `DENUE_TOKEN` → el del mensaje de abajo
+      > • `PROSPECT_KEY` → la contraseña para entrar a `/prospectar`. La escogemos entre los
+      > dos. También va con Encrypt, y también dos veces.
+      >
+      > Al terminar: **Deployments → el último → ⋯ → Retry deployment**. Las variables no se
+      > aplican solas a un despliegue ya publicado.
+      >
+      > Para saber si quedó, sin entrar a nada:
+      >
+      > `curl https://alan.loomware-page.pages.dev/api/denue/BuscarEntidad/todos/09/1/1`
+      >
+      > Hoy responde *«Falta configurar…»* con 500. Cuando quede bien va a responder **401
+      > «Contraseña incorrecta»** — ese error es la señal de que está listo.
+      >
+      > Cuando lo tengas cargado, borra el mensaje del token de la conversación.
+
+      **La contraseña no se escribe aquí.** El borrador que se le mandó a Alan traía una
+      propuesta concreta; se quitó de este archivo porque **el repositorio es público**
+      —comprobado el 2026-09-24 con la API de GitHub: `private: false`—, y una contraseña
+      escrita en un archivo público deja de ser contraseña. Se acuerda por el mismo canal
+      privado que el token, y vive nada más en Cloudflare.
+
+- [ ] **Las cuatro afirmaciones de seguridad**, que pesan más que las del contrato. Al revisar
+      el tema de ciberseguridad salió que **Loomware ya la vende**, aunque no la llame así. La
+      página de Infraestructura Cloud promete hoy, en `src/data/servicios.js`:
+
+      - «Datos cifrados»
+      - «Cifrado, accesos por rol y persona, autenticación de dos factores y registro de quién
+        entró a qué»
+      - «Respaldo automático diario, retención definida y **pruebas periódicas de restauración**»
+      - «**Monitoreo**, respaldos, actualizaciones y soporte **continuos**»
+
+      Eso es un contrato de seguridad administrada escrito en la página, y es distinto en
+      naturaleza a todo lo demás: si un ERP falla el cliente pierde tiempo, pero si falla la
+      seguridad **Loomware es quien dijo que estaba protegida**. «Monitoreo continuo» es una
+      obligación permanente y «pruebas de restauración» es algo que alguien puede exigir que
+      se demuestre. O el contrato lo cubre con su alcance y sus límites, o el texto se ajusta a
+      lo que sí se hace. Es lo más urgente de este bloque.
+
+- [ ] **La página del ERP promete que la fecha de entrega va en el contrato.** El recorrido
+      decía antes «el primer módulo operando en semanas», que era un plazo al aire. Se cambió
+      por algo más honesto y **más obligante**: *«La fecha te la damos en el diagnóstico, y esa
+      fecha va en el contrato»*. Para sostenerlo hacen falta dos cosas: que **cada diagnóstico
+      termine con una fecha**, y que el **contrato tenga dónde escribirla**. Si el contrato no
+      la tiene, la página está prometiendo algo que no se cumple. Si Aldo prefiere no
+      comprometer fecha, se quita esa línea de `recorridos-fuente/erp.html`; y si tiene un
+      rango real —«el primero entre 4 y 8 semanas»—, se pone y queda mejor que las dos.
+
+- [ ] **Decidir si el «99.9% de disponibilidad» se queda en el dibujo del hero.** La pantalla de
+      ejemplo trae ocho cifras y siete son inofensivas —tratos abiertos, pedidos del día, técnicos
+      en ruta—. La octava no: **99.9%** es el número con el que se escriben los acuerdos de nivel
+      de servicio. Va dentro de una imagen rotulada «pantalla de ejemplo», así que a mi juicio se
+      lee como ilustración; pero junto a lo que promete la página de Infraestructura Cloud
+      —monitoreo continuo, respaldos probados— alguien podría citarla como compromiso. Si a Aldo
+      le parece, se cambia por algo que no tenga esa forma («al día», «respaldo probado») en un
+      minuto: es una línea de `scripts/hero-sistema.js`. Va junto a los otros puntos de contrato.
+
+## Alan
+
+Salió de la segunda pasada del estudio (2026-09-22): al volver a medir la página contra los
+veintidós sitios aparecieron cosas que son nuestras. Ninguna bloquea a las de Aldo. El PR que
+Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
+
+- [ ] **La página del ERP no dice cuánto tiempo le quita al prospecto.** El cierre ofrece el
+      diagnóstico pero no dice si son treinta minutos o tres días, y ésa es la objeción que
+      queda. Aldo validó el 2026-09-23 *«una llamada de 30 minutos, sin costo»*, así que ya se
+      puede traer al recorrido: es una línea de `recorridos-fuente/erp.html`.
+
+- [ ] **Cuando el PR se mezcle, los artifacts de WhatsApp van al dominio.** Desde la revisión
+      de Aldo (2026-09-23), los dos enlaces de cada archivo de `recorridos-fuente/` —la marca y
+      «formulario del sitio»— son relativos: sirven en la página del sitio, pero en un artifact
+      suelto de claude.ai no llevan a ningún lado. Al mezclar, o se publican los artifacts con
+      esos dos enlaces en absoluto a `https://loomware.com.mx`, o se deja de mandar el artifact y
+      se manda sólo el enlace del sitio, que ya es lo que recomienda este archivo.
+
+- [ ] **Revisión minuciosa de las ocho tarjetas del «Paso a paso», una por una.** Es la tarea
+      grande de Alan. El ERP lleva cinco pasadas y **todavía no se cierra**; las otras siete no
+      han tenido ninguna. La receta que salió de destruir el ERP, en este orden:
+
+      1. **Qué es, explicado a un niño de 10 años.** La definición primero, antes de tocar
+         nada. Si no se puede decir en una línea sin una palabra de oficina, el recorrido no
+         está listo.
+      2. **La prueba de los ocho giros.** Que el camino sirva igual para una clínica, una obra
+         y un despacho, no sólo para el giro del dibujo.
+      3. **Cacería de palabras de oficina.** En el ERP sobrevivieron tres rondas: «timbrada»,
+         «padrón», «en paralelo». Hay que buscarlas también **en el guion**, no sólo en el
+         texto: la del paso 04 vivía en la tabla de estados.
+      4. **Medir con la CSP puesta, no en local a secas.** `http-server` no manda
+         encabezados, así que en local carga cosas que el sitio publicado bloquea. Los ocho
+         recorridos se vieron tres días con la tipografía equivocada por eso. Se inyecta la CSP
+         como `meta` en una copia, o se mide contra el preview.
+      5. **Medir el teléfono, no verlo.** Cuánto ocupa lo que se queda pegado y si el paso cabe
+         en lo que sobra. El ERP dejaba 254 px para pasos de hasta 386 y **ninguno cabía**.
+
+         **Medido el 2026-09-24 en los siete que faltan, a 360×740 —un teléfono chico—: los
+         siete tienen el mismo problema.** Lo pegado mide de 465 a 524 px de los 740 y deja
+         de 216 a 275 para leer, cuando sus pasos miden de 269 a 341. A 390×844 sí caben, así
+         que sólo se ve en pantalla chica. La salida ya está probada en el ERP: sacar de lo
+         pegado todo lo que no sea el dibujo con su rótulo y su pie, y `display:contents` en
+         el contenedor para que lo pegado cuelgue de la columna y no se despegue a medio
+         camino.
+      6. **Contar los botones** y que cada uno diga qué hace.
+      7. **La pantalla del sistema.** El ERP ya la tiene; las otras siete enseñan sólo su
+         objeto —el tablero de corcho, la tarjeta de checado, los dos maniquíes—, que es el
+         mundo y no el sistema. La pieza es reusable —HTML con las variables de la propia
+         página, hereda el modo oscuro y reflúye—, pero **los números son el trabajo de
+         verdad**: los del ERP cuadran con los de su recorrido a propósito, y eso no se copia
+         y se pega.
+
+      8. **La tarjeta del enlace.** Los ocho ya la tienen, una por recorrido
+         (`npm run og:recorridos`). Cuando cambie el título o el resumen de uno en
+         `src/data/recorridos.js`, **hay que volver a correrlo**: la tarjeta trae ese texto
+         horneado y el build no la regenera, porque necesita el sitio servido.
+
+      **Lo que la comparación del 2026-09-25 dejó abierto en el ERP, y vale para los ocho:**
+
+      - **La primera pantalla no vende.** Bind mete en esos mismos 844 px: «HECHO EN MÉXICO ·
+        CERTIFICACIÓN OFICIAL», «El ERP mexicano en la nube para PyMES», para quién es, un
+        botón grande, un segundo botón asomando y un rostro. Nosotros: etiqueta, titular, ocho
+        renglones de párrafo y un diagrama. **Cero botones, cero prueba, y no decimos para
+        quién es.** Nuestra primera puerta está a **5.3 pantallas**; la de Bind a **0.7**.
+      - **El título de búsqueda no compite.** El nuestro es «Del trabajo hecho al dinero
+        cobrado · ERP | Loomware»: la palabra que la gente teclea va en sexta posición. Bind
+        abre con «ERP mexicano en la nube para PyMEs», Alegra con «Sistema de Facturación
+        Electrónica #1 en México», Xero con «Accounting Software for Your Small Business».
+        **Y estas páginas están en el sitemap**, o sea que sí reciben tráfico frío.
+      - **Seis imágenes, y las seis son dibujos nuestros.** Cero fotos, cero capturas de
+        software funcionando, cero rostros. Misma conclusión que el estudio de los 22.
+      - **El titular no dice qué vendemos.** Funciona para quien ya sabe qué es esto; para
+        quien llega de Google no dice ni producto ni destinatario.
+
+      *La lectura:* la página es técnicamente la mejor del grupo y por mucho. Pierde en lo que
+      decide una venta fría, y no por mala ejecución sino porque hoy hace dos trabajos: es un
+      **explicador** para quien ya te conoce —y ahí es excelente— y una **página de aterrizaje**
+      para quien te busca —y ahí está desnuda—. Se arregla sin tocar lo que funciona: una franja
+      de acción arriba y un título que empiece por la palabra buscada.
+
+      **Y tres de texto, pendientes de decidir con Aldo:** la entrada de 61 palabras y ocho
+      renglones; el título «Todo negocio sigue algo», que no significa nada hasta que ya leíste
+      las seis tarjetas de abajo; y el «Hoy:» de esas tarjetas en el color más apagado de la
+      tarjeta, cuando es la parte que engancha.
+
+      **Estado: ERP en curso (nueve pasadas). CRM, nómina, tienda en línea, automatización,
+      software a medida, infraestructura cloud y apps móviles: sin empezar.**
+
+      **Lo que falta del ERP y no es mío:** los blancos táctiles —el logotipo mide 26 px de
+      alto, el botón del recorrido 29 y los dos de contacto 42, cuando el sistema del sitio dice
+      48 y la recomendación de accesibilidad es 44—, y la pantalla del sistema para los otros
+      siete.
+
+- [ ] **Faltan los rostros, y ésos sí dependen de Aldo.** Xero abre con la foto de una panadera
+      real en su obrador. Nosotros seguimos en **cero rostros**, porque `src/data/equipo.js`
+      está en blanco: las dos personas existen pero sin cargo ni foto, y la tarjeta sólo aparece
+      cuando tiene las dos cosas. Está en la lista de Aldo, en «Equipo».
+
+- [ ] **Falta material que responda preguntas de búsqueda.** La portada ya está a la par
+      —1 995 palabras contra 1 964 de Bind, ver arriba—, pero eso no es lo que decide el
+      posicionamiento de un dominio nuevo: lo decide tener páginas que contesten lo que la
+      gente escribe en Google. Hoy el sitio tiene 25 URLs y **ninguna es de ese tipo**: son
+      servicios, industrias, recorridos y herramientas, todas escritas para quien ya llegó.
+      Falta lo que se busca antes de llegar —«cuánto cuesta implementar un ERP en México»,
+      «cómo migrar de Excel a un sistema», «qué pide el SAT para facturar»—. Ojo: varias de
+      esas respuestas son política de la empresa y **necesitan el visto bueno de Aldo antes de
+      publicarse**, igual que las de `src/data/faq.js`. Alegra tiene 3 378 palabras en su
+      portada y un blog detrás; la portada no es donde se gana esto.
+
 ## Decisiones abiertas
 
 - [ ] **Precio — movimiento 05 del estudio comparativo.** Los 22 sitios medidos publican precio.
@@ -90,8 +284,266 @@ Las variables `VITE_` se hornean en el build: al cargarlas o cambiarlas hay que 
 - [ ] **Remarketing.** Píxel y audiencias cuando arranquen con Ads.
 - [ ] **Autoridad para SEO.** LinkedIn de empresa, directorios de industria, cámaras (Canacintra,
       Canaco) y menciones de clientes.
-- [ ] **Hero con foto real** del equipo o de un proyecto, cuando exista: se cambia el `<img>` de
-      `src/components/Hero.jsx` y se optimiza con `npm run optimizar:imagenes`.
+- [ ] **Hero.** Ya no es una ilustración: es la pantalla de ejemplo del sistema, con los ocho
+      módulos (`npm run hero:sistema`). Sigue en pie lo de siempre: si algún día hay **una
+      captura real** —con autorización del cliente y los datos cubiertos— vale más que cualquier
+      dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
+      Se cambia el `<picture>` de `src/components/Hero.jsx`.
+
+## Resueltas el 2026-09-25 (séptima y octava pasada del ERP, y la medición contra el grupo)
+
+- [x] **Dónde queda el recorrido del ERP contra siete páginas comparables.** No es el estudio
+      de la portada: se midieron páginas que hacen **el mismo trabajo** —explicarle un módulo a
+      un prospecto—, el 2026-09-25.
+
+      | | TTFB | HTML | nodos | scripts | terceros | palabras | imágenes |
+      | --- | --- | --- | --- | --- | --- | --- | --- |
+      | **Loomware · ERP** | **233 ms** | **70 KB** | **655** | **1** | **0** | 1 693 | **6** |
+      | Bind · ERP | 399 ms | 155 KB | 998 | 50 | 31 | 1 663 | 28 |
+      | Alegra · Facturación | 553 ms | 289 KB | 1 570 | 24 | 29 | 3 733 | 140 |
+      | Siigo · Contable | 478 ms | 1 106 KB | 1 565 | 28 | 43 | 2 636 | 39 |
+      | Xero · Accounting | 612 ms | 480 KB | 2 691 | 39 | 18 | 2 688 | 139 |
+      | Holded | 684 ms | 906 KB | 2 979 | 9 | 25 | 3 126 | 301 |
+      | Zoho · Books | 512 ms | 210 KB | 2 899 | 34 | 17 | 4 096 | 192 |
+      | Stripe · Payments | 438 ms | 1 186 KB | 5 841 | 2 | 10 | 5 195 | 557 |
+
+      **Primeros de ocho en las cinco medidas técnicas, y con margen**: la segunda página más
+      ligera pesa el doble, el segundo sitio más rápido tarda 70 % más, y **somos los únicos
+      que no le piden nada a ningún tercero** —los demás van de 10 a 43 dominios—. Un script
+      contra los 50 de Bind.
+
+      **Penúltimos en palabras y últimos en imágenes.** Las cifras de Stripe conviene tomarlas
+      con reserva: su conteo de encabezados salió absurdo (68 `h1`), señal de que el método
+      de conteo no distingue bien en páginas armadas por componentes.
+
+### Octava pasada: la página publicada, tramo por tramo
+
+- [x] **Diecinueve hallazgos, nueve de ellos metidos por Claude en las siete pasadas
+      anteriores.** Los que se cerraron: los **$41,760 valían tres cosas a la vez** —un pedido
+      en el paso 04, «facturado hoy» en la pantalla y la ganancia de cuatro clientes «este mes»
+      en la tabla—, y la pantalla pasa a ser del mes de punta a punta; **«cinco pasos» contra
+      «Seis pasos»** a doscientos píxeles de distancia; **«pérdidas»**, que salía una sola vez
+      en toda la página sin que ningún paso hablara de ellas; **un rótulo que nunca se veía**
+      porque el guion lo pisaba al cargar; **«En otro negocio» faltaba en los pasos 05 y 06**,
+      justo los del dinero; **la calculadora no se enlazaba** aunque contesta exactamente las
+      cinco preguntas del cierre; y **tres frases del FAQ salían en monoespaciada cobre** dentro
+      de párrafos normales —las tres más comprometidas de la página— por un selector demasiado
+      ancho.
+
+      **Una corrección:** dije que «un ERP es la libreta única» choca con su dibujo. No choca
+      —el dibujo dice cinco arriba y una sola abajo, que es lo que la frase promete—. Lo que no
+      encajaba era que los recuadros están rotulados como áreas y el pie los llamaba libretas.
+
+### Séptima pasada: lo que nunca se había medido
+
+- [x] **Los ocho recorridos se veían con la tipografía del teléfono, no con la nuestra.**
+      Pedían Azeret Mono y Archivo a Google Fonts, y **nuestra propia CSP las bloquea**:
+      `style-src 'self'` y `font-src 'self'`, comprobado en el encabezado que manda el
+      preview. Medido con esa CSP inyectada: **cero tipografías en el documento** y el titular
+      a 280.4 px en vez de 331.5. **Desde que la CSP entró, el 22 de septiembre**, los ocho se
+      veían con la monoespaciada que trajera el aparato —Consolas, Menlo, lo que hubiera— y
+      distinta en cada teléfono. Es la pieza que este archivo llama lo mejor diseñado que tiene
+      Loomware, y la que se manda por WhatsApp.
+
+      **Por qué se tardó tres días en verse:** en local se sirve con `http-server`, que no manda
+      encabezados, así que las fuentes cargaban desde Google y todo se veía bien. **Una medición
+      local no dice nada sobre lo que la CSP deja pasar**; hay que inyectarla como `meta` o
+      mirar el sitio publicado.
+
+      Ahora se sirven desde el dominio. Los subconjuntos que ya existían no servían —el de
+      Azeret Mono es sólo mayúsculas y el de Archivo tiene el eje fijo en 700—, así que
+      `npm run fuente:recorridos` saca los suyos con el eje de peso abierto, y **los caracteres
+      salen de los propios ocho archivos**: 127 glifos, 12.1 KB y 14.3 KB. La fuente en
+      `recorridos-fuente/` se queda con Google Fonts porque el artifact suelto de WhatsApp no
+      tiene `/fonts/`; y si algún día una se cuela, **el empaquetador falla en vez de
+      publicarlo**.
+
+      Comprobado después, con la CSP puesta: los ocho cargan las dos familias, **cero caracteres
+      sin glifo**, y el titular vuelve a 331.5 px —idéntico a la versión con Google Fonts, o sea
+      que el recorte es la misma tipografía—. El visitante baja **43.4 KB en tres peticiones**,
+      todas al mismo dominio.
+
+- [x] **El paso que se está leyendo se anuncia a quien no ve la pantalla.** El teclado ya
+      funcionaba —doce elementos en orden, los seis pasos reciben el foco y responden a Enter,
+      los tres controles con contorno visible—, pero el paso actual sólo se marcaba con color
+      y con la raya: un lector de pantalla anunciaba seis secciones iguales. Ahora lleva
+      `aria-current="step"`, puesto donde ya se pone la clase.
+
+      **Lo que no se hizo, y por poco:** `role="button"` en la sección. Convierte al elemento
+      en una hoja del árbol de accesibilidad, así que se anunciaría todo el texto del paso como
+      el nombre de un botón y se perderían su título y sus tres renglones. El paso es contenido
+      que además se puede picar.
+
+## Resueltas el 2026-09-24 (sexta pasada del ERP, y lo que salió midiéndola)
+
+- [x] **El recorrido no tenía nombre.** El índice del documento iba de «Todo negocio sigue algo»
+      directo a «Llega la mercancía»: seis encabezados hermanos, del mismo nivel que «Antes de
+      que preguntes», sin nada que los presentara ni que dijera cuántos son. Lo único que había
+      era «Baja para recorrerlo», que es una instrucción, no un nombre. Para quien lee con los
+      ojos se entiende por el dibujo; para quien lee el índice —un buscador, un lector de
+      pantalla, quien salta de encabezado en encabezado— **el recorrido no existía como pieza**.
+      Ahora se llama «Seis pasos, un solo pedido» y los seis pasan de `h2` a `h3`.
+      **Índice medido: cero saltos de nivel.**
+
+- [x] **La primera puerta se había ido a 6.1 pantallas, y fue culpa mía.** Ese botón existe
+      porque el único que había estaba a 6.6 del inicio; se puso justo al terminar los seis
+      pasos, en 4.9. El 23 metí la pantalla del sistema **entre los dos** y lo empujó de vuelta.
+      Además el botón dice *«¿Te viste en alguno de los seis pasos?»*: habla de los pasos, así
+      que va pegado a ellos. Queda en **5.3 pantallas de 8.7** —el 61 % del recorrido, contra el
+      71 %—.
+
+- [x] **En el teléfono la leyenda del dibujo no se veía.** Estaba en `display:none` abajo de
+      880 px, así que quien lee en celular —la mayoría, y esta pieza se manda por WhatsApp— veía
+      una línea punteada saliendo de cada parada sin nada que dijera que eso es **lo que se
+      anota y viaja al sistema**, que es la idea entera del recorrido. Sale del bloque pegado
+      —ahí serían píxeles que le quito a la lectura del paso— y se lee una vez, junto a la
+      ficha. Cuesta 0.1 pantallas.
+
+- [x] **Cada recorrido lleva ya su propia tarjeta social** (`npm run og:recorridos`, 8
+      tarjetas, 180 KB). Los ocho compartían `og-image.png`, la genérica del sitio, y **estas
+      páginas existen para mandarse por WhatsApp**: lo primero que ve el prospecto no es la
+      página, es la tarjeta del enlace. Ocho enlaces distintos que se previsualizaban idénticos
+      parecen el mismo enlace mandado ocho veces. Cada una lleva la escena de su propio
+      recorrido, con la paleta del recorrido y no con el morado del sitio, porque la tarjeta
+      debe parecerse a lo que abre.
+
+- [x] **Y la tarjeta apuntaba a un 404. Eso estaba vivo.** Comprobado con `curl`:
+      `loomware.com.mx/og-image.png` **responde 404**, porque producción sigue sirviendo el
+      sitio viejo y su tarjeta es otro archivo (`hero_desktop-1400w.png`, de los PNG que esta
+      rama borró). Como el enlace que se comparte es el preview de la rama, WhatsApp pedía la
+      imagen al dominio, no la encontraba y **no mostraba ninguna**: la pieza que existe para
+      mandarse por WhatsApp se previsualizaba en blanco.
+
+      `og:image` es la única URL absoluta de la página que **tiene que resolver ahora mismo**
+      —el canonical puede y debe seguir apuntando al dominio, así el preview no compite en el
+      buscador—. `scripts/base-publica.js` la cuelga del preview de la rama cuando el build no
+      es de `main`, usando `CF_PAGES_BRANCH`, que Cloudflare pone en cada build. Aplica a los
+      recorridos, a servicios e industrias y a las páginas que arma Vite. Probado en los tres
+      modos, y las **47 tarjetas del sitio construido apuntan a un archivo que sí se publica**.
+
+- [x] **Los casos de éxito se leen en un solo orden.** La tarjeta era una reja de dos por dos
+      y eso dejaba **la cita y el resultado lado a lado** en el renglón de abajo: dos cosas sin
+      relación que se leen como pareja, y ninguna pista de por dónde empezar. Ahora son tres
+      bandas —quién es · qué pasó (01·02·03) · lo que dice el dueño—. Y cuatro cosas que
+      confundían: el subtítulo prometía tres cosas y la tarjeta titulaba otras tres; «GT-SHOP»
+      aparecía tres veces; el distintivo del servicio flotaba sin decir qué era; y «Resultado»
+      iba sobre placa morada, cuando el morado es la marca y lo que se pica. **El texto del caso
+      no cambió ni una palabra.** Medido con uno y con tres casos, en cinco medidas.
+
+- [x] **Salieron dos cosas de la pantalla del ERP que Claude había escrito sin base.** La
+      primera, *«el que más te compra es el que menos te deja»*, no era una suposición sino algo
+      peor: **los cuatro renglones estaban inventados para que ese patrón saliera**, y después
+      la conclusión se escribió como si la tabla la revelara. La segunda, *«no se enseña la
+      pantalla de un cliente y los nombres no se inventan»*, es una regla nuestra que al
+      prospecto no le toca leer. Las dos fuera; la tabla gana encabezados —Cliente · Facturado ·
+      Ganancia— y con eso el renglón cubierto se explica solo. Las cifras siguen cuadrando:
+      suman los $41,760 del paso 04 y su ganancia da el 22.4 % del paso 06.
+
+      **Las dos quedaron como regla del proyecto**, arriba en «Reglas del proyecto», con su
+      fecha y su porqué.
+
+- [x] **Corrección de un arreglo del mismo día.** Subir el botón del recorrido a 44 px de alto
+      le sumó 15 px al bloque que se queda pegado arriba, y a **360×740** eso dejó fuera cuatro
+      de los seis pasos por entre 2 y 11 px. A 390 no se notaba. El blanco táctil no necesita
+      que la caja crezca: un área transparente lo lleva a 45 px sin ocupar pantalla. Medido
+      otra vez: 6 de 6 en 360, 390, 430 y 768.
+
+- [x] **La tarjeta del enlace, comprobada en vivo.** No sólo en el build:
+      `alan.loomware-page.pages.dev/recorridos/erp` sirve hoy su `og:image` apuntando al
+      preview de la rama, y esa imagen **responde 200**. O sea que `CF_PAGES_BRANCH` hace lo
+      que se esperaba y el enlace que se manda por WhatsApp ya enseña algo.
+
+## Resueltas el 2026-09-23 (quinta destrucción del recorrido del ERP)
+
+Las cuatro pasadas anteriores destriparon palabras. Ésta midió **el aparato**, que nunca se
+había comprobado, y de ahí salió lo más grave.
+
+- [x] **En el teléfono nunca se veía un paso completo junto a su dibujo**, que es la única
+      promesa del formato. Medido a 390×844: lo que se quedaba pegado arriba medía **590 px de
+      los 844** y dejaba 254 para leer, cuando los pasos miden de 269 a 386. **Ninguno de los
+      seis cabía**: el mejor se veía al 69 %, el peor al 53 %.
+
+      Y de esos 590 px el dibujo eran **215**. Los otros 375 eran el rótulo, el pie y la ficha
+      de los cinco papeles, que sola pesaba 214 —lo mismo que el dibujo— y repetía el código
+      que el rótulo ya dice arriba: «PED-3471» salía dos veces en la misma pantalla. Ahora en
+      celular sólo se queda pegado el dibujo; la ficha se lee una vez, antes de los pasos.
+
+      Hizo falta además sacar la caja que cortaba el pegado: **un elemento pegado sólo se queda
+      dentro de la caja de su padre**, y la de `.figure` terminaba donde empiezan los pasos,
+      así que el dibujo se despegaba en el paso 03. Con `display:contents` cuelga de
+      `.cols`, que abarca los seis. Medido después: **6 de 6 pasos legibles completos con el
+      dibujo en pantalla, en 360, 390, 430 y 768 px.**
+
+      **Sólo el ERP fallaba.** Se midieron los ocho: los otros siete pegan de 466 a 498 px
+      (55–59 % del teléfono) y sus pasos sí caben. El ERP era el peor porque era el único con
+      la ficha adentro.
+
+- [x] **La página decía «en la pantalla» y nunca enseñaba una.** Cero imágenes en 1 516
+      palabras: el dibujo es una bodega vista desde arriba —enseña **el mundo**, nunca **el
+      programa**—, así que quien leía los seis pasos seguía sin saber qué vería todos los días.
+      Ahora, al terminar los seis pasos, está el tablero: las cinco áreas, tres cifras y la
+      ganancia por cliente.
+
+      Va en **HTML y no en SVG**, por tres razones medidas en esta misma página: un lienzo fijo
+      encoge su texto en el teléfono —el diagrama de arriba acababa en 5.2 px y hubo que
+      dibujarlo dos veces—; el recorrido tiene **modo oscuro** y su acento es **cobre**, no el
+      morado del sitio, así que un archivo con los colores horneados se vería mal en los dos
+      casos; y es texto, o sea que lo lee un buscador y lo lee quien no ve la pantalla.
+
+      **Los números son los del propio recorrido y cuadran:** los cuatro renglones suman
+      exactamente los $41,760 de la factura del paso 04 y su ganancia ponderada da el 22.4 %
+      del paso 06. Y dicen algo: **el que más compra deja el margen más bajo** —16.8 % contra
+      31.4 %—, que es lo que el paso 06 promete y lo que no se ve cuando la cuenta se hace a
+      fin de mes. **Aldo: si esa lectura no te parece, se cambia la tabla; son cifras de
+      ejemplo y lo dice al pie.** Cuesta 0.9 pantallas de celular —de 7.7 a 8.6—.
+
+      Las dos reglas del hero se aplican igual: no se enseña la pantalla de un cliente —lo dice
+      adentro, en su esquina— y donde iría una razón social va un renglón gris.
+
+- [x] **Palabras de oficina que habían sobrevivido tres rondas.** «Timbrada» seguía viva en el
+      rótulo del paso 04 y «se timbra» en la pregunta 03, dos rondas después de haberlas
+      quitado del resto; «padrón» y «en paralelo», fuera; **«gratis» convivía con «sin costo»**
+      a tres pantallas, después de haberlo quitado de todos los botones del sitio. Y el paso 02
+      **prendía ENT-2207** mientras el rótulo hablaba de «312 piezas»: quien sigue el papel veía
+      encenderse un número que no aparecía en ninguna otra parte del paso.
+
+- [x] **Dos fallas del aparato.** El botón «Que avance solo» **volvía a decir «Reproducir»** al
+      terminar de correr —el guion le reescribía el nombre viejo—, y el dibujo apilado del
+      teléfono **se le anunciaba a un lector de pantalla** igual que el ancho: la misma escena,
+      descrita dos veces seguidas.
+
+- [x] **Sin JavaScript, los ocho recorridos se leían rotos.** La escena se dibuja desde el guion
+      dentro de un `<g id="world">` que llega vacío: quedaba un recuadro con borde y nada
+      adentro, un botón que no avanza y un rótulo que anuncia «01 / 06» de un dibujo que no
+      existe. Y lo peor no era el dibujo: los pasos empiezan en opacidad .34 y sólo el primero
+      trae la clase que los enciende, así que **cinco de los seis se leían al 34 %**. Cinco
+      reglas dentro de `<noscript>` los caen a un artículo que se lee entero.
+
+      No cubre el caso de que el guion exista y falle: ahí JavaScript está encendido y
+      `<noscript>` no aplica. Las reglas se revisaron leyendo la cascada, no renderizando con
+      guiones apagados: `--disable-javascript` no surte efecto en Edge headless nuevo.
+
+- [x] **El 404 era la única página que seguía en el sistema visual viejo.** `public/404.html`
+      es un archivo suelto que Cloudflare sirve sin pasar por la aplicación, así que se quedó
+      fuera de la revisión del 22 de septiembre y conservaba entero lo que ese día se retiró: el
+      **degradado morado→rosa→rojo**, el botón en **#e11d48** —el rojo reservado para el error—,
+      titulares en peso 800, radio de 12 px y un fondo que no está en la paleta. Tampoco
+      declaraba `color-scheme`, y no lo hereda porque no carga `tokens.css`. Ahora usa el
+      morado #5326d9, el papel cálido y Archivo; los valores van escritos en el archivo porque
+      `tokens.css` cambia de nombre en cada build. Y dejaba al visitante en un callejón con un
+      solo botón: ahora el logotipo lleva al inicio y hay tres destinos reales.
+
+      **Barrido después:** cero apariciones del degradado y del rojo-botón en todo el código.
+      Dos falsas alarmas comprobadas antes de tocarlas: `public/hero-operacion.svg` parece
+      muerto pero es la fuente de la tarjeta social (`scripts/og-imagen.js`), y el favicon usa
+      **#8168f0 y no #5326d9 a propósito** —va sobre la placa azul marino, donde el morado de
+      marca no se leería; es la misma regla que sigue la variante clara del logotipo—. **No
+      cambiarlos.**
+
+- [x] **Corrección de método.** Las 3 399 palabras que conté primero incluían el código del
+      guion: `body.textContent` se lleva el contenido de `<script>`. Son **1 516** (1 683 con
+      la pantalla nueva). Y el recorte que se ve en las capturas a 390 px es de Edge, no del
+      sitio: medido con `scrollWidth`, **no hay desbordamiento** en ninguno de los seis anchos.
 
 ## Resueltas el 2026-09-22/23 (revisión de Aldo)
 
@@ -113,6 +565,120 @@ Las variables `VITE_` se hornean en el build: al cargarlas o cambiarlas hay que 
       (CRM, ERP y Nómina) tal como están.
 - [x] **Pruebas**: `npm test` (Vitest) cubre la calculadora, la validación del formulario y
       `centrarActual`.
+
+## Resueltas el 2026-09-22 (recorrido de la página, URL por URL)
+
+- [x] **Los dos encabezados de seguridad que faltaban.** El sitio mandaba cuatro de los seis
+      que importan; faltaban **HSTS** y **Content-Security-Policy**, los dos más pesados. De
+      los sitios del estudio, Stripe y Bind mandan los seis; Xero y Alegra, menos que nosotros.
+      La CSP no se puede escribir a mano porque el sitio tiene scripts en línea —el de
+      consentimiento y el de cada recorrido— y autorizarlos con `'unsafe-inline'` sería dejar
+      pasar cualquier script inyectado, que es justo lo que la política existe para impedir.
+      `scripts/encabezados.js` corre después del build, saca el hash de cada script en línea y
+      escribe `dist/_headers`; cuando un script cambia, su hash cambia solo. Probada
+      inyectándola como `meta` en seis páginas: cero violaciones, y repetido con `VITE_GA_ID`
+      cargado para confirmar que Analytics tampoco se rompe.
+
+- [x] **El botón «Diagnóstico» volvía al inicio en vez de ir al formulario.** Un enlace
+      `/#contacto` carga el inicio y el navegador busca la sección antes de que React la
+      dibuje. `src/lib/ancla.js` espera a que exista. Era el único camino al formulario desde
+      cualquier página que no fuera el inicio.
+
+- [x] **Un solo botón de diagnóstico a la vista.** Contados en la página armada: seis en el
+      inicio y cuatro en cada servicio, y dos se veían al mismo tiempo a ciento cincuenta
+      píxeles —el de la barra y el del hero—. Ahora el de la barra cede la primera pantalla y
+      toma el relevo cuando el del hero sale (`src/lib/ctaNavbar.js`, usado por las tres
+      barras). Salieron además la banda morada «Hagamos crecer tu negocio juntos» y la banda de
+      la calculadora del final: la calculadora vive en el hero desde el movimiento 01 y
+      repetirla catorce pantallas abajo ya no agregaba nada. Quedan dos caminos a ella, el hero
+      y el pie.
+
+- [x] **El recorrido se siente parte del sitio.** El mismo archivo sirve para la página y para
+      el artifact de WhatsApp, y traía lo que necesita un artifact suelto. En la versión del
+      sitio, el empaquetador ahora enlaza el logotipo al inicio —antes no llevaba a ningún
+      lado—, quita la etiqueta «loomware.com.mx» del dominio en el que ya estás, y manda
+      «formulario del sitio» a `/#contacto` en la misma pestaña, en vez de abrir otra pestaña
+      en la página del servicio. La fuente se queda intacta.
+
+- [x] **El inicio, de 18.6 a 14.0 pantallas en celular**, y con más texto que antes: salió «El
+      desafío» —contaba con un diagrama lo mismo que ya dibuja el hero— y sus cuatro frases
+      concretas reemplazaron a las genéricas del bloque «Impacto». Los recorridos enseñan su
+      resumen, que ya estaba escrito y el inicio no usaba: **1 995 palabras en el DOM**, arriba
+      de las 1 964 de Bind.
+
+- [x] **Detalles del recorrido por URL:** fuera «gratuito» del botón de enviar; el titular de
+      industrias pasó de dos oraciones en tres renglones a una en dos; y el logotipo de la
+      pantalla de contraseña de `/prospectar`, que era el único del sitio que no llevaba a
+      ningún lado, ya va al inicio.
+
+- [x] **GT-SHOP, el primer caso real**, firmado por Eduardo Díaz. Eduardo aprobó la cita y la marca
+      el mismo 22.
+
+- [x] **El estudio comparativo, con las cifras de hoy.** El artifact
+      (<https://claude.ai/artifact/MoSn3kdnN4acpzk3bbs5t8>) se quedó con la foto de la mañana:
+      decía que éramos 298 ms, que no teníamos prueba social, que la calculadora estaba escondida
+      y que la portada cargaba una imagen. Cinco de sus ocho fichas ya no eran ciertas. La
+      segunda medición reemplaza a la primera en la misma URL, y deja ver de dónde venía cada
+      cifra. **Seis de los siete movimientos quedaron cerrados**; el que falta es el 05, publicar
+      precio, que es de Aldo.
+
+- [x] **Barrido de deuda técnica.** Cero referencias a los tres componentes que se borraron, 30
+      enlaces internos sin uno roto, las 25 URLs del sitemap con su página construida, ninguna
+      marca de pendiente en el código, y el catálogo de íconos en 50 sin ninguno sin uso.
+
+## Resueltas el 2026-09-22 en `alan` (segunda pasada del estudio)
+
+- [x] **El inicio vuelve a 14.8 pantallas en celular (2026-09-22).** Había subido a 16.3 al
+      entrar los recorridos y los casos. Se quitó **«El desafío»**: contaba con un diagrama lo
+      mismo que ya dibuja el hero —las herramientas sueltas y el «un solo sistema»—, costaba
+      1 303 px con unas sesenta palabras, y sus cuatro resultados eran los mismos cuatro del
+      bloque «Impacto». Sus frases, que eran las concretas, se quedaron ahí y reemplazaron a
+      las genéricas.
+
+- [x] **El texto indexable sube a 1 995 palabras (2026-09-22)**, arriba de las 1 964 de Bind.
+      Cada recorrido tenía un resumen escrito en `src/data/recorridos.js` que el inicio no
+      usaba; ahora se lee en su tarjeta, y se retira en celular para no volver a alargar la
+      portada —sigue en el documento, que es lo que lee un buscador—.
+
+      **Corrección de método:** la cifra de 1 432 palabras que reporté contra las 1 964 de Bind
+      no era comparable. `innerText` deja fuera las respuestas plegadas de las preguntas
+      frecuentes —405 palabras— y un buscador sí las lee. Para comparar hay que medir con
+      `textContent`. La portada nunca estuvo tan abajo como dije.
+
+- [x] **El botón «Diagnóstico» vuelve a llevar al formulario (2026-09-22).** Desde la
+      calculadora, el aviso, `/gracias` o el pie, un enlace `/#contacto` dejaba al visitante
+      hasta arriba del inicio: el navegador buscaba la sección antes de que React la dibujara.
+      `src/lib/ancla.js` espera a que exista y entonces va. Era el único camino al formulario
+      desde cualquier página que no fuera el inicio.
+
+- [x] **La portada ya enseña lo que construimos (2026-09-22).** La sección 06 del estudio
+      decía que cargábamos **una imagen contra las 44 de Bind**. Las ocho escenas de los
+      recorridos —la bodega con su camión, el tablero de corcho, la tarjeta de checado, los dos
+      maniquíes de sastre— ya existían y sólo vivían dentro de su propia página; ahora el primer
+      paso de cada una se ve en su tarjeta del inicio. Se sacan con
+      `npm run recorridos:escenas`, que le pide a un navegador que dibuje la escena y hornea en
+      cada elemento el estilo calculado, porque los colores viven en reglas CSS de la página y
+      una copia cruda sale negra. **En escritorio: 10 imágenes y 132.7 KB.** En celular no se
+      dibujan —serían diecisiete kilobytes tirados donde más pesan— y la portada se queda igual,
+      en 114.2 KB y 14.0 pantallas.
+
+- [x] **Y el hero es ahora la pantalla del sistema (2026-09-22).** Era un diagrama —la maraña de
+      hoy contra un solo sistema—; ahora es **la pantalla de inicio con los ocho módulos**, cada
+      uno poniendo su propio recuadro: el embudo del CRM, el dinero por cobrar del ERP, la
+      dispersión de la nómina, los pedidos de la tienda, los flujos que corren solos, el módulo a
+      medida en producción, la disponibilidad y los técnicos en ruta. Se genera con
+      `npm run hero:sistema` y pesa **2.5 KB**; en celular hay una versión de lista, y el
+      `<picture>` hace que el navegador baje sólo una.
+
+      Dos reglas quedan escritas en el guion que lo dibuja: **no se enseña la pantalla de un
+      cliente** —es una pantalla de ejemplo y lo dice adentro, en su esquina— y **los nombres de
+      cliente no se inventan**: donde iría una razón social van renglones grises, que además es
+      como se ve de verdad una demostración pública de un sistema con datos de terceros.
+
+      Lo que **no** queda cerrado, y conviene no confundirlo: las 44 imágenes de Bind incluyen
+      capturas de su software funcionando. Las nuestras son dibujos nuestros. La salida honesta
+      para eso sería la autorización de un cliente para enseñar su sistema con los datos
+      cubiertos.
 
 ## Resueltas el 2026-09-21 (tercera auditoría: abogado, Google y Google Ads)
 

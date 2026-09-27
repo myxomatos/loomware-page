@@ -4,7 +4,10 @@
 }
 .hero__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  /* La pantalla del sistema lleva contenido que hay que poder leer, así que
+     se lleva un poco más de ancho que el texto. Cuando aquí vivía un dibujo
+     decorativo era al revés. */
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   align-items: center;
   gap: var(--sp-10);
 }
@@ -37,14 +40,12 @@
 .hero__media {
   margin: 0;
 }
-/* El dibujo isométrico va sobre papel, no sobre una tarjeta con sombra:
-   es una ilustración, no una captura de pantalla. */
+/* La pantalla trae su propio marco, su propia sombra y sus propias esquinas.
+   Meterla en una tarjeta con fondo era un marco dentro de otro. */
 .hero__media img {
+  display: block;
   width: 100%;
   height: auto;
-  border-radius: var(--r-lg);
-  background: var(--bg-soft);
-  padding: var(--sp-5);
 }
 
 @media (max-width: 991px) {

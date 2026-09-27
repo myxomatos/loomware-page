@@ -16,8 +16,14 @@
     "fuente:mono": "node scripts/subconjunto-mono.js",
     "hero:dibujo": "node scripts/hero-dibujo.js",
     "og:imagen": "node scripts/og-imagen.js",
+    "og:recorridos": "node scripts/og-recorridos.js",
     "fuente:titulares": "node scripts/subconjunto-titulares.js",
+    "fuente:recorridos": "node scripts/subconjunto-recorridos.js",
     "logo:cliente": "node scripts/logo-cliente.js",
+    "postbuild": "node scripts/encabezados.js",
+    "encabezados": "node scripts/encabezados.js",
+    "recorridos:escenas": "node scripts/escenas.js",
+    "hero:sistema": "node scripts/hero-sistema.js",
     "test": "vitest run"
   },
   "dependencies": {

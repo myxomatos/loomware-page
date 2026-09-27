@@ -32,8 +32,12 @@ const json = (body, status = 200) =>
 const segment = (s) => encodeURIComponent(s).replace(/%2C/gi, ',')
 
 export async function onRequestGet({ request, env, params }) {
-  if (!env.DENUE_TOKEN) return json({ error: 'Falta configurar DENUE_TOKEN' }, 500)
-  if (!env.PROSPECT_KEY) return json({ error: 'Falta configurar PROSPECT_KEY' }, 500)
+  /* Las dos de un jalón, no de una en una. Revisando en orden, la ausencia del
+     token tapaba a la de la contraseña: desde fuera no había manera de saber si
+     PROSPECT_KEY estaba puesta sin cargar antes DENUE_TOKEN, y quien está
+     capturando variables en Cloudflare lo que quiere saber es si ya quedó todo. */
+  const faltan = ['DENUE_TOKEN', 'PROSPECT_KEY'].filter((v) => !env[v])
+  if (faltan.length) return json({ error: `Falta configurar: ${faltan.join(', ')}` }, 500)
 
   if (request.headers.get('x-prospect-key') !== env.PROSPECT_KEY) {
     return json({ error: 'Contraseña incorrecta' }, 401)

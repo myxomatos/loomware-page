@@ -9,8 +9,12 @@ export default function Industrias() {
       <div className="container">
         <header className="section__head">
           <span className="eyebrow eyebrow--purple">Por giro</span>
-          <h2>Cada giro tiene sus fugas. Estas son las que más vemos.</h2>
-          <p className="section__subtitle">Encuentra tu operación y lo que suele resolverla.</p>
+          {/* Un titular, una oración. Antes eran dos y caían en tres renglones;
+              la segunda pertenece al subtítulo, que es donde se explica. */}
+          <h2>Cada giro tiene sus propias fugas</h2>
+          <p className="section__subtitle">
+            Estas son las que más vemos. Encuentra tu operación y lo que suele resolverla.
+          </p>
         </header>
 
         <ul className="industrias__grid">
