@@ -1,48 +1,38 @@
 import Logo from './Logo'
 import Icon from './Icon'
+import { EMAIL, TELEFONOS, CIUDAD, whatsappUrl } from '../data/contacto'
+import { SERVICIOS } from '../data/servicios'
+import { INDUSTRIAS } from '../data/industrias'
+import { CASOS } from '../data/casos'
+import { ABRIR } from './Cookies'
 import './Footer.css'
-
-const EMAIL = 'aldo_sanchez@loomware.com.mx'
-const PHONE_DISPLAY = '+52 55 8096 8928'
-const PHONE_TEL = '+525580968928'
-
-// Fill in the real profile URLs; an empty url renders the icon without a link.
-const SOCIAL = [
-  { icon: 'linkedin', label: 'LinkedIn', url: '' },
-  { icon: 'instagram', label: 'Instagram', url: '' },
-  { icon: 'youtube', label: 'YouTube', url: '' },
-  { icon: 'facebook', label: 'Facebook', url: '' },
-]
 
 const COLUMNS = [
   {
     title: 'Soluciones',
-    links: [
-      { label: 'CRM', href: '#solucion-crm' },
-      { label: 'ERP', href: '#solucion-erp' },
-      { label: 'Automatización', href: '#solucion-automatizacion' },
-      { label: 'Desarrollo de software', href: '#solucion-software' },
-      { label: 'Infraestructura cloud', href: '#solucion-cloud' },
-      { label: 'Apps móviles', href: '#solucion-apps' },
-    ],
+    links: SERVICIOS.map((s) => ({ label: s.nombre, href: `/servicios/${s.slug}` })),
   },
   {
-    title: 'Servicios',
+    title: 'Industrias',
+    links: INDUSTRIAS.map((g) => ({ label: g.nombre, href: `/industrias/${g.id}` })),
+  },
+  {
+    title: 'Cómo trabajamos',
     links: [
-      { label: 'Integraciones', href: '#proceso' },
-      { label: 'Consultoría', href: '#proceso' },
-      { label: 'Implementación', href: '#proceso' },
-      { label: 'Soporte y mantenimiento', href: '#proceso' },
-      { label: 'Migración de sistemas', href: '#proceso' },
+      { label: '¿Cuánto te cuesta tu Excel?', href: '/calculadora' },
+      { label: 'Solicitar diagnóstico', href: '/#contacto' },
+      { label: 'Nuestro proceso', href: '/#proceso' },
+      { label: 'Integraciones', href: '/servicios/automatizacion' },
+      { label: 'Migración a la nube', href: '/servicios/infraestructura-cloud' },
     ],
   },
   {
     title: 'Empresa',
     links: [
-      { label: 'Casos de éxito', href: '#impacto' },
-      { label: 'Recursos', href: '#desafio' },
-      { label: 'Acerca de nosotros', href: '#inicio' },
-      { label: 'Privacidad', href: '#contacto' },
+      { label: 'Quiénes somos', href: '/#nosotros' },
+      ...(CASOS.length ? [{ label: 'Casos de éxito', href: '/#casos' }] : []),
+      { label: 'Preguntas frecuentes', href: '/#faq' },
+      { label: 'Aviso de privacidad', href: '/aviso-de-privacidad' },
     ],
   },
 ]
@@ -57,28 +47,33 @@ export default function Footer() {
             <p className="footer__tagline">
               Tecnología empresarial para crecer con claridad, control y confianza.
             </p>
-            <ul className="footer__social" aria-label="Redes sociales">
-              {SOCIAL.map((s) =>
-                s.url ? (
-                  <li key={s.icon}>
-                    <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
-                      <Icon name={s.icon} size={18} />
-                    </a>
-                  </li>
-                ) : (
-                  <li key={s.icon}>
-                    <span title={s.label}>
-                      <Icon name={s.icon} size={18} />
-                    </span>
-                  </li>
-                ),
-              )}
+            <ul className="footer__links footer__contact">
+              <li>
+                <Icon name="mail" size={16} />
+                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              </li>
+              {TELEFONOS.map((p) => (
+                <li key={p.tel}>
+                  <Icon name="phone" size={16} />
+                  <a href={`tel:${p.tel}`}>{p.display}</a>
+                </li>
+              ))}
+              <li>
+                <Icon name="message-circle" size={16} />
+                <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <Icon name="map-pin" size={16} />
+                <span>{CIUDAD}</span>
+              </li>
             </ul>
           </div>
 
           {COLUMNS.map((col) => (
             <nav key={col.title} className="footer__col" aria-label={col.title}>
-              <h4 className="footer__heading">{col.title}</h4>
+              <h3 className="footer__heading">{col.title}</h3>
               <ul className="footer__links">
                 {col.links.map((l) => (
                   <li key={l.label}>
@@ -89,27 +84,25 @@ export default function Footer() {
             </nav>
           ))}
 
-          <div className="footer__col">
-            <h4 className="footer__heading">Contacto</h4>
-            <ul className="footer__links footer__contact">
-              <li>
-                <Icon name="mail" size={16} />
-                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-              </li>
-              <li>
-                <Icon name="phone" size={16} />
-                <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
-              </li>
-              <li>
-                <Icon name="map-pin" size={16} />
-                <span>México, CDMX</span>
-              </li>
-            </ul>
-          </div>
         </div>
 
         <div className="footer__bottom">
-          <p>© {new Date().getFullYear()} Loomware. Todos los derechos reservados.</p>
+          <p>
+            © {new Date().getFullYear()} Loomware · Todos los derechos reservados.
+            {/* Sin Analytics no hay cookies ni banda que reabrir: el botón no haría nada. */}
+            {typeof window.gtag === 'function' && (
+              <>
+                {' · '}
+                <button
+                  type="button"
+                  className="footer__cookies"
+                  onClick={() => window.dispatchEvent(new Event(ABRIR))}
+                >
+                  Cookies
+                </button>
+              </>
+            )}
+          </p>
           <p className="footer__motto">Ideas de hoy. Negocios más grandes mañana.</p>
         </div>
       </div>

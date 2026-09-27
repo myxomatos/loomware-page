@@ -1,0 +1,73 @@
+.wa-flotante {
+  --icon-bg: var(--green-700);
+  position: fixed;
+  right: var(--sp-5);
+  bottom: var(--sp-5);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 56px;
+  padding: 0 var(--sp-5) 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  color: var(--white);
+  background: var(--green-700);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(15, 122, 64, 0.38);
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+}
+.wa-flotante:hover {
+  transform: translateY(-2px);
+  background: var(--green-800);
+  box-shadow: 0 14px 34px rgba(15, 122, 64, 0.45);
+}
+.wa-flotante .icon {
+  flex: none;
+}
+
+/* En móvil sólo el ícono, para no tapar contenido */
+@media (max-width: 599px) {
+  .wa-flotante {
+    right: var(--sp-4);
+    bottom: var(--sp-4);
+    width: 56px;
+    padding: 0;
+    justify-content: center;
+  }
+  .wa-flotante__texto {
+    display: none;
+  }
+}
+
+/*
+ * En celular la banda de cookies ocupa todo el ancho de abajo y taparía este
+ * botón. Mientras el visitante no decida, el botón se aparta.
+ */
+@media (max-width: 560px) {
+  body.cookies-abierto .wa-flotante {
+    display: none;
+  }
+}
+
+/* Mientras el formulario está a la vista, el flotante se retira: ahí el
+   renglón «¿Prefieres hablar directo?» ya ofrece WhatsApp, y dos entradas al
+   mismo canal en la misma pantalla es insistir, no ayudar. Se desvanece en vez
+   de desaparecer de golpe, y deja de recibir clics. */
+.wa-flotante {
+  transition:
+    opacity var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease),
+    visibility var(--t-base);
+}
+.wa-flotante--oculto {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.96);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-flotante {
+    transition: none;
+  }
+}

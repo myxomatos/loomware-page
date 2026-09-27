@@ -1,14 +1,57 @@
 .contact {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: var(--sp-6);
-  padding: var(--sp-6);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-10);
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: var(--sp-8);
   scroll-margin-top: calc(var(--nav-h) + 24px);
 }
 .contact__intro {
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
+}
+/* Canal alterno, al pie de la columna izquierda */
+.contact__directo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin-top: auto;
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--border);
+}
+.contact__directo-titulo {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-900);
+}
+.contact__directo-enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-600);
+  transition: color var(--t-base) var(--ease);
+}
+.contact__directo-enlace strong {
+  color: var(--text-900);
+  font-weight: 600;
+}
+/* La placa del ícono es la misma de «Entradas»: el renglón se lee como una
+   entrada más, y el color vive en el fondo suave, no en el trazo. */
+.contact__directo-enlace .icon-tile {
+  transition: background var(--t-base) var(--ease);
+}
+.contact__directo-enlace:hover .icon-tile {
+  background: #ded7ff;   /* un paso más oscuro que --purple-100 */
+}
+.contact__directo-enlace:hover {
+  color: var(--purple-600);
+}
+.contact__directo-enlace:hover strong {
+  color: var(--purple-600);
 }
 .contact__title {
   font-size: var(--fs-h3);
@@ -43,21 +86,34 @@
   border-radius: var(--r-sm);
   padding: 8px 10px;
 }
-.contact__success {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: var(--sp-3);
-  padding: var(--sp-6);
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--r-lg);
-}
 
 @media (max-width: 767px) {
   .contact {
     grid-template-columns: 1fr;
     padding: var(--sp-5);
   }
+}
+
+
+/* Consentimiento del aviso de privacidad */
+.contact__acepta {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin-top: var(--sp-1);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  color: var(--text-500);
+  cursor: pointer;
+}
+.contact__acepta input {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  accent-color: var(--purple-500);
+}
+.contact__acepta a {
+  color: var(--purple-600);
+  text-decoration: underline;
 }

@@ -1,17 +1,20 @@
 import { useState } from 'react'
 import Icon from './Icon'
+import { EMAIL, WHATSAPP, whatsappUrl } from '../data/contacto'
+import { clicWhatsApp } from '../lib/analytics'
 import './ContactForm.css'
 
 /*
- * Where the form posts to. Set VITE_FORM_ENDPOINT in .env (see .env.example)
- * to a Formspree / Web3Forms / own API URL that accepts JSON. Without it the
- * form falls back to opening the visitor's email client with the message
- * pre-filled, so the submit button always does something useful.
+ * El formulario se envía a functions/api/contacto.js, que manda el correo con
+ * Resend. Esa función sólo existe en Cloudflare: en `npm run dev` la petición
+ * falla y se muestra el aviso de abajo, que ofrece escribir por correo.
  */
-const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || ''
-const FALLBACK_EMAIL = 'aldo_sanchez@loomware.com.mx'
+const ENDPOINT = '/api/contacto'
+const FALLBACK_EMAIL = EMAIL
 
-const INITIAL = { nombre: '', empresa: '', correo: '', telefono: '', necesidad: '' }
+/* Tres campos. El de contacto acepta un WhatsApp o un correo, y el servidor
+   distingue cuál es por la arroba. */
+const INITIAL = { nombre: '', contacto: '', necesidad: '', acepta: false }
 
 const BENEFITS = [
   'Análisis de tus canales y procesos',
@@ -20,12 +23,10 @@ const BENEFITS = [
 ]
 
 function buildMailto(values, interes) {
-  const subject = `Solicitud de diagnóstico — ${values.empresa || values.nombre}`
+  const subject = `Solicitud de diagnóstico — ${values.nombre}`
   const lines = [
     `Nombre: ${values.nombre}`,
-    `Empresa: ${values.empresa}`,
-    `Correo: ${values.correo}`,
-    `WhatsApp / teléfono: ${values.telefono}`,
+    `WhatsApp o correo: ${values.contacto}`,
     interes ? `Interés principal: ${interes}` : null,
     '',
     'Necesidad:',
@@ -34,58 +35,49 @@ function buildMailto(values, interes) {
   return `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
 }
 
-export default function ContactForm({ interes = '' }) {
+export default function ContactForm({ interes = '', titulo, intro, origen = 'Inicio' }) {
   const [values, setValues] = useState(INITIAL)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [status, setStatus] = useState('idle') // idle | sending | error
   const [error, setError] = useState('')
 
   const onChange = (e) => {
-    const { name, value } = e.target
-    setValues((v) => ({ ...v, [name]: value }))
+    const { name, value, type, checked } = e.target
+    setValues((v) => ({ ...v, [name]: type === 'checkbox' ? checked : value }))
   }
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    // Honeypot: bots fill every field; humans never see this one.
-    if (e.currentTarget.elements._gotcha.value) return
+    // Honeypot: los bots lo llenan; la persona nunca lo ve. Lo valida el servidor.
+    const _gotcha = e.currentTarget.elements._gotcha.value
 
     setError('')
-
-    if (!ENDPOINT) {
-      window.location.href = buildMailto(values, interes)
-      setStatus('success')
-      return
-    }
-
     setStatus('sending')
     try {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...values, interes, origen: 'Sitio web — formulario de diagnóstico' }),
+        body: JSON.stringify({ ...values, interes, origen, _gotcha }),
       })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      setStatus('success')
-      setValues(INITIAL)
-    } catch {
+      const data = await res.json().catch(() => null)
+      if (!res.ok) throw new Error((data && data.error) || `Error ${res.status}`)
+      window.location.assign('/gracias')
+    } catch (err) {
       setStatus('error')
-      setError('No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos a ' + FALLBACK_EMAIL)
+      setError(
+        import.meta.env.DEV
+          ? 'En local no corre la función de Cloudflare; prueba el formulario en el sitio publicado.'
+          : err.message,
+      )
     }
-  }
-
-  const reset = () => {
-    setValues(INITIAL)
-    setStatus('idle')
-    setError('')
   }
 
   return (
     <div id="contacto" className="card contact">
       <div className="contact__intro">
-        <h3 className="contact__title">Lleva tu negocio al siguiente nivel</h3>
+        <h3 className="contact__title">{titulo || 'Lleva tu negocio al siguiente nivel'}</h3>
         <p className="text-xs">
-          Recibe un diagnóstico sin costo y descubre cómo podemos ayudarte a crecer con más
-          control y eficiencia.
+          {intro ||
+            'Agenda una llamada sin costo y descubre cómo podemos ayudarte a crecer con más control y eficiencia.'}
         </p>
         <ul className="check-list">
           {BENEFITS.map((b) => (
@@ -95,139 +87,137 @@ export default function ContactForm({ interes = '' }) {
             </li>
           ))}
         </ul>
+
+        <div className="contact__directo">
+          <p className="contact__directo-titulo">¿Prefieres hablar directo?</p>
+          <a
+            href={whatsappUrl('Hola, prefiero platicar por WhatsApp sobre un diagnóstico para mi empresa.')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact__directo-enlace"
+            onClick={() => clicWhatsApp('formulario')}
+          >
+            <span className="icon-tile icon-tile--sm icon-tile--soft">
+              <Icon name="message-phone" size={16} />
+            </span>
+            <span>
+              <strong>WhatsApp</strong> {WHATSAPP.display}
+            </span>
+          </a>
+          <a href={`mailto:${EMAIL}`} className="contact__directo-enlace">
+            <span className="icon-tile icon-tile--sm icon-tile--soft">
+              <Icon name="mail" size={16} />
+            </span>
+            <span>
+              <strong>Correo</strong> {EMAIL}
+            </span>
+          </a>
+        </div>
       </div>
 
-      {status === 'success' ? (
-        <div className="contact__success" role="status" aria-live="polite">
-          <span className="icon-tile icon-tile--round">
-            <Icon name="check" size={24} strokeWidth={2.5} />
+      <form className="contact__form" onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="_gotcha"
+          tabIndex="-1"
+          autoComplete="off"
+          className="visually-hidden"
+          aria-hidden="true"
+        />
+        <input type="hidden" name="interes" value={interes} />
+
+        {interes && (
+          <p className="contact__interes">
+            Interés seleccionado: <strong>{interes}</strong>
+          </p>
+        )}
+
+        <label className="visually-hidden" htmlFor="f-nombre">
+          Nombre completo
+        </label>
+        <input
+          id="f-nombre"
+          className="field"
+          type="text"
+          name="nombre"
+          placeholder="Nombre completo"
+          autoComplete="name"
+          required
+          minLength={2}
+          value={values.nombre}
+          onChange={onChange}
+        />
+
+        {/* Un solo campo de contacto: la gente escribe lo que prefiere que le
+            contesten, y el servidor reconoce cuál es por la arroba. */}
+        <label className="visually-hidden" htmlFor="f-contacto">
+          WhatsApp o correo
+        </label>
+        <input
+          id="f-contacto"
+          className="field"
+          type="text"
+          name="contacto"
+          placeholder="WhatsApp o correo"
+          autoComplete="email tel"
+          required
+          minLength={6}
+          value={values.contacto}
+          onChange={onChange}
+        />
+
+        <label className="visually-hidden" htmlFor="f-necesidad">
+          Qué quieres resolver
+        </label>
+        <textarea
+          id="f-necesidad"
+          className="field"
+          name="necesidad"
+          placeholder="¿Qué quieres resolver?"
+          rows={3}
+          maxLength={1000}
+          value={values.necesidad}
+          onChange={onChange}
+        />
+
+        <label className="contact__acepta">
+          <input
+            type="checkbox"
+            name="acepta"
+            required
+            checked={values.acepta}
+            onChange={onChange}
+          />
+          <span>
+            He leído y acepto el{' '}
+            <a href="/aviso-de-privacidad" target="_blank" rel="noopener noreferrer">
+              aviso de privacidad
+            </a>
+            . Mis datos se usan sólo para atender esta solicitud.
           </span>
-          <h4>¡Listo! Recibimos tu solicitud.</h4>
-          <p className="text-xs">
-            {ENDPOINT
-              ? 'Te contactaremos en menos de 24 horas hábiles.'
-              : 'Se abrió tu cliente de correo con la solicitud lista para enviar.'}
+        </label>
+
+        {status === 'error' && (
+          <p className="contact__error" role="alert">
+            {error}{' '}
+            <a href={buildMailto(values, interes)}>Escríbenos por correo</a>.
           </p>
-          <button type="button" className="btn btn--outline btn--sm" onClick={reset}>
-            Enviar otra solicitud
-          </button>
-        </div>
-      ) : (
-        <form className="contact__form" onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="_gotcha"
-            tabIndex="-1"
-            autoComplete="off"
-            className="visually-hidden"
-            aria-hidden="true"
-          />
-          <input type="hidden" name="interes" value={interes} />
+        )}
 
-          {interes && (
-            <p className="contact__interes">
-              Interés seleccionado: <strong>{interes}</strong>
-            </p>
-          )}
+        <button
+          type="submit"
+          className="btn btn--primary btn--block"
+          disabled={status === 'sending'}
+        >
+          {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico'}
+        </button>
 
-          <label className="visually-hidden" htmlFor="f-nombre">
-            Nombre completo
-          </label>
-          <input
-            id="f-nombre"
-            className="field"
-            type="text"
-            name="nombre"
-            placeholder="Nombre completo"
-            autoComplete="name"
-            required
-            minLength={2}
-            value={values.nombre}
-            onChange={onChange}
-          />
+        <p className="contact__note">
+          <Icon name="lock" size={13} />
+          Tus datos se usan sólo para contestarte.
+        </p>
 
-          <label className="visually-hidden" htmlFor="f-empresa">
-            Empresa
-          </label>
-          <input
-            id="f-empresa"
-            className="field"
-            type="text"
-            name="empresa"
-            placeholder="Empresa"
-            autoComplete="organization"
-            required
-            value={values.empresa}
-            onChange={onChange}
-          />
-
-          <label className="visually-hidden" htmlFor="f-correo">
-            Correo corporativo
-          </label>
-          <input
-            id="f-correo"
-            className="field"
-            type="email"
-            name="correo"
-            placeholder="Correo corporativo"
-            autoComplete="email"
-            inputMode="email"
-            required
-            value={values.correo}
-            onChange={onChange}
-          />
-
-          <label className="visually-hidden" htmlFor="f-telefono">
-            WhatsApp o teléfono
-          </label>
-          <input
-            id="f-telefono"
-            className="field"
-            type="tel"
-            name="telefono"
-            placeholder="WhatsApp o teléfono"
-            autoComplete="tel"
-            inputMode="tel"
-            required
-            minLength={8}
-            value={values.telefono}
-            onChange={onChange}
-          />
-
-          <label className="visually-hidden" htmlFor="f-necesidad">
-            Cuéntanos brevemente tu necesidad
-          </label>
-          <textarea
-            id="f-necesidad"
-            className="field"
-            name="necesidad"
-            placeholder="Cuéntanos brevemente tu necesidad"
-            rows={3}
-            maxLength={1000}
-            value={values.necesidad}
-            onChange={onChange}
-          />
-
-          {status === 'error' && (
-            <p className="contact__error" role="alert">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            className="btn btn--primary btn--block"
-            disabled={status === 'sending'}
-          >
-            {status === 'sending' ? 'Enviando…' : 'Solicitar diagnóstico gratuito'}
-          </button>
-
-          <p className="contact__note">
-            <Icon name="lock" size={13} />
-            Tu información está segura. No enviamos spam.
-          </p>
-        </form>
-      )}
+      </form>
     </div>
   )
 }

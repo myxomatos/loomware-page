@@ -1,0 +1,8 @@
+Skills del proyecto, según lo que pida este mensaje (si es plática o una pregunta, sigue normal):
+- bug: algo no funciona, no pasa nada, se ve mal, tapa o se corta → mattpocock-skills:diagnosing-bugs
+- regla de negocio: cálculo, validación o lógica en src/lib, src/data o functions → mattpocock-skills:tdd
+- conflicto de merge → mattpocock-skills:resolving-merge-conflicts
+- variantes o «a ver cómo se ve» de un diseño → mattpocock-skills:prototype
+- decisión de negocio (precio, posicionamiento, alcance) → mattpocock-skills:grilling
+- editar CLAUDE.md, PENDIENTES.md o un skill → mattpocock-skills:writing-for-agents
+- revisión antes del PR a main → mattpocock-skills:code-review

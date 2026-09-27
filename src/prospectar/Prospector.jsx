@@ -34,7 +34,9 @@ function Gate({ onEnter }) {
         if (value.trim()) onEnter(value.trim())
       }}
     >
-      <Logo />
+      <a href="/" aria-label="Loomware — inicio">
+        <Logo />
+      </a>
       <h1 className="h3">Prospección de empresas</h1>
       <p className="text-xs">Herramienta interna. Escribe la contraseña para continuar.</p>
       <input

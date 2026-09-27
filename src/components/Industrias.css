@@ -1,0 +1,108 @@
+.industrias__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-6);
+}
+.industria {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-6);
+}
+.industria__nombre {
+  font-size: var(--fs-body);
+  margin-top: var(--sp-1);
+}
+.industria__nombre a {
+  transition: color var(--t-base) var(--ease);
+}
+.industria:hover .industria__nombre a {
+  color: var(--purple-600);
+}
+.industria__ver {
+  font-size: var(--fs-xs);
+}
+.industria__dolor {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  flex: 1;
+}
+.industria__solucion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border);
+}
+.industria__etiqueta {
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-500);
+}
+.industria__chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--sp-2);
+}
+.industria__chips .chip {
+  min-height: 34px;
+  padding-inline: var(--sp-3);
+}
+.industria__solucion .chip:hover {
+  border-color: var(--purple-400);
+  background: var(--purple-100);
+}
+
+@media (max-width: 991px) {
+  .industrias__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 599px) {
+  /* En celular la tarjeta se vuelve un renglón: ícono a la izquierda, nombre y
+     dolor a la derecha. Suelta las fichas de soluciones y el enlace largo, que
+     ya están en la página de cada giro. Seis renglones en vez de seis pantallas. */
+  .industrias__grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+  }
+  .industria {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--sp-3);
+    row-gap: var(--sp-1);
+    padding: var(--sp-4);
+  }
+  .industria .icon-tile {
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+  .industria__nombre {
+    margin: 0;
+    font-size: var(--fs-body);
+  }
+  .industria__dolor {
+    margin: 0;
+    font-size: var(--fs-xs);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .industria__ver,
+  .industria__solucion {
+    display: none;
+  }
+  /* Con el enlace largo oculto, el nombre extiende su área de toque a todo el renglón. */
+  .industria {
+    position: relative;
+  }
+  .industria__nombre a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+}

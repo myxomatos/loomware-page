@@ -1,0 +1,138 @@
+.gracias {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-6);
+  padding: var(--sp-10) var(--gutter);
+  background: var(--grad-hero);
+}
+.gracias__card {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-5);
+  padding: var(--sp-12) var(--sp-10);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Palomita: círculo morado con un halo suave alrededor */
+.gracias__check {
+  display: inline-grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  color: var(--white);
+  background: var(--purple-500);
+  box-shadow: 0 0 0 10px var(--purple-100);
+  animation: gracias-pop var(--t-base) var(--ease) both;
+}
+@keyframes gracias-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gracias__title {
+  font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3rem); /* 36 → 48 */
+  margin-top: var(--sp-1);
+}
+.gracias__lead {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-body);
+  max-width: 34ch;
+}
+
+/* Qué sigue */
+.gracias__pasos {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--border);
+  text-align: left;
+}
+.paso {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+.paso__icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  color: var(--purple-500);
+  background: var(--purple-50);
+}
+.paso__title {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  color: var(--text-900);
+}
+.paso__num {
+  color: var(--purple-500);
+}
+.paso__text {
+  font-size: var(--fs-xs);
+  line-height: var(--lh-snug);
+  margin-top: 2px;
+}
+
+/* Contacto directo */
+.gracias__contacto {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border);
+}
+.gracias__medios {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+.gracias__medios .chip:hover {
+  border-color: var(--purple-400);
+  box-shadow: var(--shadow-sm);
+}
+
+.gracias__pie {
+  font-size: var(--fs-2xs);
+  color: var(--text-500);
+}
+
+@media (max-width: 599px) {
+  .gracias {
+    justify-content: flex-start;
+    padding-block: var(--sp-8);
+  }
+  .gracias__card {
+    padding: var(--sp-8) var(--sp-5);
+    gap: var(--sp-4);
+  }
+  .gracias__medios .chip {
+    font-size: var(--fs-2xs);
+  }
+}

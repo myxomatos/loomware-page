@@ -1,0 +1,94 @@
+/*
+ * Banda de cookies. Va abajo a la izquierda para no taparle el botón flotante
+ * de WhatsApp, que vive abajo a la derecha. En celular ocupa todo el ancho y
+ * entonces sí lo taparía, así que ahí el botón se esconde mientras se decide
+ * (regla en WhatsAppButton.css, atada a body.cookies-abierto).
+ */
+.cookies {
+  position: fixed;
+  left: var(--sp-4);
+  bottom: var(--sp-4);
+  z-index: 70;
+  width: min(430px, calc(100vw - var(--sp-8)));
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--purple-500);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  animation: cookies-entra 0.32s ease-out;
+}
+
+@keyframes cookies-entra {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookies {
+    animation: none;
+  }
+}
+
+.cookies__texto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.cookies__titulo {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-900);
+}
+
+.cookies__texto p:last-child {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--text-600);
+}
+
+.cookies__texto a {
+  color: var(--purple-500);
+  text-underline-offset: 2px;
+}
+
+.cookies__acciones {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.cookies__acciones .btn {
+  flex: 1;
+  justify-content: center;
+}
+
+/* En pantallas angostas la banda va de orilla a orilla. */
+@media (max-width: 560px) {
+  .cookies {
+    left: var(--sp-3);
+    right: var(--sp-3);
+    bottom: var(--sp-3);
+    width: auto;
+    padding: var(--sp-4);
+  }
+}
+
+/* El rojo del sitio está reservado para "Solicitar diagnóstico"; aceptar cookies
+   no es esa acción. Va en el morado de marca para no competir con el CTA. */
+.cookies__aceptar {
+  background: var(--purple-500);
+  color: var(--white);
+  border-color: var(--purple-500);
+}
+.cookies__aceptar:hover {
+  background: var(--purple-600);
+  border-color: var(--purple-600);
+}

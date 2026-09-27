@@ -1,20 +1,43 @@
+/* Dos niveles: tarjetas completas para las soluciones de entrada, lista compacta
+   para las que acompañan. En celular eso baja de ocho pantallas a unas tres. */
+.solutions__grupo {
+  margin: 0 0 var(--sp-4);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--copper-500);
+}
+.solutions__grid + .solutions__grupo {
+  margin-top: var(--sp-10);
+}
+
+/* ---------- tarjetas de entrada ---------- */
 .solutions__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--sp-6);
+  gap: var(--sp-5);
 }
 .solution {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--sp-3);
-  padding: var(--sp-8) var(--sp-6);
   transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
 }
 .solution:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
+}
+.solution__link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--sp-3);
+  flex: 1;
+  padding: var(--sp-6) var(--sp-5) var(--sp-4);
+  border-radius: inherit;
 }
 .solution .icon-tile {
   margin-bottom: var(--sp-1);
@@ -24,31 +47,89 @@
 }
 .solution__text {
   font-size: var(--fs-sm);
-  max-width: 30ch;
+  max-width: 32ch;
 }
 .solution__tag {
   margin-top: auto;
-  padding-top: 0;
   white-space: normal;
-  text-align: center;
-}
-.solutions__more {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--sp-8);
+  text-align: left;
 }
 
-@media (max-width: 991px) {
-  .solutions__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+/* Una sola acción por tarjeta: el recorrido vive en el hero. */
+.solution__acciones {
+  display: flex;
+  padding: 0 var(--sp-5) var(--sp-6);
 }
-@media (max-width: 599px) {
+.solution__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--purple-500);
+  transition: gap var(--t-base) var(--ease);
+}
+.solution__more:hover {
+  gap: var(--sp-2);
+}
+
+/* ---------- las que acompañan ---------- */
+.solutions__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Una columna: cinco en rejilla siempre dejan una celda vacía. Con medida,
+     porque a 1200 px quedaba medio metro entre el texto y su flecha. */
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-width: 920px;
+  margin-inline: auto;
+}
+.solution-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+}
+.solution-row:hover {
+  border-color: var(--purple-400);
+  transform: translateY(-2px);
+}
+.solution-row .icon-tile {
+  flex: none;
+}
+.solution-row__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.solution-row__texto strong {
+  font-size: var(--fs-body);
+  color: var(--text-900);
+}
+.solution-row__texto span {
+  font-size: var(--fs-xs);
+  color: var(--text-600);
+}
+.solution-row__flecha {
+  flex: none;
+  margin-left: auto;
+  color: var(--purple-500);
+}
+
+@media (max-width: 899px) {
   .solutions__grid {
     grid-template-columns: 1fr;
     gap: var(--sp-4);
   }
-  .solution {
-    padding: var(--sp-6) var(--sp-5);
+  .solution__link {
+    padding: var(--sp-6) var(--sp-5) var(--sp-3);
   }
 }
+

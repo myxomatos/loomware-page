@@ -5,46 +5,37 @@
   gap: var(--sp-3);
   margin-bottom: var(--sp-8);
 }
-.needs__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--sp-6);
-  align-items: stretch;
-}
 
-/* Impact card */
+/* Franja de impacto: título a la izquierda, cuatro puntos en fila */
 .impact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-6);
-  padding: var(--sp-8) var(--sp-6);
+  display: grid;
+  grid-template-columns: minmax(240px, 0.9fr) minmax(0, 3fr);
+  align-items: center;
+  gap: var(--sp-8);
+  padding: var(--sp-6) var(--sp-8);
+  margin-bottom: var(--sp-6);
   box-shadow: var(--shadow-md);
   scroll-margin-top: calc(var(--nav-h) + 24px);
 }
 .impact__title {
   color: var(--white);
   font-size: var(--fs-h3);
+  max-width: 13ch;
+  line-height: 1.2;
 }
 .impact__list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  align-content: center;
-  flex: 1;
 }
 .impact__item {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
+  gap: var(--sp-1);
+  padding: var(--sp-1) var(--sp-4);
   border-left: 1px solid rgba(255, 255, 255, 0.16);
 }
-.impact__item:first-child {
-  border-left: 0;
-}
 .impact__item .icon {
-  color: var(--white);
+  color: var(--purple-400);
   margin-bottom: var(--sp-1);
 }
 .impact__item-title {
@@ -54,21 +45,26 @@
   line-height: var(--lh-snug);
 }
 .impact__item-text {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.72);
   font-size: var(--fs-2xs);
   line-height: var(--lh-snug);
 }
 
 @media (max-width: 991px) {
-  .needs__grid {
+  .impact {
     grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+  .impact__title {
+    max-width: none;
   }
   .impact__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: var(--sp-6);
+    row-gap: var(--sp-5);
   }
   .impact__item:nth-child(odd) {
     border-left: 0;
+    padding-left: 0;
   }
 }
 @media (max-width: 479px) {
@@ -81,6 +77,14 @@
     font-size: var(--fs-2xs);
   }
   .impact {
-    padding: var(--sp-6) var(--sp-5);
+    padding: var(--sp-5);
+  }
+  .impact__list {
+    grid-template-columns: 1fr;
+    row-gap: var(--sp-4);
+  }
+  .impact__item {
+    border-left: 0;
+    padding-left: 0;
   }
 }

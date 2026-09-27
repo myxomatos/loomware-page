@@ -1,0 +1,278 @@
+/* Navegación de servicio: logo, lista de servicios, botón */
+.servicio__nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.servicio__nav-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: var(--nav-h);
+}
+.servicio__nav-inner > a {
+  flex: none;
+}
+.servicio__nav-links {
+  display: flex;
+  gap: var(--sp-1);
+  min-width: 0;
+  margin-inline: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+/* Si la tira no cabe (tablet, laptop chica), las orillas se desvanecen para
+   avisar que sigue de lado; la clase la pone centrarActual. */
+.servicio__nav-links.desborda {
+  mask-image: linear-gradient(to right, transparent, #000 var(--sp-4), #000 calc(100% - var(--sp-4)), transparent);
+}
+.servicio__nav-links::-webkit-scrollbar {
+  display: none;
+}
+.servicio__nav-links a {
+  flex: none;
+  padding: 6px 8px;
+  border-radius: var(--r-md);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  color: var(--text-600);
+  transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.servicio__nav-links a:hover {
+  color: var(--purple-500);
+  background: var(--purple-50);
+}
+.servicio__nav-links a.is-actual {
+  color: var(--purple-600);
+  background: var(--purple-100);
+}
+
+/* Hero */
+.servicio__hero {
+  background: var(--grad-hero);
+  padding-block: var(--sp-12) var(--sp-16);
+}
+/* La tarjeta de la derecha es más corta que el texto: alineada arriba dejaba
+   un hueco de cuatrocientos píxeles debajo. Centrada, la composición cierra. */
+.servicio__hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  gap: var(--sp-12);
+  align-items: center;
+}
+.servicio__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-5);
+}
+.servicio__copy .eyebrow {
+  gap: var(--sp-2);
+}
+.servicio__copy h1 {
+  font-size: clamp(1.875rem, 1.3rem + 2vw, 2.75rem); /* 30 → 44 */
+  max-width: 22ch;
+}
+.servicio__copy .lead {
+  max-width: 58ch;
+}
+.servicio__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-2);
+}
+.servicio__para {
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+}
+.servicio__para .check-list li {
+  font-size: var(--fs-sm);
+}
+
+/* Cómo funciona: el diagrama del servicio */
+/* Cinco pasos no necesitan 1200 px: estirado, el camino quedaba con más aire
+   que dibujo. */
+.servicio__diagrama-inner {
+  max-width: 900px;
+}
+.servicio__diagrama .section__head {
+  margin-bottom: var(--sp-6);
+}
+
+/* Qué incluye */
+.servicio__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+.servicio__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-6);
+}
+.servicio__item p {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+}
+
+/* Cómo lo implementamos */
+.servicio__pasos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-6);
+}
+.servicio__paso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.servicio__num {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--copper-600);
+  background: var(--copper-100);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  margin-bottom: var(--sp-1);
+}
+.servicio__paso p {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+}
+
+/* Preguntas del servicio */
+.servicio__faq-inner {
+  /* Una columna con medida y centrada: es una lista de preguntas, y a dos
+     columnas el título quedaba flotando a un lado de su propia lista. */
+  max-width: 820px;
+}
+/* El encabezado de esta sección respira como el de cualquier otra; dentro de un
+   bloque angosto, el margen de abajo se ajusta para no abrir de más. */
+.servicio__faq-inner .section__head {
+  margin-bottom: var(--sp-8);
+}
+
+/* Cierre */
+.servicio__relacionados {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+.servicio__relacionados ul {
+  display: flex;
+  gap: var(--sp-2);
+}
+.servicio__relacionados .chip:hover {
+  border-color: var(--purple-400);
+}
+.servicio__404 {
+  padding-block: var(--sp-20);
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .servicio__hero-inner {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+  }
+  .servicio__para {
+    position: static;
+  }
+  .servicio__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .servicio__pasos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .servicio__nav-inner .btn {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  /* En celular la barra se queda con la nube sola: con el nombre, la tira de
+     servicios apenas enseñaba dos opciones y media y pasaba por debajo del
+     logo. El enlace conserva su aria-label, así que sigue diciendo a dónde va. */
+  .servicio__nav .brand__name {
+    display: none;
+  }
+  .servicio__nav-inner {
+    gap: var(--sp-3);
+  }
+  .servicio__nav-links {
+    margin-inline: 0;
+    padding-inline: var(--sp-3);
+  }
+  .servicio__grid,
+  .servicio__pasos {
+    grid-template-columns: 1fr;
+  }
+  .servicio__acciones {
+    flex-direction: column;
+    width: 100%;
+  }
+  .servicio__acciones .btn {
+    width: 100%;
+  }
+  .servicio__relacionados {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Banda del recorrido: la versión larga de "cómo funciona", en su propia página.
+   Sólo aparece en los servicios que ya tienen uno escrito. */
+/* Antes era un renglón de punta a punta: el texto a la izquierda y el botón
+   contra el borde derecho, con cuatrocientos píxeles de nada en medio. Ahora es
+   un llamado compacto y centrado, que es lo que es. */
+.servicio__recorrido-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-5);
+  max-width: 640px;
+  margin-inline: auto;
+  padding: var(--sp-8) var(--sp-6);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--copper-500);
+  border-radius: var(--r-md);
+}
+.servicio__recorrido-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  max-width: 52ch;
+}
+.servicio__recorrido-texto h2 {
+  margin: 0;
+}
+.servicio__recorrido-texto p {
+  margin: 0;
+  color: var(--text-600);
+}
+.servicio__recorrido .btn {
+  flex: none;
+}
+@media (max-width: 640px) {
+  .servicio__recorrido .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
