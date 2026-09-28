@@ -115,7 +115,11 @@ for (const r of RECORRIDOS) {
   // El nombre del servicio tal como lo dice el sitio: "Nómina", no "NOMINA".
   const servicio = servicioPorSlug(r.servicio)
   if (!servicio) throw new Error(`recorridos: el servicio "${r.servicio}" no existe en servicios.js`)
-  const titulo = `${r.titulo} · ${servicio.nombre} | ${EMPRESA}`
+  /* La solución va primero: es la palabra que la gente teclea, y antes caía al
+     final del título. Si el recorrido trae `seoTitulo`, se usa ése —los títulos
+     largos no caben en los ~60 caracteres que enseña Google—; el titular que se
+     lee dentro de la página es siempre `titulo` y no cambia. */
+  const titulo = `${servicio.nombre} · ${r.seoTitulo || r.titulo} | ${EMPRESA}`
 
   /* Cada recorrido lleva su propia tarjeta social: estas páginas existen para
      mandarse por WhatsApp y lo primero que ve el prospecto es la tarjeta del

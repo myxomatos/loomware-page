@@ -28,7 +28,7 @@ import sharp from 'sharp'
 import { writeFileSync, readFileSync, existsSync, statSync, unlinkSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { execFileSync } from 'node:child_process'
+import { capturar, exigirDistintos } from './capturar.js'
 import { RECORRIDOS } from '../src/data/recorridos.js'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -103,12 +103,16 @@ for (const r of RECORRIDOS) {
     tmpHtml,
     pagina({ titulo: r.titulo, resumen: r.resumen, lbl, escena: readFileSync(svg, 'utf8') }),
   )
-  execFileSync(edge, [
-    '--headless=new', '--disable-gpu', '--no-sandbox',
-    `--user-data-dir=${resolve(raiz, 'dist/_ogr-perfil')}`,
-    '--virtual-time-budget=15000', '--window-size=1200,630',
-    `--screenshot=${tmpPng}`, `${base}/_ogr.html?v=${Date.now()}`,
-  ], { stdio: 'ignore' })
+  /* Se espera a que el archivo exista y deje de crecer. Antes se leía en la
+     línea siguiente y a veces era el PNG de la vuelta pasada: ocho enlaces
+     distintos se previsualizaban con dos imágenes. */
+  await capturar({
+    edge,
+    url: `${base}/_ogr.html?v=${Date.now()}`,
+    destino: tmpPng,
+    perfil: resolve(raiz, 'dist/_ogr-perfil'),
+    quien: `og-${r.slug}.png`,
+  })
 
   const destino = resolve(raiz, `public/recorridos/og-${r.slug}.png`)
   await sharp(tmpPng).png({ quality: 82, compressionLevel: 9, palette: true }).toFile(destino)
@@ -117,4 +121,10 @@ for (const r of RECORRIDOS) {
 }
 
 for (const f of [tmpHtml, tmpPng]) { if (existsSync(f)) unlinkSync(f) }
-console.log(`\n  ✓ ${hechas} tarjetas${saltadas ? `, ${saltadas} saltadas` : ''}`)
+
+/* Ocho enlaces que se previsualizan con la misma imagen parecen el mismo
+   enlace mandado ocho veces, que es justo lo que estas tarjetas evitan. */
+const distintas = exigirDistintos(
+  RECORRIDOS.map((r) => resolve(raiz, `public/recorridos/og-${r.slug}.png`)).filter(existsSync),
+)
+console.log(`\n  ✓ ${hechas} tarjetas, las ${distintas} distintas${saltadas ? `, ${saltadas} saltadas` : ''}`)
