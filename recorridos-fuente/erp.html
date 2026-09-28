@@ -278,6 +278,22 @@
   .vs__row--gana .vs__lbl{color:var(--money);}
   .vs__row--gana p{font-weight:500;}
 
+  /* Un celular acostado da 390 px de alto, y ahí no cabe un paso escrito para
+     una pantalla de pie: medido, ninguno de los seis entraba entero. Arriba se
+     resolvió lo grave —el dibujo dejó de comerse la pantalla, ahora van dos
+     columnas—; esto cierra el resto apretando lo que no se lee: el relleno de
+     los renglones, el aire entre ellos y el mínimo del paso. La letra no baja
+     de 13 px: un paso que cabe pero no se lee no sirve de nada. */
+  @media (max-height:560px) and (min-width:700px){
+    .step{min-height:0;padding-block:8px;}
+    .step-head{margin-bottom:5px;}
+    .vs__row{padding:5px 10px;}
+    .vs__row p{line-height:1.38;}
+    .vs__lbl{line-height:1.5;}
+    .enotro{margin-top:7px;line-height:1.42;}
+    .figura__fijo,.figure{gap:5px;}
+  }
+
   /* ---------- secciones de abajo ---------- */
   .giros,.faq,.costo,.pant{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
   .giros h2,.faq h2,.costo h2,.cierre h2,.pant h2{font-family:var(--mono);font-weight:700;
@@ -306,6 +322,11 @@
      comprometidas de la página —la fecha en el contrato, «no vendemos un
      paquete», el precio cerrado por escrito— salían en monoespaciada cobre
      dentro de un párrafo normal, como código pegado por accidente. */
+  /* La novena celda no es una respuesta: es qué hacer si tu pregunta no está.
+     Antes ahí quedaba un hueco gris que se leía como tarjeta faltante. */
+  .faq .mas{background:var(--signal-soft);}
+  .faq .mas a{color:var(--signal);font-weight:500;text-underline-offset:3px;
+    display:inline-block;margin-top:4px;}
   .faq .rejilla > li > b{color:var(--signal);text-transform:none;letter-spacing:0;font-size:12px;}
   /* La negrita de una respuesta es una negrita: hereda la tipografía del texto. */
   .faq .rejilla span b{font-family:inherit;font-size:inherit;letter-spacing:normal;
@@ -444,7 +465,13 @@
     .beam path{animation:none;}
   }
 
-  @media (max-width:880px){
+  /* El diseño apilado —dibujo pegado arriba, pasos debajo— pide alto. En un
+     celular acostado (844x390) no lo hay: lo pegado mide ~350 de los 390 y no
+     queda nada para leer; medido, ninguno de los seis pasos cabía. Pero 844 de
+     ancho SÍ dan para dos columnas de ~400, que es justo lo que ese aparato
+     necesita, así que abajo de 560 px de alto se queda el diseño de dos
+     columnas. Se apila sólo cuando hay ancho chico **y** alto suficiente. */
+  @media (max-width:880px) and (min-height:560px){
     /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
        los pasos pasan por debajo, igual que en escritorio */
     .cols{display:block;margin-top:16px;}
@@ -831,8 +858,7 @@
 
   <section class="faq">
     <h2>Antes de que preguntes</h2>
-    <p>Las seis preguntas que hace cualquiera antes de contratar algo así, contestadas sin
-      rodeos.</p>
+    <p>Las que hace cualquiera antes de contratar algo así, contestadas sin rodeos.</p>
     <ul class="rejilla">
       <li><b>¿Qué compro exactamente?</b>
         <span>El sistema armado para tu negocio y funcionando: lo configuramos contigo,
@@ -842,15 +868,19 @@
         <span>Depende de dos cosas, y las dos se miden en el diagnóstico: cuántas partes
           quieres y qué tan ordenados están tus datos de hoy. Por eso no arranca todo de
           golpe: primero la parte que más te duele, y el resto entra sobre esa base.
-          <b>La fecha te la damos en el diagnóstico, y esa fecha va en el contrato.</b></span></li>
-      <li><b>¿Cuánto cuesta?</b>
+          <b>La fecha te la damos en el diagnóstico, y esa fecha va en el contrato.</b></span></li>      <li><b>¿Cuánto cuesta?</b>
         <span>No hay lista de precios, y no es por misterio: <b>no vendemos un paquete</b>.
-          Cada sistema se hace a la medida y el precio corresponde al tamaño de lo que
-          resolvemos. Del tamaño de tu operación depende el alcance, no nuestra capacidad:
-          trabajamos igual con una sucursal que con una operación de varias sedes y miles de
-          usuarios. <b>No competimos por ser los más baratos, sino por que funcione.</b>
-          Y nadie empieza con todo: se arranca por el área que más te duele. La primera llamada
-          no tiene costo; el diagnóstico tiene su precio según el tamaño de tu empresa, y
+          Cada sistema se hace a la medida, así que el precio corresponde al tamaño de lo que
+          resolvemos. <b>No competimos por ser los más baratos, sino por que funcione.</b></span></li>
+
+      <li><b>¿Soy muy chico… o muy grande?</b>
+        <span>Ninguna de las dos cosas estorba. Trabajamos igual con una sucursal que con una
+          operación de varias sedes y miles de usuarios: <b>del tamaño de tu operación depende
+          el alcance, no nuestra capacidad</b>.</span></li>
+
+      <li><b>¿Cómo se cobra?</b>
+        <span>Nadie empieza con todo: se arranca por el área que más te duele. <b>La primera
+          llamada no tiene costo.</b> El diagnóstico sí, según el tamaño de tu empresa, y
           <b>termina con un precio cerrado por escrito</b>: ese trabajo, ese precio. Si después
           quieres más, se cotiza aparte y lo apruebas tú. Y si el número no te cuadra, ahí se
           queda.</span></li>
@@ -866,6 +896,10 @@
           en orden lo que hoy está regado —contar el almacén si es inventario, revisar la
           lista si son clientes— para que el sistema empiece con la verdad y no con el
           Excel.</span></li>
+
+      <li class="mas"><b>¿No está la tuya?</b>
+        <span>Pregúntala por WhatsApp y te contestamos igual de directo, sin que eso te
+          comprometa a nada. <a href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20del%20ERP%20y%20tengo%20una%20pregunta." target="_blank" rel="noopener noreferrer">Escribir la pregunta</a></span></li>
     </ul>
   </section>
 
