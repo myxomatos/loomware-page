@@ -212,6 +212,20 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       llevan a ningún lado. Hay que **borrarlos en claude.ai**, y avisarle a quien se los haya
       mandado que el bueno es el del dominio.
 
+- [ ] **La pantalla del sistema, en los siete recorridos que faltan.** Es lo único del
+      punto 7 de la receta que queda abierto, y es el trabajo más grande. El ERP la tiene
+      desde el 2026-09-23: al terminar los seis pasos se ve el tablero, con las cinco áreas,
+      tres cifras y una tabla.
+
+      **La pieza es reusable** —HTML con las variables de la propia página, así que hereda el
+      modo oscuro y reflúye— pero **los números no se copian**: los del ERP cuadran con los de
+      su recorrido a propósito (la tabla suma lo del paso 04 y su ganancia es la del 06), y esa
+      coherencia es justo lo que la hace creíble. Cada solución necesita las suyas, honestas y
+      cuadradas con su propio recorrido.
+
+      Son siete pantallas. **Hacerlas a medias es peor que no tenerlas**, y es donde más fácil
+      se inventa un dato: la regla de «no se afirma nada que no sepamos» aplica entera.
+
 - [ ] **Revisión minuciosa de las ocho tarjetas del «Paso a paso», una por una.** Es la tarea
       grande de Alan. El ERP lleva cinco pasadas y **todavía no se cierra**; las otras siete no
       han tenido ninguna. La receta que salió de destruir el ERP, en este orden:
