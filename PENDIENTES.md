@@ -263,6 +263,21 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       Eso quedó escrito. Lo que hace falta es que confirmes las dos cosas: que la secuencia es
       ésa y que la llamada donde se explica el diagnóstico va después de cotizarlo.
 
+      **Y una cosa más, del 28 por la tarde, que sí toca tu decisión de frente.** Alan pidió que
+      el sitio **no diga en ningún lado que algo es gratis**, ni la llamada de 30 minutos ni el
+      diagnóstico. Se hizo: «sin costo» salió de los 19 lugares donde estaba —el formulario, la
+      tarjeta del proceso, el FAQ, `/gracias`, las páginas de servicio y de giro, las cuatro meta
+      descriptions que lo traían, la de la portada y el cierre de los ocho recorridos—.
+
+      **Esto contradice tu decisión del 27**, que dice «llamada de 30 minutos sin costo». Hoy el
+      sitio conserva la duración y el «sin compromiso», y **ya no dice qué cuesta ese primer
+      paso**. El costo de eso, dicho sin adornos: «sin costo» es de las palabras que más mueven
+      a alguien a escribir, y quitarla sube la fricción de la única puerta que tenemos. Lo
+      mantengo como lo pidió Alan hasta que tú digas otra cosa; devolverlo es un comando.
+
+      Nota aparte: **la palabra «gratis» ya no estaba en ninguna parte** desde el 23 de
+      septiembre. Lo que había era «sin costo».
+
 - [ ] **Decidir si el sitio dice en algún otro lado que hay sistemas propios con cuota mensual.**
       Dos respuestas del FAQ lo revelan —«si usas uno de nuestros sistemas, hay una cuota mensual
       por hospedaje, mantenimiento y actualizaciones»— y **ninguna otra parte del sitio lo
