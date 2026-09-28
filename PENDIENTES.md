@@ -110,13 +110,21 @@ verificación se cae:
 | Nombre | **Loomware** |
 | Teléfono | **+52 55 8096 8928** |
 | Sitio web | **https://loomware.com.mx** |
-| Domicilio | Laureles #17, Jardines de Atizapán, Atizapán de Zaragoza, Estado de México, C.P. 52978 |
+| Ubicación | **Estado de México** |
 
-**Una decisión que sólo tú puedes tomar:** ese domicilio es una casa. Google permite darse de
-alta como **negocio con área de servicio**, que oculta la dirección y publica la zona que
-atiendes. Para lo que hace Loomware —diagnóstico y trabajo a distancia, visitas cuando aportan—
-esa es la figura correcta, y además evita publicar tu domicilio. Área sugerida: Atizapán de
-Zaragoza, Naucalpan, Tlalnepantla, Cuautitlán Izcalli y Ciudad de México.
+**Dado de alta como negocio con área de servicio, no con dirección.** Decisión de Alan el
+2026-09-28, y el sitio ya está alineado: el domicilio completo salió de los datos estructurados
+de la portada —publicaban la calle y el código postal a la vista de cualquiera— y ahí ahora dice
+sólo *Estado de México*. **La calle queda en un único lugar del sitio, ,
+porque la ley obliga a que el aviso diga el domicilio del responsable.**
+
+Así que en Google: elegir **«Reparto de productos y servicios a los clientes»** y **no** publicar
+la dirección. Google te la va a pedir de todos modos para mandarte la postal de verificación,
+pero queda oculta. Área de servicio sugerida: Atizapán de Zaragoza, Naucalpan, Tlalnepantla,
+Cuautitlán Izcalli y Ciudad de México.
+
+Es además lo coherente: si el perfil publicara la calle y el sitio no, los datos no coincidirían,
+que es justo lo que hace que la verificación se caiga.
 
 **Categorías** (hay que elegirlas de la lista de Google; éstas existen):
 principal *Empresa de desarrollo de software*; secundarias *Consultor en tecnología de la
