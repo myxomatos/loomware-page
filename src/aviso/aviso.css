@@ -45,7 +45,11 @@
   gap: var(--sp-1);
   font-size: var(--fs-sm);
 }
+/* El índice medía 19 px de alto y AA pide 24. Cada renglón crece 3 px arriba
+   y 3 abajo; el bloque sube 6 px por punto y se leen igual. */
 .aviso__indice a {
+  display: inline-block;
+  padding-block: 3px;
   color: var(--purple-600);
 }
 .aviso__indice a:hover {

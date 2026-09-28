@@ -73,7 +73,9 @@
      piezas. Cifras, números de paso, folios y etiquetas de medición.
      #a35c23 da 5.11:1 sobre blanco y 4.61:1 sobre el papel. --- */
   --copper-600: #8a4d1c; /* hover */
-  --copper-500: #a35c23; /* dato */
+  /* Medido el 2026-09-28: #a35c23 daba 4.35:1 en el chip de la portada, sobre
+     la placa de dato, y AA pide 4.5. Éste da 4.66 y conserva el tono. */
+  --copper-500: #9b5721; /* dato */
   --copper-100: #f6ebe0; /* placa de dato */
 
   /* --- Rojo: error. Reservado. Ya no se gasta en un botón --- */

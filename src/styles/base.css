@@ -299,6 +299,8 @@ h4,
 .link-arrow {
   display: inline-flex;
   align-items: center;
+  /* AA pide 24 px de blanco (2.5.8); «Volver al sitio» medía 23. */
+  min-height: 24px;
   gap: var(--sp-2);
   font-size: var(--fs-sm);
   font-weight: 600;

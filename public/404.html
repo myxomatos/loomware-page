@@ -63,7 +63,9 @@
          algo, y estas dos son las que busca. */
       .otras{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--filete);
         font-size:14.5px;color:var(--apagado)}
-      .otras a{color:var(--morado);font-weight:500;text-underline-offset:3px}
+      .otras a{display:inline-block;padding-block:4px;color:var(--morado);
+        font-weight:500;text-underline-offset:3px}
+      /* Los tres destinos median 17 px de alto y WCAG 2.2 AA pide 24. */
     </style>
   </head>
   <body>
@@ -81,8 +83,8 @@
 
     <main>
       <p class="cod">404</p>
-      <h1>Esta página cambió de lugar</h1>
-      <p>La dirección que escribiste ya no existe o tiene una letra de más. Desde el inicio
+      <h1>No encontramos esta página</h1>
+      <p>La dirección tiene una letra de más, o el enlace que la trajo ya no apunta aquí. Desde el inicio
         llegas a todo en dos clics.</p>
       <a class="btn" href="/">Ir al inicio</a>
       <p class="otras">O ve directo a <a href="/#soluciones">las soluciones</a>,

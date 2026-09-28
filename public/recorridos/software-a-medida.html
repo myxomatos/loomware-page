@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>De la talla única a tu medida · Software a medida | Loomware</title>
-    <meta name="description" content="Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu proceso, por etapas, integrado y con el código a tu nombre." />
+    <title>Software a medida · De talla única a tu medida | Loomware</title>
+    <meta name="description" content="Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu propio proceso." />
     <link rel="canonical" href="https://loomware.com.mx/recorridos/software-a-medida" />
     <meta name="theme-color" content="#A35C23" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -13,15 +13,15 @@
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Loomware" />
     <meta property="og:url" content="https://loomware.com.mx/recorridos/software-a-medida" />
-    <meta property="og:title" content="De la talla única a tu medida · Software a medida | Loomware" />
-    <meta property="og:description" content="Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu proceso, por etapas, integrado y con el código a tu nombre." />
+    <meta property="og:title" content="Software a medida · De talla única a tu medida | Loomware" />
+    <meta property="og:description" content="Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu propio proceso." />
     <meta property="og:image" content="https://loomware.com.mx/recorridos/og-software-a-medida.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="De la talla única a tu medida · Software a medida | Loomware" />
-    <meta name="twitter:description" content="Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu proceso, por etapas, integrado y con el código a tu nombre." />
+    <meta name="twitter:title" content="Software a medida · De talla única a tu medida | Loomware" />
+    <meta name="twitter:description" content="Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu propio proceso." />
     <meta name="twitter:image" content="https://loomware.com.mx/recorridos/og-software-a-medida.png" />
 
     <style>
@@ -57,14 +57,25 @@
         --surface:#FFFFFF;
         --ink:#191A1E;
         --ink-2:#4E5058;
-        --ink-3:#7A7D86;
+        --ink-3:#666971;
         --rule:#CFC9C0;
         --rule-soft:#E3DED6;
 
-        --signal:#A35C23;       /* cobre: el dato que el sistema registra */
+        --signal:#9B5721;       /* cobre: el dato que el sistema registra */
         --signal-soft:#F8EDE2;
         --money:#12643C;        /* verde: lo que ganas */
-        --pain:#63666F;         /* gris: así está hoy. 4.97:1 sobre la tarjeta resaltada; con #6B6F79 daba 4.36 y AA pide 4.5 */
+        /* Los tres colores de texto, medidos el 2026-09-28 contra TODOS los fondos
+           sobre los que aparecen —el papel, la ficha, la tarjeta del «Hoy» y el
+           blanco—, no contra uno solo. El objetivo es 4.6:1 y no 4.5, para que un
+           fondo un poco distinto no vuelva a tirarlo por dos centésimas:
+             --ink-3  #666971  4.61:1   (antes #7A7D86, 3.46 — nunca se había medido)
+             --signal #9B5721  4.66:1   (antes #A35C23, 4.29)
+             --pain   #5C5F67  4.67:1   (antes #63666F, que anoté como 4.97 y daba 4.19:
+                                         lo había medido contra el fondo equivocado)
+           En oscuro, medido el mismo día contra el papel, la superficie, la franja
+           apagada y la placa del dato: --ink-3 #918C82 da 4.61:1 —con #8C877D daba
+           4.32 sobre la placa— y los otros cinco van de 5.2 a 13.7. */
+        --pain:#5C5F67;         /* gris: así está hoy */
         --pain-bg:#DFDCD5;      /* franja apagada, separada del papel a simple vista */
 
         /* --- materiales de la escena: cara superior / izquierda / derecha --- */
@@ -89,7 +100,7 @@
       }
       @media (prefers-color-scheme:dark){
         :root:not([data-theme="light"]){
-          --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+          --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#918C82;
           --rule:#3F3930; --rule-soft:#2A2620;
           --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
           --pain:#998F7D; --pain-bg:#1B1915;
@@ -110,7 +121,7 @@
         }
       }
       :root[data-theme="dark"]{
-        --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+        --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#918C82;
         --rule:#3F3930; --rule-soft:#2A2620;
         --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
         --pain:#998F7D; --pain-bg:#1B1915;
@@ -376,8 +387,12 @@
       .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
         color:var(--ink-3);line-height:1.8;}
       /* El correo no se parte a media dirección: se baja entero. */
-      .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+      .cierre .otras a{position:relative;color:var(--ink-2);text-underline-offset:2px;
         overflow-wrap:normal;word-break:normal;white-space:nowrap;}
+      /* El blanco de estos dos enlaces medía 11 px y WCAG 2.2 AA pide 24 (2.5.8).
+         Van dentro de un párrafo, así que crecerlos movería el texto: el blanco lo
+         da una capa transparente, igual que el botón del recorrido. */
+      .cierre .otras a::after{content:"";position:absolute;inset:-7px 0;}
       .cierre .otras .par{display:inline;}
       .cierre .otras a:hover{color:var(--signal);}
       .cierre .otras .sep{margin-inline:7px;color:var(--rule);}

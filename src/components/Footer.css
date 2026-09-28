@@ -32,15 +32,27 @@
   font-size: var(--fs-sm);
   font-weight: 700;
 }
+/* Los enlaces median 16 px de alto y WCAG 2.2 AA pide 24 (2.5.8). El alto se
+   lo da ahora el propio enlace y la separación de la lista baja a cero: el
+   renglón sigue midiendo 24 px, así que el pie no crece ni un píxel. */
 .footer__links {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: 0;
 }
 .footer__links li {
   font-size: var(--fs-xs);
+  min-height: 24px;
+  display: flex;
+  align-items: center;
 }
 .footer__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  /* «ERP» mide 22 px de ancho y 2.5.8 pide 24 en las dos medidas. El texto no
+     se mueve: sólo deja de ser más angosto que el mínimo. */
+  min-width: 24px;
   transition: color var(--t-base) var(--ease);
 }
 .footer__links a:hover {
@@ -50,6 +62,7 @@
   display: flex;
   align-items: center;
   gap: var(--sp-2);
+  min-height: 24px;
 }
 .footer__contact .icon {
   color: var(--purple-400);

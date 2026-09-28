@@ -33,7 +33,12 @@
 .servicio__nav-links::-webkit-scrollbar {
   display: none;
 }
+/* Los renglones de la barra median 31 px: cumplen el mínimo de AA (24) pero no
+   los 44 que manda el sistema del sitio, y ésta es la navegación principal de
+   la página donde aterriza quien llega de Google. El blanco crece con una capa
+   transparente, así que la barra mide lo mismo. */
 .servicio__nav-links a {
+  position: relative;
   flex: none;
   padding: 6px 8px;
   border-radius: var(--r-md);
@@ -41,6 +46,11 @@
   font-weight: 600;
   color: var(--text-600);
   transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.servicio__nav-links a::after {
+  content: "";
+  position: absolute;
+  inset: -7px 0;
 }
 .servicio__nav-links a:hover {
   color: var(--purple-500);
