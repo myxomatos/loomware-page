@@ -10,7 +10,140 @@ Estado al 28 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la
 > aquí, repartidos entre «Aldo» y «Alan».
 > Después del merge, Alan hace `git merge main` en `alan` para seguir al día.
 
-## Ruta a producción — Aldo, en este orden
+## Guion de arranque — Aldo, una sola sentada
+
+Todo lo de abajo está **comprobado el 2026-09-28**: los pasos funcionan, los valores son los que
+el sitio ya publica y nada hay que inventarlo. Son unas dos horas.
+
+El orden no es caprichoso: **el paso 1 es el que convierte 17 páginas mudas en 25 legibles**, y
+los pasos 2 y 3 son los que permiten saber si algo de esto sirvió. Hacer el 4 antes que los
+otros tres es gastar dinero a ciegas.
+
+---
+
+### Paso 1 · Mezclar `alan` a `main` — 5 minutos
+
+Producción está en vivo, pero sirve **17 de sus 25 URLs sin una sola palabra**: todo el texto lo
+dibuja JavaScript y el prerenderizado que lo arregla está en la rama. Los ocho recorridos sí se
+publican completos, porque son HTML escrito a mano.
+
+| | producción hoy | con la mezcla |
+| --- | --- | --- |
+| `/` | 181 palabras | **2 153** |
+| `/servicios/erp` | **7 palabras** | 792 |
+| `/industrias/manufactura` | **9 palabras** | 554 |
+| Total indexable | ~12 500 | **25 422** |
+
+Comprobado hoy: **`alan` va 20 commits adelante de `main`, cero atrás y cero conflictos.** La
+mezcla es de avance rápido.
+
+1. Avísale a Alan que ya revisaste el preview: <https://alan.loomware-page.pages.dev>
+2. Alan abre el PR de `alan` a `main`. **El texto ya está escrito** en `.github/PR-alan.md`:
+   `gh pr create --base main --head alan --title "Prerenderizar el sitio, cerrar accesibilidad y posicionamiento" --body-file .github/PR-alan.md`
+3. Revísalo y mézclalo
+
+*(Nota para Alan: `gh` no tiene sesión en esta máquina. O `gh auth login`, o abrir el PR desde
+el navegador.)*
+
+---
+
+### Paso 2 · Analytics — 20 minutos
+
+Comprobado hoy construyendo el sitio con un ID de prueba: **en cuanto exista la variable, se
+inyectan solos** el guion de Google, el consentimiento en «denegado» y la banda de cookies. No
+hay nada que programar.
+
+1. <https://analytics.google.com> → crear propiedad **GA4** para `loomware.com.mx`
+2. Copiar el **ID de medición**, que empieza con `G-`
+3. Cloudflare → `loomware-page` → Settings → **Variables and Secrets** → agregar
+   `VITE_GA_ID` con ese valor, **en Production y en Preview**, sin Encrypt
+4. Deployments → el último → ⋯ → **Retry deployment** (es variable de *build*: sin redesplegar
+   no entra)
+5. En GA4, marcar como **conversión** estos eventos, que el código ya reporta:
+
+   | Evento | Cuándo se dispara |
+   | --- | --- |
+   | `generate_lead` | al llegar a `/gracias` tras enviar. Trae `metodo` = `formulario` o `calculadora` |
+   | `click_whatsapp` | cualquier clic a WhatsApp. Trae `origen` (hero, formulario, flotante, o la página) |
+   | `calculadora_inicio` | cuando alguien empieza a contestar la calculadora |
+
+   Y estos tres, sin marcarlos como conversión, sirven para entender el camino:
+   `calculadora_desde_hero`, `recorrido_desde_inicio`, `ver_video`.
+
+**Cómo saber que quedó:** abrir <https://loomware.com.mx> y **debe aparecer la banda de
+cookies**. Sale sola en cuanto hay `VITE_GA_ID`, porque sin Analytics el sitio no pone ninguna
+cookie. Si no aparece, falta el *Retry deployment*.
+
+---
+
+### Paso 3 · Search Console — 15 minutos
+
+Es lo único que contesta si Google ya indexó el sitio. Al 28 de septiembre, buscar «Loomware»
+devuelve el repositorio de GitHub y no el dominio.
+
+1. <https://search.google.com/search-console> → **Agregar propiedad** → *Prefijo de URL* →
+   `https://loomware.com.mx`
+2. Verificar. Dos caminos, cualquiera sirve:
+   - **Por DNS** (el más limpio): Google da un registro TXT y se captura en Cloudflare DNS.
+   - **Por etiqueta HTML**: Google da un código; se carga como `VITE_GSC_VERIFICATION` en
+     Cloudflare igual que la de arriba y se redespliega. Comprobado hoy: la etiqueta se
+     inyecta sola.
+3. **Sitemaps** → enviar `https://loomware.com.mx/sitemap.xml`
+   Comprobado hoy: **25 URLs, todas https y del dominio, con `lastmod`, `changefreq` y
+   `priority`.**
+4. **Inspección de URLs** → pegar `https://loomware.com.mx/servicios/erp` → *Solicitar
+   indexación*. Con eso se ve de inmediato si Google está leyendo texto o una página vacía.
+
+---
+
+### Paso 4 · Google Business — 30 minutos
+
+Es lo de mayor retorno por hora de toda la lista: un dominio nuevo tarda de tres a seis meses en
+posicionar y el perfil aparece en días. Es la puerta a lo único que podemos ganar este año, que
+son las búsquedas locales.
+
+**Los datos, tal como el sitio ya los publica.** Tienen que coincidir exactamente o la
+verificación se cae:
+
+| Campo | Valor |
+| --- | --- |
+| Nombre | **Loomware** |
+| Teléfono | **+52 55 8096 8928** |
+| Sitio web | **https://loomware.com.mx** |
+| Domicilio | Laureles #17, Jardines de Atizapán, Atizapán de Zaragoza, Estado de México, C.P. 52978 |
+
+**Una decisión que sólo tú puedes tomar:** ese domicilio es una casa. Google permite darse de
+alta como **negocio con área de servicio**, que oculta la dirección y publica la zona que
+atiendes. Para lo que hace Loomware —diagnóstico y trabajo a distancia, visitas cuando aportan—
+esa es la figura correcta, y además evita publicar tu domicilio. Área sugerida: Atizapán de
+Zaragoza, Naucalpan, Tlalnepantla, Cuautitlán Izcalli y Ciudad de México.
+
+**Categorías** (hay que elegirlas de la lista de Google; éstas existen):
+principal *Empresa de desarrollo de software*; secundarias *Consultor en tecnología de la
+información* y *Servicio de asistencia informática*.
+
+**Descripción** (750 caracteres como máximo; ésta tiene 412, y está escrita con las palabras
+del propio sitio):
+
+> Loomware pone orden en la operación de empresas que hoy trabajan entre Excel, WhatsApp y
+> programas que no se hablan entre sí. Implementamos CRM, ERP, nómina, comercio en línea,
+> automatización, infraestructura en la nube y apps de campo, y construimos software a la medida
+> cuando ningún sistema de catálogo queda. Trabajamos en todo México, con diagnóstico y
+> desarrollo a distancia. La primera llamada es de 30 minutos y sin costo.
+
+**Servicios** a dar de alta, uno por cada página del sitio, para que el perfil enlace a cada una:
+CRM · ERP · Nómina · Comercio en línea · Automatización de procesos · Software a medida ·
+Infraestructura cloud · Apps móviles.
+
+---
+
+### Después, y no antes
+
+Con los cuatro pasos hechos ya se puede medir, y entonces sí tienen sentido las páginas por zona
+y el contenido que contesta preguntas de búsqueda —los dos están abajo, en «Alan»—. Y Google Ads,
+que hasta que Analytics no esté cargado es pagar sin saber qué se compró.
+
+## Ruta a producción — el historial de cómo se llegó aquí
 
 Los pasos 2 y 3 desbloquean todo lo demás: sin ellos el formulario no envía y `/prospectar`
 responde 500.
