@@ -2,13 +2,22 @@
 
 Estado al 28 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
-> **Revisión de Aldo en curso desde el 22 de septiembre de 2026.** La rama `aldo` trae los 68
-> commits de `alan` más los ajustes de la revisión (ver «Resueltas el 2026-09-22/23»), así que
-> **el PR a `main` sale de `aldo`**. Preview: <https://aldo.loomware-page.pages.dev>.
-> El 2026-09-26 entraron a `aldo` los 49 commits que Alan hizo del 23 al 25 (segunda pasada del
-> estudio y pasadas del ERP); sus pendientes, que él seguía escribiendo en `CLAUDE.md`, viven ya
-> aquí, repartidos entre «Aldo» y «Alan».
-> Después del merge, Alan hace `git merge main` en `alan` para seguir al día.
+> **Dónde estamos, al cierre del 28 de septiembre de 2026.**
+>
+> **`loomware.com.mx` ya está en vivo** desde el PR #7 del 27, y **está atrasada**: sirve 17 de
+> sus 25 URLs sin una sola palabra, porque el prerenderizado vive en `alan`. Los ocho recorridos
+> sí salen completos, porque son HTML escrito a mano.
+>
+> **`alan` va 28 commits adelante de `main`, cero atrás y cero conflictos.** Todo lo de esta
+> semana está ahí y nada de ello existe todavía para Google.
+>
+> **Lo primero que hay que hacer está arriba, en «Guion de arranque»**: cuatro pasos, una sola
+> sentada, todos comprobados. El paso 1 es la mezcla.
+>
+> *Historia del archivo:* el PR salía de `aldo` mientras duró su revisión, del 22 al 27; el
+> 2026-09-26 entraron a `aldo` los 49 commits que Alan hizo del 23 al 25, y los pendientes que
+> él escribía en `CLAUDE.md` viven desde entonces aquí, repartidos entre «Aldo» y «Alan».
+> Después de cada merge, Alan hace `git merge main` en `alan` para seguir al día.
 
 ## Guion de arranque — Aldo, una sola sentada
 
@@ -565,8 +574,9 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       se inventa un dato: la regla de «no se afirma nada que no sepamos» aplica entera.
 
 - [ ] **Revisión minuciosa de las ocho tarjetas del «Paso a paso», una por una.** Es la tarea
-      grande de Alan. El ERP lleva cinco pasadas y **todavía no se cierra**; las otras siete no
-      han tenido ninguna. La receta que salió de destruir el ERP, en este orden:
+      grande de Alan, y el 2026-09-28 dejó de estar a medias: **los siete alcanzaron al ERP en
+      forma**. Lo que falta de esta tarea es la pantalla del sistema, que tiene su propio punto
+      arriba. La receta que salió de destruir el ERP, en este orden:
 
       1. **Qué es, explicado a un niño de 10 años.** La definición primero, antes de tocar
          nada. Si no se puede decir en una línea sin una palabra de oficina, el recorrido no
@@ -646,8 +656,24 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       sexta posición, y las seis imágenes son todas dibujos nuestros. Los tres están arriba, en
       «Lo que la comparación del 2026-09-25 dejó abierto».
 
-      **Estado de los demás (nueve pasadas del ERP + la décima). CRM, nómina, tienda en línea, automatización,
-      software a medida, infraestructura cloud y apps móviles: sin empezar.**
+      **Estado al 2026-09-28.** El ERP lleva diez pasadas. Los otros siete recibieron la suya ese
+      día, comparándolos contra él uno por uno, y quedaron así:
+
+      | | antes | ahora |
+      | --- | --- | --- |
+      | Dicen qué es la cosa en la primera línea | 3 de 8 | **8 de 8** |
+      | Palabras de la entrada | ERP 59, los demás 72 a 100 | **48 a 63 en los ocho** |
+      | Bloque de giros | ERP antes de los pasos, 7 después | **antes, en los ocho** |
+      | Puntos donde picar | ERP 6, los demás 4 | ERP 6, los demás **5** |
+      | Datos estructurados | ninguno | `HowTo` + `FAQPage` + migas en los ocho |
+      | Enlaces internos que reciben | 2 cada uno | **3 a 10** |
+
+      Se eliminó además la muletilla de molde que estaba idéntica en los siete —«Seis paradas y
+      una sola X. El giro no cambia la idea: abajo está el mismo recorrido en otros cinco»—, y
+      los títulos del bloque de giros salieron de la frase que cada bloque ya traía resaltada,
+      no se inventaron.
+
+      **Lo único que sigue separando a los siete del ERP es la pantalla del sistema.**
 
       **Lo que falta del ERP y no es mío:** los blancos táctiles —el logotipo mide 26 px de
       alto, el botón del recorrido 29 y los dos de contacto 42, cuando el sistema del sitio dice
