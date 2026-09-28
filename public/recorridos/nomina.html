@@ -343,6 +343,13 @@
       }
 
       /* ---------- secciones de abajo ---------- */
+      /* Una puerta a media página. Sin ella, entre el botón de la barra y el cierre
+         no había dónde picar en toda la lectura, y quien acaba de reconocerse en un
+         paso es quien más cerca está de escribir. */
+      .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+        padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+      .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+      @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
       .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
       .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
         font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
@@ -576,11 +583,7 @@
     <div class="eyebrow lbl">Nómina · un ejemplo, paso a paso</div>
     <h1>De la checada al recibo</h1>
       <p class="paraquien">Para distribuidoras, manufactura y empresas de servicios en México.</p>
-    <p class="deck">La nómina es el único proceso de la empresa con una <b>fecha que no se
-      mueve</b>. Para verlo seguimos la tarjeta de checado de una sola persona durante la
-      quincena y los dos caminos por los que puede volverse recibo: copiada a mano, o leída
-      tal cual por el sistema. Seis paradas y <b>un solo cálculo</b>. El giro no cambia la idea: abajo está el mismo recorrido en
-      otros cinco.</p>
+    <p class="deck">La <b>nómina</b> es la cuenta de lo que le toca a cada quien: lo que trabajó, lo que se le suma, lo que se le descuenta y lo que se le deposita. Y es el único proceso de la empresa con una fecha que no se mueve. Abajo seguimos una tarjeta de checado durante toda la quincena. <b>Seis paradas y un solo cálculo.</b></p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
@@ -625,6 +628,35 @@
       <span>Arranca <b>al mismo tiempo que tu método de hoy</b></span>
     </div>
   </header>
+
+<section class="giros">
+    <h2>¿Qué hay que contar en tu negocio?</h2>
+    <p>Dibujamos una tarjeta de checado porque es el papel que todos conocen. Lo que cambia
+      entre un giro y otro es <b>qué hay que contar</b> antes de calcular.</p>
+    <ul class="rejilla">
+      <li><b>Distribuidoras y mayoristas</b>
+        <span>Hay que contar comisiones por venta cobrada y viáticos de ruta.</span>
+        <span class="hoy">Hoy: la comisión se calcula aparte y llega después del cierre.</span></li>
+      <li class="este"><b>Manufactura y talleres</b>
+        <span>Hay que contar turnos, horas extra, prima dominical y destajo por pieza.</span>
+        <span class="hoy">Hoy: el reloj checador y la nómina son dos mundos que no se hablan.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Hay que contar cuadrillas por obra, altas y bajas frecuentes y horas por frente.</span>
+        <span class="hoy">Hoy: se dan de alta al IMSS tarde y el costo por obra no se sabe.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Hay que contar bonos por proyecto entregado y esquemas mixtos.</span>
+        <span class="hoy">Hoy: cada socio lleva su propio criterio en su propia hoja.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Hay que contar rotación alta, turnos partidos y comisiones por sucursal.</span>
+        <span class="hoy">Hoy: quien entró a media quincena se calcula a mano.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>Hay que contar guardias, honorarios y personal de base mezclado.</span>
+        <span class="hoy">Hoy: dos esquemas de pago conviviendo en el mismo Excel.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia qué se cuenta. No cambia la idea: <b>un solo cálculo del
+      que salen el recibo sellado, el pago al banco y lo que ve cada quien.</b> Si tu giro no está en la lista, también
+      aplica: se define en el diagnóstico.</p>
+  </section>
 
   <div class="cols">
     <div class="figure">
@@ -762,33 +794,13 @@
     </div>
   </div>
 
-  <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos una tarjeta de checado porque es el papel que todos conocen. Lo que cambia
-      entre un giro y otro es <b>qué hay que contar</b> antes de calcular.</p>
-    <ul class="rejilla">
-      <li><b>Distribuidoras y mayoristas</b>
-        <span>Hay que contar comisiones por venta cobrada y viáticos de ruta.</span>
-        <span class="hoy">Hoy: la comisión se calcula aparte y llega después del cierre.</span></li>
-      <li class="este"><b>Manufactura y talleres</b>
-        <span>Hay que contar turnos, horas extra, prima dominical y destajo por pieza.</span>
-        <span class="hoy">Hoy: el reloj checador y la nómina son dos mundos que no se hablan.</span></li>
-      <li><b>Constructoras y servicios en campo</b>
-        <span>Hay que contar cuadrillas por obra, altas y bajas frecuentes y horas por frente.</span>
-        <span class="hoy">Hoy: se dan de alta al IMSS tarde y el costo por obra no se sabe.</span></li>
-      <li><b>Despachos y consultorías</b>
-        <span>Hay que contar bonos por proyecto entregado y esquemas mixtos.</span>
-        <span class="hoy">Hoy: cada socio lleva su propio criterio en su propia hoja.</span></li>
-      <li><b>Comercio y retail</b>
-        <span>Hay que contar rotación alta, turnos partidos y comisiones por sucursal.</span>
-        <span class="hoy">Hoy: quien entró a media quincena se calcula a mano.</span></li>
-      <li><b>Clínicas y servicios profesionales</b>
-        <span>Hay que contar guardias, honorarios y personal de base mezclado.</span>
-        <span class="hoy">Hoy: dos esquemas de pago conviviendo en el mismo Excel.</span></li>
-    </ul>
-    <p class="giros__cierre">Cambia qué se cuenta. No cambia la idea: <b>un solo cálculo del
-      que salen el recibo sellado, el pago al banco y lo que ve cada quien.</b> Si tu giro no está en la lista, también
-      aplica: se define en el diagnóstico.</p>
+
+  <section class="atajo">
+    <p>¿Así se te va la quincena? Te decimos qué parte se puede dejar de teclear.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20la%20n%C3%B3mina%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
   </section>
 
   <section class="faq">

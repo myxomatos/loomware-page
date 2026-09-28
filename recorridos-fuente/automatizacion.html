@@ -299,6 +299,13 @@
   }
 
   /* ---------- secciones de abajo ---------- */
+  /* Una puerta a media página. Sin ella, entre el botón de la barra y el cierre
+     no había dónde picar en toda la lectura, y quien acaba de reconocerse en un
+     paso es quien más cerca está de escribir. */
+  .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+    padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+  .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+  @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
   .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
   .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
     font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
@@ -494,12 +501,7 @@
     <div class="eyebrow lbl">Automatización · un ejemplo, paso a paso</div>
     <h1>Del WhatsApp al reporte del lunes</h1>
       <p class="paraquien">Para distribuidoras, manufactura y empresas de servicios en México.</p>
-    <p class="deck">Automatizar es definir la regla una vez —<b>«cuando pase esto, haz
-      aquello»</b>— y dejar que corra. Para verlo seguimos un solo pedido por cinco escritorios
-      de la misma empresa, dos veces: arriba, llevado a mano de un escritorio a otro; abajo,
-      por un <b>tubo neumático</b>, como el del banco, que lo lleva solo en segundos. Seis
-      paradas y <b>una sola captura</b>. El giro no cambia la idea: abajo está el mismo
-      recorrido en otros cinco.</p>
+    <p class="deck"><b>Automatizar</b> es decir la regla una vez —«cuando pase esto, haz aquello»— y dejar que corra sola. Abajo seguimos un pedido por cinco escritorios, dos veces: llevado a mano, y por un <b>tubo neumático</b> como el del banco, que lo lleva solo en segundos. <b>Seis paradas y una sola captura.</b></p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
@@ -549,6 +551,35 @@
       <span>Cada flujo <b>deja registro</b></span>
     </div>
   </header>
+
+<section class="giros">
+    <h2>¿Qué se copia a mano en tu negocio?</h2>
+    <p>Dibujamos un pedido por WhatsApp porque ahí el tiempo perdido se ve con los ojos. Lo que
+      cambia entre un giro y otro es <b>qué se copia a mano hoy</b> y a quién hay que avisar.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>El pedido de WhatsApp entra solo, el pago libera, el cliente recibe su aviso y su factura.</span>
+        <span class="hoy">Hoy: dos personas capturan pedidos toda la mañana.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Cuando una orden termina, se avisa a embarques y se descuenta el material.</span>
+        <span class="hoy">Hoy: el jefe de planta avisa por teléfono, cuando puede.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Cada requisición de obra pasa a compras con su presupuesto ya validado.</span>
+        <span class="hoy">Hoy: la requisición se fotografía y se manda por WhatsApp.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>El vencimiento fiscal de cada cliente dispara su recordatorio y su lista de documentos.</span>
+        <span class="hoy">Hoy: alguien revisa el calendario del SAT cada lunes.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>El corte de cada sucursal llega solo a contabilidad, y la existencia baja avisa a compras.</span>
+        <span class="hoy">Hoy: cada gerente manda su corte por correo a las 10 de la noche.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>La cita confirma por WhatsApp un día antes, y el expediente se abre al llegar.</span>
+        <span class="hoy">Hoy: la recepcionista llama uno por uno a los pacientes de mañana.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia qué se copia. No cambia la idea: <b>lo que se hace igual
+      cada vez, lo hace el sistema; la gente se queda con lo que necesita criterio.</b> Si tu
+      giro no está en la lista, también aplica: se define en el diagnóstico.</p>
+  </section>
 
   <div class="cols">
     <div class="figure">
@@ -694,33 +725,13 @@
     </div>
   </div>
 
-  <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos un pedido por WhatsApp porque ahí el tiempo perdido se ve con los ojos. Lo que
-      cambia entre un giro y otro es <b>qué se copia a mano hoy</b> y a quién hay que avisar.</p>
-    <ul class="rejilla">
-      <li class="este"><b>Distribuidoras y mayoristas</b>
-        <span>El pedido de WhatsApp entra solo, el pago libera, el cliente recibe su aviso y su factura.</span>
-        <span class="hoy">Hoy: dos personas capturan pedidos toda la mañana.</span></li>
-      <li><b>Manufactura y talleres</b>
-        <span>Cuando una orden termina, se avisa a embarques y se descuenta el material.</span>
-        <span class="hoy">Hoy: el jefe de planta avisa por teléfono, cuando puede.</span></li>
-      <li><b>Constructoras y servicios en campo</b>
-        <span>Cada requisición de obra pasa a compras con su presupuesto ya validado.</span>
-        <span class="hoy">Hoy: la requisición se fotografía y se manda por WhatsApp.</span></li>
-      <li><b>Despachos y consultorías</b>
-        <span>El vencimiento fiscal de cada cliente dispara su recordatorio y su lista de documentos.</span>
-        <span class="hoy">Hoy: alguien revisa el calendario del SAT cada lunes.</span></li>
-      <li><b>Comercio y retail</b>
-        <span>El corte de cada sucursal llega solo a contabilidad, y la existencia baja avisa a compras.</span>
-        <span class="hoy">Hoy: cada gerente manda su corte por correo a las 10 de la noche.</span></li>
-      <li><b>Clínicas y servicios profesionales</b>
-        <span>La cita confirma por WhatsApp un día antes, y el expediente se abre al llegar.</span>
-        <span class="hoy">Hoy: la recepcionista llama uno por uno a los pacientes de mañana.</span></li>
-    </ul>
-    <p class="giros__cierre">Cambia qué se copia. No cambia la idea: <b>lo que se hace igual
-      cada vez, lo hace el sistema; la gente se queda con lo que necesita criterio.</b> Si tu
-      giro no está en la lista, también aplica: se define en el diagnóstico.</p>
+
+  <section class="atajo">
+    <p>¿Cuántas de esas seis paradas hace alguien a mano en tu empresa? Cuéntanos una.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20la%20automatizaci%C3%B3n%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
   </section>
 
   <section class="faq">

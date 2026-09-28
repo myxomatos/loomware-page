@@ -299,6 +299,13 @@
   }
 
   /* ---------- secciones de abajo ---------- */
+  /* Una puerta a media página. Sin ella, entre el botón de la barra y el cierre
+     no había dónde picar en toda la lectura, y quien acaba de reconocerse en un
+     paso es quien más cerca está de escribir. */
+  .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+    padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+  .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+  @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
   .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
   .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
     font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
@@ -510,12 +517,7 @@
     <div class="eyebrow lbl">Infraestructura cloud · un ejemplo, paso a paso</div>
     <h1>Del cuarto del servidor a cualquier lugar</h1>
       <p class="paraquien">Para distribuidoras, manufactura y empresas de servicios en México.</p>
-    <p class="deck">En casi toda empresa hay un cuartito con <b>un servidor que alguien compró hace
-      años</b>: se apaga cuando se va la luz, se respalda cuando alguien se acuerda y se queda
-      chico justo en diciembre. Para verlo seguimos una semana de esa empresa dos veces: con el
-      servidor en el cuartito, y con la operación viviendo en otro lado, disponible desde la
-      oficina, la bodega o tu casa. Seis paradas y <b>una sola operación</b>. El giro no cambia
-      la idea: abajo está el mismo recorrido en otros cinco.</p>
+    <p class="deck">La <b>nube</b> es que tus sistemas ya no vivan en un cuartito de tu oficina, sino en un lugar que está prendido siempre y al que entras desde donde estés. Abajo seguimos una semana de una empresa dos veces: con el servidor en el cuartito, y sin él. <b>Seis paradas y una sola operación.</b></p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
@@ -563,6 +565,36 @@
       <span>Pagas <b>lo que usas</b></span>
     </div>
   </header>
+
+<section class="giros">
+    <h2>¿Qué se detiene si se detiene?</h2>
+    <p>Dibujamos el cuartito del servidor porque casi toda empresa tiene uno. Lo que cambia
+      entre un giro y otro es <b>qué se detiene cuando se detiene</b>, y desde dónde necesita
+      entrar tu gente.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Los vendedores de ruta y la bodega entran al mismo sistema desde el celular, con o sin luz en la oficina.</span>
+        <span class="hoy">Hoy: si el servidor se apaga, la bodega surte de memoria.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>Planta y oficina en un solo sistema, con respaldo de las órdenes y los planos.</span>
+        <span class="hoy">Hoy: el sistema de producción vive en una computadora de la planta.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Cada obra entra desde donde está, y los presupuestos y estimaciones quedan respaldados.</span>
+        <span class="hoy">Hoy: la información de la obra viaja en la laptop del residente.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>Los expedientes de los clientes, cifrados, con acceso por persona y registro de quién los abrió.</span>
+        <span class="hoy">Hoy: los expedientes están en un servidor que respalda el contador cuando se acuerda.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Las sucursales venden aunque en una se vaya la luz o el internet, y el corte se concentra solo.</span>
+        <span class="hoy">Hoy: cada sucursal depende de la computadora de la matriz.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>El expediente clínico cifrado, respaldado y disponible en consultorio y a domicilio.</span>
+        <span class="hoy">Hoy: el expediente vive en la computadora de la recepción.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia qué se detiene. No cambia la idea: <b>la operación vive en
+      un lugar que sigue funcionando, y tu gente entra desde donde está.</b> Si tu giro no está
+      en la lista, también aplica: se define en el diagnóstico.</p>
+  </section>
 
   <div class="cols">
     <div class="figure">
@@ -710,34 +742,13 @@
     </div>
   </div>
 
-  <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos el cuartito del servidor porque casi toda empresa tiene uno. Lo que cambia
-      entre un giro y otro es <b>qué se detiene cuando se detiene</b>, y desde dónde necesita
-      entrar tu gente.</p>
-    <ul class="rejilla">
-      <li class="este"><b>Distribuidoras y mayoristas</b>
-        <span>Los vendedores de ruta y la bodega entran al mismo sistema desde el celular, con o sin luz en la oficina.</span>
-        <span class="hoy">Hoy: si el servidor se apaga, la bodega surte de memoria.</span></li>
-      <li><b>Manufactura y talleres</b>
-        <span>Planta y oficina en un solo sistema, con respaldo de las órdenes y los planos.</span>
-        <span class="hoy">Hoy: el sistema de producción vive en una computadora de la planta.</span></li>
-      <li><b>Constructoras y servicios en campo</b>
-        <span>Cada obra entra desde donde está, y los presupuestos y estimaciones quedan respaldados.</span>
-        <span class="hoy">Hoy: la información de la obra viaja en la laptop del residente.</span></li>
-      <li><b>Despachos y consultorías</b>
-        <span>Los expedientes de los clientes, cifrados, con acceso por persona y registro de quién los abrió.</span>
-        <span class="hoy">Hoy: los expedientes están en un servidor que respalda el contador cuando se acuerda.</span></li>
-      <li><b>Comercio y retail</b>
-        <span>Las sucursales venden aunque en una se vaya la luz o el internet, y el corte se concentra solo.</span>
-        <span class="hoy">Hoy: cada sucursal depende de la computadora de la matriz.</span></li>
-      <li><b>Clínicas y servicios profesionales</b>
-        <span>El expediente clínico cifrado, respaldado y disponible en consultorio y a domicilio.</span>
-        <span class="hoy">Hoy: el expediente vive en la computadora de la recepción.</span></li>
-    </ul>
-    <p class="giros__cierre">Cambia qué se detiene. No cambia la idea: <b>la operación vive en
-      un lugar que sigue funcionando, y tu gente entra desde donde está.</b> Si tu giro no está
-      en la lista, también aplica: se define en el diagnóstico.</p>
+
+  <section class="atajo">
+    <p>¿Tienes el cuartito? Te decimos qué se puede mover primero y qué cuesta.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20la%20infraestructura%20en%20la%20nube%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
   </section>
 
   <section class="faq">

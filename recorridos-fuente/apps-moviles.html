@@ -299,6 +299,13 @@
   }
 
   /* ---------- secciones de abajo ---------- */
+  /* Una puerta a media página. Sin ella, entre el botón de la barra y el cierre
+     no había dónde picar en toda la lectura, y quien acaba de reconocerse en un
+     paso es quien más cerca está de escribir. */
+  .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+    padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+  .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+  @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
   .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
   .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
     font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
@@ -498,12 +505,7 @@
     <div class="eyebrow lbl">Apps móviles · un ejemplo, paso a paso</div>
     <h1>Del campo a la oficina, el mismo día</h1>
       <p class="paraquien">Para distribuidoras, manufactura y empresas de servicios en México.</p>
-    <p class="deck">Quien está en campo —vendedor, técnico, supervisor, chofer— <b>hace el trabajo lejos
-      de la oficina y lo reporta después</b>: notas en papel, fotos en su celular, un WhatsApp al
-      llegar. Para verlo seguimos la ruta de un técnico durante un día, con sus seis visitas en
-      el mapa y lo que la oficina sabe de cada una a cada hora: con la libreta, y con la app que
-      captura donde ocurre el trabajo, aun sin señal. Seis paradas y <b>una sola captura</b>. El
-      giro no cambia la idea: abajo está el mismo recorrido en otros cinco.</p>
+    <p class="deck">Una <b>app de campo</b> es la libreta del que trabaja fuera, hecha sistema: anota donde ocurre el trabajo —con foto, firma y hora— y llega sola a la oficina, aunque en ese momento no haya señal. Abajo seguimos a un técnico durante un día, con sus seis visitas. <b>Seis paradas y una sola captura.</b></p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
@@ -547,6 +549,35 @@
       <span>Conectada <b>a tu CRM o ERP</b></span>
     </div>
   </header>
+
+<section class="giros">
+    <h2>¿Quién está en campo en tu negocio?</h2>
+    <p>Dibujamos a un técnico de servicio porque su día se ve en un mapa. Lo que cambia entre un
+      giro y otro es <b>quién está en campo</b> y qué evidencia necesita traer.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>El vendedor de ruta levanta el pedido en el mostrador del cliente, con existencia y precio al día, y la entrega se firma en pantalla.</span>
+        <span class="hoy">Hoy: el pedido se anota en la libreta y se dicta por teléfono.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>El supervisor reporta avance de piezas y paros de máquina desde el piso, con foto.</span>
+        <span class="hoy">Hoy: el reporte de turno se llena a mano al final del día.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>El residente reporta avance por partida, con fotos con fecha y ubicación, desde la obra.</span>
+        <span class="hoy">Hoy: las fotos de la obra viven en el WhatsApp del residente.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>El consultor registra la visita al cliente, las horas y los acuerdos, al salir.</span>
+        <span class="hoy">Hoy: las horas se reconstruyen el viernes, de memoria.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>El supervisor de sucursales hace su recorrido con lista de verificación y foto de anaquel.</span>
+        <span class="hoy">Hoy: la visita a sucursal se reporta por correo, sin foto.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>La atención a domicilio con expediente en el celular, firma del paciente y cobro al momento.</span>
+        <span class="hoy">Hoy: la nota de la visita se pasa al expediente al regresar.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia quién sale. No cambia la idea: <b>se captura donde ocurre el
+      trabajo, y la oficina lo ve el mismo día.</b> Si tu giro no está en la lista, también
+      aplica: se define en el diagnóstico.</p>
+  </section>
 
   <div class="cols">
     <div class="figure">
@@ -692,33 +723,13 @@
     </div>
   </div>
 
-  <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos a un técnico de servicio porque su día se ve en un mapa. Lo que cambia entre un
-      giro y otro es <b>quién está en campo</b> y qué evidencia necesita traer.</p>
-    <ul class="rejilla">
-      <li class="este"><b>Distribuidoras y mayoristas</b>
-        <span>El vendedor de ruta levanta el pedido en el mostrador del cliente, con existencia y precio al día, y la entrega se firma en pantalla.</span>
-        <span class="hoy">Hoy: el pedido se anota en la libreta y se dicta por teléfono.</span></li>
-      <li><b>Manufactura y talleres</b>
-        <span>El supervisor reporta avance de piezas y paros de máquina desde el piso, con foto.</span>
-        <span class="hoy">Hoy: el reporte de turno se llena a mano al final del día.</span></li>
-      <li><b>Constructoras y servicios en campo</b>
-        <span>El residente reporta avance por partida, con fotos con fecha y ubicación, desde la obra.</span>
-        <span class="hoy">Hoy: las fotos de la obra viven en el WhatsApp del residente.</span></li>
-      <li><b>Despachos y consultorías</b>
-        <span>El consultor registra la visita al cliente, las horas y los acuerdos, al salir.</span>
-        <span class="hoy">Hoy: las horas se reconstruyen el viernes, de memoria.</span></li>
-      <li><b>Comercio y retail</b>
-        <span>El supervisor de sucursales hace su recorrido con lista de verificación y foto de anaquel.</span>
-        <span class="hoy">Hoy: la visita a sucursal se reporta por correo, sin foto.</span></li>
-      <li><b>Clínicas y servicios profesionales</b>
-        <span>La atención a domicilio con expediente en el celular, firma del paciente y cobro al momento.</span>
-        <span class="hoy">Hoy: la nota de la visita se pasa al expediente al regresar.</span></li>
-    </ul>
-    <p class="giros__cierre">Cambia quién sale. No cambia la idea: <b>se captura donde ocurre el
-      trabajo, y la oficina lo ve el mismo día.</b> Si tu giro no está en la lista, también
-      aplica: se define en el diagnóstico.</p>
+
+  <section class="atajo">
+    <p>¿Tu gente de campo sigue reportando al llegar? Te decimos qué se puede capturar en el lugar.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20las%20apps%20m%C3%B3viles%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
   </section>
 
   <section class="faq">

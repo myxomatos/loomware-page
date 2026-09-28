@@ -344,6 +344,13 @@
       }
 
       /* ---------- secciones de abajo ---------- */
+      /* Una puerta a media página. Sin ella, entre el botón de la barra y el cierre
+         no había dónde picar en toda la lectura, y quien acaba de reconocerse en un
+         paso es quien más cerca está de escribir. */
+      .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+        padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+      .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+      @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
       .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
       .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
         font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
@@ -583,12 +590,7 @@
     <div class="eyebrow lbl">Software a medida · un ejemplo, paso a paso</div>
     <h1>De la talla única a tu medida</h1>
       <p class="paraquien">Para distribuidoras, manufactura y empresas de servicios en México.</p>
-    <p class="deck">Hay procesos que son <b>la forma en que tu empresa compite</b>: cómo cotizas,
-      cómo produces, cómo atiendes. Un sistema de catálogo es un traje de talla única: le queda
-      más o menos a todos, y a tu empresa le sobra de un lado y le aprieta del otro. Para verlo seguimos el proceso de cotización de una
-      empresa en la sastrería: las medidas, el patrón, la primera prueba, los ajustes, las
-      conexiones y el patrón a tu nombre. Seis paradas y <b>un solo patrón</b>. El giro no
-      cambia la idea: abajo está el mismo recorrido en otros cinco.</p>
+    <p class="deck">El <b>software a medida</b> es un sistema construido sobre tu forma de trabajar, y no al revés. Uno de catálogo es un traje de talla única: le queda más o menos a todos, y a tu empresa le sobra de un lado y le aprieta del otro. Abajo vamos a la sastrería, con tu proceso de cotización. <b>Seis paradas y un solo patrón.</b></p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
@@ -635,6 +637,36 @@
       <span>Código y datos <b>tuyos por contrato</b></span>
     </div>
   </header>
+
+<section class="giros">
+    <h2>¿Cuál es el proceso que te hace distinto?</h2>
+    <p>Dibujamos una cotización porque es el proceso que más empresas tienen a su manera. Lo
+      que cambia entre un giro y otro es <b>cuál es el proceso que te hace distinto</b> y que
+      hoy vive en Excel.</p>
+    <ul class="rejilla">
+      <li class="este"><b>Distribuidoras y mayoristas</b>
+        <span>Listas de precios por cliente, rutas de reparto y crédito por cliente, en un solo sistema.</span>
+        <span class="hoy">Hoy: cada vendedor tiene su lista de precios en su Excel.</span></li>
+      <li><b>Manufactura y talleres</b>
+        <span>La cotización por pieza con materiales, tiempos de máquina y merma, ligada a la orden de producción.</span>
+        <span class="hoy">Hoy: el ingeniero cotiza en una hoja que solo él entiende.</span></li>
+      <li><b>Constructoras y servicios en campo</b>
+        <span>Presupuesto por partidas, estimaciones por avance y control de cada obra.</span>
+        <span class="hoy">Hoy: el presupuesto y la estimación son dos Excel que se pelean.</span></li>
+      <li><b>Despachos y consultorías</b>
+        <span>El expediente por cliente, con sus entregables, sus fechas y sus horas cobradas.</span>
+        <span class="hoy">Hoy: el estado de cada cliente está en la cabeza de cada socio.</span></li>
+      <li><b>Comercio y retail</b>
+        <span>Apartados, crédito de tienda y garantías, con las reglas de tu negocio.</span>
+        <span class="hoy">Hoy: el sistema del punto de venta trae reglas de otro negocio.</span></li>
+      <li><b>Clínicas y servicios profesionales</b>
+        <span>El expediente con planes de tratamiento, consentimientos y seguimiento entre citas.</span>
+        <span class="hoy">Hoy: el expediente es una carpeta y una nota en el celular.</span></li>
+    </ul>
+    <p class="giros__cierre">Cambia el proceso. No cambia la idea: <b>el sistema se construye
+      sobre tu forma de trabajar, y esa forma sigue siendo tuya.</b> Si tu giro no está en la
+      lista, también aplica: se define en el diagnóstico.</p>
+  </section>
 
   <div class="cols">
     <div class="figure">
@@ -781,34 +813,13 @@
     </div>
   </div>
 
-  <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
-    <p>Dibujamos una cotización porque es el proceso que más empresas tienen a su manera. Lo
-      que cambia entre un giro y otro es <b>cuál es el proceso que te hace distinto</b> y que
-      hoy vive en Excel.</p>
-    <ul class="rejilla">
-      <li class="este"><b>Distribuidoras y mayoristas</b>
-        <span>Listas de precios por cliente, rutas de reparto y crédito por cliente, en un solo sistema.</span>
-        <span class="hoy">Hoy: cada vendedor tiene su lista de precios en su Excel.</span></li>
-      <li><b>Manufactura y talleres</b>
-        <span>La cotización por pieza con materiales, tiempos de máquina y merma, ligada a la orden de producción.</span>
-        <span class="hoy">Hoy: el ingeniero cotiza en una hoja que solo él entiende.</span></li>
-      <li><b>Constructoras y servicios en campo</b>
-        <span>Presupuesto por partidas, estimaciones por avance y control de cada obra.</span>
-        <span class="hoy">Hoy: el presupuesto y la estimación son dos Excel que se pelean.</span></li>
-      <li><b>Despachos y consultorías</b>
-        <span>El expediente por cliente, con sus entregables, sus fechas y sus horas cobradas.</span>
-        <span class="hoy">Hoy: el estado de cada cliente está en la cabeza de cada socio.</span></li>
-      <li><b>Comercio y retail</b>
-        <span>Apartados, crédito de tienda y garantías, con las reglas de tu negocio.</span>
-        <span class="hoy">Hoy: el sistema del punto de venta trae reglas de otro negocio.</span></li>
-      <li><b>Clínicas y servicios profesionales</b>
-        <span>El expediente con planes de tratamiento, consentimientos y seguimiento entre citas.</span>
-        <span class="hoy">Hoy: el expediente es una carpeta y una nota en el celular.</span></li>
-    </ul>
-    <p class="giros__cierre">Cambia el proceso. No cambia la idea: <b>el sistema se construye
-      sobre tu forma de trabajar, y esa forma sigue siendo tuya.</b> Si tu giro no está en la
-      lista, también aplica: se define en el diagnóstico.</p>
+
+  <section class="atajo">
+    <p>¿Cuál es el proceso que no te cabe en un sistema de catálogo? Cuéntanos ése.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20el%20software%20a%20medida%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
   </section>
 
   <section class="faq">
