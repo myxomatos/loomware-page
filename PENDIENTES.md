@@ -24,8 +24,9 @@ responde 500.
 | 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | Formulario ✅ 2026-09-24: llega de `web@` a `aldo_sanchez@` y «Responder» va al prospecto |
 | 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | ✅ 2026-09-27 (PR #4). Se mezcló sin cerrar las validaciones de contenido de «Aldo»; lo que no cuadre entra en otro PR |
 | 7 | Probar en producción, y confirmar que aparece la banda de cookies si ya está `VITE_GA_ID` | <https://loomware.com.mx> | 2026-09-27: las 25 URLs del sitemap dan 200, `/api/contacto` contesta y la CSP está puesta. Formulario probado en producción: el correo llega y «Responder» va al prospecto. Falta la banda de cookies (sin `VITE_GA_ID`) |
-| 8 | Search Console: confirmar la propiedad y enviar el sitemap (25 URLs) | <https://search.google.com/search-console> | |
+| 8 | Search Console: confirmar la propiedad y enviar el sitemap (25 URLs) | <https://search.google.com/search-console> | **Pendiente.** Es lo único que contesta si Google ya indexó el sitio: al 28 de septiembre, buscar la marca devuelve el repositorio de GitHub y no el dominio |
 | 9 | Invitar a Alan a Cloudflare como Administrator | Manage Account → Members → Invite | |
+| 10 | **Mezclar `alan` a `main`** — 14 commits que vuelven indexables las 17 páginas que hoy Google recibe vacías | GitHub | **Es lo urgente; ver el primer punto de «Aldo»** |
 
 ### Variables de Cloudflare
 
@@ -50,6 +51,62 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 2026-09-24); cuando las dos estén, **401 «Contraseña incorrecta»**, que es la señal de que quedó.
 
 ## Aldo
+
+- [ ] **URGENTE · Mezclar `alan` a `main`: producción está sirviendo páginas vacías a Google.**
+
+      El paso 7 de la ruta ya registra que producción salió el 27 de septiembre, y comprobado el
+      28 sigue en pie: las 25 URLs responden 200 y llegan la CSP y el HSTS. Lo que quedó viejo es
+      un párrafo del historial —en «Resueltas el 2026-09-24»— que todavía dice que el dominio
+      sirve el sitio viejo; se lee como histórico y ahí se queda.
+
+      Lo nuevo es otra cosa, y es peor. Producción sirve `/servicios/erp` con **7 palabras** en el
+      HTML: es la cáscara de React vacía. De las 25 URLs del sitemap, **17 llegan a Google sin una
+      sola palabra**, porque todo el texto lo dibuja JavaScript. El prerenderizado que lo arregla
+      está en `alan` y no en `main`.
+
+      | | producción hoy | rama `alan` |
+      | --- | --- | --- |
+      | Palabras que Google puede leer | ~12 500 en 11 páginas | **25 216 en las 28** |
+      | `/servicios/erp` | **7 palabras** | 789 |
+      | Pares de color bajo WCAG AA | 79 | cero |
+      | Blancos táctiles bajo 24 px | 31 | cero |
+      | Tarjeta de enlace propia por página | no (`/og/…` responde 404) | sí, 23 distintas |
+
+      **`alan` está 14 commits adelante de `main` y cero atrás**, así que la mezcla es limpia y no
+      hay conflictos. Es el paso que desbloquea todo el posicionamiento: mientras no se mezcle,
+      cada día que Google rastrea el sitio lo rastrea vacío.
+
+      Alan no abre el PR hasta que avises, que es el orden que manda `CLAUDE.md`.
+
+- [ ] **Alta en Google Business Profile — es lo de mayor retorno por hora de toda la lista.**
+      <https://business.google.com>, media hora y gratis. Aparece en días, mientras que un dominio
+      nuevo tarda de tres a seis meses en posicionar. Y es el único camino a las consultas que
+      **sí** podemos ganar este año: «implementación de ERP Estado de México», «software a medida
+      Atizapán», «consultoría ERP Naucalpan».
+
+      **Requisito que ya quedó listo:** el domicilio del sitio, el del aviso de privacidad y el de
+      los datos estructurados dicen los tres **Estado de México**. Antes el pie decía Ciudad de
+      México y los datos estructurados decían Atizapán, y la verificación del perfil se cae si no
+      coinciden.
+
+- [ ] **Decidir si el repositorio sigue siendo público.** Medido el 2026-09-28: al buscar la marca
+      «Loomware», lo que aparece es **`github.com/myxomatos/loomware-page`** y su PR #1. El sitio
+      no aparece. Y `PENDIENTES.md` **se lee sin cuenta** —comprobado con `curl`, responde 200—,
+      así que este archivo, con el estado interno, la discusión de precios y el hecho de que hay
+      un solo cliente, es hoy lo primero que encuentra quien busca el nombre de la empresa.
+
+      Son dos salidas y las dos valen: o el repositorio pasa a privado, o los pendientes salen de
+      él y viven en otro lado. Lo que no conviene es dejarlo como está sin haberlo decidido.
+
+- [ ] **El rango de precio, otra vez, y ahora con lo que hace el mercado.** El 27 se decidió no
+      publicar ninguna cifra. El 28, midiendo las búsquedas reales, salió el costo de esa
+      decisión: la consulta «cuánto cuesta un ERP en México» la contestan **nueve guías que
+      publican rangos en pesos** —COSMO CONSULT, erp.com.mx, Azterion, Magokoro, LatamReady—, y es
+      de las consultas con más intención de compra del sector. Sin una cifra, esa puerta queda
+      cerrada por definición, no por competencia.
+
+      No hace falta una lista de precios: basta un «desde», o una franja por tipo de proyecto. Es
+      tu decisión; queda anotado que ahora sabemos lo que cuesta.
 
 - [ ] **Confirmar la secuencia comercial, que ahora se cuenta igual en los cuatro lugares.** La
       auditoría del 28 encontró que el botón de todo el sitio dice «Solicitar diagnóstico» y el
@@ -164,6 +221,45 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       2026-09-27: se cambió por «al día · respaldos» en `scripts/hero-sistema.js`.
 
 ## Alan
+
+- [ ] **La autoridad interna está repartida al revés.** Medido en el sitio construido el
+      2026-09-28, contando los enlaces que recibe cada página:
+
+      | Página | Enlaces internos que recibe |
+      | --- | --- |
+      | Cada página de servicio | 17 |
+      | Cada página de giro | 16 |
+      | **Aviso de privacidad** | **16** |
+      | **Cada recorrido** (1 400–1 800 palabras) | **2** |
+
+      Las ocho páginas más largas y mejor escritas del sitio reciben dos enlaces cada una, y el
+      aviso de privacidad dieciséis, porque el pie enlaza a todo por igual. Los enlaces del cuerpo
+      valen más que los del pie, y los recorridos no reciben ninguno salvo su tarjeta del inicio y
+      la banda de su página de servicio.
+
+      Qué hacer: que las páginas de servicio y de giro enlacen su recorrido **desde el texto**, no
+      sólo desde la banda; que cada recorrido enlace a los dos o tres que se le parecen —hoy cada
+      uno es un callejón sin salida—; y revisar si el aviso de privacidad necesita dieciséis.
+
+- [ ] **Los ocho recorridos no tienen datos estructurados.** Las de servicio llevan `Service` y
+      `FAQPage`, las de giro llevan `Service`; los recorridos, que son las páginas más largas del
+      sitio, **no llevan nada**. Les toca `HowTo` —son seis pasos numerados, que es exactamente lo
+      que ese tipo describe— y `FAQPage` donde tengan preguntas. Se escribe en
+      `scripts/recorridos.js`, que es quien arma su `<head>`.
+
+- [ ] **Falta `BreadcrumbList` en todo el sitio.** Es lo que hace que Google enseñe
+      «loomware.com.mx › Servicios › ERP» en vez de la URL cruda, y ayuda a que entienda la
+      jerarquía. Se agrega en `scripts/generar-servicios.js` y en `scripts/recorridos.js`.
+
+- [ ] **Las páginas por zona.** Es el nivel 1 del posicionamiento y donde de verdad se puede ser
+      primero. **Depende de una decisión previa:** qué zonas se atienden de verdad y qué se puede
+      decir de cada una que sea cierto. Sin eso son páginas puerta, que se penalizan. Va después
+      del alta en Google Business, no antes.
+
+- [ ] **El contenido de nivel 2**, que es lo que contesta lo que la gente escribe antes de
+      conocernos. Las respuestas ya están escritas en `src/data/faq.js` y dentro de los ocho
+      recorridos; falta darles su propia URL. **Varias son política de la empresa y necesitan el
+      visto bueno de Aldo antes de publicarse.**
 
 - [ ] **Los rótulos de escena de cuatro recorridos se leen a 7.5 px.** Medido el 28: «DÍA»,
       «PEDIDOS», «RESPALDO» y «FRENTE» salen a 7.5 px, y el resto de las escenas entre 8 y 11.
@@ -379,6 +475,95 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       esas respuestas son política de la empresa y **necesitan el visto bueno de Aldo antes de
       publicarse**, igual que las de `src/data/faq.js`. Alegra tiene 3 378 palabras en su
       portada y un blog detrás; la portada no es donde se gana esto.
+
+## Posicionamiento orgánico — el terreno, medido el 2026-09-28
+
+Se midieron las consultas reales que nos importan y quién las contesta hoy. Esto reemplaza a
+cualquier suposición anterior sobre por dónde entra el tráfico.
+
+> **Reserva de método.** El buscador que se usó para mirar los resultados no es Google México, así
+> que la composición de cada página de resultados es indicativa y no una foto exacta. Lo que sí
+> queda comprobado es **el tipo de contenido que gana cada consulta**, que es lo que decide la
+> estrategia. La medición fina la da Search Console, que sigue sin darse de alta.
+
+### Lo que hay que aceptar antes de gastar una hora
+
+**Para las consultas grandes, Google no premia páginas de producto.** Para «mejores ERP para pymes
+en México» los primeros resultados son **artículos comparativos** —ComparaSoftware, Akari,
+erp.com.mx, Pulpos, Faciliza—, no fabricantes. Bind y SAP no están arriba con su landing: están
+**mencionados dentro** de esos artículos. Una página de servicio, por buena que sea, casi nunca
+puede ganar ahí: el formato ya decidió quién gana.
+
+Lo mismo con «cuánto cuesta un ERP en México»: la contestan guías de precio, todas con cifras.
+
+**La consecuencia práctica:** para el nivel 3 de abajo, el camino no es SEO, es **que nos listen**
+esos comparadores. Eso es gestión y relaciones, no código, y conviene no confundirlo con una tarea
+de la página.
+
+### Los tres niveles, por lo que se puede ganar
+
+**Nivel 1 · ganable en 2 a 4 meses — local y de servicio.** Quienes rankean aquí son despachos del
+tamaño de Loomware —SYCA, AppsySoftware, PuntoERP, Visual México— y la calidad técnica de nuestro
+sitio es muy superior a la suya. Fíjate en cómo lo hacen: **páginas por zona**
+(`syca.com.mx/desarrollo-de-software/edomex/toluca/`, `appsysoftware.com/desarrollo-software-ecatepec`).
+
+    implementación de ERP Estado de México
+    desarrollo de software a medida Atizapán / Naucalpan / Tlalnepantla / Ecatepec
+    sistema de nómina para empresas en Edomex
+    ERP para distribuidoras CDMX
+    consultoría ERP Estado de México
+
+Lo que hace falta: el perfil de Google Business (de Aldo) y páginas por zona con contenido real de
+cada una. **Una plantilla con el nombre de la ciudad cambiado es una página puerta y Google las
+penaliza**: si no hay algo cierto que decir de esa zona, esa página no se hace.
+
+**Nivel 2 · ganable en 4 a 8 meses — preguntas que hoy no contesta ninguna URL.**
+
+    cómo migrar de Excel a un ERP
+    qué pide el SAT para facturar en 2026
+    cuánto tarda implementar un ERP
+    sistema propio o a la medida, cuál conviene
+    cómo saber si mi empresa necesita un CRM
+
+La ventaja escondida: **las respuestas ya están escritas**, en `src/data/faq.js` y dentro de los
+ocho recorridos. Lo que falta es darles su propia URL en vez de tenerlas plegadas dentro de otra
+página. Varias son política de la empresa y **necesitan el visto bueno de Aldo antes de
+publicarse**, igual que las del FAQ.
+
+**Nivel 3 · no ganable con una landing.** «mejores ERP para pymes México», «ERP México», «cuánto
+cuesta un ERP». Ver arriba: se entra por mención en los comparadores, no por página propia.
+
+### Lo que sirve, por orden de efecto
+
+1. **Google Business Profile.** Días, no meses. Es de Aldo y está arriba en su lista.
+2. **Publicar un rango de precio.** Decisión de Aldo; el costo de no hacerlo ya está medido.
+3. **Páginas por zona**, con algo cierto que decir de cada una.
+4. **El FAQ y los recorridos como páginas propias**, con sus datos estructurados.
+5. **Repartir bien los enlaces internos** (ver «Alan»: hoy están muy mal repartidos).
+6. **Enlaces externos honestos**: LinkedIn de empresa, Canacintra, Canaco, directorios del giro, y
+   que GT-SHOP mencione a Loomware. Es el factor que más pesa y el único que no se arregla
+   escribiendo código: **hoy ningún sitio apunta a loomware.com.mx**.
+
+### Lo que no se va a hacer
+
+Texto oculto, relleno de palabras clave, páginas puerta por ciudad con el mismo contenido, compra
+de enlaces, redes privadas de blogs y artículos generados en masa sin revisar. En un dominio nuevo
+y sin autoridad una penalización no se nota: simplemente nunca arranca, y no hay forma de saber por
+qué. Queda escrito para que nadie lo proponga dentro de tres meses como «una prueba rápida».
+
+### Google Ads, y cómo se combina
+
+Ads compra hoy lo que el orgánico dará en seis meses, y sirve para algo más: **es la forma rápida
+de saber qué palabras convierten** antes de escribir treinta artículos. Dos condiciones que hoy no
+se cumplen:
+
+- **Analytics cargado**, o se paga a ciegas.
+- **Cada anuncio cae en la página de su servicio**, nunca en la portada. Eso ya está resuelto: las
+  ocho de servicio y las seis de giro tienen su propio formulario con el interés precargado.
+
+Por dónde empezar: marca y local en **concordancia exacta** —barato y con alta intención—, no
+amplia. Tres semanas con presupuesto chico dicen qué consulta trae llamadas, y ésas son las que
+después se atacan con contenido.
 
 ## Decisiones abiertas
 
