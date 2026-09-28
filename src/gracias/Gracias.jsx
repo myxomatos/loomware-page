@@ -3,21 +3,26 @@ import Icon from '../components/Icon'
 import { EMAIL, WHATSAPP, whatsappUrl } from '../data/contacto'
 import './gracias.css'
 
+/* Los tres pasos dicen **una sola vez** cuándo contestamos, y sin número.
+   Antes la entrada decía «en un momento», el paso 2 decía «el siguiente día
+   hábil» y la meta description «en breve»: tres velocidades distintas en la
+   misma pantalla. Quien deja un WhatsApp espera pronto, y una cifra que no se
+   cumple es peor que no darla. */
 const PASOS = [
   {
     icon: 'search',
-    title: 'Revisamos tu solicitud',
-    text: 'Leemos lo que nos contaste y revisamos cómo operas hoy.',
+    title: 'Leemos lo que nos contaste',
+    text: 'Así llegamos a la llamada sabiendo de qué se trata, sin preguntarte lo mismo otra vez.',
   },
   {
-    icon: 'phone',
-    title: 'Te contactamos',
-    text: 'El mismo día o el siguiente día hábil, por el medio que prefieras.',
+    icon: 'message-circle',
+    title: 'Te contestamos',
+    text: 'Lo antes posible, por el mismo medio que nos dejaste: tu WhatsApp o tu correo.',
   },
   {
     icon: 'calendar',
     title: 'Hablamos 30 minutos',
-    text: 'Sin costo y sin compromiso, en la fecha que mejor te acomode.',
+    text: 'Sin costo y sin compromiso, el día que a ti te acomode.',
   },
 ]
 
@@ -34,9 +39,7 @@ export default function Gracias() {
         </span>
 
         <h1 className="gracias__title text-gradient">¡Gracias!</h1>
-        <p className="gracias__lead">
-          Recibimos tu solicitud. En un momento nos comunicamos contigo.
-        </p>
+        <p className="gracias__lead">Recibimos tu solicitud. Esto es lo que sigue.</p>
 
         <ol className="gracias__pasos">
           {PASOS.map((p, i) => (
@@ -55,7 +58,7 @@ export default function Gracias() {
         </ol>
 
         <div className="gracias__contacto">
-          <p className="text-xs">¿Prefieres adelantarnos algo? Escríbenos o llámanos.</p>
+          <p className="text-xs">¿Quieres adelantarnos algo? Escríbenos por aquí.</p>
           <div className="gracias__medios">
             <a className="chip" href={`mailto:${EMAIL}`}>
               <Icon name="mail" size={15} />
@@ -68,10 +71,19 @@ export default function Gracias() {
           </div>
         </div>
 
-        <a href="/" className="btn btn--outline">
-          Volver al inicio
-          <Icon name="arrow-right" size={16} />
-        </a>
+        {/* Antes decía «Volver al inicio», que es lo que ya hace el logotipo de
+            arriba: a quien acaba de dejar sus datos —la persona más interesada
+            que va a pisar el sitio ese día— no se le ofrecía nada. */}
+        <div className="gracias__sigue">
+          <p className="text-xs">
+            Mientras tanto, cada solución tiene su recorrido: seis pasos con un dibujo que
+            cambia mientras bajas.
+          </p>
+          <a href="/#recorridos" className="btn btn--outline">
+            Ver los recorridos
+            <Icon name="arrow-right" size={16} />
+          </a>
+        </div>
       </div>
 
       <p className="gracias__pie">Ideas de hoy. Negocios más grandes mañana.</p>

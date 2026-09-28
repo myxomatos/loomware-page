@@ -131,8 +131,12 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       encasillar a nadie.
 
 - [ ] **Confirmar tres promesas nuevas o cambiadas**, que ninguna estaba en tu lista:
-      1. `/gracias` decía *«En menos de 24 horas hábiles»* y ahora dice **«El mismo día o el
-         siguiente día hábil»**. Es un compromiso de tiempo de respuesta.
+      1. `/gracias` **ya no da ninguna cifra de tiempo.** Decía *«En menos de 24 horas
+         hábiles»*, pasó a *«El mismo día o el siguiente día hábil»* y el 2026-09-28 Alan
+         decidió quitar el número: **«Lo antes posible, por el mismo medio que nos dejaste»**.
+         El porqué es bueno y conviene que lo sepas: quien deja un WhatsApp espera que le
+         contesten pronto, y decirle que tarda un día hábil es peor que no decir nada. Si tú
+         quieres comprometer un plazo concreto, es una línea.
       2. «Nos quedamos después de la entrega · Medimos, ajustamos y crecemos el sistema con la
          operación», en «Quiénes somos». Es una obligación permanente, de la misma familia que
          las cuatro afirmaciones de seguridad que ya te preocupan.
