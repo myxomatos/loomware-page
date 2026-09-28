@@ -83,7 +83,7 @@ export const INDUSTRIAS = [
         texto: 'Cada orden con su estado, su responsable y su fecha. Desde la oficina se ve qué está en proceso sin bajar al piso.',
       },
       {
-        titulo: 'Materiales y explosión de insumos',
+        titulo: 'Materiales por orden',
         texto: 'El sistema calcula qué materia prima requiere cada orden y avisa antes de que falte.',
       },
       {
@@ -264,7 +264,7 @@ export const INDUSTRIAS = [
       },
       {
         titulo: 'Nómina del personal',
-        texto: 'Cálculo, timbrado y dispersión con las particularidades de tu esquema: turnos, guardias o comisiones.',
+        texto: 'Cálculo, recibos sellados ante el SAT y el pago al banco, con lo propio de tu esquema: turnos, guardias o comisiones.',
       },
     ],
   },

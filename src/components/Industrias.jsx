@@ -13,7 +13,7 @@ export default function Industrias() {
               la segunda pertenece al subtítulo, que es donde se explica. */}
           <h2>Cada giro tiene sus propias fugas</h2>
           <p className="section__subtitle">
-            Estas son las que más vemos. Encuentra tu operación y lo que suele resolverla.
+            Estos son los giros que más vemos. Encuentra el tuyo y lo que suele resolverlo.
           </p>
         </header>
 
