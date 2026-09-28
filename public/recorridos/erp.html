@@ -335,6 +335,20 @@
         .figura__fijo,.figure{gap:5px;}
       }
 
+      /* En un teléfono chico el paso y el hueco que le queda debajo del dibujo se
+         pelean por veinte píxeles: medido a 360×740, los pasos van de 378 a 406 y
+         el hueco es 386. Recortar frases una por una sería volver a romperlo la
+         próxima vez que alguien agregue una palabra, así que se aprieta lo que no
+         se lee —relleno, aire entre renglones, márgenes— y la letra se queda en
+         13 px. Da unos 30 px por paso, que es el margen que faltaba. */
+      @media (max-width:400px){
+        .step{padding-block:8px;}
+        .step-head{margin-bottom:5px;}
+        .vs__row{padding:6px 9px;}
+        .vs__row p{line-height:1.4;}
+        .enotro{margin-top:8px;line-height:1.45;}
+      }
+
       /* ---------- secciones de abajo ---------- */
       .giros,.faq,.costo,.pant{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
       .giros h2,.faq h2,.costo h2,.cierre h2,.pant h2{font-family:var(--mono);font-weight:700;

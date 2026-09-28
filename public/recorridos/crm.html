@@ -190,6 +190,10 @@
         gap:30px;margin-top:22px;align-items:start;}
       .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
         display:flex;flex-direction:column;gap:8px;min-width:0;}
+      /* En escritorio no cambia nada: el dibujo y la ficha viajan juntos en la
+         columna pegada. En celular se separan, y por qué está abajo, en la
+         consulta de 880. */
+      .figura__fijo{display:flex;flex-direction:column;gap:8px;min-width:0;}
 
       /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
       .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
@@ -245,6 +249,11 @@
 
       /* ---------- pasos ---------- */
       .steps{display:flex;flex-direction:column;min-width:0;}
+      /* El recorrido no tenía nombre: el índice del documento pasaba de la sección
+         de giros a «01 …», seis encabezados hermanos sin nada que los presentara.
+         Y decir cuántos son es información: el lector sabe cuánto falta. */
+      .steps__t{font-family:var(--mono);font-weight:700;font-size:clamp(15px,1.7vw,18px);
+        letter-spacing:-.035em;margin:0 0 3px;color:var(--ink);text-transform:uppercase;}
       .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
         padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
       /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
@@ -264,7 +273,7 @@
       .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
         color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
         border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
-      .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+      .step h3{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
         margin:0;color:var(--ink);text-wrap:balance;}
 
       /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
@@ -278,6 +287,12 @@
       .vs__row--hoy p{color:var(--ink-2);}
       .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
       .vs__row--con .vs__lbl{color:var(--signal);}
+      /* La línea que traduce el paso a otro giro: el lector cambia la palabra y
+         es su negocio. Apagada y con filete, para que no compita con los tres
+         renglones de arriba. */
+      .enotro{margin:10px 0 0;font-size:13px;line-height:1.55;color:var(--ink-3);
+        padding-left:12px;border-left:2px solid var(--rule);}
+      .enotro b{color:var(--ink-2);font-weight:600;}
       .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
       .vs__row--gana .vs__lbl{color:var(--money);}
       .vs__row--gana p{font-weight:500;}
@@ -296,6 +311,20 @@
         .vs__lbl{line-height:1.5;}
         .enotro{margin-top:7px;line-height:1.42;}
         .figura__fijo,.figure{gap:5px;}
+      }
+
+      /* En un teléfono chico el paso y el hueco que le queda debajo del dibujo se
+         pelean por veinte píxeles: medido a 360×740, los pasos van de 378 a 406 y
+         el hueco es 386. Recortar frases una por una sería volver a romperlo la
+         próxima vez que alguien agregue una palabra, así que se aprieta lo que no
+         se lee —relleno, aire entre renglones, márgenes— y la letra se queda en
+         13 px. Da unos 30 px por paso, que es el margen que faltaba. */
+      @media (max-width:400px){
+        .step{padding-block:8px;}
+        .step-head{margin-bottom:5px;}
+        .vs__row{padding:6px 9px;}
+        .vs__row p{line-height:1.4;}
+        .enotro{margin-top:8px;line-height:1.45;}
       }
 
       /* ---------- secciones de abajo ---------- */
@@ -427,9 +456,16 @@
         /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
            los pasos pasan por debajo, igual que en escritorio */
         .cols{display:block;margin-top:16px;}
-        .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+        /* display:contents y no static: un elemento pegado sólo se queda dentro de
+           la caja de su padre, y la de .figure termina donde empiezan los pasos, así
+           que el dibujo se despegaba a medio camino. Sin caja, lo pegado cuelga de
+           .cols, que abarca los seis. Medido a 360×740 antes de esto: lo pegado
+           ocupaba de 465 a 524 px de los 740 y ningún paso cabía en lo que sobraba. */
+        .figure{display:contents;}
+        .figura__fijo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
           background:var(--paper);padding-block:8px;margin-bottom:6px;
           border-bottom:1px solid var(--rule-soft);}
+        .exp{margin:14px 0 4px;}
         .stage svg{max-height:33vh;}
         /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
            fijo, la línea de lectura se movería sola y el paso brincaría */
@@ -560,6 +596,8 @@
   <div class="cols">
     <div class="figure">
 
+      <div class="figura__fijo">
+
       <div class="readout" aria-live="polite">
         <span class="readout__k lbl" id="hudK">PROS-0412 · Ferretería · Toluca</span>
         <span class="readout__v" id="hudV">día 1 · origen WhatsApp · asignado a Karla · hilo al día 3</span>
@@ -578,6 +616,8 @@
         <span>Cifras de ejemplo</span>
       </div>
 
+
+      </div>
       <ul class="legend">
         <li><span class="sw sw--chinche"></span>Un prospecto, con su chinche</li>
         <li><span class="sw sw--hilo"></span>Su siguiente paso, con fecha</li>
@@ -601,10 +641,11 @@
 
     <div class="steps" id="steps">
 
+      <h2 class="steps__t">Seis pasos, un solo trato</h2>
       <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
 
 <section class="step on" tabindex="0" data-i="0">
-        <div class="step-head"><span class="paso">01</span><h2>Entra el prospecto</h2><span class="gauge">3 canales</span></div>
+        <div class="step-head"><span class="paso">01</span><h3>Entra el prospecto</h3><span class="gauge">3 canales</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Llega un WhatsApp al celular de un vendedor y ahí se queda; nadie más se entera.</p></div>
@@ -612,11 +653,12 @@
             <p>Entre por donde entre —web, WhatsApp o llamada— cae en el embudo con su origen registrado.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Ningún prospecto se queda guardado en el teléfono de una sola persona.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una clínica es quien pide informes por Facebook y quien llama por teléfono; en un taller, quien manda una foto pidiendo cotización.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="1">
-        <div class="step-head"><span class="paso">02</span><h2>Primera visita</h2><span class="gauge">VIS-0771</span></div>
+        <div class="step-head"><span class="paso">02</span><h3>Primera visita</h3><span class="gauge">VIS-0771</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>El vendedor anota en su libreta. Lo que se habló vive en su cabeza y en nadie más.</p></div>
@@ -624,11 +666,12 @@
             <p>La visita se registra en la ficha del cliente desde el celular, ahí mismo, al salir.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Si ese vendedor falta, cualquiera retoma el trato con todo el contexto.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una constructora es la visita a la obra para cotizar; en un despacho, la primera junta con el cliente.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="2">
-        <div class="step-head"><span class="paso">03</span><h2>La propuesta</h2><span class="gauge">COT-1180</span></div>
+        <div class="step-head"><span class="paso">03</span><h3>La propuesta</h3><span class="gauge">COT-1180</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>La cotización se arma en Excel y se manda por correo. Después nadie sabe cuál se mandó.</p></div>
@@ -636,11 +679,12 @@
             <p>Se cotiza desde el CRM con tu catálogo y tus precios, y queda ligada al trato.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Sabes qué cotizaste, a cuánto y cuándo, sin buscar en el correo de nadie.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una imprenta es el presupuesto del trabajo; en una clínica, el plan de tratamiento con su costo.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>El seguimiento</h2><span class="gauge">5 días sin mover</span></div>
+        <div class="step-head"><span class="paso">04</span><h3>El seguimiento</h3><span class="gauge">5 días sin mover</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>«Luego le marco.» El trato se enfría y a los quince días el cliente ya compró en otro lado.</p></div>
@@ -648,11 +692,12 @@
             <p>El sistema avisa a quien le toca y cuándo; los tratos sin actividad se destacan solos.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>El seguimiento deja de depender de quién se acordó ese día.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en un despacho es la propuesta que lleva dos semanas sin respuesta; en una tienda, el cliente que apartó y no volvió.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="4">
-        <div class="step-head"><span class="paso">05</span><h2>El cierre</h2><span class="gauge">cerrado</span></div>
+        <div class="step-head"><span class="paso">05</span><h3>El cierre</h3><span class="gauge">cerrado</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Dos vendedores le hablaron al mismo cliente y cada uno le dio un precio distinto.</p></div>
@@ -660,11 +705,12 @@
             <p>Cada trato tiene un dueño, una etapa y un siguiente paso, a la vista de todo el equipo.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Cierras sin pelearte por dentro ni quedar mal por fuera.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una distribuidora es que dos vendedores den precios distintos al mismo cliente; en una clínica, que dos den la misma hora de cita.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>El embudo de dirección</h2><span class="gauge">pronóstico</span></div>
+        <div class="step-head"><span class="paso">06</span><h3>El embudo de dirección</h3><span class="gauge">pronóstico</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Para saber cuánto vas a cerrar este mes hay que irle preguntando a cada vendedor.</p></div>
@@ -672,6 +718,7 @@
             <p>El pronóstico sale del embudo: cuánto hay, en qué etapa, con quién y de qué canal vino.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Sabes el número del mes sin juntar a nadie, y de dónde salen tus mejores clientes.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una constructora es saber cuántas obras vas a firmar este trimestre; en un despacho, cuántos proyectos entran el mes que viene.</p>
         </div>
       </section>
 
@@ -994,7 +1041,9 @@
      lectura, no el último que la cruzó por arriba: con esa regla la escena iba
      siempre un paso atrasada respecto al texto. */
   var reproduciendo = false;
-  var figuraEl = document.querySelector(".figure");
+  /* La línea de lectura se calcula contra lo que de verdad se queda pegado:
+     en celular .figura__fijo, en escritorio la columna entera. */
+  var figuraEl = document.querySelector(".figura__fijo") || document.querySelector(".figure");
 
   function elegir(){
     if (reproduciendo) return;          // mientras reproduce, manda el reproductor

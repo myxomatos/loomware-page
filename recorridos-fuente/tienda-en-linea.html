@@ -149,6 +149,10 @@
     gap:30px;margin-top:22px;align-items:start;}
   .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
     display:flex;flex-direction:column;gap:8px;min-width:0;}
+  /* En escritorio no cambia nada: el dibujo y la ficha viajan juntos en la
+     columna pegada. En celular se separan, y por qué está abajo, en la
+     consulta de 880. */
+  .figura__fijo{display:flex;flex-direction:column;gap:8px;min-width:0;}
 
   /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
   .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
@@ -205,6 +209,11 @@
 
   /* ---------- pasos ---------- */
   .steps{display:flex;flex-direction:column;min-width:0;}
+  /* El recorrido no tenía nombre: el índice del documento pasaba de la sección
+     de giros a «01 …», seis encabezados hermanos sin nada que los presentara.
+     Y decir cuántos son es información: el lector sabe cuánto falta. */
+  .steps__t{font-family:var(--mono);font-weight:700;font-size:clamp(15px,1.7vw,18px);
+    letter-spacing:-.035em;margin:0 0 3px;color:var(--ink);text-transform:uppercase;}
   .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
     padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
   /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
@@ -224,7 +233,7 @@
   .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
     color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
     border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
-  .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+  .step h3{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
     margin:0;color:var(--ink);text-wrap:balance;}
 
   /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
@@ -238,6 +247,12 @@
   .vs__row--hoy p{color:var(--ink-2);}
   .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
   .vs__row--con .vs__lbl{color:var(--signal);}
+  /* La línea que traduce el paso a otro giro: el lector cambia la palabra y
+     es su negocio. Apagada y con filete, para que no compita con los tres
+     renglones de arriba. */
+  .enotro{margin:10px 0 0;font-size:13px;line-height:1.55;color:var(--ink-3);
+    padding-left:12px;border-left:2px solid var(--rule);}
+  .enotro b{color:var(--ink-2);font-weight:600;}
   .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
   .vs__row--gana .vs__lbl{color:var(--money);}
   .vs__row--gana p{font-weight:500;}
@@ -256,6 +271,20 @@
     .vs__lbl{line-height:1.5;}
     .enotro{margin-top:7px;line-height:1.42;}
     .figura__fijo,.figure{gap:5px;}
+  }
+
+  /* En un teléfono chico el paso y el hueco que le queda debajo del dibujo se
+     pelean por veinte píxeles: medido a 360×740, los pasos van de 378 a 406 y
+     el hueco es 386. Recortar frases una por una sería volver a romperlo la
+     próxima vez que alguien agregue una palabra, así que se aprieta lo que no
+     se lee —relleno, aire entre renglones, márgenes— y la letra se queda en
+     13 px. Da unos 30 px por paso, que es el margen que faltaba. */
+  @media (max-width:400px){
+    .step{padding-block:8px;}
+    .step-head{margin-bottom:5px;}
+    .vs__row{padding:6px 9px;}
+    .vs__row p{line-height:1.4;}
+    .enotro{margin-top:8px;line-height:1.45;}
   }
 
   /* ---------- secciones de abajo ---------- */
@@ -395,9 +424,16 @@
     /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
        los pasos pasan por debajo, igual que en escritorio */
     .cols{display:block;margin-top:16px;}
-    .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+    /* display:contents y no static: un elemento pegado sólo se queda dentro de
+       la caja de su padre, y la de .figure termina donde empiezan los pasos, así
+       que el dibujo se despegaba a medio camino. Sin caja, lo pegado cuelga de
+       .cols, que abarca los seis. Medido a 360×740 antes de esto: lo pegado
+       ocupaba de 465 a 524 px de los 740 y ningún paso cabía en lo que sobraba. */
+    .figure{display:contents;}
+    .figura__fijo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
       background:var(--paper);padding-block:8px;margin-bottom:6px;
       border-bottom:1px solid var(--rule-soft);}
+    .exp{margin:14px 0 4px;}
     .stage svg{max-height:33vh;}
     /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
        fijo, la línea de lectura se movería sola y el paso brincaría */
@@ -502,12 +538,14 @@
       <span>Catálogo <b>desde tu sistema</b></span>
       <span>Pagos <b>tarjeta · SPEI · tiendas</b></span>
       <span>Guías <b>con rastreo</b></span>
-      <span>CFDI <b>sin que te escriban</b></span>
+      <span>Facturas <b>sin que te escriban</b></span>
     </div>
   </header>
 
   <div class="cols">
     <div class="figure">
+
+      <div class="figura__fijo">
 
       <div class="readout" aria-live="polite">
         <span class="readout__k lbl" id="hudK">PED-W-2041 · Pedido en línea</span>
@@ -527,6 +565,8 @@
         <span>Cifras de ejemplo</span>
       </div>
 
+
+      </div>
       <ul class="legend">
         <li><span class="sw sw--caja"></span>Una pieza en el anaquel</li>
         <li><span class="sw sw--apartada"></span>Apartada por un pedido en línea</li>
@@ -538,7 +578,7 @@
         <div class="exp__t lbl">El pedido · una sola existencia para todos</div>
         <ul class="chips" id="chips">
           <li class="chip" id="c0"><b>PED-W-2041</b><span>pedido</span></li>
-          <li class="chip" id="c1"><b>SKU A-4120</b><span>existencia</span></li>
+          <li class="chip" id="c1"><b>CLAVE A-4120</b><span>existencia</span></li>
           <li class="chip" id="c2"><b>PROMO-09</b><span>promoción</span></li>
           <li class="chip" id="c3"><b>CFDI B-771</b><span>factura</span></li>
           <li class="chip" id="c4"><b>GUÍA 8837</b><span>envío</span></li>
@@ -550,10 +590,11 @@
 
     <div class="steps" id="steps">
 
+      <h2 class="steps__t">Seis pasos, un solo producto</h2>
       <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
 
       <section class="step on" tabindex="0" data-i="0">
-        <div class="step-head"><span class="paso">01</span><h2>El pedido de la noche</h2><span class="gauge">11:40 pm</span></div>
+        <div class="step-head"><span class="paso">01</span><h3>El pedido de la noche</h3><span class="gauge">11:40 pm</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Llega a las once de la noche, nadie lo ve hasta la mañana y alguien lo teclea en
@@ -563,11 +604,12 @@
               amanece surtible.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Vendes de noche sin que nadie tenga que estar despierto.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una farmacia es el pedido que entra a medianoche; en una refaccionaria, el que llega el domingo.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="1">
-        <div class="step-head"><span class="paso">02</span><h2>Dos existencias del mismo producto</h2><span class="gauge">36 vs 12</span></div>
+        <div class="step-head"><span class="paso">02</span><h3>Dos existencias del mismo producto</h3><span class="gauge">36 vs 12</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>El mostrador vende 24 piezas en una semana. La tienda en línea sigue publicando
@@ -577,11 +619,12 @@
               porque hay 12.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Un solo inventario para todos los canales, sin capturarlo dos veces.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una boutique es la última talla que se vendió en el mostrador; en una ferretería, el rollo que ya se acabó en bodega.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="2">
-        <div class="step-head"><span class="paso">03</span><h2>La promoción</h2><span class="gauge">8 sin producto</span></div>
+        <div class="step-head"><span class="paso">03</span><h3>La promoción</h3><span class="gauge">8 sin producto</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>La promoción vende 20 piezas en línea. Hay 12. Ocho clientes pagaron algo que
@@ -591,25 +634,27 @@
               no se vende.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Cada venta en línea es una venta que sí puedes entregar.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una papelería es la promoción de regreso a clases; en una florería, el catorce de febrero.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>El cobro y la factura</h2><span class="gauge">CFDI 4.0</span></div>
+        <div class="step-head"><span class="paso">04</span><h3>El cobro y la factura</h3><span class="gauge">CFDI 4.0</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>El pago cae en la pasarela y alguien lo concilia después. El cliente pide su
               factura por WhatsApp y se la hacen a mano.</p></div>
           <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
             <p>El pago entra a contabilidad con su pedido, y el cliente captura sus datos
-              fiscales y recibe su CFDI sin escribirte.</p></div>
+              fiscales y recibe su factura sin escribirte.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Cero pedidos por conciliar y cero facturas por WhatsApp.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en cualquier giro es lo mismo: quien paga en línea espera su factura sin tener que pedirla.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="4">
-        <div class="step-head"><span class="paso">05</span><h2>La guía y la devolución</h2><span class="gauge">8 devueltos</span></div>
+        <div class="step-head"><span class="paso">05</span><h3>La guía y la devolución</h3><span class="gauge">8 devueltos</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Se genera la guía aparte, se copia el número al cliente, y los ocho pedidos sin
@@ -619,11 +664,12 @@
               porque no hubo ocho ventas fantasma.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>El cliente rastrea su paquete solo, y tú no pides disculpas.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una mueblería es la entrega que el cliente rechaza en la puerta; en una zapatería, el cambio de número.</p>
         </div>
       </section>
 
       <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>El tablero por canal</h2><span class="gauge">margen real</span></div>
+        <div class="step-head"><span class="paso">06</span><h3>El tablero por canal</h3><span class="gauge">margen real</span></div>
         <div class="vs">
           <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
             <p>Se sabe cuánto se vendió en línea. No se sabe cuánto dejó, ni cuánto costó
@@ -633,6 +679,7 @@
               descontado.</p></div>
           <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
             <p>Sabes si la tienda en línea te deja dinero, no solo si vende.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una distribuidora es saber si vende más el mostrador o la página; en una tienda, cuál sucursal y cuál canal.</p>
         </div>
       </section>
 
@@ -683,7 +730,7 @@
         <span>Tarjeta, transferencia SPEI, meses sin intereses y pago en tiendas de
           conveniencia, con los procesadores que operan en México.</span></li>
       <li><b>¿Y la factura al cliente?</b>
-        <span>El cliente captura sus datos fiscales en la compra y recibe su CFDI. Nadie de
+        <span>El cliente pone sus datos fiscales en la compra y recibe su factura. Nadie de
           tu equipo tiene que hacerla ni contestarle.</span></li>
       <li><b>¿Cuánto tarda?</b>
         <span>Depende del tamaño del catálogo y de qué haya que conectar. El diseño y la
@@ -889,14 +936,14 @@
       k:"PED-W-2041 · Pedido en línea",
       v:"11:40 pm · 4 pzas · derecha: apartadas en el anaquel · izquierda: se capturan mañana" },
     { label:"02 / 06 · Dos existencias",
-      k:"SKU A-4120 · 36 publicadas, 12 reales",
+      k:"CLAVE A-4120 · 36 publicadas, 12 reales",
       v:"día 9 · el mostrador vendió 24 · la pantalla de hoy no se enteró; la otra publica 12" },
     { label:"03 / 06 · La promoción",
       k:"PROMO-09 · 20 vendidas, 12 existían",
       v:"día 12 · izquierda: 8 pedidos sin producto · derecha: «agotado» en la pieza 13" },
     { label:"04 / 06 · El cobro y la factura",
       k:"CFDI B-771 · Enviado al cliente",
-      v:"pago aplicado a su pedido · CFDI enviado al cliente · izquierda: 8 facturas por WhatsApp" },
+      v:"pago aplicado a su pedido · factura enviada al cliente · izquierda: 8 pedidas por WhatsApp" },
     { label:"05 / 06 · La guía y la devolución",
       k:"GUÍA 8837 · Con rastreo",
       v:"día 14 · 16 paquetes con rastreo y cero devoluciones · izquierda: 8 devoluciones" },
@@ -948,7 +995,9 @@
   apply(0);
 
   var reproduciendo = false;
-  var figuraEl = document.querySelector(".figure");
+  /* La línea de lectura se calcula contra lo que de verdad se queda pegado:
+     en celular .figura__fijo, en escritorio la columna entera. */
+  var figuraEl = document.querySelector(".figura__fijo") || document.querySelector(".figure");
 
   function elegir(){
     if (reproduciendo) return;          // mientras reproduce, manda el reproductor
