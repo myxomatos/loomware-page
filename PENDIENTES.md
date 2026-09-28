@@ -133,10 +133,19 @@ Salió de la segunda pasada del estudio (2026-09-22): al volver a medir la pági
 veintidós sitios aparecieron cosas que son nuestras. Ninguna bloquea a las de Aldo. El PR que
 Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
 
-- [ ] **La página del ERP no dice cuánto tiempo le quita al prospecto.** El cierre ofrece el
-      diagnóstico pero no dice si son treinta minutos o tres días, y ésa es la objeción que
-      queda. Aldo validó el 2026-09-23 *«una llamada de 30 minutos, sin costo»*, así que ya se
-      puede traer al recorrido: es una línea de `recorridos-fuente/erp.html`.
+- [x] **Los 30 minutos, en los ocho (2026-09-27).** Y al traerlos salió algo peor: **el cierre
+      regalaba el diagnóstico.** Aldo escribió el 27, en la pregunta del precio, que «la primera
+      llamada no tiene costo; **el diagnóstico tiene su precio** según el tamaño de tu empresa».
+      Pero el cierre de los ocho decía, en el mismo párrafo, *«Recorremos tu operación completa …
+      y te decimos qué conviene resolver primero. La primera llamada son 30 minutos, sin
+      costo»*: quien lo lee entiende que revisarle la operación entera entra en los treinta
+      minutos gratis. En el ERP las dos frases viven en la misma página, a cuatro pantallas una
+      de otra.
+
+      El cierre ya no promete la revisión completa en la llamada —treinta minutos dan para que
+      te cuenten cómo trabajan y decirles por dónde empezar—; qué es el diagnóstico y qué cuesta
+      lo dice la pregunta del precio, que es de Aldo. **Aldo: revisa que el cierre nuevo diga lo
+      que de verdad ofreces en esa llamada.**
 
 - [x] **Los artifacts de WhatsApp se retiran; se manda el enlace del sitio (2026-09-27).**
       Existieron por una razón concreta: cuando se escribieron, `loomware.com.mx/recorridos/erp`
@@ -226,7 +235,22 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       las seis tarjetas de abajo; y el «Hoy:» de esas tarjetas en el color más apagado de la
       tarjeta, cuando es la parte que engancha.
 
-      **Estado: ERP en curso (nueve pasadas). CRM, nómina, tienda en línea, automatización,
+      **Lo que cerró la décima pasada (2026-09-27), con la página ya en producción:** el
+      rótulo del primer paso decía «Andén de recepción» en el HTML y «La puerta de entrada» en
+      el guion, que lo reescribe al arrancar —se veía un instante y además «andén» era palabra
+      de bodega—; la entrada hacía cuatro anuncios antes de enseñar nada; «Todo negocio sigue
+      algo» no significaba nada hasta después de leer las seis tarjetas; la pantalla volvía a
+      anclar en la bodega; y **el «Hoy» de las seis tarjetas no pasaba contraste** —4.36:1 en
+      claro y 4.39:1 en oscuro sobre la tarjeta resaltada, cuando AA pide 4.5—, que es la
+      primera vez que se mide la paleta de los recorridos y no la del sitio.
+
+      **Estado: ERP cerrado a la décima pasada.** Lo que le falta ya no es corrección sino
+      decisión: la primera pantalla no vende —cero botones, cero prueba, y la primera puerta a
+      5.3 pantallas contra las 0.7 de Bind—, el título de búsqueda pone la palabra clave en
+      sexta posición, y las seis imágenes son todas dibujos nuestros. Los tres están arriba, en
+      «Lo que la comparación del 2026-09-25 dejó abierto».
+
+      **Estado de los demás (nueve pasadas del ERP + la décima). CRM, nómina, tienda en línea, automatización,
       software a medida, infraestructura cloud y apps móviles: sin empezar.**
 
       **Lo que falta del ERP y no es mío:** los blancos táctiles —el logotipo mide 26 px de
