@@ -222,7 +222,32 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 
 ## Alan
 
-- [ ] **La autoridad interna está repartida al revés.** Medido en el sitio construido el
+- [x] **Tres páginas peleaban la misma consulta — deshecho el 2026-09-28.** Comparando los
+      títulos de las 25 páginas entre sí salió que `/servicios/erp` se titulaba «ERP para
+      distribuidoras y manufactura», que es literalmente lo que ya cubren
+      `/industrias/distribuidoras` y `/industrias/manufactura` —y es la página que más enlaces
+      internos recibe de todo el sitio, 38—. Google tenía que elegir entre tres y las tres se
+      debilitaban. **La regla que queda escrita: la página de servicio es la de la categoría, la
+      de giro es la del nicho.**
+
+- [x] **Los ocho recorridos ya dicen en el título la pregunta que contestan (2026-09-28).** Son
+      explicaciones paso a paso de 1 400 a 1 800 palabras, el formato que gana las consultas de
+      «qué es» y «cómo funciona». El del ERP llevaba «Qué es un ERP y para qué sirve» en la meta
+      description **y no en el título**. Ahora el campo `seoTitulo` cambia sólo la ficha de
+      búsqueda; **el titular que se lee dentro de la página no cambió ni una palabra**. Los ocho
+      quedan entre 53 y 59 caracteres.
+
+
+- [x] **La autoridad interna estaba repartida al revés — corregido el 2026-09-28.** Cada
+      recorrido pasó de **2 enlaces internos a entre 3 y 10**: las seis páginas de giro enlazan
+      el recorrido de cada solución que listan, y cada recorrido cierra con los que se le
+      parecen, sacados de `relacionados` en `servicios.js` para no inventar una relación
+      distinta de la del sitio. Dos parejas nuevas ahí —ERP con comercio en línea, software a
+      medida con la nube—, porque a esos dos recorridos no los listaba nadie.
+
+      Lo que se midió y motivó el cambio:
+
+      **Medición original.** Contando los enlaces que recibía cada página del sitio construido el
       2026-09-28, contando los enlaces que recibe cada página:
 
       | Página | Enlaces internos que recibe |
@@ -241,13 +266,22 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       sólo desde la banda; que cada recorrido enlace a los dos o tres que se le parecen —hoy cada
       uno es un callejón sin salida—; y revisar si el aviso de privacidad necesita dieciséis.
 
-- [ ] **Los ocho recorridos no tienen datos estructurados.** Las de servicio llevan `Service` y
+- [x] **Los ocho recorridos no tenían datos estructurados — resuelto el 2026-09-28.** Entran
+      `HowTo` con sus seis pasos, `FAQPage` con sus preguntas y `BreadcrumbList`, los tres
+      armados **leyendo el propio HTML del recorrido**, así que si el texto cambia el dato cambia
+      con él. Comprobado en los ocho: HowTo(6), FAQPage(6 a 8), Migas(3).
+
+      **El porqué.** Las de servicio llevan `Service` y
       `FAQPage`, las de giro llevan `Service`; los recorridos, que son las páginas más largas del
       sitio, **no llevan nada**. Les toca `HowTo` —son seis pasos numerados, que es exactamente lo
       que ese tipo describe— y `FAQPage` donde tengan preguntas. Se escribe en
       `scripts/recorridos.js`, que es quien arma su `<head>`.
 
-- [ ] **Falta `BreadcrumbList` en todo el sitio.** Es lo que hace que Google enseñe
+- [x] **`BreadcrumbList` — puesto el 2026-09-28** en los ocho recorridos, las ocho de servicio
+      y las seis de giro. Comprobado: «Inicio › Soluciones › ERP», «Inicio › Industrias ›
+      Manufactura y talleres».
+
+      **El porqué.** Es lo que hace que Google enseñe
       «loomware.com.mx › Servicios › ERP» en vez de la URL cruda, y ayuda a que entienda la
       jerarquía. Se agrega en `scripts/generar-servicios.js` y en `scripts/recorridos.js`.
 
