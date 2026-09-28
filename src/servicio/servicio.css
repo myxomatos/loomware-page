@@ -177,15 +177,20 @@
 }
 
 /* Cierre */
+/* Con dos soluciones relacionadas cabían en un renglón; con tres se salían de
+   la pantalla en celular. Ahora el bloque envuelve en vez de desbordar. */
 .servicio__relacionados {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--sp-3);
   margin-top: var(--sp-6);
 }
 .servicio__relacionados ul {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-2);
+  min-width: 0;
 }
 .servicio__relacionados .chip:hover {
   border-color: var(--purple-400);

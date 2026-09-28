@@ -13,7 +13,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { RECORRIDOS } from '../src/data/recorridos.js'
+import { RECORRIDOS, recorridoDeServicio } from '../src/data/recorridos.js'
 import { servicioPorSlug } from '../src/data/servicios.js'
 import { DOMINIO, EMPRESA } from '../src/data/contacto.js'
 import { basePublica } from './base-publica.js'
@@ -46,6 +46,38 @@ function reemplazarUna(texto, de, a, slug, que) {
 }
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+
+/* Texto plano de un fragmento de HTML, para los datos estructurados. */
+const plano = (s) => s.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim()
+
+/*
+ * Los seis pasos, leídos del propio recorrido: el <h3> es el nombre y el
+ * renglón «Con el sistema» es lo que pasa en ese paso, que es la mitad que
+ * describe el método. Si el recorrido no tiene pasos, devuelve vacío y el
+ * bloque no se emite.
+ */
+function pasosDe(cuerpo) {
+  const pasos = []
+  for (const m of cuerpo.matchAll(/<section class="step[^"]*"[^>]*>([\s\S]*?)<\/section>/g)) {
+    const nombre = plano((m[1].match(/<h3[^>]*>([\s\S]*?)<\/h3>/) || [])[1] || '')
+    const con = (m[1].match(/vs__row--con"[\s\S]*?<p>([\s\S]*?)<\/p>/) || [])[1] || ''
+    if (nombre && con) pasos.push({ nombre, texto: plano(con) })
+  }
+  return pasos
+}
+
+/* Las preguntas de «Antes de que preguntes». La tarjeta que invita a escribir
+   no es una pregunta con respuesta, así que se salta. */
+function preguntasDe(cuerpo) {
+  const faq = (cuerpo.match(/<section class="faq"[^>]*>([\s\S]*?)<\/section>/) || [])[1] || ''
+  const out = []
+  for (const m of faq.matchAll(/<li(?! class="mas")[^>]*>\s*<b>([\s\S]*?)<\/b>\s*<span>([\s\S]*?)<\/span>/g)) {
+    const p = plano(m[1])
+    const r = plano(m[2])
+    if (p && r) out.push({ p, r })
+  }
+  return out
+}
 
 for (const r of RECORRIDOS) {
   const fuente = readFileSync(resolve(raiz, `recorridos-fuente/${r.slug}.html`), 'utf8')
@@ -111,15 +143,92 @@ for (const r of RECORRIDOS) {
     throw new Error(`recorridos: ${r.slug} sigue pidiendo tipografías a Google Fonts`)
   }
 
+  /* Los dos recorridos que se le parecen, sacados de `relacionados` en
+     servicios.js —la misma lista del bloque «Suele combinarse con» de la página
+     de servicio—, para no inventar aquí una relación distinta de la del sitio. */
+  const vecinos = (servicioPorSlug(r.servicio)?.relacionados || [])
+    .map(recorridoDeServicio)
+    .filter((v) => v && v.slug !== r.slug)
+    .slice(0, 3)
+  const sigue = vecinos.length
+    ? `\n    <nav class="sigue" aria-label="Otros recorridos">
+      <p class="sigue__t">Sigue con</p>
+      <ul>${vecinos
+        .map(
+          (v) =>
+            `<li><a href="/recorridos/${v.slug}"><b>${esc(
+              servicioPorSlug(v.servicio)?.nombre || v.servicio,
+            )}</b><span>${esc(v.titulo)}</span></a></li>`,
+        )
+        .join('')}</ul>
+    </nav>`
+    : ''
+
   const url = `${DOMINIO}/recorridos/${r.slug}`
+
   // El nombre del servicio tal como lo dice el sitio: "Nómina", no "NOMINA".
   const servicio = servicioPorSlug(r.servicio)
   if (!servicio) throw new Error(`recorridos: el servicio "${r.servicio}" no existe en servicios.js`)
-  /* La solución va primero: es la palabra que la gente teclea, y antes caía al
-     final del título. Si el recorrido trae `seoTitulo`, se usa ése —los títulos
-     largos no caben en los ~60 caracteres que enseña Google—; el titular que se
-     lee dentro de la página es siempre `titulo` y no cambia. */
-  const titulo = `${servicio.nombre} · ${r.seoTitulo || r.titulo} | ${EMPRESA}`
+
+  /* Los datos estructurados, armados del propio HTML: si el texto cambia, el
+     dato cambia con él y nunca se desfasan. */
+  const pasos = pasosDe(cuerpo)
+  const preguntas = preguntasDe(cuerpo)
+  const datos = []
+  if (pasos.length) {
+    datos.push({
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: r.seoTitulo || r.titulo,
+      description: r.descripcion,
+      totalTime: `PT${Math.max(3, Math.round(pasos.length * 0.8))}M`,
+      step: pasos.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        name: s.nombre,
+        text: s.texto,
+        url: `${url}#paso-${i + 1}`,
+      })),
+    })
+  }
+  if (preguntas.length) {
+    datos.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: preguntas.map((q) => ({
+        '@type': 'Question',
+        name: q.p,
+        acceptedAnswer: { '@type': 'Answer', text: q.r },
+      })),
+    })
+  }
+  datos.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: DOMINIO },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: servicio.nombre,
+        item: `${DOMINIO}/servicios/${r.servicio}`,
+      },
+      { '@type': 'ListItem', position: 3, name: r.titulo, item: url },
+    ],
+  })
+  const jsonLd = datos
+    .map((d) => `    <script type="application/ld+json">${JSON.stringify(d)}</script>`)
+    .join('\n')
+  /* Estas páginas son explicaciones paso a paso de 1 400 a 1 800 palabras, o
+     sea el formato que gana las consultas de «qué es» y «cómo funciona». Si el
+     recorrido trae `seoTitulo`, ése es el título de búsqueda **y va solo**:
+     anteponerle el nombre de la solución lo dejaba redundante («ERP · Qué es un
+     ERP…»). Sin `seoTitulo`, se arma con la solución delante, que es la palabra
+     que la gente teclea. El titular que se lee dentro de la página es siempre
+     `titulo` y no cambia nunca. */
+  const titulo = r.seoTitulo
+    ? `${r.seoTitulo} | ${EMPRESA}`
+    : `${servicio.nombre} · ${r.titulo} | ${EMPRESA}`
 
   /* Cada recorrido lleva su propia tarjeta social: estas páginas existen para
      mandarse por WhatsApp y lo primero que ve el prospecto es la tarjeta del
@@ -158,6 +267,8 @@ for (const r of RECORRIDOS) {
     <meta name="twitter:description" content="${esc(r.descripcion)}" />
     <meta name="twitter:image" content="${tarjeta}" />
 
+${jsonLd}
+
     <style>
       :root {
         color-scheme: light;
@@ -188,10 +299,29 @@ ${cabeza.split('\n').map((l) => (l.trim() ? '    ' + l : l)).join('\n')}
       .brand__cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
       .brand__id:hover .brand__name { color: var(--signal); }
       .brand__id:focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
+      /* «Sigue con»: los dos recorridos vecinos. Existe porque cada recorrido
+         era un callejón —recibía dos enlaces de todo el sitio y no daba
+         ninguno—, y son las páginas más largas que tenemos. */
+      .sigue { max-width: 720px; margin: 0 auto; padding: 0 20px 64px; }
+      .sigue__t { font-family: var(--mono); font-size: 11px; font-weight: 500;
+        letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+        margin: 0 0 12px; }
+      .sigue ul { list-style: none; margin: 0; padding: 0; display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+      .sigue a { display: flex; flex-direction: column; gap: 3px; min-height: 44px;
+        padding: 12px 14px; border: 1px solid var(--rule-soft); border-radius: 3px;
+        background: var(--surface); text-decoration: none;
+        transition: border-color .2s ease; }
+      .sigue a:hover { border-color: var(--signal); }
+      .sigue a:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+      .sigue b { font-family: var(--mono); font-size: 10px; font-weight: 500;
+        letter-spacing: .1em; text-transform: uppercase; color: var(--signal); }
+      .sigue span { font-family: var(--sans); font-size: 15px; font-weight: 600;
+        color: var(--ink); line-height: 1.25; }
     </style>
   </head>
   <body>
-${cuerpo}
+${cuerpo}${sigue}
   </body>
 </html>
 `

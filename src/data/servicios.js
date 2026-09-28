@@ -87,7 +87,11 @@ export const SERVICIOS = [
     beneficio: { icon: 'clock', label: 'El dato, una sola vez' },
     nombre: 'ERP',
     icon: 'pie-chart',
-    titulo: 'ERP para distribuidoras y manufactura | Loomware',
+    // La página de servicio es la de la categoría; el nicho lo tienen las de
+    // giro. Antes decía «ERP para distribuidoras y manufactura», que es
+    // literalmente el título de /industrias/distribuidoras y el de
+    // /industrias/manufactura: tres páginas peleando la misma consulta.
+    titulo: 'Sistema ERP para pymes en México | Loomware',
     descripcion:
       'Finanzas, inventario, compras, ventas y facturación en un solo sistema. ERP implementado con tu equipo, con migración de datos y CFDI.',
     h1: 'ERP: finanzas, inventario y operación en un mismo sistema',
@@ -121,7 +125,9 @@ export const SERVICIOS = [
       { p: '¿Tengo que dejar de operar durante el cambio?', r: 'No. El arranque es por módulos y en paralelo con tu operación actual hasta que el nuevo sistema quede validado.' },
       { p: '¿Y si mi inventario actual está mal?', r: 'Es lo más común. Te ayudamos a organizar un conteo de arranque para que el sistema empiece con la verdad, no con el Excel; su alcance se define en el diagnóstico.' },
     ],
-    relacionados: ['nomina', 'automatizacion'],
+    // La tienda entra aquí porque su recorrido trata justamente de la existencia
+    // compartida con el ERP: sin esta pareja, ese recorrido no recibía enlaces.
+    relacionados: ['nomina', 'automatizacion', 'tienda-en-linea'],
   },
 
   {
@@ -337,7 +343,9 @@ export const SERVICIOS = [
       { p: '¿Qué pasa si después quiero cambiar de proveedor?', r: 'El contrato te entrega el código, la base de datos y la documentación. Cualquier equipo competente puede continuar el trabajo sin depender de nosotros.' },
       { p: '¿Lo pueden mantener después?', r: 'Sí, si tú quieres: el soporte y la evolución van en un contrato aparte, sin obligación de contratarlo.' },
     ],
-    relacionados: ['apps-moviles', 'automatizacion'],
+    // La nube entra porque un sistema a medida tiene que vivir en algún lado, y su
+    // recorrido es exactamente eso; tampoco recibía enlaces de nadie.
+    relacionados: ['apps-moviles', 'automatizacion', 'infraestructura-cloud'],
   },
 
   {

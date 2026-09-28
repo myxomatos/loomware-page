@@ -63,6 +63,27 @@ const tarjeta = (ruta) =>
     ? '/og/' + ruta.replace('/', '-') + '.png'
     : '/og-image.png'
 
+/*
+ * Migas: hacen que Google enseñe «loomware.com.mx › ERP › …» en vez de la URL
+ * cruda, y le dicen dónde cuelga cada página. Medido el 2026-09-28: no las
+ * tenía ninguna página del sitio.
+ */
+const ldMigas = (s, tipo, ruta) =>
+  JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: DOMINIO },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: tipo === 'servicio' ? 'Soluciones' : 'Industrias',
+        item: tipo === 'servicio' ? `${DOMINIO}/#soluciones` : `${DOMINIO}/#industrias`,
+      },
+      { '@type': 'ListItem', position: 3, name: s.nombre, item: `${DOMINIO}/${ruta}` },
+    ],
+  })
+
 const plantilla = (s, tipo = 'servicio') => {
   const ruta = tipo === 'servicio' ? `servicios/${s.slug}` : `industrias/${s.id}`
   const og = tarjeta(ruta)
@@ -95,6 +116,7 @@ const plantilla = (s, tipo = 'servicio') => {
     <meta name="twitter:image" content="${basePublica()}${og}" />
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 
+    <script type="application/ld+json">${ldMigas(s, tipo, ruta)}</script>
     ${tipo === 'servicio' ? `<script type="application/ld+json">${ldService(s)}</script>
     <script type="application/ld+json">${ldFaq(s)}</script>` : `<script type="application/ld+json">${ldService(s)}</script>`}
   </head>
