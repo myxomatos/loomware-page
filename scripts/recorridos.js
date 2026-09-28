@@ -73,11 +73,19 @@ for (const r of RECORRIDOS) {
     r.slug, 'cerrar el logotipo'
   )
 
-  // 2. Fuera la etiqueta del dominio: ya estás en él.
+  // 2. La etiqueta del dominio se va —ya estás en él— y su lugar lo toma la
+  //    única acción de la primera pantalla. Medido contra siete comparables: la
+  //    nuestra no tenía ninguna y la primera puerta estaba a 5.3 pantallas. Aquí
+  //    cuesta **cero píxeles de alto**, porque esa mitad de la barra ya estaba
+  //    vacía. Apunta al formulario de su servicio, no a WhatsApp: un botón fijo
+  //    que abre WhatsApp al primer toque es más agresivo de lo que esta pieza es.
   cuerpo = cuerpo.replace(
     /\s*<a class="brand__site"[\s\S]*?<\/a>/,
-    ''
+    `\n      <a class="brand__cta" href="/servicios/${r.servicio}#contacto">Diagnóstico</a>`
   )
+  if (!cuerpo.includes('brand__cta')) {
+    throw new Error(`recorridos: ${r.slug} se quedó sin la acción de la barra`)
+  }
 
   // 3. «Formulario del sitio» va al formulario, en esta misma pestaña. Antes
   //    apuntaba a la página del servicio y abría una pestaña nueva, así que
@@ -164,6 +172,16 @@ ${cabeza.split('\n').map((l) => (l.trim() ? '    ' + l : l)).join('\n')}
          su estilo vive aquí y no en la fuente: sin subrayado ni azul de enlace,
          y con una señal al pasar encima para que se note que lleva a algún lado. */
       .brand__id { color: inherit; text-decoration: none; border-radius: 6px; }
+      /* La acción de la primera pantalla. Discreta —es una pieza para leer, no
+         una página de aterrizaje— pero presente desde el primer píxel. */
+      .brand__cta { font-family: var(--mono); font-size: 11px; font-weight: 500;
+        letter-spacing: .04em; text-decoration: none; white-space: nowrap;
+        color: var(--signal); border: 1px solid currentColor; border-radius: 2px;
+        padding: 7px 13px; display: inline-flex; align-items: center; position: relative; }
+      /* 44 px de blanco táctil sin crecer la caja, igual que el botón del recorrido. */
+      .brand__cta::after { content: ""; position: absolute; inset: -6px -4px; }
+      .brand__cta:hover { background: var(--signal); color: var(--surface); }
+      .brand__cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
       .brand__id:hover .brand__name { color: var(--signal); }
       .brand__id:focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
     </style>
