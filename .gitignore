@@ -18,3 +18,6 @@ Thumbs.db
 
 # Claude Code: los skills de .claude/skills/ sí se versionan; lo local no
 .claude/settings.local.json
+
+# Build del prerenderizado (versión de Node de los componentes)
+dist-ssr

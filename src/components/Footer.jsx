@@ -22,8 +22,6 @@ const COLUMNS = [
       { label: '¿Cuánto te cuesta tu Excel?', href: '/calculadora' },
       { label: 'Solicitar diagnóstico', href: '/#contacto' },
       { label: 'Nuestro proceso', href: '/#proceso' },
-      { label: 'Integraciones', href: '/servicios/automatizacion' },
-      { label: 'Migración a la nube', href: '/servicios/infraestructura-cloud' },
     ],
   },
   {
@@ -45,7 +43,7 @@ export default function Footer() {
           <div className="footer__brand">
             <Logo variant="light" />
             <p className="footer__tagline">
-              Tecnología empresarial para crecer con claridad, control y confianza.
+              Ponemos orden donde hoy hay Excel, WhatsApp y programas que no se hablan entre sí.
             </p>
             <ul className="footer__links footer__contact">
               <li>
@@ -89,8 +87,11 @@ export default function Footer() {
         <div className="footer__bottom">
           <p>
             © {new Date().getFullYear()} Loomware · Todos los derechos reservados.
-            {/* Sin Analytics no hay cookies ni banda que reabrir: el botón no haría nada. */}
-            {typeof window.gtag === 'function' && (
+            {/* Sin Analytics no hay cookies ni banda que reabrir: el botón no haría
+                nada. La comprobación de `window` va primero porque este componente
+                también se dibuja en Node, al prerenderizar, y ahí `window` no
+                existe: sin ese guardia sería un ReferenceError, no un undefined. */}
+            {typeof window !== 'undefined' && typeof window.gtag === 'function' && (
               <>
                 {' · '}
                 <button

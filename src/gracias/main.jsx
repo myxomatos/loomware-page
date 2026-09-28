@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
+import { hydrateRoot } from 'react-dom/client'
 import '../styles/tokens.css'
 import '../styles/base.css'
 import Gracias from './Gracias'
@@ -8,7 +8,11 @@ import Cookies from '../components/Cookies'
 
 reportarLead()
 
-createRoot(document.getElementById('root')).render(
+// El HTML ya viene dibujado desde el build (scripts/prerender.js), así que se
+// adopta en vez de volver a pintarlo: con createRoot React borraría el texto y
+// lo dibujaría otra vez, y eso se ve como un parpadeo.
+hydrateRoot(
+  document.getElementById('root'),
   <React.StrictMode>
     <Gracias />
     <Cookies />
