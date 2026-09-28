@@ -115,8 +115,8 @@ verificación se cae:
 **Dado de alta como negocio con área de servicio, no con dirección.** Decisión de Alan el
 2026-09-28, y el sitio ya está alineado: el domicilio completo salió de los datos estructurados
 de la portada —publicaban la calle y el código postal a la vista de cualquiera— y ahí ahora dice
-sólo *Estado de México*. **La calle queda en un único lugar del sitio, ,
-porque la ley obliga a que el aviso diga el domicilio del responsable.**
+sólo *Estado de México*. **La calle queda en un único lugar del sitio,
+`/aviso-de-privacidad`, porque la ley obliga a que el aviso diga el domicilio del responsable.**
 
 Así que en Google: elegir **«Reparto de productos y servicios a los clientes»** y **no** publicar
 la dirección. Google te la va a pedir de todos modos para mandarte la postal de verificación,
