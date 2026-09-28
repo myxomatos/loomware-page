@@ -73,9 +73,10 @@ export default function Process() {
           <span className="icon-tile icon-tile--acento schedule__icon">
             <Icon name="calendar" size={26} />
           </span>
-          <h3 className="schedule__title">{SCHEDULE_URL ? 'Agenda una llamada' : 'La primera llamada es sin costo'}</h3>
+          <h3 className="schedule__title">{SCHEDULE_URL ? 'Agenda una llamada' : 'Empieza por una llamada'}</h3>
           <p className="text-xs">
-            Treinta minutos para entender tu operación y decirte por dónde conviene empezar.
+            Treinta minutos, sin compromiso, para entender tu operación y decirte por dónde
+            conviene empezar.
           </p>
           <a className="btn btn--outline btn--sm" {...scheduleProps}>
             {SCHEDULE_URL ? 'Agendar ahora' : 'Pedir la llamada'}

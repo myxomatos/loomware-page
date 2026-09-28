@@ -25,7 +25,7 @@ const PASOS = [
   {
     icon: 'calendar',
     title: 'Hablamos 30 minutos',
-    text: 'Sin costo y sin compromiso, el día que a ti te acomode.',
+    text: 'Sin compromiso, el día que a ti te acomode.',
   },
 ]
 

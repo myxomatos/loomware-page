@@ -20,7 +20,7 @@ const INITIAL = { nombre: '', contacto: '', necesidad: '', acepta: false }
    frases de plantilla de propuesta —«Oportunidades de mejora
    identificadas»— que no decían qué pasa ni cuándo. */
 const BENEFITS = [
-  'Una llamada de 30 minutos, sin costo',
+  'Una llamada de 30 minutos, sin compromiso',
   'Revisamos cómo entra y se mueve un dato hoy',
   'Y te decimos qué conviene resolver primero',
 ]
@@ -88,7 +88,7 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
         <h3 className="contact__title">{titulo || 'Empecemos por el diagnóstico'}</h3>
         <p className="text-xs">
           {intro ||
-            'Cuéntanos qué quieres resolver. Empezamos con una llamada de 30 minutos, sin costo, para entender tu operación y decirte por dónde conviene empezar.'}
+            'Cuéntanos qué quieres resolver. Empezamos con una llamada de 30 minutos para entender tu operación y decirte por dónde conviene empezar.'}
         </p>
         <ul className="check-list">
           {BENEFITS.map((b) => (

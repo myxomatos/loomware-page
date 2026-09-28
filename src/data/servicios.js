@@ -93,7 +93,7 @@ export const SERVICIOS = [
     // /industrias/manufactura: tres páginas peleando la misma consulta.
     titulo: 'Sistema ERP para pymes en México | Loomware',
     descripcion:
-      'Finanzas, inventario, compras, ventas y facturación en un solo sistema. ERP implementado con tu equipo, con migración de datos y facturación con sello del SAT.',
+      'Finanzas, inventario, compras, ventas y facturación en un solo sistema. ERP implementado con tu equipo, con migración de datos y sello del SAT.',
     h1: 'ERP: finanzas, inventario y operación en un mismo sistema',
     intro: [
       'Cuando cada área tiene su propio archivo —compras en uno, almacén en otro, contabilidad en un tercero— la empresa se pasa el día emparejando cifras que no cuadran. El inventario del sistema no es el del almacén, el costo real se sabe hasta el cierre y las decisiones se toman con datos de hace semanas.',
