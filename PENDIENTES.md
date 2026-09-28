@@ -1,6 +1,6 @@
 # Pendientes de loomware-page
 
-Estado al 27 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
+Estado al 28 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
 > **Revisión de Aldo en curso desde el 22 de septiembre de 2026.** La rama `aldo` trae los 68
 > commits de `alan` más los ajustes de la revisión (ver «Resueltas el 2026-09-22/23»), así que
@@ -50,6 +50,42 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 2026-09-24); cuando las dos estén, **401 «Contraseña incorrecta»**, que es la señal de que quedó.
 
 ## Aldo
+
+- [ ] **Confirmar la secuencia comercial, que ahora se cuenta igual en los cuatro lugares.** La
+      auditoría del 28 encontró que el botón de todo el sitio dice «Solicitar diagnóstico» y el
+      FAQ decía que el diagnóstico se cotiza: el visitante creía estar pidiendo lo gratis. Se
+      corrigió **respetando tu decisión del 27** —llamada sin costo → diagnóstico con su precio →
+      propuesta con precio cerrado— y ahora la misma secuencia se cuenta con las mismas palabras
+      en la respuesta de precio, la tarjeta del proceso, la entrada del formulario y los tres
+      pasos de `/gracias`: **lo sin costo es la primera llamada, de 30 minutos**; de ahí sale el
+      diagnóstico, que tiene precio según el tipo y el tamaño; del diagnóstico sale la propuesta.
+
+      **Alan entendía otra cosa** —que el diagnóstico va junto con la llamada— y de ahí salió el
+      detalle nuevo: se acuerda una segunda llamada para explicarle el diagnóstico al cliente.
+      Eso quedó escrito. Lo que hace falta es que confirmes las dos cosas: que la secuencia es
+      ésa y que la llamada donde se explica el diagnóstico va después de cotizarlo.
+
+- [ ] **Decidir si el sitio dice en algún otro lado que hay sistemas propios con cuota mensual.**
+      Dos respuestas del FAQ lo revelan —«si usas uno de nuestros sistemas, hay una cuota mensual
+      por hospedaje, mantenimiento y actualizaciones»— y **ninguna otra parte del sitio lo
+      menciona**: las ocho páginas de servicio describen implementaciones y desarrollo a medida.
+      Son dos modelos de negocio y sólo uno está contado. Toca directamente el pendiente de
+      precio: si hay un producto con cuota mensual, existe un «desde» que se puede publicar sin
+      encasillar a nadie.
+
+- [ ] **Confirmar tres promesas nuevas o cambiadas**, que ninguna estaba en tu lista:
+      1. `/gracias` decía *«En menos de 24 horas hábiles»* y ahora dice **«El mismo día o el
+         siguiente día hábil»**. Es un compromiso de tiempo de respuesta.
+      2. «Nos quedamos después de la entrega · Medimos, ajustamos y crecemos el sistema con la
+         operación», en «Quiénes somos». Es una obligación permanente, de la misma familia que
+         las cuatro afirmaciones de seguridad que ya te preocupan.
+      3. La insignia del hero **«Quien diagnostica, diseña»** sigue sin tu visto bueno; es la (c)
+         de «Validar tres afirmaciones nuevas del inicio».
+
+- [ ] **La sede quedó en «Estado de México» en todo el sitio** (antes el pie decía Ciudad de
+      México y los datos estructurados decían Atizapán, y no coincidían). Confirma que es lo que
+      quieres publicar: es el dato con el que se da de alta el perfil de Google Business, y la
+      verificación se cae si no coincide con el domicilio.
 
 - [x] **Los artifacts de WhatsApp, resueltos (2026-09-27).** Se retiran y se manda el enlace
       del sitio; el detalle está abajo, en «Alan». Quedan dos artifacts compartidos por borrar.
@@ -128,6 +164,18 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       2026-09-27: se cambió por «al día · respaldos» en `scripts/hero-sistema.js`.
 
 ## Alan
+
+- [ ] **Los rótulos de escena de cuatro recorridos se leen a 7.5 px.** Medido el 28: «DÍA»,
+      «PEDIDOS», «RESPALDO» y «FRENTE» salen a 7.5 px, y el resto de las escenas entre 8 y 11.
+      Con el contraste ya corregido se leen mejor, pero 7.5 px es texto que se ve, no que se lee,
+      y el recorrido pide leerlo: es la idea entera del formato. Se arregla escena por escena, y
+      va junto con la pantalla del sistema de los siete.
+
+- [ ] **La escala tipográfica que este archivo documenta no es la que sale.** Dice «quedan
+      20 · 16 · 15» y el mínimo real del sitio React es **12 px** —las etiquetas de sección, el
+      eslogan del pie—. No es un defecto de contraste (los 12 px ya cumplen AA), es que la
+      documentación miente sobre su propio sistema: o se anota el nivel de etiqueta, o se sube.
+
 
 - [x] **El recordatorio de skills ya no promete lo que no hay (2026-09-27).** El plugin
       `mattpocock-skills` se activa en `.claude/settings.json`, que viaja con el repositorio,
@@ -356,6 +404,215 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       captura real** —con autorización del cliente y los datos cubiertos— vale más que cualquier
       dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
       Se cambia el `<picture>` de `src/components/Hero.jsx`.
+
+## Resueltas el 2026-09-28 (auditoría de todo el sitio, URL por URL)
+
+Se midieron las 28 páginas construidas y las 25 del sitemap en vivo, en **216 combinaciones**
+—28 páginas × 6 tamaños × claro/oscuro en los ocho recorridos—: escritorio 1450, tablet
+horizontal 1024 y vertical 768, celular vertical 390, acostado 844×390 y chico 360×740.
+
+**Cómo quedó, medido después de los cambios:**
+
+| | antes | después |
+| --- | --- | --- |
+| Palabras en el HTML (lo que recibe Google) | 12 486 en 11 páginas | **25 210 en las 28** |
+| Pares de color bajo WCAG AA | **79** en claro, sin medir en oscuro | **cero**, claro y oscuro |
+| Blancos táctiles bajo 24 px (AA 2.5.8) | **31** casos | **cero** |
+| Desbordamiento horizontal | cero | **cero** |
+| Un solo `h1`, sin saltos de nivel | 28 de 28 | 28 de 28 |
+| Tarjetas sociales distintas | 8 de 23 | **23 de 23** |
+| Portada comprimida | 97 KB | 109 KB |
+
+- [x] **17 de las 25 URLs del sitemap llegaban a Google con el cuerpo vacío.** Mandaban
+      `<body><div id="root"></div></body>`: cero palabras. Todo el texto lo dibujaba JavaScript,
+      78 KB comprimidos de guiones para pintar unas 2 000 palabras que no cambian nunca. Google
+      renderiza, pero en una segunda pasada, y para un dominio nuevo sin autoridad ésa es la
+      demora que no conviene.
+
+      Ahora el build construye dos veces —una para el navegador y una para Node— y
+      `scripts/prerender.js` escribe el HTML de cada página dentro de su hueco. El navegador
+      **hidrata** ese HTML en vez de volver a dibujarlo: comprobado en nueve páginas, **cero
+      quejas de hidratación** y el contenido idéntico byte por byte salvo las escenas de la
+      portada, que sólo existen en escritorio y entran al hidratar.
+
+      **De paso corrige una cifra que este archivo presumía y no era comparable:** las 1 995
+      palabras contra las 1 964 de Bind. Bind las manda en el HTML; nosotros las mandábamos en un
+      guion. Hoy la portada manda **2 140 en el HTML**, y ahí sí se pueden comparar.
+
+      Cuesta 12 KB comprimidos en la portada (97 → 109 KB). Seguimos muy por debajo de cualquiera
+      del grupo medido: el segundo sitio más ligero pesaba el doble de los 97.
+
+      Las reglas para que no se rompa están escritas en `src/prerender.jsx`. La más importante:
+      **nada de `window` ni `document` en el cuerpo de un componente**. Si alguien lo mete, el
+      build se cae con el nombre de la página, que es lo que se busca.
+
+- [x] **79 pares de color por debajo de WCAG AA, y uno era un arreglo mío mal medido.** Tres
+      colores lo explicaban todo, y los tres se resolvieron midiendo contra **todos** los fondos
+      sobre los que aparecen, con 4.6:1 de objetivo en vez de 4.5 para que un fondo un poco
+      distinto no los vuelva a tirar:
+
+      | | antes | después |
+      | --- | --- | --- |
+      | cobre, el color del dato | `#A35C23` · 4.29:1 | `#9B5721` · 4.66:1 |
+      | `--ink-3`, leyendas y pies | `#7A7D86` · 3.46:1 | `#666971` · 4.61:1 |
+      | `--pain`, el «Hoy» | `#63666F` · 4.19:1 | `#5C5F67` · 4.67:1 |
+      | `--ink-3` en oscuro | `#817B70` · 3.68:1 | `#918C82` · 4.61:1 |
+
+      **La corrección que me toca:** el 24 de septiembre cambié `--pain` de `#6B6F79` a `#63666F`
+      y dejé escrito en el archivo que daba **4.97:1**. Daba **4.19**. Lo medí contra el fondo de
+      la tarjeta y ese texto no va sobre ese fondo, va sobre `#DFDCD5`. El «18 pares medidos,
+      cero fallos» de la quinta auditoría era cierto para los tokens del sitio React sobre blanco
+      y `--bg-soft`; **el contraste de los ocho recorridos nunca se había medido**, y su papel es
+      un poco más oscuro, que es lo que tiraba al cobre por dos centésimas.
+
+      **Y el modo oscuro tampoco se había medido nunca.** Ahora sí: de sus seis colores fallaba
+      uno y los otros cinco van de 5.2 a 13.7. Salieron además dos defectos que sólo se ven en
+      oscuro: el enlace a la calculadora del cierre del ERP **no tenía color** y salía en el azul
+      por omisión del navegador —1.99:1 sobre el papel oscuro, ilegible—, y `--ink-3` fallaba
+      sobre la placa del dato, que era el cuarto fondo que no había incluido.
+
+      *Lección de método, por segunda vez:* un color no se mide contra un fondo, se mide contra
+      todos los que pisa. Y forzar el tema con `data-theme` sólo sirve si después se comprueba
+      que el tema **de verdad** se aplicó: tres «fallos» de apps-móviles eran artefacto de una
+      pasada donde el atributo no había surtido efecto.
+
+- [x] **31 blancos táctiles por debajo de los 24×24 px que pide WCAG 2.2 AA (2.5.8).** Lighthouse
+      da accesibilidad 100 y no mide ese criterio. Medidos a 390×844:
+
+      - **los 21 enlaces del pie, en las 25 páginas**: 16 px de alto. El alto se lo da ahora el
+        propio enlace y la separación de la lista bajó a cero, así que **el pie mide exactamente
+        lo mismo que antes**. Los cortos («ERP», 22 px de ancho) llegan a 24 también de ancho.
+      - el correo, el teléfono y el WhatsApp del pie: 20 px
+      - «formulario del sitio» y el correo del cierre **de los ocho recorridos**: 11 px (15 en el
+        ERP). Es el enlace al formulario al final de la pieza que se manda por WhatsApp.
+      - «Escribir la pregunta» del ERP: 18 px · los tres destinos del 404: 17 px
+      - el índice del aviso: 19 px · «Volver al sitio»: 23 px
+      - «aviso de privacidad» dentro de la casilla: 15 px · la casilla: 16 px, ahora 24
+      - «Ver más» de las tarjetas de solución: 20 px, y además era un **segundo enlace al mismo
+        destino que la tarjeta**; ahora es el pie de la propia tarjeta
+
+      Donde el elemento manda su renglón, crece con su propio alto. Donde va dentro de un párrafo
+      —el cierre del recorrido, el 404, la casilla—, el blanco lo da una capa transparente y el
+      texto no se mueve: es la misma salida que ya usaba el botón del recorrido.
+
+      La barra de las páginas de servicio y de giro medía 31 px —cumple AA pero no los 44 del
+      sistema del sitio, y es la navegación principal de la página donde aterriza quien llega de
+      Google—: pasa a 45 px de blanco **sin que la barra crezca**.
+
+- [x] **Los seis chips de «¿Qué necesita tu empresa?» no hacían nada que se viera.** El subtítulo
+      prometía «encuentra rápidamente la solución» y al picar un chip no cambiaba nada en
+      pantalla: el único efecto era un campo escondido del formulario, pantallas abajo. Seis
+      botones que parecían muertos debajo de un título que promete encontrar algo.
+
+      Ahora cada chip enseña las soluciones que resuelven eso, con su nombre, su resumen y su
+      enlace. Los textos salen de `src/data/servicios.js`, así que no hay copia nueva que pueda
+      desfasarse de las páginas.
+
+      Y **nada viene preseleccionado**. Antes el valor por omisión era el primero, «Vender más»,
+      así que quien nunca tocaba un chip llegaba al formulario con *«Interés seleccionado: Vender
+      más»* ya puesto: le ponía palabras en la boca al visitante y te mandaba a ti un interés que
+      nadie eligió.
+
+- [x] **La voz se rompía justo donde se vende.** Los recorridos y los `h1` de servicio están
+      escritos con precisión, y al lado seguía vivo el idioma de cualquier vendedor de software.
+      Fuera: «Lleva tu negocio al siguiente nivel» (el título del formulario), «descubre cómo
+      podemos ayudarte a crecer con más control y eficiencia», «Análisis de tus canales y
+      procesos», «Oportunidades de mejora identificadas», «la solución que impulsará tu
+      crecimiento», «puntos críticos actuales», «evolucionamos contigo», «Un proceso claro para
+      resultados reales», «Tecnología empresarial para crecer con claridad, control y confianza»,
+      «flujos inteligentes», «operación sin fricciones», «Experiencias móviles para equipos» y
+      «Control total de tu negocio» —ningún software da control total—.
+
+      **El dato que lo resume:** cada servicio tenía una frase buena y una mala, y la portada
+      enseñaba la mala. Software a medida: el `h1` dice *«cuando ningún sistema de catálogo te
+      queda»* y el resumen de la tarjeta decía *«Soluciones a medida que se adaptan a tus
+      procesos y objetivos»*. Los ocho resúmenes se rehicieron desde su propio `h1`.
+
+      Y la inversión completa: **el formulario de las páginas de servicio estaba mejor escrito
+      que el de la portada**, porque las de servicio le pasan su propio texto y la portada se
+      quedaba con el genérico. La página que más tráfico va a recibir tenía la peor copia del
+      sitio.
+
+- [x] **Tres tamaños de empresa, y uno iba en la ficha que Google enseña.** «Equipos comerciales
+      de 2 a 30 personas», «Empresas de 10 a 300 colaboradores» y —la peor— *«Para empresas
+      mexicanas de 10 a 300 colaboradores»* en la **meta description** de nómina. Un director de
+      500 personas leía eso en Google y no entraba. Y contradecía al propio FAQ, que dice que se
+      trabaja igual con una sucursal que con varias sedes. Fuera los tres: cualquier giro y
+      cualquier tamaño, **de una persona a miles**.
+
+- [x] **La jerga se había limpiado en la mitad equivocada.** «Timbrado», «PAC», «dispersión»,
+      «conciliar», «SKU» se quitaron de los recorridos, que se mandan por WhatsApp a alguien que
+      ya te conoce, y seguían intactos en las páginas que reciben **tráfico frío de Google**: el
+      FAQ de la portada —que además es el `FAQPage` estructurado, o sea el fragmento que Google
+      enseña— y las ocho de servicio, con «explosión de materiales» y «antigüedad de saldos».
+
+      La regla que se aplicó es la del resto del sitio: **el texto que se lee va en palabras de
+      cualquiera y el nombre técnico vive en el rótulo**. «Timbrado» se queda en el título de
+      búsqueda y en el nombre de la función —es lo que la gente teclea— y se explica la primera
+      vez que aparece.
+
+      Y un desfase que la cacería anterior no vio porque sólo miró `recorridos-fuente/`: los
+      resúmenes de nómina y de la tienda en `src/data/recorridos.js` seguían con las cuatro
+      palabras que se habían quitado de las páginas. Ese texto es la meta description **y** la
+      tarjeta de la portada **y** la tarjeta de WhatsApp: la página decía una cosa y su ficha
+      otra.
+
+- [x] **Cuatro títulos y seis descripciones pasaban el corte de Google.** El título de
+      infraestructura cloud tenía 76 caracteres y una descripción tenía 223. Ahora la solución
+      **encabeza** el título —la palabra que la gente teclea iba al final— y donde el titular no
+      cabe hay un `seoTitulo` corto que se usa **sólo** en la ficha: el titular que se lee dentro
+      de la página no se toca. Los ocho quedan entre 40 y 58 caracteres, y las descripciones
+      entre 128 y 155.
+
+- [x] **Quince páginas compartían la misma tarjeta social**, con el mismo argumento que ya había
+      cerrado el caso de los recorridos: quince enlaces que se previsualizan idénticos parecen el
+      mismo enlace mandado quince veces. Ahora hay una por página (`npm run og:paginas`), con la
+      etiqueta, el titular y el resumen de esa misma página, en la paleta del sitio.
+
+- [x] **Y las ocho tarjetas de los recorridos tenían una carrera que las repetía.** Al
+      regenerarlas salieron **dos imágenes distintas de ocho**, y las quince nuevas salieron
+      **cuatro de quince**. La causa: `execFileSync` espera a que el navegador termine, pero el
+      PNG tarda un instante más en quedar escrito, y el archivo de la vuelta pasada seguía ahí, así
+      que se comprimía **la tarjeta anterior**. No truena y no avisa.
+
+      Las del repositorio sí eran distintas, así que la carrera llevaba ahí desde el 24 de
+      septiembre y sólo se veía cuando la máquina iba lenta. `scripts/capturar.js` ahora borra el
+      destino, espera a que exista y a que su tamaño deje de cambiar, y **los dos generadores
+      exigen al final que las tarjetas sean distintas entre sí**: sin esa prueba, el defecto
+      volvería a pasar inadvertido. Comprobado: 23 tarjetas, las 23 distintas.
+
+- [x] **La sede no coincidía consigo misma.** El pie y «Quiénes somos» decían *Ciudad de México*
+      y los datos estructurados del HTML decían *Atizapán de Zaragoza, Estado de México*. Para el
+      alta en Google Business eso no es un detalle: la verificación se cae si el nombre, la
+      dirección y el teléfono no coinciden en los tres lugares. Todo queda en **Estado de
+      México**.
+
+- [x] **Un mensaje interno podía llegarle a un visitante.** El formulario imprimía `err.message`
+      tal cual, así que si la llave de Resend se rota o se borra, el prospecto leía *«Falta
+      configurar RESEND_API_KEY»*. Ahora se enseña lo que el servidor dice **sobre sus datos**
+      —«Falta tu nombre»— y lo que dice sobre su propia configuración se sustituye por un aviso
+      normal.
+
+- [x] **Y once detalles más**, todos medidos: el `autocomplete="email tel"` era inválido y el
+      navegador lo ignoraba completo, así que el campo de contacto **no autocompletaba nada**;
+      dos enlaces al mismo destino por tarjeta en soluciones y en giros —en los giros el enlace
+      que se quedó es el del nombre, porque su capa es la que hace tocable el renglón entero en
+      celular, y ahora también en escritorio—; «En menos de 24 horas hábiles» de `/gracias`, que
+      no es una unidad que se use y podía leerse como tres días; «Míralo funcionar», que promete
+      ver el programa cuando siete de los ocho enseñan el mundo; el 404, que afirmaba que la
+      página *«cambió de lugar»* cuando el sitio no ha salido y nada ha cambiado de lugar; los
+      tres principios de «Quiénes somos» y cuatro respuestas del FAQ, que abrían en negación
+      contra la regla de tono; dos enlaces del pie con nombre inventado —«Integraciones» y
+      «Migración a la nube», que son Automatización e Infraestructura cloud y ya estaban en la
+      columna de al lado con su nombre real—; el `alt` de las escenas de la portada, que describía
+      el título en vez de la imagen; y los comentarios en inglés de `Process.jsx` y `Icon.jsx`.
+
+- [x] **Un hallazgo que retiro.** Levanté como el bloqueo número uno que GT-SHOP se publicaba sin
+      autorización de Eduardo Díaz. **No es cierto y ya estaba escrito en este archivo**: Eduardo
+      aprobó la cita y la marca el 22 de septiembre, él mismo mandó el texto por WhatsApp y
+      nosotros sólo lo pulimos. Lo saqué de la copia vieja de los pendientes, no de este archivo,
+      que es el que vale. Queda anotado también en `src/data/casos.js` para que no se vuelva a
+      levantar desde el código.
 
 ## Resueltas el 2026-09-25 (séptima y octava pasada del ERP, y la medición contra el grupo)
 
