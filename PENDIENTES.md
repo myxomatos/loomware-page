@@ -51,48 +51,8 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 
 ## Aldo
 
-- [ ] **Avisarle a Alan de sus artifacts de WhatsApp.** Las copias de los recorridos que manda
-      como artifacts de claude.ai siguen diciendo «diagnóstico sin costo» y enlazan a
-      `alan.loomware-page.pages.dev`. Las del repositorio ya se corrigieron.
-- [ ] **Dar de alta el perfil de Google Business.** <https://business.google.com>, media hora y
-      gratis. Mete a Loomware en el mapa para «software empresarial cerca de mí» o «ERP CDMX» en
-      días; el SEO de un dominio nuevo tarda de tres a seis meses.
-- [ ] **Validar los dos supuestos de la calculadora**: **1.35 de prestaciones** sobre el sueldo
-      bruto y **176 horas al mes**, en `src/data/calculadora.js`. Es el único lugar del sitio con
-      una cifra que no sale del cliente.
-- [ ] **Equipo.** `src/data/equipo.js`: cargo, dos líneas de bio, foto cuadrada (600×600, en
-      `public/equipo/`) y LinkedIn de Aldo y de Alan. Las tarjetas aparecen solas cuando una
-      persona tiene cargo y foto. Falta también el apellido de Alan.
-- [ ] **Lectura legal de `/aviso-de-privacidad`** antes de producción. Los datos del responsable
-      están en `src/data/contacto.js`; si se constituye una sociedad, se cambian ahí.
-- [ ] **Que el contrato respalde lo que dice el sitio** — *[material de venta]*: «el contrato te
-      entrega el código, la base de datos y la documentación» y «precio cerrado por ese alcance;
-      si lo amplías, se cotiza aparte y lo apruebas tú». También va en el recorrido del ERP.
-- [x] ~~**Validar precio, plazos, migración y SAT**~~ — 2026-09-27, con Aldo. Plazos y SAT se
-      quedan como estaban. La migración se define en el diagnóstico y va en la propuesta (ya no
-      «parte del proyecto, no un extra»; el conteo físico del ERP pasó a «te ayudamos a
-      organizarlo»). Hay dos formas de tener un sistema: **los de Loomware, con cuota mensual
-      que se define en cada contrato**, o **uno a la medida que es del cliente**; la FAQ lo dice
-      como elección y «¿Cuánto cuesta?» menciona la cuota. Software a medida dejó de pintar la
-      renta por usuario como lo malo: el contraste es el sistema de catálogo que no se ajusta.
-      Fuera «muchos clientes» de nómina y tienda en línea.
-- [ ] **Validar las seis páginas de industria** (`src/data/industrias.js`) — *[material de
-      venta]*: síntomas y solución por giro, junto con el «Hoy» por giro del recorrido del ERP.
-- [ ] **Confirmar que nómina y comercio en línea se ofrecen.** Si no, se quitan de
-      `src/data/servicios.js` y se van solos de todo el sitio.
-- [ ] **GT-SHOP, extras.** Eduardo ya aprobó la cita y el uso de la marca (2026-09-22). Si los
-      tiene: el archivo original del logotipo (el de hoy salió de una captura) y una medición real
-      —pedidos, tiempo de entrega, devoluciones— que reemplace el `resultado` en `src/data/casos.js`.
-- [ ] **Video de «Ver cómo funciona».** Subirlo a YouTube como *No listado* y poner la URL en
-      `src/data/video.js`; también acepta un MP4 de menos de ~15 MB en `public/video/`.
-- [ ] **Analítica.** Crear la propiedad de GA4 y marcar como conversiones los eventos que el
-      código ya reporta: `generate_lead` (con `metodo` = formulario o calculadora),
-      `click_whatsapp` con el origen, y `calculadora_inicio`. Desde el 2026-09-27
-      `generate_lead` se cuenta una vez por envío: antes la calculadora contaba doble y abrir o
-      recargar `/gracias` contaba uno falso.
-- [ ] **Logo en otros lados.** El logo del sitio es ahora la nube de cuatro lóbulos, sin
-      degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
-      plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
+- [x] **Los artifacts de WhatsApp, resueltos (2026-09-27).** Se retiran y se manda el enlace
+      del sitio; el detalle está abajo, en «Alan». Quedan dos artifacts compartidos por borrar.
 
 - [ ] **Límite de intentos para `/prospectar`.** La Function compara la contraseña sin tope de
       intentos y el repositorio es público, así que cualquiera sabe dónde probar. Se cierra sin
@@ -109,7 +69,11 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       3. **Cada recorrido trae su propia imagen de vista previa** para WhatsApp. Se ve pegando el
          enlace en una conversación contigo mismo.
 
-- [ ] **Alan: pasarle a Aldo el token del INEGI, y Aldo cargarlo.** Desbloquea `/prospectar`
+- [x] **Alan ya le pasó el token a Aldo** (semana del 2026-09-22). Falta que Aldo lo cargue
+      junto con `PROSPECT_KEY`: comprobado el 2026-09-27, `/api/denue` responde *«Falta
+      configurar: DENUE_TOKEN, PROSPECT_KEY»*, o sea que **faltan las dos**.
+
+- [ ] **Cargar `DENUE_TOKEN` y `PROSPECT_KEY` en Cloudflare — Aldo.** Desbloquea `/prospectar`
       (paso 3 de la ruta): `DENUE_TOKEN` es de Alan y Aldo no puede capturarlo hasta que se lo manden por
       un canal privado. **Probado contra el INEGI el 2026-09-24: el token sirve.** El mensaje,
       listo para copiar —el token va en **otro mensaje**, nunca junto con estas instrucciones—:
@@ -174,12 +138,26 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       queda. Aldo validó el 2026-09-23 *«una llamada de 30 minutos, sin costo»*, así que ya se
       puede traer al recorrido: es una línea de `recorridos-fuente/erp.html`.
 
-- [ ] **Cuando el PR se mezcle, los artifacts de WhatsApp van al dominio.** Desde la revisión
-      de Aldo (2026-09-23), los dos enlaces de cada archivo de `recorridos-fuente/` —la marca y
-      «formulario del sitio»— son relativos: sirven en la página del sitio, pero en un artifact
-      suelto de claude.ai no llevan a ningún lado. Al mezclar, o se publican los artifacts con
-      esos dos enlaces en absoluto a `https://loomware.com.mx`, o se deja de mandar el artifact y
-      se manda sólo el enlace del sitio, que ya es lo que recomienda este archivo.
+- [x] **Los artifacts de WhatsApp se retiran; se manda el enlace del sitio (2026-09-27).**
+      Existieron por una razón concreta: cuando se escribieron, `loomware.com.mx/recorridos/erp`
+      respondía 404. Con el PR #4 mezclado esa razón se acabó, y se comprobó hoy: **la página da
+      200 en el dominio, abre sin cuenta ni registro, y su enlace ya trae su propia imagen de
+      vista previa** —`/recorridos/og-erp.png`, 200—, que era lo único que un artifact hacía
+      mejor.
+
+      Además el artifact hoy está roto: en la revisión del 23 los dos enlaces de cada archivo
+      pasaron a ser relativos (`/#recorrido-erp`, `/servicios/erp#contacto`); en la página del
+      sitio están bien, en un artifact suelto apuntan a claude.ai. **No se arreglan volviéndolos
+      absolutos**: eso sería mantener dos copias de ocho páginas que se separan la primera vez
+      que alguien cambie una coma.
+
+      **Lo que se manda, y nada más:** `https://loomware.com.mx/recorridos/<slug>`, sin
+      parámetros.
+
+      **Falta una cosa que sólo Alan puede hacer:** de los ocho, **dos quedaron compartidos** y
+      esos enlaces siguen vivos; quien los tenga abre una copia vieja con dos enlaces que no
+      llevan a ningún lado. Hay que **borrarlos en claude.ai**, y avisarle a quien se los haya
+      mandado que el bueno es el del dominio.
 
 - [ ] **Revisión minuciosa de las ocho tarjetas del «Paso a paso», una por una.** Es la tarea
       grande de Alan. El ERP lleva cinco pasadas y **todavía no se cierra**; las otras siete no
