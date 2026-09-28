@@ -8,6 +8,16 @@
  * llaman, a qué servicio pertenecen y qué dicen. De aquí salen el enlace de la
  * página de servicio y su entrada en el sitemap.
  *
+ * Los campos, y para qué sirve cada uno:
+ *   titulo      el titular que se lee dentro de la página y en su tarjeta
+ *   seoTitulo   sólo para la ficha de búsqueda, cuando el titular no cabe en
+ *               los ~60 caracteres que enseña Google. Si falta, se usa `titulo`
+ *   resumen     la tarjeta de la portada y la de la página de servicio
+ *   descripcion la meta description. Google corta en ~155 caracteres
+ *
+ * `resumen` y `descripcion` van horneados en la tarjeta de WhatsApp: al
+ * cambiarlos hay que volver a correr `npm run og:recorridos`.
+ *
  * Para agregar uno: escribe el HTML en recorridos-fuente/ y añade su renglón.
  */
 export const RECORRIDOS = [
@@ -34,45 +44,49 @@ export const RECORRIDOS = [
     servicio: 'nomina',
     titulo: 'De la checada al recibo',
     resumen:
-      'Una quincena completa, día por día: cuándo llega cada incidencia, cuándo se calcula y cuándo cae el dinero.',
+      'Una quincena completa, día por día: cuándo llega cada falta, cuándo se calcula y cuándo cae el dinero.',
     descripcion:
-      'Recorrido paso a paso de un sistema de nómina: incidencias, cierre, cálculo con ISR e IMSS, timbrado del CFDI, dispersión y el reclamo que ya no llega.',
+      'Recorrido paso a paso de un sistema de nómina: las faltas, el cierre, el cálculo con ISR e IMSS, el recibo sellado ante el SAT y el pago al banco.',
   },
   {
     slug: 'automatizacion',
     servicio: 'automatizacion',
     titulo: 'Del WhatsApp al reporte del lunes',
+    seoTitulo: 'Del WhatsApp al reporte',
     resumen:
       'Un solo pedido por cinco escritorios, dos veces: llevado a mano de uno a otro, o por un tubo neumático que lo lleva solo en segundos.',
     descripcion:
-      'Recorrido paso a paso de la automatización de procesos: el pedido que llega por WhatsApp, la captura, el pago que libera, el aviso al cliente, la alerta de existencia y el reporte del lunes que se arma solo.',
+      'Recorrido paso a paso de la automatización: el pedido que llega por WhatsApp, la captura, el pago que libera, el aviso al cliente y el reporte del lunes.',
   },
   {
     slug: 'software-a-medida',
     servicio: 'software-a-medida',
     titulo: 'De la talla única a tu medida',
+    seoTitulo: 'De talla única a tu medida',
     resumen:
       'Tu proceso de cotización en la sastrería: las medidas, el patrón, la primera prueba, los ajustes, las conexiones y el patrón a tu nombre.',
     descripcion:
-      'Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu proceso, por etapas, integrado y con el código a tu nombre.',
+      'Recorrido paso a paso del software a medida: por qué un sistema de catálogo es un traje de talla única, y cómo se construye uno sobre tu propio proceso.',
   },
   {
     slug: 'infraestructura-cloud',
     servicio: 'infraestructura-cloud',
     titulo: 'Del cuarto del servidor a cualquier lugar',
+    seoTitulo: 'De tu oficina a la nube',
     resumen:
       'Una semana de tu empresa dos veces: con el servidor en el cuartito de la oficina, y con la operación viviendo en otro lado, disponible desde donde estés.',
     descripcion:
-      'Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, la caída con alertas, los accesos por persona y la oficina sin cuartito del servidor.',
+      'Recorrido paso a paso de la infraestructura en la nube: el apagón, el respaldo probado, la temporada alta, las alertas y los accesos por persona.',
   },
   {
     slug: 'apps-moviles',
     servicio: 'apps-moviles',
     titulo: 'Del campo a la oficina, el mismo día',
+    seoTitulo: 'Del campo a la oficina',
     resumen:
       'La ruta de un técnico durante un día, con sus seis visitas en el mapa y lo que la oficina sabe de cada una a cada hora: con la libreta, y con la app que captura donde ocurre el trabajo.',
     descripcion:
-      'Recorrido paso a paso de una app de campo: las visitas del día, la captura en el lugar con foto y firma, la zona sin señal que sincroniza sola, la evidencia con hora y GPS, el avance en tiempo real y el cierre el mismo día.',
+      'Recorrido paso a paso de una app de campo: las visitas del día, la captura en el lugar con foto y firma, la zona sin señal y el cierre el mismo día.',
   },
   {
     slug: 'tienda-en-linea',
@@ -81,7 +95,7 @@ export const RECORRIDOS = [
     resumen:
       'Un solo producto durante dos semanas, en el mostrador y en la página al mismo tiempo: cuánto hay, cuánto publica la tienda y qué pasa cuando dejan de coincidir.',
     descripcion:
-      'Recorrido paso a paso de una tienda en línea conectada a la operación: el pedido de la noche, una sola existencia, la promoción que se detiene en cero, cobro con CFDI, guía con rastreo y margen por canal.',
+      'Recorrido paso a paso de una tienda en línea conectada a la operación: el pedido de la noche, una sola existencia, el cobro con factura y la guía.',
   },
 ]
 

@@ -7,17 +7,17 @@ const PASOS = [
   {
     icon: 'search',
     title: 'Revisamos tu solicitud',
-    text: 'Analizamos tu operación y los puntos que nos compartiste.',
+    text: 'Leemos lo que nos contaste y revisamos cómo operas hoy.',
   },
   {
     icon: 'phone',
     title: 'Te contactamos',
-    text: 'En menos de 24 horas hábiles, por el medio que prefieras.',
+    text: 'El mismo día o el siguiente día hábil, por el medio que prefieras.',
   },
   {
     icon: 'calendar',
-    title: 'Agendamos una llamada',
-    text: 'La primera llamada es sin costo y sin compromiso, en la fecha que mejor te acomode.',
+    title: 'Hablamos 30 minutos',
+    text: 'Sin costo y sin compromiso, en la fecha que mejor te acomode.',
   },
 ]
 

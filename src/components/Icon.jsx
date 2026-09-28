@@ -1,7 +1,9 @@
 /*
- * Inline SVG icon set (24x24, stroke-based, currentColor).
- * Usage: <Icon name="arrow-right" size={18} />
- * Add a new icon by adding an entry to PATHS.
+ * Íconos en SVG, dibujados aquí mismo (24×24, de trazo, en currentColor).
+ * Se usan así: <Icon name="arrow-right" size={18} />
+ * Para agregar uno, se añade su entrada a PATHS.
+ *
+ * Todos salen con aria-hidden: acompañan a un texto que ya dice lo mismo.
  */
 const PATHS = {
   'arrow-right': (

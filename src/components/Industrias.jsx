@@ -23,14 +23,18 @@ export default function Industrias() {
               <span className="icon-tile icon-tile--soft">
                 <Icon name={g.icon} size={24} />
               </span>
+              {/* Un solo enlace por tarjeta, y es el del nombre: su capa cubre la
+                  tarjeta entera, así que se pica donde sea. En celular ya era así
+                  —es como se toca un giro en el teléfono— y en escritorio faltaba. */}
               <h3 className="industria__nombre">
                 <a href={`/industrias/${g.id}`}>{g.nombre}</a>
               </h3>
               <p className="industria__dolor">{g.dolor}</p>
-              <a href={`/industrias/${g.id}`} className="link-arrow industria__ver">
+              {/* La pista visual, no un segundo enlace al mismo destino. */}
+              <span className="link-arrow industria__ver">
                 Ver cómo lo resolvemos
                 <Icon name="arrow-right" size={14} />
-              </a>
+              </span>
               <div className="industria__solucion">
                 <span className="industria__etiqueta">Lo que suele resolverlo</span>
                 <span className="industria__chips">

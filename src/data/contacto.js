@@ -5,7 +5,10 @@
 export const EMPRESA = 'Loomware'
 export const DOMINIO = 'https://loomware.com.mx'
 export const EMAIL = 'aldo_sanchez@loomware.com.mx'
-export const CIUDAD = 'Ciudad de México'
+// Donde está la empresa. Tiene que decir lo mismo que el domicilio de abajo y
+// que los datos estructurados del HTML: el alta en Google Business se cae si
+// el nombre, la dirección y el teléfono no coinciden en los tres lugares.
+export const CIUDAD = 'Estado de México'
 
 // Datos legales del responsable, para el aviso de privacidad (LFPDPPP) y el
 // footer. Hoy Loomware opera como persona física con actividad empresarial; si

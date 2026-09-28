@@ -11,6 +11,11 @@
  * visto bueno: es su palabra, no la nuestra. Un caso firmado por el dueño
  * pesa más que tres párrafos escritos por nosotros.
  *
+ * **GT-SHOP está autorizado.** Eduardo Díaz dio permiso del logotipo y mandó él
+ * mismo el texto de la cita —nosotros sólo la pulimos—, por WhatsApp. Queda
+ * escrito aquí porque ya se levantó dos veces como si faltara: está resuelto y
+ * no hay que volver a preguntarlo.
+ *
  * Campos:
  *   cliente      nombre comercial, o '' si es anónimo
  *   descripcion  giro, tamaño y ciudad

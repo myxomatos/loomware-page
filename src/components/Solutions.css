@@ -36,7 +36,7 @@
   text-align: left;
   gap: var(--sp-3);
   flex: 1;
-  padding: var(--sp-6) var(--sp-5) var(--sp-4);
+  padding: var(--sp-6) var(--sp-5);
   border-radius: inherit;
 }
 .solution .icon-tile {
@@ -55,12 +55,11 @@
   text-align: left;
 }
 
-/* Una sola acción por tarjeta: el recorrido vive en el hero. */
-.solution__acciones {
-  display: flex;
-  padding: 0 var(--sp-5) var(--sp-6);
-}
+/* El pie de la tarjeta. Era un segundo <a> al mismo destino —dos paradas de
+   tabulador al mismo lugar, y 20 px de alto para el dedo—; ahora es texto
+   dentro del enlace que ya cubre la tarjeta entera. */
 .solution__more {
+  margin-top: var(--sp-2);
   display: inline-flex;
   align-items: center;
   gap: var(--sp-1);
@@ -69,7 +68,7 @@
   color: var(--purple-500);
   transition: gap var(--t-base) var(--ease);
 }
-.solution__more:hover {
+.solution__link:hover .solution__more {
   gap: var(--sp-2);
 }
 

@@ -7,12 +7,12 @@ const PRINCIPIOS = [
   {
     icon: 'search',
     title: 'Primero entendemos, luego proponemos',
-    text: 'Cada proyecto empieza con un diagnóstico. No vendemos un sistema antes de saber cómo opera tu empresa.',
+    text: 'Cada proyecto empieza con un diagnóstico: primero sabemos cómo opera tu empresa, y después proponemos.',
   },
   {
     icon: 'users',
-    title: 'Implementamos con tu equipo, no a sus espaldas',
-    text: 'Quien va a usar el sistema participa desde el diseño. Un software que nadie adopta es dinero tirado.',
+    title: 'Implementamos con tu equipo, de frente',
+    text: 'Quien va a usar el sistema participa desde el diseño, porque el software que se usa es el que se diseñó con quien lo usa.',
   },
   {
     icon: 'trending-up',
