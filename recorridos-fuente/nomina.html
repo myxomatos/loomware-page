@@ -531,7 +531,7 @@
         <text class="dg-t" x="326" y="89">Póliza para el despacho</text>
         <text class="dg-t" x="326" y="107">Acumulados del año</text>
       </svg>
-      <figcaption>Izquierda: las incidencias llegan por tres lados y alguien las teclea en un
+      <figcaption>Izquierda: las faltas y las horas extra llegan por tres lados y alguien las teclea en un
         Excel. Derecha: un cálculo del que salen las cinco cosas, sin volver a capturar.
         Eso es todo lo que es un sistema de nómina.</figcaption>
     </figure>
@@ -585,13 +585,13 @@
 
       <div class="stage">
         <svg id="scene" viewBox="0 0 680 428" role="img"
-             aria-label="A la izquierda, la tarjeta de checado de una persona durante la quincena, con quince renglones de entrada y salida y tres incidencias marcadas: un permiso el día 7, tres horas extra el día 10 y una falta el día 12. De la tarjeta salen dos caminos. Arriba, como se hace hoy: las incidencias llegan por WhatsApp el día 14, la tarjeta se copia a mano a una hoja de Excel con dos horas extra en vez de tres, el recibo sale con ese error, se timbra el día 16, se dispersa el 17 y llega el reclamo. Abajo, con el sistema: el cálculo lee la tarjeta tal cual, el recibo sale con las tres horas, se timbra y se dispersa el día 15 y coincide con la tarjeta.">
+             aria-label="A la izquierda, la tarjeta de checado de una persona durante la quincena, con quince renglones de entrada y salida y tres cosas marcadas: un permiso el día 7, tres horas extra el día 10 y una falta el día 12. De la tarjeta salen dos caminos. Arriba, como se hace hoy: las incidencias llegan por WhatsApp el día 14, la tarjeta se copia a mano a una hoja de Excel con dos horas extra en vez de tres, el recibo sale con ese error, se timbra el día 16, se dispersa el 17 y llega el reclamo. Abajo, con el sistema: el cálculo lee la tarjeta tal cual, el recibo sale con las tres horas, se timbra y se dispersa el día 15 y coincide con la tarjeta.">
           <g id="world"></g>
         </svg>
       </div>
 
       <div class="cap">
-        <span id="stateLabel">01 / 06 · Las incidencias</span>
+        <span id="stateLabel">01 / 06 · Las faltas y las horas extra</span>
         <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
         <span>Cifras de ejemplo</span>
       </div>
@@ -600,7 +600,7 @@
       </div>
       <ul class="legend">
         <li><span class="sw sw--tarjeta"></span>La tarjeta de checado, de una persona</li>
-        <li><span class="sw sw--inc"></span>Una incidencia, el día que pasó</li>
+        <li><span class="sw sw--inc"></span>Una falta o una hora extra, el día que pasó</li>
         <li><span class="sw sw--error"></span>El renglón que se copió mal</li>
         <li><span class="sw sw--money"></span>Coincide con la tarjeta</li>
       </ul>
@@ -608,7 +608,7 @@
       <div class="exp">
         <div class="exp__t lbl">La quincena · todo sale del mismo cálculo</div>
         <ul class="chips" id="chips">
-          <li class="chip" id="c0"><b>INC-118</b><span>incidencias</span></li>
+          <li class="chip" id="c0"><b>INC-118</b><span>faltas y horas extra</span></li>
           <li class="chip" id="c1"><b>CAL-Q18</b><span>cálculo</span></li>
           <li class="chip" id="c2"><b>CFDI-N</b><span>recibo sellado</span></li>
           <li class="chip" id="c3"><b>DISP-04</b><span>pago al banco</span></li>
@@ -941,7 +941,7 @@
 
   /* ---------- estados ---------- */
   var STATES = [
-    { label:"01 / 06 · Las incidencias",
+    { label:"01 / 06 · Las faltas y las horas extra",
       k:"TARJETA 118 · M. Ruiz",
       v:"permiso el 7, 3 h extra el 10, falta el 12 · abajo, registradas el día que pasan" },
     { label:"02 / 06 · El cierre de la quincena",
