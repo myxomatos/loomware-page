@@ -93,7 +93,7 @@ export const SERVICIOS = [
     // /industrias/manufactura: tres páginas peleando la misma consulta.
     titulo: 'Sistema ERP para pymes en México | Loomware',
     descripcion:
-      'Finanzas, inventario, compras, ventas y facturación en un solo sistema. ERP implementado con tu equipo, con migración de datos y CFDI.',
+      'Finanzas, inventario, compras, ventas y facturación en un solo sistema. ERP implementado con tu equipo, con migración de datos y facturación con sello del SAT.',
     h1: 'ERP: finanzas, inventario y operación en un mismo sistema',
     intro: [
       'Cuando cada área tiene su propio archivo —compras en uno, almacén en otro, contabilidad en un tercero— la empresa se pasa el día emparejando cifras que no cuadran. El inventario del sistema no es el del almacén, el costo real se sabe hasta el cierre y las decisiones se toman con datos de hace semanas.',
@@ -117,7 +117,7 @@ export const SERVICIOS = [
       { titulo: 'Diagnóstico', texto: 'Recorremos tu operación completa: qué se compra, cómo se almacena, cómo se vende y cómo se cobra.' },
       { titulo: 'Diseño por módulos', texto: 'Definimos catálogos, almacenes, flujos y reportes. Priorizamos lo que más duele para arrancar por ahí.' },
       { titulo: 'Migración y arranque por etapas', texto: 'Cargamos productos, clientes, proveedores y saldos. Arrancamos módulo por módulo, sin detener la operación.' },
-      { titulo: 'Estabilización', texto: 'Las primeras semanas conciliamos contra la realidad y ajustamos hasta que el sistema sea la única fuente.' },
+      { titulo: 'Estabilización', texto: 'Las primeras semanas comparamos contra la realidad y ajustamos hasta que el sistema sea la única fuente.' },
     ],
     faq: [
       { p: '¿Cuánto tarda implementar un ERP?', r: 'Depende de cuántos módulos y de qué tan limpios estén tus datos. Por eso arrancamos por etapas: el primer módulo en operación en semanas, no en meses, y el resto va entrando sobre esa base.' },
