@@ -21,18 +21,18 @@ export const INDUSTRIAS = [
 
     titulo: 'ERP y CRM para distribuidoras en México | Loomware',
     descripcion:
-      'Sistemas para distribuidoras y mayoristas: inventario real, pedidos sin recaptura, cobranza con seguimiento y facturación CFDI. Llamada sin costo.',
+      'Sistemas para distribuidoras y mayoristas: inventario real, pedidos sin recaptura, cobranza con seguimiento y facturación con sello del SAT. Llamada sin costo.',
     h1: 'Sistemas para distribuidoras: el inventario que dice el sistema es el que hay',
     intro: [
       'En una distribuidora todo pasa por el inventario, y cuando el inventario no es confiable, todo lo demás se contagia: se vende lo que no hay, se compra lo que sobra y el cliente se entera antes que tú.',
-      'A eso se suman los pedidos que entran por WhatsApp y alguien tiene que capturar, la cobranza que vive en la cabeza del vendedor, y un cierre de mes que tarda más de lo que debería porque hay que conciliar tres archivos.',
+      'A eso se suman los pedidos que entran por WhatsApp y alguien tiene que capturar, la cobranza que vive en la cabeza del vendedor, y un cierre de mes que tarda más de lo que debería porque hay que cuadrar tres archivos a mano.',
     ],
     sintomas: [
       'El conteo físico nunca cuadra con el sistema y nadie sabe desde cuándo.',
       'Los pedidos llegan por WhatsApp, correo y teléfono, y alguien los recaptura uno por uno.',
       'No sabes el margen real por producto hasta que cierras el mes.',
       'La cobranza depende de que el vendedor se acuerde de llamar.',
-      'Cada promoción es una hoja aparte que hay que conciliar después.',
+      'Cada promoción es una hoja aparte que alguien tiene que cuadrar después.',
     ],
     comoAyudamos: [
       {

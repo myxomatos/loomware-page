@@ -34,7 +34,7 @@ export default function Nosotros() {
               Ponemos orden en la operación y nos quedamos hasta que funcione
             </h2>
             <p>
-              Loomware nace en {CIUDAD} para atender a empresas que hoy operan entre hojas de
+              Loomware nace en el {CIUDAD} para atender a empresas que hoy operan entre hojas de
               cálculo, WhatsApp y programas que no se hablan entre sí. Les ayudamos a elegir e
               implementar la herramienta correcta —un CRM, un ERP, una automatización o software a
               la medida— sin obligarlas a cambiar su forma de trabajar para caber en un sistema.

@@ -43,7 +43,7 @@ export const PREGUNTAS = [
   },
   {
     id: 'minutos',
-    pregunta: '¿Cuánto tiempo al día se le va a cada una en capturar y conciliar?',
+    pregunta: '¿Cuánto tiempo al día se le va a cada una en capturar y cuadrar?',
     ayuda: 'Sumando capturar, revisar que cuadre y buscar lo que no cuadró.',
     opciones: [
       { label: '15 min', valor: 15 },
@@ -67,8 +67,8 @@ export const PREGUNTAS = [
   },
   {
     id: 'diasFactura',
-    pregunta: '¿Cuántos días pasan entre que entregas y se timbra la factura?',
-    ayuda: 'Desde que sale la mercancía o se presta el servicio hasta el CFDI.',
+    pregunta: '¿Cuántos días pasan entre que entregas y sale la factura?',
+    ayuda: 'Desde que sale la mercancía o se presta el servicio hasta que la factura queda sellada ante el SAT.',
     opciones: [
       { label: 'El mismo día', valor: 0 },
       { label: '1 a 2', valor: 1.5 },
