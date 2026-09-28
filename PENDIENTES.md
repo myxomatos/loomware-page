@@ -129,6 +129,50 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 
 ## Alan
 
+- [x] **El recordatorio de skills ya no promete lo que no hay (2026-09-27).** El plugin
+      `mattpocock-skills` se activa en `.claude/settings.json`, que viaja con el repositorio,
+      pero **instalarlo es por máquina**: en la de Alan nunca se instaló —comprobado: el único
+      marketplace sincronizado es el de Anthropic— así que el hook le sugería siete skills que
+      al invocarlas respondían «Unknown skill».
+
+      El repositorio sí existe y es legítimo: `mattpocock/skills`, público, MIT, con su
+      `.claude-plugin`, y **los siete nombres del hook son correctos** —se verificaron uno por
+      uno contra el contenido del repo—. El problema era sólo la instalación.
+
+      `.claude/hooks/skills.sh` comprueba antes de hablar: si el plugin está, sale la lista de
+      siempre; si no, salen las dos órdenes para instalarlo. Probado en los dos casos.
+
+      **Falta que cada quien lo instale en su máquina** (una vez, no viaja con el repo):
+
+      ```
+      /plugin marketplace add mattpocock/skills
+      /plugin install mattpocock-skills@mattpocock
+      ```
+
+- [ ] **Borrar los artifacts viejos de claude.ai — decisión de Alan.** No son dos, como decía
+      este archivo: **son nueve**, y no todos se borran igual.
+
+      **Los ocho recorridos, uno por solución** —«Del andén al cobro», «De la llamada al
+      cierre», «De la checada al recibo», «Del carrito a la puerta», «Del WhatsApp al reporte
+      del lunes», «De la talla única a tu medida», «Del cuarto del servidor a cualquier lugar»,
+      «Del campo a la oficina, el mismo día»—. Son una foto del **22 de septiembre** y ya
+      derivaron: el del ERP se sigue llamando «Del andén al cobro» y esa página hoy se llama
+      «Del trabajo hecho al dinero cobrado». Desde esa foto llevan **diez pasadas** encima
+      —tipografías propias, la pantalla del sistema, el cierre corregido, los 30 minutos, la
+      acción en la primera pantalla—. **Se borran:** su reemplazo existe, responde 200 en el
+      dominio y trae su propia imagen de vista previa.
+
+      **«Ocho piezas, una operación» es distinto y no se borra a la ligera:** es el resumen de
+      las ocho soluciones con su diagrama, y **no tiene equivalente en el sitio**. Se leyó
+      completo y hoy está mal en dos cosas: apunta todos sus enlaces al preview de la rama
+      —lleva adentro un comentario que dice «cambiar cuando el PR se mezcle», y ya se mezcló—
+      y promete *«Diagnóstico sin costo y sin compromiso»*, que es justo lo que la nueva
+      política de precio de Aldo contradice. **Tres salidas:** arreglarlo y dejarlo, borrarlo y
+      perder la pieza, o llevarlo al sitio como página y entonces borrarlo.
+
+      **«Loomware contra el mundo» NO se toca:** es el estudio comparativo y este archivo lo
+      cita dos veces.
+
 Salió de la segunda pasada del estudio (2026-09-22): al volver a medir la página contra los
 veintidós sitios aparecieron cosas que son nuestras. Ninguna bloquea a las de Aldo. El PR que
 Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
