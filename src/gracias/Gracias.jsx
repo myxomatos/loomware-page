@@ -17,7 +17,10 @@ const PASOS = [
   {
     icon: 'message-circle',
     title: 'Te contestamos',
-    text: 'Lo antes posible, por el mismo medio que nos dejaste: tu WhatsApp o tu correo.',
+    // Sin enumerar medios: el formulario acepta WhatsApp o correo —el servidor
+    // los distingue por la arroba— y la calculadora pide sólo correo, así que
+    // cualquier lista sería falsa en alguno de los dos caminos.
+    text: 'Lo antes posible, por el medio que nos dejaste.',
   },
   {
     icon: 'calendar',
