@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Logo from './Logo'
 import Icon from './Icon'
 import { EMAIL, TELEFONOS, CIUDAD, whatsappUrl } from '../data/contacto'
@@ -22,8 +23,6 @@ const COLUMNS = [
       { label: '¿Cuánto te cuesta tu Excel?', href: '/calculadora' },
       { label: 'Solicitar diagnóstico', href: '/#contacto' },
       { label: 'Nuestro proceso', href: '/#proceso' },
-      { label: 'Integraciones', href: '/servicios/automatizacion' },
-      { label: 'Migración a la nube', href: '/servicios/infraestructura-cloud' },
     ],
   },
   {
@@ -38,6 +37,10 @@ const COLUMNS = [
 ]
 
 export default function Footer() {
+  // Se decide después de montar, no al dibujar: el HTML prerenderizado no tiene
+  // Analytics y el primer dibujado del cliente tiene que dar lo mismo.
+  const [conAnalytics, setConAnalytics] = useState(false)
+  useEffect(() => setConAnalytics(typeof window.gtag === 'function'), [])
   return (
     <footer className="footer">
       <div className="container">
@@ -45,7 +48,7 @@ export default function Footer() {
           <div className="footer__brand">
             <Logo variant="light" />
             <p className="footer__tagline">
-              Tecnología empresarial para crecer con claridad, control y confianza.
+              Ponemos orden donde hoy hay Excel, WhatsApp y programas que no se hablan entre sí.
             </p>
             <ul className="footer__links footer__contact">
               <li>
@@ -87,10 +90,10 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <p>
+          <p suppressHydrationWarning>
             © {new Date().getFullYear()} Loomware · Todos los derechos reservados.
             {/* Sin Analytics no hay cookies ni banda que reabrir: el botón no haría nada. */}
-            {typeof window.gtag === 'function' && (
+            {conAnalytics && (
               <>
                 {' · '}
                 <button

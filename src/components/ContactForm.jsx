@@ -16,10 +16,13 @@ const FALLBACK_EMAIL = EMAIL
    distingue cuál es por la arroba. */
 const INITIAL = { nombre: '', contacto: '', necesidad: '', acepta: false }
 
+/* Lo que el visitante recibe, en el orden en que lo recibe. Antes eran tres
+   frases de plantilla de propuesta —«Oportunidades de mejora
+   identificadas»— que no decían qué pasa ni cuándo. */
 const BENEFITS = [
-  'Análisis de tus canales y procesos',
-  'Oportunidades de mejora identificadas',
-  'Propuesta de solución y estimación',
+  'Una llamada de 30 minutos, sin costo y sin compromiso',
+  'Revisamos cómo entra y se mueve un dato hoy',
+  'Y te decimos qué conviene resolver primero',
 ]
 
 function buildMailto(values, interes) {
@@ -64,10 +67,17 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
       window.location.assign('/gracias')
     } catch (err) {
       setStatus('error')
+      /* Lo que el servidor contesta sobre los datos —«Falta tu nombre»— sí se
+         enseña, porque es lo que hay que corregir. Lo que contesta sobre su
+         propia configuración —«Falta configurar RESEND_API_KEY»— no: eso es
+         nuestro y el visitante no puede hacer nada con él. */
+      const suyo = /^(Falta tu |El correo |Déjanos |Es necesario )/.test(err.message || '')
       setError(
         import.meta.env.DEV
           ? 'En local no corre la función de Cloudflare; prueba el formulario en el sitio publicado.'
-          : err.message,
+          : suyo
+            ? err.message
+            : 'No pudimos enviar tu solicitud en este momento.',
       )
     }
   }
@@ -75,10 +85,10 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
   return (
     <div id="contacto" className="card contact">
       <div className="contact__intro">
-        <h3 className="contact__title">{titulo || 'Lleva tu negocio al siguiente nivel'}</h3>
+        <h3 className="contact__title">{titulo || 'Empecemos por el diagnóstico'}</h3>
         <p className="text-xs">
           {intro ||
-            'Agenda una llamada sin costo y descubre cómo podemos ayudarte a crecer con más control y eficiencia.'}
+            'Cuéntanos qué quieres resolver. Empezamos con una llamada de 30 minutos, sin costo, para entender tu operación y decirte por dónde conviene empezar.'}
         </p>
         <ul className="check-list">
           {BENEFITS.map((b) => (
@@ -160,7 +170,9 @@ export default function ContactForm({ interes = '', titulo, intro, origen = 'Ini
           type="text"
           name="contacto"
           placeholder="WhatsApp o correo"
-          autoComplete="email tel"
+          // Un solo valor: el navegador ignora «email tel» completo y entonces no
+          // autocompleta nada. Se queda el correo, que es lo que más se escribe aquí.
+          autoComplete="email"
           required
           minLength={6}
           value={values.contacto}

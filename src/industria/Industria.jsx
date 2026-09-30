@@ -5,6 +5,7 @@ import WhatsAppButton from '../components/WhatsAppButton'
 import ContactForm from '../components/ContactForm'
 import { industriaPorId, INDUSTRIAS } from '../data/industrias'
 import { servicioPorSlug } from '../data/servicios'
+import { recorridoDeServicio } from '../data/recorridos'
 import { centrarActual } from '../lib/centrarActual'
 import '../servicio/servicio.css'
 import './industria.css'
@@ -121,21 +122,33 @@ export default function Industria({ id }) {
               <h2>Las soluciones que suelen aplicar</h2>
             </header>
             <ul className="ind__servicios-lista">
-              {servicios.map((s) => (
-                <li key={s.slug} className="card ind__servicio">
-                  <a href={`/servicios/${s.slug}`}>
-                    <span className="icon-tile">
-                      <Icon name={s.icon} size={24} />
-                    </span>
-                    <h3 className="h4">{s.nombre}</h3>
-                    <p>{s.resumen}</p>
-                    <span className="link-arrow">
-                      Ver la solución
-                      <Icon name="arrow-right" size={14} />
-                    </span>
-                  </a>
-                </li>
-              ))}
+              {servicios.map((s) => {
+                const r = recorridoDeServicio(s.slug)
+                return (
+                  <li key={s.slug} className="card ind__servicio">
+                    <a href={`/servicios/${s.slug}`}>
+                      <span className="icon-tile">
+                        <Icon name={s.icon} size={24} />
+                      </span>
+                      <h3 className="h4">{s.nombre}</h3>
+                      <p>{s.resumen}</p>
+                      <span className="link-arrow">
+                        Ver la solución
+                        <Icon name="arrow-right" size={14} />
+                      </span>
+                    </a>
+                    {/* El recorrido, como enlace aparte: va a otro destino que la
+                        tarjeta, y tiene que ser hermano del enlace y no ir dentro,
+                        porque un enlace dentro de otro no es HTML válido. */}
+                    {r && (
+                      <a href={`/recorridos/${r.slug}`} className="ind__paso">
+                        Paso a paso: {r.titulo.toLowerCase()}
+                        <Icon name="arrow-right" size={13} />
+                      </a>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </section>
@@ -146,7 +159,7 @@ export default function Industria({ id }) {
               interes={g.nombre}
               origen={g.nombre}
               titulo={`Diagnóstico para ${g.nombre.toLowerCase()}`}
-              intro={`Revisamos tu operación, te decimos dónde se está yendo el tiempo y qué conviene resolver primero. La primera llamada es sin costo y sin compromiso.`}
+              intro={`Revisamos tu operación, te decimos dónde se está yendo el tiempo y qué conviene resolver primero. La primera llamada es de 30 minutos, sin costo y sin compromiso.`}
             />
           </div>
         </section>
