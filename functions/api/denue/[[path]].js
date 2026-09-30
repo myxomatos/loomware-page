@@ -50,7 +50,9 @@ export async function onRequestGet({ request, env, params }) {
   if (path.some((s) => s === '.' || s === '..')) return json({ error: 'Ruta no permitida' }, 400)
 
   const url = `${INEGI}/${path.map(segment).join('/')}/${env.DENUE_TOKEN}`
-  const upstream = await fetch(url, { headers: { accept: 'application/json' } })
+  // Sin «accept: application/json»: con ese encabezado el INEGI codifica la
+  // lista dos veces ("[{\"CLEE\":…}]"). Comprobado el 2026-09-29.
+  const upstream = await fetch(url)
   const text = await upstream.text()
 
   return new Response(text, {
