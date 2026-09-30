@@ -100,8 +100,8 @@ export default function Industria({ id }) {
             <header className="section__head">
               <h2>Cómo lo resolvemos</h2>
               <p className="section__subtitle">
-                Lo que implementamos en empresas de este giro, según lo que encontremos en el
-                diagnóstico.
+                Lo construimos a la medida para empresas de este giro. Qué se incluye lo
+                definimos contigo en el diagnóstico.
               </p>
             </header>
             <ul className="servicio__grid">
