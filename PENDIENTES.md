@@ -108,6 +108,14 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
 
+- [x] ~~**`/prospectar` en producción**~~ — 2026-09-30. Busca y pagina bien. Dos
+      tropiezos del camino, por si vuelven: (1) si `DENUE_TOKEN` no tiene forma de UUID
+      (36 caracteres con guiones), el INEGI contesta 404 y no «No autorizado»; (2) con
+      `accept: application/json` el INEGI codifica la lista dos veces (arreglado en el PR #9).
+- [x] ~~**Web Analytics de Cloudflare desactivado**~~ — 2026-09-30. La CSP bloqueaba su
+      script y ensuciaba la consola; lo inyectaba la configuración del dominio (*Analytics &
+      Logs → Web Analytics → loomware.com.mx*), no la del proyecto de Pages. La analítica
+      será GA4.
 - [ ] **Límite de intentos para `/prospectar`.** La Function compara la contraseña sin tope de
       intentos y el repositorio es público, así que cualquiera sabe dónde probar. Se cierra sin
       código: Cloudflare → Security → WAF → *Rate limiting rules*, una regla para la ruta
