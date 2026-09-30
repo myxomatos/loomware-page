@@ -1,8 +1,9 @@
 import Icon from './Icon'
 import './Process.css'
 
-// Optional: link "Agendar ahora" to a scheduling page (Calendly, Cal.com…).
-// Without it the button scrolls to the diagnostic form.
+// Si algún día se conecta una agenda de verdad (Calendly, Cal.com…), esta
+// variable la trae y el botón sí agenda. Mientras no exista, el botón no
+// promete agendar: lleva al formulario y lo dice con esas palabras.
 const SCHEDULE_URL = import.meta.env.VITE_SCHEDULE_URL || ''
 
 const STEPS = [
@@ -10,25 +11,25 @@ const STEPS = [
     n: '01',
     icon: 'search',
     title: 'Diagnóstico',
-    text: 'Entendemos tu operación, objetivos y puntos críticos actuales.',
+    text: 'Recorremos cómo operas hoy: qué se captura, quién lo captura y dónde se vuelve a teclear.',
   },
   {
     n: '02',
     icon: 'pencil',
     title: 'Diseño',
-    text: 'Definimos la solución, alcance e integraciones necesarias.',
+    text: 'Definimos qué se construye, hasta dónde llega y con qué se tiene que conectar.',
   },
   {
     n: '03',
     icon: 'settings',
     title: 'Implementación',
-    text: 'Configuramos, desarrollamos e integramos la solución con tu equipo.',
+    text: 'Lo construimos y lo conectamos, con la gente que lo va a usar enfrente.',
   },
   {
     n: '04',
     icon: 'bar-chart',
-    title: 'Escalamiento',
-    text: 'Medimos resultados, optimizamos y evolucionamos contigo.',
+    title: 'Acompañamiento',
+    text: 'Medimos que se use, ajustamos lo que estorba y lo crecemos con tu operación.',
   },
 ]
 
@@ -42,7 +43,7 @@ export default function Process() {
       <div className="container process__inner">
         <div className="process__main">
           <h2 className="process__title">
-            Un proceso claro para resultados reales
+            De la primera llamada al sistema operando
             <Icon name="arrow-right" size={26} className="process__title-arrow" />
           </h2>
 
@@ -72,10 +73,12 @@ export default function Process() {
           <span className="icon-tile icon-tile--acento schedule__icon">
             <Icon name="calendar" size={26} />
           </span>
-          <h3 className="schedule__title">Agenda una llamada</h3>
-          <p className="text-xs">Una llamada de 30 minutos, sin costo, para entender tu operación.</p>
+          <h3 className="schedule__title">{SCHEDULE_URL ? 'Agenda una llamada' : 'La primera llamada es sin costo'}</h3>
+          <p className="text-xs">
+            Treinta minutos para entender tu operación y decirte por dónde conviene empezar.
+          </p>
           <a className="btn btn--outline btn--sm" {...scheduleProps}>
-            Agendar ahora
+            {SCHEDULE_URL ? 'Agendar ahora' : 'Pedir la llamada'}
             <Icon name="arrow-right" size={16} />
           </a>
         </aside>

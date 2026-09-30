@@ -25,11 +25,11 @@ export const INDUSTRIAS = [
 
     titulo: 'ERP y CRM para distribuidoras en México | Loomware',
     descripcion:
-      'Sistemas para distribuidoras y mayoristas: inventario real, pedidos sin recaptura, cobranza con seguimiento y facturación CFDI. Llamada sin costo.',
+      'Sistemas para distribuidoras: inventario real, pedidos sin recaptura, cobranza con seguimiento y facturación sellada ante el SAT. Llamada sin costo.',
     h1: 'Sistemas para distribuidoras: el inventario que dice el sistema es el que hay',
     intro: [
       'En una distribuidora todo pasa por el inventario, y cuando hay varios almacenes, rutas y sucursales, basta con que uno no sea confiable para que todo lo demás se contagie: se vende lo que no hay, se compra lo que sobra y el cliente se entera antes que tú.',
-      'A eso se suman cientos de pedidos que entran por WhatsApp, por teléfono y por vendedor y alguien tiene que capturar, la cobranza que vive en la cabeza de cada vendedor, y un cierre de mes que tarda más de lo que debería porque hay que conciliar los archivos de cada sucursal.',
+      'A eso se suman cientos de pedidos que entran por WhatsApp, por teléfono y por vendedor y alguien tiene que capturar, la cobranza que vive en la cabeza de cada vendedor, y un cierre de mes que tarda más de lo que debería porque hay que cuadrar a mano los archivos de cada sucursal.',
     ],
     sintomas: [
       'El conteo físico nunca cuadra con el sistema, y entre almacenes cuadra todavía menos.',
@@ -68,7 +68,7 @@ export const INDUSTRIAS = [
 
     titulo: 'ERP para manufactura y talleres en México | Loomware',
     descripcion:
-      'Órdenes de producción, materiales, costo real por lote y facturación en un solo sistema. Para plantas y talleres de manufactura en México. Llamada sin costo.',
+      'Órdenes de producción, materiales, costo real por lote y facturación en un solo sistema. Para plantas y talleres en México. Llamada sin costo.',
     h1: 'Sistemas para manufactura: saber el costo real antes del cierre de mes',
     intro: [
       'En muchas plantas la orden de producción todavía vive en papel o en un pizarrón. Funciona mientras son pocas órdenes y un solo turno; cuando son cientos de órdenes, varias líneas y tres turnos, nadie sabe con certeza qué se está produciendo, con qué material y a qué costo.',
@@ -87,7 +87,7 @@ export const INDUSTRIAS = [
         texto: 'Cada orden con su estado, su responsable y su fecha. Desde la oficina se ve qué está en proceso sin bajar al piso.',
       },
       {
-        titulo: 'Materiales y explosión de insumos',
+        titulo: 'Materiales por orden',
         texto: 'El sistema calcula qué materia prima requiere cada orden y avisa antes de que falte.',
       },
       {
@@ -197,7 +197,7 @@ export const INDUSTRIAS = [
 
     titulo: 'Sistemas para comercio: tienda y mostrador | Loomware',
     descripcion:
-      'Un solo inventario para sucursales y tienda en línea, con pagos, envíos y facturación conectados, hecho a la medida. Para comercios en México. Llamada sin costo.',
+      'Un solo inventario para sucursales y tienda en línea, a la medida, con pagos, envíos y factura conectados. Para comercios en México. Llamada sin costo.',
     h1: 'Sistemas para comercio: un solo inventario para el mostrador y la tienda en línea',
     intro: [
       'Vender en línea y en varias sucursales con inventarios distintos crea un problema que el cliente descubre antes que tú: compra algo que ya no hay, o deja de comprar algo que sí tenías.',
@@ -268,7 +268,7 @@ export const INDUSTRIAS = [
       },
       {
         titulo: 'Nómina del personal',
-        texto: 'Cálculo, timbrado y dispersión con las particularidades de tu esquema: turnos, guardias o comisiones.',
+        texto: 'Cálculo, recibos sellados ante el SAT y el pago al banco, con lo propio de tu esquema: turnos, guardias o comisiones.',
       },
     ],
   },

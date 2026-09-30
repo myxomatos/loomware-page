@@ -16,14 +16,25 @@
     --surface:#FFFFFF;
     --ink:#191A1E;
     --ink-2:#4E5058;
-    --ink-3:#7A7D86;
+    --ink-3:#666971;
     --rule:#CFC9C0;
     --rule-soft:#E3DED6;
 
-    --signal:#A35C23;       /* cobre: el dato que el sistema registra */
+    --signal:#9B5721;       /* cobre: el dato que el sistema registra */
     --signal-soft:#F8EDE2;
     --money:#12643C;        /* verde: lo que ganas */
-    --pain:#6B6F79;         /* gris: así está hoy */
+    /* Los tres colores de texto, medidos el 2026-09-28 contra TODOS los fondos
+       sobre los que aparecen —el papel, la ficha, la tarjeta del «Hoy» y el
+       blanco—, no contra uno solo. El objetivo es 4.6:1 y no 4.5, para que un
+       fondo un poco distinto no vuelva a tirarlo por dos centésimas:
+         --ink-3  #666971  4.61:1   (antes #7A7D86, 3.46 — nunca se había medido)
+         --signal #9B5721  4.66:1   (antes #A35C23, 4.29)
+         --pain   #5C5F67  4.67:1   (antes #63666F, que anoté como 4.97 y daba 4.19:
+                                     lo había medido contra el fondo equivocado)
+       En oscuro, medido el mismo día contra el papel, la superficie, la franja
+       apagada y la placa del dato: --ink-3 #918C82 da 4.61:1 —con #8C877D daba
+       4.32 sobre la placa— y los otros cinco van de 5.2 a 13.7. */
+    --pain:#5C5F67;         /* gris: así está hoy */
     --pain-bg:#DFDCD5;      /* franja apagada, separada del papel a simple vista */
 
     /* --- materiales de la escena: cara superior / izquierda / derecha --- */
@@ -48,10 +59,10 @@
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
-      --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+      --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#918C82;
       --rule:#3F3930; --rule-soft:#2A2620;
       --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
-      --pain:#8F8878; --pain-bg:#1B1915;
+      --pain:#998F7D; --pain-bg:#1B1915;
       /* la escena va más clara que el papel: si no, el dibujo se vuelve lodo */
       --grd:#221F19; --grd2:#2E2A23;
       --asf-t:#3D3931; --line:#6A6357;
@@ -69,10 +80,10 @@
     }
   }
   :root[data-theme="dark"]{
-    --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#817B70;
+    --paper:#131210; --surface:#211E19; --ink:#EDE9E1; --ink-2:#A8A296; --ink-3:#918C82;
     --rule:#3F3930; --rule-soft:#2A2620;
     --signal:#E3A566; --signal-soft:#2E2219; --money:#5BD095;
-    --pain:#8F8878; --pain-bg:#1B1915;
+    --pain:#998F7D; --pain-bg:#1B1915;
     --grd:#221F19; --grd2:#2E2A23;
     --asf-t:#3D3931; --line:#6A6357;
     --con-t:#4A4539; --con-l:#322E27; --con-r:#3E3A31;
@@ -119,6 +130,11 @@
   h1{font-family:var(--mono);font-weight:700;
     font-size:clamp(25px,4.6vw,42px);line-height:1.04;letter-spacing:-.03em;
     text-transform:uppercase;margin:0;text-wrap:balance;}
+  /* Para quién es. Son las palabras que Aldo validó el 2026-09-23 para el hero
+     del inicio: el posicionamiento es de la empresa, no de cada recorrido. Antes
+     de esto la primera pantalla no lo decía en ninguna parte. */
+  .paraquien{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:.02em;
+    color:var(--signal);}
   .deck{max-width:78ch;color:var(--ink-2);font-size:14px;margin:0;line-height:1.55;}
   .deck b{color:var(--ink);font-weight:600;}
 
@@ -144,6 +160,10 @@
     gap:30px;margin-top:22px;align-items:start;}
   .figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);
     display:flex;flex-direction:column;gap:8px;min-width:0;}
+  /* En escritorio no cambia nada: el dibujo y la ficha viajan juntos en la
+     columna pegada. En celular se separan, y por qué está abajo, en la
+     consulta de 880. */
+  .figura__fijo{display:flex;flex-direction:column;gap:8px;min-width:0;}
 
   /* lectura del momento: en HTML, no dentro del SVG, para que se lea en celular */
   .readout{display:flex;flex-direction:column;gap:1px;padding:8px 11px;
@@ -200,6 +220,11 @@
 
   /* ---------- pasos ---------- */
   .steps{display:flex;flex-direction:column;min-width:0;}
+  /* El recorrido no tenía nombre: el índice del documento pasaba de la sección
+     de giros a «01 …», seis encabezados hermanos sin nada que los presentara.
+     Y decir cuántos son es información: el lector sabe cuánto falta. */
+  .steps__t{font-family:var(--mono);font-weight:700;font-size:clamp(15px,1.7vw,18px);
+    letter-spacing:-.035em;margin:0 0 3px;color:var(--ink);text-transform:uppercase;}
   .pista{font-family:var(--mono);font-size:10px;color:var(--ink-3);
     padding:0 0 10px 14px;border-bottom:1px solid var(--rule-soft);margin-bottom:6px;}
   /* Alto mínimo para que sólo un paso quede al centro de la pantalla a la vez:
@@ -219,7 +244,7 @@
   .gauge{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;font-weight:500;
     color:var(--signal);white-space:nowrap;padding:2px 6px;border:1px solid currentColor;
     border-radius:2px;line-height:1.4;font-variant-numeric:tabular-nums;margin-left:auto;}
-  .step h2{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
+  .step h3{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.035em;
     margin:0;color:var(--ink);text-wrap:balance;}
 
   /* el contraste es el argumento: hoy, con el sistema, y lo que ganas */
@@ -233,11 +258,54 @@
   .vs__row--hoy p{color:var(--ink-2);}
   .vs__row--con{background:var(--signal-soft);border-left:3px solid var(--signal);}
   .vs__row--con .vs__lbl{color:var(--signal);}
+  /* La línea que traduce el paso a otro giro: el lector cambia la palabra y
+     es su negocio. Apagada y con filete, para que no compita con los tres
+     renglones de arriba. */
+  .enotro{margin:10px 0 0;font-size:13px;line-height:1.55;color:var(--ink-3);
+    padding-left:12px;border-left:2px solid var(--rule);}
+  .enotro b{color:var(--ink-2);font-weight:600;}
   .vs__row--gana{background:var(--surface);border-left:3px solid var(--money);}
   .vs__row--gana .vs__lbl{color:var(--money);}
   .vs__row--gana p{font-weight:500;}
 
+  /* Un celular acostado da 390 px de alto, y ahí no cabe un paso escrito para
+     una pantalla de pie: medido, ninguno de los seis entraba entero. Arriba se
+     resolvió lo grave —el dibujo dejó de comerse la pantalla, ahora van dos
+     columnas—; esto cierra el resto apretando lo que no se lee: el relleno de
+     los renglones, el aire entre ellos y el mínimo del paso. La letra no baja
+     de 13 px: un paso que cabe pero no se lee no sirve de nada. */
+  @media (max-height:560px) and (min-width:700px){
+    .step{min-height:0;padding-block:8px;}
+    .step-head{margin-bottom:5px;}
+    .vs__row{padding:5px 10px;}
+    .vs__row p{line-height:1.38;}
+    .vs__lbl{line-height:1.5;}
+    .enotro{margin-top:7px;line-height:1.42;}
+    .figura__fijo,.figure{gap:5px;}
+  }
+
+  /* En un teléfono chico el paso y el hueco que le queda debajo del dibujo se
+     pelean por veinte píxeles: medido a 360×740, los pasos van de 378 a 406 y
+     el hueco es 386. Recortar frases una por una sería volver a romperlo la
+     próxima vez que alguien agregue una palabra, así que se aprieta lo que no
+     se lee —relleno, aire entre renglones, márgenes— y la letra se queda en
+     13 px. Da unos 30 px por paso, que es el margen que faltaba. */
+  @media (max-width:400px){
+    .step{padding-block:8px;}
+    .step-head{margin-bottom:5px;}
+    .vs__row{padding:6px 9px;}
+    .vs__row p{line-height:1.4;}
+    .enotro{margin-top:8px;line-height:1.45;}
+  }
+
   /* ---------- secciones de abajo ---------- */
+  /* Una puerta a media página. Sin ella, entre el botón de la barra y el cierre
+     no había dónde picar en toda la lectura, y quien acaba de reconocerse en un
+     paso es quien más cerca está de escribir. */
+  .atajo{margin:30px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+    padding:16px 18px;background:var(--surface);border:1px solid var(--rule);}
+  .atajo p{margin:0;flex:1 1 260px;min-width:0;font-size:13.5px;color:var(--ink-2);}
+  @media (max-width:560px){ .atajo .btn{width:100%;justify-content:center;} }
   .giros,.faq,.costo{margin-top:38px;padding-top:22px;border-top:1px solid var(--rule);}
   .giros h2,.faq h2,.costo h2,.cierre h2{font-family:var(--mono);font-weight:700;
     font-size:clamp(18px,2.4vw,25px);letter-spacing:-.035em;margin:0 0 8px;
@@ -285,8 +353,12 @@
   .cierre .otras{margin:12px 0 0;max-width:none;font-family:var(--mono);font-size:10px;
     color:var(--ink-3);line-height:1.8;}
   /* El correo no se parte a media dirección: se baja entero. */
-  .cierre .otras a{color:var(--ink-2);text-underline-offset:2px;
+  .cierre .otras a{position:relative;color:var(--ink-2);text-underline-offset:2px;
     overflow-wrap:normal;word-break:normal;white-space:nowrap;}
+  /* El blanco de estos dos enlaces medía 11 px y WCAG 2.2 AA pide 24 (2.5.8).
+     Van dentro de un párrafo, así que crecerlos movería el texto: el blanco lo
+     da una capa transparente, igual que el botón del recorrido. */
+  .cierre .otras a::after{content:"";position:absolute;inset:-7px 0;}
   .cierre .otras .par{display:inline;}
   .cierre .otras a:hover{color:var(--signal);}
   .cierre .otras .sep{margin-inline:7px;color:var(--rule);}
@@ -354,13 +426,26 @@
     .e,.chip,.step{transition:none;}
   }
 
-  @media (max-width:880px){
+  /* El diseño apilado —dibujo pegado arriba, pasos debajo— pide alto. En un
+     celular acostado (844x390) no lo hay: lo pegado mide ~350 de los 390 y no
+     queda nada para leer; medido, ninguno de los seis pasos cabía. Pero 844 de
+     ancho SÍ dan para dos columnas de ~400, que es justo lo que ese aparato
+     necesita, así que abajo de 560 px de alto se queda el diseño de dos
+     columnas. Se apila sólo cuando hay ancho chico **y** alto suficiente. */
+  @media (max-width:880px) and (min-height:560px){
     /* bloque, no grid: así el dibujo puede quedarse pegado arriba mientras
        los pasos pasan por debajo, igual que en escritorio */
     .cols{display:block;margin-top:16px;}
-    .figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+    /* display:contents y no static: un elemento pegado sólo se queda dentro de
+       la caja de su padre, y la de .figure termina donde empiezan los pasos, así
+       que el dibujo se despegaba a medio camino. Sin caja, lo pegado cuelga de
+       .cols, que abarca los seis. Medido a 360×740 antes de esto: lo pegado
+       ocupaba de 465 a 524 px de los 740 y ningún paso cabía en lo que sobraba. */
+    .figure{display:contents;}
+    .figura__fijo{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
       background:var(--paper);padding-block:8px;margin-bottom:6px;
       border-bottom:1px solid var(--rule-soft);}
+    .exp{margin:14px 0 4px;}
     .stage svg{max-height:33vh;}
     .rot-est{font-size:11px;}
     /* dos renglones siempre: si el texto del momento cambiara el alto del dibujo
@@ -415,12 +500,8 @@
   <header class="mast">
     <div class="eyebrow lbl">Automatización · un ejemplo, paso a paso</div>
     <h1>Del WhatsApp al reporte del lunes</h1>
-    <p class="deck">Automatizar es definir la regla una vez —<b>«cuando pase esto, haz
-      aquello»</b>— y dejar que corra. Para verlo seguimos un solo pedido por cinco escritorios
-      de la misma empresa, dos veces: arriba, llevado a mano de un escritorio a otro; abajo,
-      por un <b>tubo neumático</b>, como el del banco, que lo lleva solo en segundos. Seis
-      paradas y <b>una sola captura</b>. El giro no cambia la idea: abajo está el mismo
-      recorrido en otros cinco.</p>
+      <p class="paraquien">Para distribuidoras, manufactura y empresas de servicios en México.</p>
+    <p class="deck"><b>Automatizar</b> es decir la regla una vez —«cuando pase esto, haz aquello»— y dejar que corra sola. Abajo seguimos un pedido por cinco escritorios, dos veces: llevado a mano, y por un <b>tubo neumático</b> como el del banco, que lo lleva solo en segundos. <b>Seis paradas y una sola captura.</b></p>
 
     <figure class="antes">
       <svg viewBox="0 0 620 124" role="img"
@@ -471,141 +552,8 @@
     </div>
   </header>
 
-  <div class="cols">
-    <div class="figure">
-
-      <div class="readout" aria-live="polite">
-        <span class="readout__k lbl" id="hudK">PED-WA-3310 · Pedido por WhatsApp</span>
-        <span class="readout__v" id="hudV">7:12 am · arriba: alguien lo lee a las 9:40 · abajo: entra al sistema a las 7:12</span>
-      </div>
-
-      <div class="stage">
-        <svg id="scene" viewBox="0 0 680 380" role="img"
-             aria-label="Cinco escritorios de la misma empresa —WhatsApp, el sistema, finanzas, el cliente y dirección— dibujados dos veces. Arriba, como se hace hoy: un pedido va de un escritorio a otro en manos de una persona, con el tiempo que espera en cada uno y una pila de pendientes que crece. Abajo, con el sistema: un tubo neumático une los escritorios y una cápsula lleva el pedido sola, en segundos, con su aviso, su alerta y el reporte del lunes.">
-          <g id="world"></g>
-        </svg>
-      </div>
-
-      <div class="cap">
-        <span id="stateLabel">01 / 06 · Llega el pedido</span>
-        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
-        <span>Cifras de ejemplo</span>
-      </div>
-
-      <ul class="legend">
-        <li><span class="sw sw--papel"></span>El pedido, en manos de alguien</li>
-        <li><span class="sw sw--espera"></span>Tiempo que espera</li>
-        <li><span class="sw sw--tubo"></span>El tubo: la regla corriendo sola</li>
-        <li><span class="sw sw--capsula"></span>El pedido, en el tubo</li>
-      </ul>
-
-      <div class="exp">
-        <div class="exp__t lbl">El flujo · una sola captura, todo lo demás corre solo</div>
-        <ul class="chips" id="chips">
-          <li class="chip" id="c0"><b>PED-WA-3310</b><span>pedido</span></li>
-          <li class="chip" id="c1"><b>CAP-3310</b><span>captura</span></li>
-          <li class="chip" id="c2"><b>PAGO-7741</b><span>pago</span></li>
-          <li class="chip" id="c3"><b>AVISO-3310</b><span>al cliente</span></li>
-          <li class="chip" id="c4"><b>ALERTA-A12</b><span>excepción</span></li>
-          <li class="chip chip--tot" id="ctot"><b>1 regla</b><span>y corre sola cada vez</span></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="steps" id="steps">
-
-      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
-
-      <section class="step on" tabindex="0" data-i="0">
-        <div class="step-head"><span class="paso">01</span><h2>Llega el pedido</h2><span class="gauge">7:12 am</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Entra por WhatsApp al celular de alguien a las 7:12. Se lee cuando esa persona
-              abre el teléfono, a las 9:40.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El mensaje entra al sistema a las 7:12, con quién lo mandó, qué pidió y de qué
-              canal vino.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>El pedido existe desde el momento en que llega, esté quien esté.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="1">
-        <div class="step-head"><span class="paso">02</span><h2>La captura</h2><span class="gauge">18 min → 2 s</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Lupita copia el pedido del teléfono al sistema, renglón por renglón. Dieciocho
-              minutos, y hay doce más esperando.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El pedido ya está capturado; Lupita solo revisa lo que el sistema marca como
-              duda.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Una sola captura, y la gente deja de ser el pegamento entre sistemas.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="2">
-        <div class="step-head"><span class="paso">03</span><h2>El pago</h2><span class="gauge">5 h → 1 s</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El pago cae al banco a las 11. Finanzas lo ve a las 4 de la tarde, cuando revisa
-              el estado de cuenta, y hasta entonces libera el pedido.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>La regla: cuando llega un pago que cubre el pedido, se libera y se avisa a
-              finanzas. A las 11:02 ya está liberado.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>El pedido sale el mismo día que el cliente pagó.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="3">
-        <div class="step-head"><span class="paso">04</span><h2>El aviso al cliente</h2><span class="gauge">plantilla</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Alguien tiene que acordarse de escribirle «ya salió tu pedido». A veces se
-              acuerda; a veces el cliente pregunta primero.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>Al liberarse, sale el WhatsApp con la plantilla aprobada: qué salió, cuándo llega
-              y su factura adjunta.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>El cliente se entera antes de preguntar, cada vez.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="4">
-        <div class="step-head"><span class="paso">05</span><h2>La excepción</h2><span class="gauge">existencia &lt; 10</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>Ese pedido dejó la existencia en 4. Se descubre cuando el siguiente cliente pide y
-              ya se acabó: tres días después.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>La regla: si la existencia baja de 10, alerta a almacén y a compras en ese
-              momento, con el producto y el proveedor.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Te enteras cuando todavía es un aviso, con tiempo para resolverlo.</p></div>
-        </div>
-      </section>
-
-      <section class="step" tabindex="0" data-i="5">
-        <div class="step-head"><span class="paso">06</span><h2>El reporte del lunes</h2><span class="gauge">3 h → 7:00 am</span></div>
-        <div class="vs">
-          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
-            <p>El lunes alguien junta ventas, cobros y pendientes de tres sistemas en un Excel.
-              Tres horas, y llega a dirección a las 11.</p></div>
-          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
-            <p>El reporte se arma solo con el cierre del viernes y llega a las 7:00 a quien lo
-              lee, con las mismas cifras que el sistema.</p></div>
-          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
-            <p>Catorce horas a la semana que regresan a lo que sí necesita a una persona.</p></div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <section class="giros">
-    <h2>El mismo recorrido, en otros giros</h2>
+<section class="giros">
+    <h2>¿Qué se copia a mano en tu negocio?</h2>
     <p>Dibujamos un pedido por WhatsApp porque ahí el tiempo perdido se ve con los ojos. Lo que
       cambia entre un giro y otro es <b>qué se copia a mano hoy</b> y a quién hay que avisar.</p>
     <ul class="rejilla">
@@ -633,6 +581,159 @@
       giro no está en la lista, también aplica: se define en el diagnóstico.</p>
   </section>
 
+  <div class="cols">
+    <div class="figure">
+
+      <div class="figura__fijo">
+
+      <div class="readout" aria-live="polite">
+        <span class="readout__k lbl" id="hudK">PED-WA-3310 · Pedido por WhatsApp</span>
+        <span class="readout__v" id="hudV">7:12 am · arriba: alguien lo lee a las 9:40 · abajo: entra al sistema a las 7:12</span>
+      </div>
+
+      <div class="stage">
+        <svg id="scene" viewBox="0 0 680 380" role="img"
+             aria-label="Cinco escritorios de la misma empresa —WhatsApp, el sistema, finanzas, el cliente y dirección— dibujados dos veces. Arriba, como se hace hoy: un pedido va de un escritorio a otro en manos de una persona, con el tiempo que espera en cada uno y una pila de pendientes que crece. Abajo, con el sistema: un tubo neumático une los escritorios y una cápsula lleva el pedido sola, en segundos, con su aviso, su alerta y el reporte del lunes.">
+          <g id="world"></g>
+        </svg>
+      </div>
+
+      <div class="cap">
+        <span id="stateLabel">01 / 06 · Llega el pedido</span>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
+        <span>Cifras de ejemplo</span>
+      </div>
+
+
+      </div>
+      <ul class="legend">
+        <li><span class="sw sw--papel"></span>El pedido, en manos de alguien</li>
+        <li><span class="sw sw--espera"></span>Tiempo que espera</li>
+        <li><span class="sw sw--tubo"></span>El tubo: la regla corriendo sola</li>
+        <li><span class="sw sw--capsula"></span>El pedido, en el tubo</li>
+      </ul>
+
+      <div class="exp">
+        <div class="exp__t lbl">El flujo · una sola captura, todo lo demás corre solo</div>
+        <ul class="chips" id="chips">
+          <li class="chip" id="c0"><b>PED-WA-3310</b><span>pedido</span></li>
+          <li class="chip" id="c1"><b>CAP-3310</b><span>captura</span></li>
+          <li class="chip" id="c2"><b>PAGO-7741</b><span>pago</span></li>
+          <li class="chip" id="c3"><b>AVISO-3310</b><span>al cliente</span></li>
+          <li class="chip" id="c4"><b>ALERTA-A12</b><span>excepción</span></li>
+          <li class="chip chip--tot" id="ctot"><b>1 regla</b><span>y corre sola cada vez</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="steps" id="steps">
+
+      <h2 class="steps__t">Seis pasos, cinco escritorios</h2>
+      <p class="pista">Baja para recorrerlo · o pica cualquier paso</p>
+
+      <section class="step on" tabindex="0" data-i="0">
+        <div class="step-head"><span class="paso">01</span><h3>Llega el pedido</h3><span class="gauge">7:12 am</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Entra por WhatsApp al celular de alguien a las 7:12. Se lee cuando esa persona
+              abre el teléfono, a las 9:40.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El mensaje entra al sistema a las 7:12, con quién lo mandó, qué pidió y de qué
+              canal vino.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>El pedido existe desde el momento en que llega, esté quien esté.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en un despacho es la solicitud que llega por correo; en una clínica, la cita que se pide por WhatsApp.</p>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="1">
+        <div class="step-head"><span class="paso">02</span><h3>La captura</h3><span class="gauge">18 min → 2 s</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Lupita copia el pedido del teléfono al sistema, renglón por renglón. Dieciocho
+              minutos, y hay doce más esperando.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El pedido ya está capturado; Lupita solo revisa lo que el sistema marca como
+              duda.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Una sola captura, y la gente deja de ser el pegamento entre sistemas.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una constructora es capturar la requisición de la obra; en una tienda, dar de alta el pedido del mostrador.</p>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="2">
+        <div class="step-head"><span class="paso">03</span><h3>El pago</h3><span class="gauge">5 h → 1 s</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El pago cae al banco a las 11. Finanzas lo ve a las 4 de la tarde, cuando revisa
+              el estado de cuenta, y hasta entonces libera el pedido.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La regla: cuando llega un pago que cubre el pedido, se libera y se avisa a
+              finanzas. A las 11:02 ya está liberado.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>El pedido sale el mismo día que el cliente pagó.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una escuela es la colegiatura que se deposita; en un taller, el anticipo de una reparación.</p>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="3">
+        <div class="step-head"><span class="paso">04</span><h3>El aviso al cliente</h3><span class="gauge">plantilla</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Alguien tiene que acordarse de escribirle «ya salió tu pedido». A veces se
+              acuerda; a veces el cliente pregunta primero.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>Al liberarse, sale el WhatsApp con la plantilla aprobada: qué salió, cuándo llega
+              y su factura adjunta.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>El cliente se entera antes de preguntar, cada vez.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una clínica es avisar que el estudio está listo; en una mueblería, que el envío ya salió.</p>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="4">
+        <div class="step-head"><span class="paso">05</span><h3>La excepción</h3><span class="gauge">existencia &lt; 10</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>Ese pedido dejó la existencia en 4. Se descubre cuando el siguiente cliente pide y
+              ya se acabó: tres días después.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>La regla: si la existencia baja de 10, alerta a almacén y a compras en ese
+              momento, con el producto y el proveedor.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Te enteras cuando todavía es un aviso, con tiempo para resolverlo.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en una farmacia es el pedido sin receta; en una obra, el material que llega distinto al que se pidió.</p>
+        </div>
+      </section>
+
+      <section class="step" tabindex="0" data-i="5">
+        <div class="step-head"><span class="paso">06</span><h3>El reporte del lunes</h3><span class="gauge">3 h → 7:00 am</span></div>
+        <div class="vs">
+          <div class="vs__row vs__row--hoy"><span class="vs__lbl lbl">Hoy</span>
+            <p>El lunes alguien junta ventas, cobros y pendientes de tres sistemas en un Excel.
+              Tres horas, y llega a dirección a las 11.</p></div>
+          <div class="vs__row vs__row--con"><span class="vs__lbl lbl">Con el sistema</span>
+            <p>El reporte se arma solo con el cierre del viernes y llega a las 7:00 a quien lo
+              lee, con las mismas cifras que el sistema.</p></div>
+          <div class="vs__row vs__row--gana"><span class="vs__lbl lbl">Ganas</span>
+            <p>Catorce horas a la semana que regresan a lo que sí necesita a una persona.</p></div>
+          <p class="enotro"><b>En otro negocio:</b> en un despacho es cuántos casos entraron y cerraron; en una clínica, cuántas citas se dieron y cuántas llegaron.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+
+  <section class="atajo">
+    <p>¿Cuántas de esas seis paradas hace alguien a mano en tu empresa? Cuéntanos una.</p>
+    <a class="btn" href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20la%20automatizaci%C3%B3n%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa." target="_blank" rel="noopener noreferrer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.25.69-1.44 1.32-1.99 1.36-.53.04-1.02.23-3.44-.72-2.9-1.14-4.73-4.1-4.87-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.09.99-2.37c.26-.29.57-.36.76-.36l.55.01c.18.01.41-.07.64.49.24.57.8 1.97.87 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.19-.28.37-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35Z"/></svg>
+      Cuéntanos cuál
+    </a>
+  </section>
+
   <section class="faq">
     <h2>Antes de que preguntes</h2>
     <p>Las seis dudas que sale todo director antes de automatizar, contestadas sin rodeos.</p>
@@ -642,7 +743,7 @@
           Cambiar de sistema es otra decisión, y a veces conviene y a veces no.</span></li>
       <li><b>¿Qué compro exactamente?</b>
         <span>Las reglas de tu operación, construidas y corriendo: qué pasa cuando llega un
-          pedido, un pago, una incidencia o un lunes. Con registro de todo lo que hicieron.</span></li>
+          pedido, un pago, un imprevisto o un lunes. Con registro de todo lo que hicieron.</span></li>
       <li><b>¿Y si una regla falla?</b>
         <span>Cada flujo deja registro de lo que hizo y avisa cuando algo quedó pendiente. Lo
           que se detiene, se ve; y quien tiene que saberlo, lo sabe.</span></li>
@@ -673,8 +774,7 @@
 
   <section class="cierre">
     <h2>Te decimos qué automatizar primero</h2>
-    <p>Revisamos qué se copia a mano en tu operación, cuánto tiempo se lleva y qué regla lo
-      resuelve, y te decimos por dónde empezar. La primera llamada es sin costo y sin compromiso.</p>
+    <p>En 30 minutos, sin costo y sin compromiso, nos cuentas qué se copia a mano en tu operación y cuánto tiempo se lleva, y te decimos por dónde empezar.</p>
     <a class="btn"
        href="https://wa.me/525580968928?text=Hola%2C%20vi%20el%20recorrido%20de%20automatizaci%C3%B3n%20de%20Loomware%20y%20me%20interesa%20un%20diagn%C3%B3stico%20para%20mi%20empresa."
        target="_blank" rel="noopener noreferrer">
@@ -918,7 +1018,9 @@
   apply(0);
 
   var reproduciendo = false;
-  var figuraEl = document.querySelector(".figure");
+  /* La línea de lectura se calcula contra lo que de verdad se queda pegado:
+     en celular .figura__fijo, en escritorio la columna entera. */
+  var figuraEl = document.querySelector(".figura__fijo") || document.querySelector(".figure");
 
   function elegir(){
     if (reproduciendo) return;          // mientras reproduce, manda el reproductor

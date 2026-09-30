@@ -30,7 +30,11 @@ export default defineConfig(({ mode }) => {
     transformIndexHtml(html) {
       const base = basePublica()
       const htmlConTarjeta =
-        base === DOMINIO ? html : html.split(`${DOMINIO}/og-image.png`).join(`${base}/og-image.png`)
+        base === DOMINIO
+          ? html
+          : // La genérica y también /og/<pagina>.png, la propia de cada página.
+            html.split(`${DOMINIO}/og-image.png`).join(`${base}/og-image.png`)
+              .split(`${DOMINIO}/og/`).join(`${base}/og/`)
       const tags = []
       if (VITE_GSC_VERIFICATION) {
         tags.push({ tag: 'meta', attrs: { name: 'google-site-verification', content: VITE_GSC_VERIFICATION }, injectTo: 'head' })

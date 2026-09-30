@@ -10,8 +10,8 @@ import './Solutions.css'
  * un cliente y llevan tarjeta completa; las demás acompañan y van en lista.
  * Ocho tarjetas iguales no le decían al visitante por dónde arrancar.
  *
- * El enlace al recorrido vive en el hero, no aquí: tenerlo en los dos lugares
- * de la misma página partía la atención sin agregar nada.
+ * El enlace al recorrido vive en la sección «Recorridos», arriba: tenerlo en
+ * los dos lugares de la misma página partía la atención sin agregar nada.
  */
 const ENTRADA = SERVICIOS.filter((s) => s.entrada)
 const RESTO = SERVICIOS.filter((s) => !s.entrada)
@@ -42,13 +42,14 @@ export default function Solutions() {
                   <Icon name={s.beneficio.icon} size={14} />
                   {s.beneficio.label}
                 </span>
-              </a>
-              <div className="solution__acciones">
-                <a href={`/servicios/${s.slug}`} className="solution__more">
+                {/* El «Ver más» vivía aquí como segundo enlace al mismo destino que
+                    la tarjeta: dos paradas de tabulador al mismo lugar, y 20 px de
+                    alto para el dedo. Ahora es el pie de la propia tarjeta. */}
+                <span className="solution__more">
                   Ver más
                   <Icon name="arrow-right" size={14} />
-                </a>
-              </div>
+                </span>
+              </a>
             </li>
           ))}
         </ul>

@@ -9,7 +9,7 @@
  * estructurados (Service + FAQPage) en el HTML estático: así Google los lee
  * aunque no ejecute JavaScript.
  */
-import { writeFileSync, mkdirSync, readdirSync, unlinkSync } from 'node:fs'
+import { writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { SERVICIOS } from '../src/data/servicios.js'
@@ -55,8 +55,38 @@ const ldFaq = (s) =>
     })),
   })
 
+/* La tarjeta propia de la página, si `npm run og:paginas` ya la dibujó. Si no
+   está, se queda la genérica: vale más una tarjeta repetida que un enlace que
+   previsualiza un archivo que no existe. */
+const tarjeta = (ruta) =>
+  existsSync(resolve(raiz, 'public/og/' + ruta.replace('/', '-') + '.png'))
+    ? '/og/' + ruta.replace('/', '-') + '.png'
+    : '/og-image.png'
+
+/*
+ * Migas: hacen que Google enseñe «loomware.com.mx › ERP › …» en vez de la URL
+ * cruda, y le dicen dónde cuelga cada página. Medido el 2026-09-28: no las
+ * tenía ninguna página del sitio.
+ */
+const ldMigas = (s, tipo, ruta) =>
+  JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: DOMINIO },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: tipo === 'servicio' ? 'Soluciones' : 'Industrias',
+        item: tipo === 'servicio' ? `${DOMINIO}/#soluciones` : `${DOMINIO}/#industrias`,
+      },
+      { '@type': 'ListItem', position: 3, name: s.nombre, item: `${DOMINIO}/${ruta}` },
+    ],
+  })
+
 const plantilla = (s, tipo = 'servicio') => {
   const ruta = tipo === 'servicio' ? `servicios/${s.slug}` : `industrias/${s.id}`
+  const og = tarjeta(ruta)
   const attr = tipo === 'servicio' ? `data-servicio="${s.slug}"` : `data-industria="${s.id}"`
   const entrada = tipo === 'servicio' ? '/src/servicio/main.jsx' : '/src/industria/main.jsx'
   return `<!DOCTYPE html>
@@ -76,16 +106,17 @@ const plantilla = (s, tipo = 'servicio') => {
     <meta property="og:url" content="${DOMINIO}/${ruta}" />
     <meta property="og:title" content="${esc(s.titulo)}" />
     <meta property="og:description" content="${esc(s.descripcion)}" />
-    <meta property="og:image" content="${basePublica()}/og-image.png" />
+    <meta property="og:image" content="${basePublica()}${og}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(s.titulo)}" />
     <meta name="twitter:description" content="${esc(s.descripcion)}" />
-    <meta name="twitter:image" content="${basePublica()}/og-image.png" />
+    <meta name="twitter:image" content="${basePublica()}${og}" />
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 
+    <script type="application/ld+json">${ldMigas(s, tipo, ruta)}</script>
     ${tipo === 'servicio' ? `<script type="application/ld+json">${ldService(s)}</script>
     <script type="application/ld+json">${ldFaq(s)}</script>` : `<script type="application/ld+json">${ldService(s)}</script>`}
   </head>

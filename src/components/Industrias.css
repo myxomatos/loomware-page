@@ -8,10 +8,17 @@
   flex-direction: column;
   gap: var(--sp-3);
   padding: var(--sp-6);
+  /* Ancla de la capa del enlace del nombre, que cubre la tarjeta entera. */
+  position: relative;
 }
 .industria__nombre {
   font-size: var(--fs-body);
   margin-top: var(--sp-1);
+}
+.industria__nombre a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
 .industria__nombre a {
   transition: color var(--t-base) var(--ease);
@@ -21,6 +28,7 @@
 }
 .industria__ver {
   font-size: var(--fs-xs);
+  color: var(--purple-500);
 }
 .industria__dolor {
   font-size: var(--fs-sm);
@@ -28,6 +36,8 @@
   flex: 1;
 }
 .industria__solucion {
+  /* Los chips llevan a otro lado, así que van encima de la capa del nombre. */
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
@@ -95,14 +105,5 @@
   .industria__ver,
   .industria__solucion {
     display: none;
-  }
-  /* Con el enlace largo oculto, el nombre extiende su área de toque a todo el renglón. */
-  .industria {
-    position: relative;
-  }
-  .industria__nombre a::after {
-    content: "";
-    position: absolute;
-    inset: 0;
   }
 }

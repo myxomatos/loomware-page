@@ -33,7 +33,12 @@
 .servicio__nav-links::-webkit-scrollbar {
   display: none;
 }
+/* Los renglones de la barra median 31 px: cumplen el mínimo de AA (24) pero no
+   los 44 que manda el sistema del sitio, y ésta es la navegación principal de
+   la página donde aterriza quien llega de Google. El blanco crece con una capa
+   transparente, así que la barra mide lo mismo. */
 .servicio__nav-links a {
+  position: relative;
   flex: none;
   padding: 6px 8px;
   border-radius: var(--r-md);
@@ -41,6 +46,11 @@
   font-weight: 600;
   color: var(--text-600);
   transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.servicio__nav-links a::after {
+  content: "";
+  position: absolute;
+  inset: -7px 0;
 }
 .servicio__nav-links a:hover {
   color: var(--purple-500);
@@ -167,15 +177,20 @@
 }
 
 /* Cierre */
+/* Con dos soluciones relacionadas cabían en un renglón; con tres se salían de
+   la pantalla en celular. Ahora el bloque envuelve en vez de desbordar. */
 .servicio__relacionados {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--sp-3);
   margin-top: var(--sp-6);
 }
 .servicio__relacionados ul {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-2);
+  min-width: 0;
 }
 .servicio__relacionados .chip:hover {
   border-color: var(--purple-400);

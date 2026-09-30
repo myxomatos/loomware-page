@@ -6,6 +6,64 @@
   margin-bottom: var(--sp-8);
 }
 
+/* La respuesta al chip. Estaba vacía: los seis chips no cambiaban nada en
+   pantalla y el subtítulo prometía encontrar la solución. */
+.needs__respuesta {
+  margin-bottom: var(--sp-8);
+}
+.needs__respuesta-titulo {
+  font-size: var(--fs-sm);
+  color: var(--text-500);
+  text-align: center;
+  margin-bottom: var(--sp-4);
+}
+.needs__respuesta-titulo strong {
+  color: var(--text-900);
+}
+.needs__soluciones {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 420px));
+  justify-content: center;
+  gap: var(--sp-3);
+  margin: 0 auto;
+  padding: 0;
+  max-width: 860px;
+}
+.needs__solucion {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: 48px;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+}
+.needs__solucion:hover {
+  border-color: var(--purple-400);
+  transform: translateY(-2px);
+}
+.needs__solucion .icon-tile {
+  flex: none;
+}
+.needs__solucion-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.needs__solucion-texto span {
+  font-size: var(--fs-xs);
+  color: var(--text-500);
+}
+.needs__solucion-flecha {
+  flex: none;
+  margin-left: auto;
+  color: var(--purple-500);
+}
+
 /* Franja de impacto: título a la izquierda, cuatro puntos en fila */
 .impact {
   display: grid;

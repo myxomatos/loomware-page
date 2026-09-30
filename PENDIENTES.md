@@ -1,16 +1,167 @@
 # Pendientes de loomware-page
 
-Estado al 27 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
+Estado al 30 de septiembre de 2026. Quien resuelva un punto, lo tacha y anota la fecha.
 
-> **Revisión de Aldo en curso desde el 22 de septiembre de 2026.** La rama `aldo` trae los 68
-> commits de `alan` más los ajustes de la revisión (ver «Resueltas el 2026-09-22/23»), así que
-> **el PR a `main` sale de `aldo`**. Preview: <https://aldo.loomware-page.pages.dev>.
-> El 2026-09-26 entraron a `aldo` los 49 commits que Alan hizo del 23 al 25 (segunda pasada del
-> estudio y pasadas del ERP); sus pendientes, que él seguía escribiendo en `CLAUDE.md`, viven ya
-> aquí, repartidos entre «Aldo» y «Alan».
-> Después del merge, Alan hace `git merge main` en `alan` para seguir al día.
+> **Dónde estamos, al 30 de septiembre de 2026.**
+>
+> **`loomware.com.mx` está en vivo** y, con el PR que mezcla `alan` (los 29 commits del 26 al
+> 28), recibe el **prerenderizado**: las 25 URLs mandan su texto en el HTML. `/prospectar` busca
+> en producción desde el 30.
+>
+> **Lo siguiente es el guion de abajo, desde el paso 2**: Analytics, Search Console y Google
+> Business. El paso 1 (la mezcla) es ese PR.
+>
+> *Historia del archivo:* el PR salía de `aldo` mientras duró su revisión, del 22 al 27; el
+> 2026-09-26 entraron a `aldo` los 49 commits que Alan hizo del 23 al 25, y el 2026-09-30 los 29
+> del 26 al 28 —en los dos casos por `aldo`, porque resolver conflictos exige commits y nadie
+> commitea en la rama del otro—. Después de cada merge, Alan hace `git merge main` en `alan`.
 
-## Ruta a producción — Aldo, en este orden
+## Guion de arranque — Aldo, una sola sentada
+
+Todo lo de abajo está **comprobado el 2026-09-28**: los pasos funcionan, los valores son los que
+el sitio ya publica y nada hay que inventarlo. Son unas dos horas.
+
+El orden no es caprichoso: **el paso 1 es el que convierte 17 páginas mudas en 25 legibles**, y
+los pasos 2 y 3 son los que permiten saber si algo de esto sirvió. Hacer el 4 antes que los
+otros tres es gastar dinero a ciegas.
+
+---
+
+### Paso 1 · Mezclar `alan` a `main` — ✅ 2026-09-30, por `aldo` (ver «Aldo»)
+
+Producción está en vivo, pero sirve **17 de sus 25 URLs sin una sola palabra**: todo el texto lo
+dibuja JavaScript y el prerenderizado que lo arregla está en la rama. Los ocho recorridos sí se
+publican completos, porque son HTML escrito a mano.
+
+| | producción hoy | con la mezcla |
+| --- | --- | --- |
+| `/` | 181 palabras | **2 153** |
+| `/servicios/erp` | **7 palabras** | 792 |
+| `/industrias/manufactura` | **9 palabras** | 554 |
+| Total indexable | ~12 500 | **25 422** |
+
+Comprobado hoy: **`alan` va 20 commits adelante de `main`, cero atrás y cero conflictos.** La
+mezcla es de avance rápido.
+
+1. Avísale a Alan que ya revisaste el preview: <https://alan.loomware-page.pages.dev>
+2. Alan abre el PR de `alan` a `main`. **El texto ya está escrito** en `.github/PR-alan.md`:
+   `gh pr create --base main --head alan --title "Prerenderizar el sitio, cerrar accesibilidad y posicionamiento" --body-file .github/PR-alan.md`
+3. Revísalo y mézclalo
+
+*(Nota para Alan: `gh` no tiene sesión en esta máquina. O `gh auth login`, o abrir el PR desde
+el navegador.)*
+
+---
+
+### Paso 2 · Analytics — 20 minutos
+
+**Los pasos completos —retención de 14 meses, eventos clave, dimensiones personalizadas y
+tráfico interno— están en «Aldo → Analítica».** Aquí va el resumen.
+
+Comprobado hoy construyendo el sitio con un ID de prueba: **en cuanto exista la variable, se
+inyectan solos** el guion de Google, el consentimiento en «denegado» y la banda de cookies. No
+hay nada que programar.
+
+1. <https://analytics.google.com> → crear propiedad **GA4** para `loomware.com.mx`
+2. Copiar el **ID de medición**, que empieza con `G-`
+3. Cloudflare → `loomware-page` → Settings → **Variables and Secrets** → agregar
+   `VITE_GA_ID` con ese valor, tipo *Text*, **sólo en Production** (decidido el 2026-09-30:
+   así los previews no ensucian las estadísticas)
+4. Deployments → el último → ⋯ → **Retry deployment** (es variable de *build*: sin redesplegar
+   no entra)
+5. En GA4, marcar como **conversión** estos eventos, que el código ya reporta:
+
+   | Evento | Cuándo se dispara |
+   | --- | --- |
+   | `generate_lead` | al llegar a `/gracias` tras enviar. Trae `metodo` = `formulario` o `calculadora` |
+   | `click_whatsapp` | cualquier clic a WhatsApp. Trae `origen` (hero, formulario, flotante, o la página) |
+   | `calculadora_inicio` | cuando alguien empieza a contestar la calculadora |
+
+   Y estos tres, sin marcarlos como conversión, sirven para entender el camino:
+   `calculadora_desde_hero`, `recorrido_desde_inicio`, `ver_video`.
+
+**Cómo saber que quedó:** abrir <https://loomware.com.mx> y **debe aparecer la banda de
+cookies**. Sale sola en cuanto hay `VITE_GA_ID`, porque sin Analytics el sitio no pone ninguna
+cookie. Si no aparece, falta el *Retry deployment*.
+
+---
+
+### Paso 3 · Search Console — 15 minutos
+
+Es lo único que contesta si Google ya indexó el sitio. Al 28 de septiembre, buscar «Loomware»
+devuelve el repositorio de GitHub y no el dominio.
+
+1. <https://search.google.com/search-console> → **Agregar propiedad** → *Prefijo de URL* →
+   `https://loomware.com.mx`
+2. Verificar. Dos caminos, cualquiera sirve:
+   - **Por DNS** (el más limpio): Google da un registro TXT y se captura en Cloudflare DNS.
+   - **Por etiqueta HTML**: Google da un código; se carga como `VITE_GSC_VERIFICATION` en
+     Cloudflare igual que la de arriba y se redespliega. Comprobado hoy: la etiqueta se
+     inyecta sola.
+3. **Sitemaps** → enviar `https://loomware.com.mx/sitemap.xml`
+   Comprobado hoy: **25 URLs, todas https y del dominio, con `lastmod`, `changefreq` y
+   `priority`.**
+4. **Inspección de URLs** → pegar `https://loomware.com.mx/servicios/erp` → *Solicitar
+   indexación*. Con eso se ve de inmediato si Google está leyendo texto o una página vacía.
+
+---
+
+### Paso 4 · Google Business — 30 minutos
+
+Es lo de mayor retorno por hora de toda la lista: un dominio nuevo tarda de tres a seis meses en
+posicionar y el perfil aparece en días. Es la puerta a lo único que podemos ganar este año, que
+son las búsquedas locales.
+
+**Los datos, tal como el sitio ya los publica.** Tienen que coincidir exactamente o la
+verificación se cae:
+
+| Campo | Valor |
+| --- | --- |
+| Nombre | **Loomware** |
+| Teléfono | **+52 55 8096 8928** |
+| Sitio web | **https://loomware.com.mx** |
+| Ubicación | **Estado de México** |
+
+**Dado de alta como negocio con área de servicio, no con dirección.** Decisión de Alan el
+2026-09-28, y el sitio ya está alineado: el domicilio completo salió de los datos estructurados
+de la portada —publicaban la calle y el código postal a la vista de cualquiera— y ahí ahora dice
+sólo *Estado de México*. **La calle queda en un único lugar del sitio,
+`/aviso-de-privacidad`, porque la ley obliga a que el aviso diga el domicilio del responsable.**
+
+Así que en Google: elegir **«Reparto de productos y servicios a los clientes»** y **no** publicar
+la dirección. Google te la va a pedir de todos modos para mandarte la postal de verificación,
+pero queda oculta. Área de servicio sugerida: Atizapán de Zaragoza, Naucalpan, Tlalnepantla,
+Cuautitlán Izcalli y Ciudad de México.
+
+Es además lo coherente: si el perfil publicara la calle y el sitio no, los datos no coincidirían,
+que es justo lo que hace que la verificación se caiga.
+
+**Categorías** (hay que elegirlas de la lista de Google; éstas existen):
+principal *Empresa de desarrollo de software*; secundarias *Consultor en tecnología de la
+información* y *Servicio de asistencia informática*.
+
+**Descripción** (750 caracteres como máximo; ésta tiene 412, y está escrita con las palabras
+del propio sitio):
+
+> Loomware pone orden en la operación de empresas que hoy trabajan entre Excel, WhatsApp y
+> programas que no se hablan entre sí. Implementamos CRM, ERP, nómina, comercio en línea,
+> automatización, infraestructura en la nube y apps de campo, y construimos software a la medida
+> cuando ningún sistema de catálogo queda. Trabajamos en todo México, con diagnóstico y
+> desarrollo a distancia. La primera llamada es de 30 minutos y sin costo.
+
+**Servicios** a dar de alta, uno por cada página del sitio, para que el perfil enlace a cada una:
+CRM · ERP · Nómina · Comercio en línea · Automatización de procesos · Software a medida ·
+Infraestructura cloud · Apps móviles.
+
+---
+
+### Después, y no antes
+
+Con los cuatro pasos hechos ya se puede medir, y entonces sí tienen sentido las páginas por zona
+y el contenido que contesta preguntas de búsqueda —los dos están abajo, en «Alan»—. Y Google Ads,
+que hasta que Analytics no esté cargado es pagar sin saber qué se compró.
+
+## Ruta a producción — el historial de cómo se llegó aquí
 
 Los pasos 2 y 3 desbloquean todo lo demás: sin ellos el formulario no envía y `/prospectar`
 responde 500.
@@ -24,8 +175,9 @@ responde 500.
 | 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | Formulario ✅ 2026-09-24: llega de `web@` a `aldo_sanchez@` y «Responder» va al prospecto |
 | 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | ✅ 2026-09-27 (PR #4). Se mezcló sin cerrar las validaciones de contenido de «Aldo»; lo que no cuadre entra en otro PR |
 | 7 | Probar en producción, y confirmar que aparece la banda de cookies si ya está `VITE_GA_ID` | <https://loomware.com.mx> | 2026-09-27: las 25 URLs del sitemap dan 200, `/api/contacto` contesta y la CSP está puesta. Formulario probado en producción: el correo llega y «Responder» va al prospecto. Falta la banda de cookies (sin `VITE_GA_ID`) |
-| 8 | Search Console: confirmar la propiedad y enviar el sitemap (25 URLs) | <https://search.google.com/search-console> | |
+| 8 | Search Console: confirmar la propiedad y enviar el sitemap (25 URLs) | <https://search.google.com/search-console> | **Pendiente.** Es lo único que contesta si Google ya indexó el sitio: al 28 de septiembre, buscar la marca devuelve el repositorio de GitHub y no el dominio |
 | 9 | Invitar a Alan a Cloudflare como Administrator | Manage Account → Members → Invite | |
+| 10 | **Mezclar `alan` a `main`** — 14 commits que vuelven indexables las 17 páginas que hoy Google recibe vacías | GitHub | **Es lo urgente; ver el primer punto de «Aldo»** |
 
 ### Variables de Cloudflare
 
@@ -51,12 +203,6 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 
 ## Aldo
 
-- [ ] **Avisarle a Alan de sus artifacts de WhatsApp.** Las copias de los recorridos que manda
-      como artifacts de claude.ai siguen diciendo «diagnóstico sin costo» y enlazan a
-      `alan.loomware-page.pages.dev`. Las del repositorio ya se corrigieron.
-- [ ] **Dar de alta el perfil de Google Business.** <https://business.google.com>, media hora y
-      gratis. Mete a Loomware en el mapa para «software empresarial cerca de mí» o «ERP CDMX» en
-      días; el SEO de un dominio nuevo tarda de tres a seis meses.
 - [ ] **Validar los dos supuestos de la calculadora**: **1.35 de prestaciones** sobre el sueldo
       bruto y **176 horas al mes**, en `src/data/calculadora.js`. Es el único lugar del sitio con
       una cifra que no sale del cliente.
@@ -129,6 +275,100 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 - [ ] **Logo en otros lados.** El logo del sitio es ahora la nube de cuatro lóbulos, sin
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
+
+- [x] ~~**Mezclar `alan` a `main`**~~ — 2026-09-30: entra con el PR que mezcla `alan` en `aldo` (los 29 commits del 26 al 28, prerenderizado incluido). Al resolverlo gana la decisión de Aldo del 30: **la primera llamada es sin costo**.
+
+- [ ] **Alta en Google Business Profile — es lo de mayor retorno por hora de toda la lista.**
+      <https://business.google.com>, media hora y gratis. Aparece en días, mientras que un dominio
+      nuevo tarda de tres a seis meses en posicionar. Y es el único camino a las consultas que
+      **sí** podemos ganar este año: «implementación de ERP Estado de México», «software a medida
+      Atizapán», «consultoría ERP Naucalpan».
+
+      **Requisito que ya quedó listo:** el domicilio del sitio, el del aviso de privacidad y el de
+      los datos estructurados dicen los tres **Estado de México**. Antes el pie decía Ciudad de
+      México y los datos estructurados decían Atizapán, y la verificación del perfil se cae si no
+      coinciden.
+
+- [ ] **Decidir si el repositorio sigue siendo público.** Medido el 2026-09-28: al buscar la marca
+      «Loomware», lo que aparece es **`github.com/myxomatos/loomware-page`** y su PR #1. El sitio
+      no aparece. Y `PENDIENTES.md` **se lee sin cuenta** —comprobado con `curl`, responde 200—,
+      así que este archivo, con el estado interno, la discusión de precios y el hecho de que hay
+      un solo cliente, es hoy lo primero que encuentra quien busca el nombre de la empresa.
+
+      Son dos salidas y las dos valen: o el repositorio pasa a privado, o los pendientes salen de
+      él y viven en otro lado. Lo que no conviene es dejarlo como está sin haberlo decidido.
+
+- [ ] **El rango de precio, otra vez, y ahora con lo que hace el mercado.** El 27 se decidió no
+      publicar ninguna cifra. El 28, midiendo las búsquedas reales, salió el costo de esa
+      decisión: la consulta «cuánto cuesta un ERP en México» la contestan **nueve guías que
+      publican rangos en pesos** —COSMO CONSULT, erp.com.mx, Azterion, Magokoro, LatamReady—, y es
+      de las consultas con más intención de compra del sector. Sin una cifra, esa puerta queda
+      cerrada por definición, no por competencia.
+
+      No hace falta una lista de precios: basta un «desde», o una franja por tipo de proyecto. Es
+      tu decisión; queda anotado que ahora sabemos lo que cuesta.
+
+- [ ] **Confirmar la secuencia comercial, que ahora se cuenta igual en los cuatro lugares.** La
+      auditoría del 28 encontró que el botón de todo el sitio dice «Solicitar diagnóstico» y el
+      FAQ decía que el diagnóstico se cotiza: el visitante creía estar pidiendo lo gratis. Se
+      corrigió **respetando tu decisión del 27** —llamada sin costo → diagnóstico con su precio →
+      propuesta con precio cerrado— y ahora la misma secuencia se cuenta con las mismas palabras
+      en la respuesta de precio, la tarjeta del proceso, la entrada del formulario y los tres
+      pasos de `/gracias`: **lo sin costo es la primera llamada, de 30 minutos**; de ahí sale el
+      diagnóstico, que tiene precio según el tipo y el tamaño; del diagnóstico sale la propuesta.
+
+      **Alan entendía otra cosa** —que el diagnóstico va junto con la llamada— y de ahí salió el
+      detalle nuevo: se acuerda una segunda llamada para explicarle el diagnóstico al cliente.
+      Eso quedó escrito. Lo que hace falta es que confirmes las dos cosas: que la secuencia es
+      ésa y que la llamada donde se explica el diagnóstico va después de cotizarlo.
+
+      **Y una cosa más, del 28 por la tarde, que sí toca tu decisión de frente.** Alan pidió que
+      el sitio **no diga en ningún lado que algo es gratis**, ni la llamada de 30 minutos ni el
+      diagnóstico. Se hizo: «sin costo» salió de los 19 lugares donde estaba —el formulario, la
+      tarjeta del proceso, el FAQ, `/gracias`, las páginas de servicio y de giro, las cuatro meta
+      descriptions que lo traían, la de la portada y el cierre de los ocho recorridos—.
+
+      **Esto contradice tu decisión del 27**, que dice «llamada de 30 minutos sin costo». Hoy el
+      sitio conserva la duración y el «sin compromiso», y **ya no dice qué cuesta ese primer
+      paso**. El costo de eso, dicho sin adornos: «sin costo» es de las palabras que más mueven
+      a alguien a escribir, y quitarla sube la fricción de la única puerta que tenemos. Lo
+      mantengo como lo pidió Alan hasta que tú digas otra cosa; devolverlo es un comando.
+
+      **Decidido por Aldo el 2026-09-30: se queda «sin costo».** Se devolvió en los mismos
+      lugares al mezclar `alan` en `aldo`. Lo que sigue abierto de este punto es confirmar la
+      secuencia y la segunda llamada para explicar el diagnóstico.
+
+      Nota aparte: **la palabra «gratis» ya no estaba en ninguna parte** desde el 23 de
+      septiembre. Lo que había era «sin costo».
+
+- [ ] **Decidir si el sitio dice en algún otro lado que hay sistemas propios con cuota mensual.**
+      Dos respuestas del FAQ lo revelan —«si usas uno de nuestros sistemas, hay una cuota mensual
+      por hospedaje, mantenimiento y actualizaciones»— y **ninguna otra parte del sitio lo
+      menciona**: las ocho páginas de servicio describen implementaciones y desarrollo a medida.
+      Son dos modelos de negocio y sólo uno está contado. Toca directamente el pendiente de
+      precio: si hay un producto con cuota mensual, existe un «desde» que se puede publicar sin
+      encasillar a nadie.
+
+- [ ] **Confirmar tres promesas nuevas o cambiadas**, que ninguna estaba en tu lista:
+      1. `/gracias` **ya no da ninguna cifra de tiempo.** Decía *«En menos de 24 horas
+         hábiles»*, pasó a *«El mismo día o el siguiente día hábil»* y el 2026-09-28 Alan
+         decidió quitar el número: **«Lo antes posible, por el mismo medio que nos dejaste»**.
+         El porqué es bueno y conviene que lo sepas: quien deja un WhatsApp espera que le
+         contesten pronto, y decirle que tarda un día hábil es peor que no decir nada. Si tú
+         quieres comprometer un plazo concreto, es una línea.
+      2. «Nos quedamos después de la entrega · Medimos, ajustamos y crecemos el sistema con la
+         operación», en «Quiénes somos». Es una obligación permanente, de la misma familia que
+         las cuatro afirmaciones de seguridad que ya te preocupan.
+      3. La insignia del hero **«Quien diagnostica, diseña»** sigue sin tu visto bueno; es la (c)
+         de «Validar tres afirmaciones nuevas del inicio».
+
+- [ ] **La sede quedó en «Estado de México» en todo el sitio** (antes el pie decía Ciudad de
+      México y los datos estructurados decían Atizapán, y no coincidían). Confirma que es lo que
+      quieres publicar: es el dato con el que se da de alta el perfil de Google Business, y la
+      verificación se cae si no coincide con el domicilio.
+
+- [x] **Los artifacts de WhatsApp, resueltos (2026-09-27).** Se retiran y se manda el enlace
+      del sitio; el detalle está abajo, en «Alan». Quedan dos artifacts compartidos por borrar.
 
 - [x] ~~**`/prospectar` en producción**~~ — 2026-09-30. Busca y pagina bien. Dos
       tropiezos del camino, por si vuelven: (1) si `DENUE_TOKEN` no tiene forma de UUID
@@ -209,25 +449,192 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
 
 ## Alan
 
+- [x] **Tres páginas peleaban la misma consulta — deshecho el 2026-09-28.** Comparando los
+      títulos de las 25 páginas entre sí salió que `/servicios/erp` se titulaba «ERP para
+      distribuidoras y manufactura», que es literalmente lo que ya cubren
+      `/industrias/distribuidoras` y `/industrias/manufactura` —y es la página que más enlaces
+      internos recibe de todo el sitio, 38—. Google tenía que elegir entre tres y las tres se
+      debilitaban. **La regla que queda escrita: la página de servicio es la de la categoría, la
+      de giro es la del nicho.**
+
+- [x] **Los ocho recorridos ya dicen en el título la pregunta que contestan (2026-09-28).** Son
+      explicaciones paso a paso de 1 400 a 1 800 palabras, el formato que gana las consultas de
+      «qué es» y «cómo funciona». El del ERP llevaba «Qué es un ERP y para qué sirve» en la meta
+      description **y no en el título**. Ahora el campo `seoTitulo` cambia sólo la ficha de
+      búsqueda; **el titular que se lee dentro de la página no cambió ni una palabra**. Los ocho
+      quedan entre 53 y 59 caracteres.
+
+
+- [x] **La autoridad interna estaba repartida al revés — corregido el 2026-09-28.** Cada
+      recorrido pasó de **2 enlaces internos a entre 3 y 10**: las seis páginas de giro enlazan
+      el recorrido de cada solución que listan, y cada recorrido cierra con los que se le
+      parecen, sacados de `relacionados` en `servicios.js` para no inventar una relación
+      distinta de la del sitio. Dos parejas nuevas ahí —ERP con comercio en línea, software a
+      medida con la nube—, porque a esos dos recorridos no los listaba nadie.
+
+      Lo que se midió y motivó el cambio:
+
+      **Medición original.** Contando los enlaces que recibía cada página del sitio construido el
+      2026-09-28, contando los enlaces que recibe cada página:
+
+      | Página | Enlaces internos que recibe |
+      | --- | --- |
+      | Cada página de servicio | 17 |
+      | Cada página de giro | 16 |
+      | **Aviso de privacidad** | **16** |
+      | **Cada recorrido** (1 400–1 800 palabras) | **2** |
+
+      Las ocho páginas más largas y mejor escritas del sitio reciben dos enlaces cada una, y el
+      aviso de privacidad dieciséis, porque el pie enlaza a todo por igual. Los enlaces del cuerpo
+      valen más que los del pie, y los recorridos no reciben ninguno salvo su tarjeta del inicio y
+      la banda de su página de servicio.
+
+      Qué hacer: que las páginas de servicio y de giro enlacen su recorrido **desde el texto**, no
+      sólo desde la banda; que cada recorrido enlace a los dos o tres que se le parecen —hoy cada
+      uno es un callejón sin salida—; y revisar si el aviso de privacidad necesita dieciséis.
+
+- [x] **Los ocho recorridos no tenían datos estructurados — resuelto el 2026-09-28.** Entran
+      `HowTo` con sus seis pasos, `FAQPage` con sus preguntas y `BreadcrumbList`, los tres
+      armados **leyendo el propio HTML del recorrido**, así que si el texto cambia el dato cambia
+      con él. Comprobado en los ocho: HowTo(6), FAQPage(6 a 8), Migas(3).
+
+      **El porqué.** Las de servicio llevan `Service` y
+      `FAQPage`, las de giro llevan `Service`; los recorridos, que son las páginas más largas del
+      sitio, **no llevan nada**. Les toca `HowTo` —son seis pasos numerados, que es exactamente lo
+      que ese tipo describe— y `FAQPage` donde tengan preguntas. Se escribe en
+      `scripts/recorridos.js`, que es quien arma su `<head>`.
+
+- [x] **`BreadcrumbList` — puesto el 2026-09-28** en los ocho recorridos, las ocho de servicio
+      y las seis de giro. Comprobado: «Inicio › Soluciones › ERP», «Inicio › Industrias ›
+      Manufactura y talleres».
+
+      **El porqué.** Es lo que hace que Google enseñe
+      «loomware.com.mx › Servicios › ERP» en vez de la URL cruda, y ayuda a que entienda la
+      jerarquía. Se agrega en `scripts/generar-servicios.js` y en `scripts/recorridos.js`.
+
+- [ ] **Las páginas por zona.** Es el nivel 1 del posicionamiento y donde de verdad se puede ser
+      primero. **Depende de una decisión previa:** qué zonas se atienden de verdad y qué se puede
+      decir de cada una que sea cierto. Sin eso son páginas puerta, que se penalizan. Va después
+      del alta en Google Business, no antes.
+
+- [ ] **El contenido de nivel 2**, que es lo que contesta lo que la gente escribe antes de
+      conocernos. Las respuestas ya están escritas en `src/data/faq.js` y dentro de los ocho
+      recorridos; falta darles su propia URL. **Varias son política de la empresa y necesitan el
+      visto bueno de Aldo antes de publicarse.**
+
+- [ ] **Los rótulos de escena de cuatro recorridos se leen a 7.5 px.** Medido el 28: «DÍA»,
+      «PEDIDOS», «RESPALDO» y «FRENTE» salen a 7.5 px, y el resto de las escenas entre 8 y 11.
+      Con el contraste ya corregido se leen mejor, pero 7.5 px es texto que se ve, no que se lee,
+      y el recorrido pide leerlo: es la idea entera del formato. Se arregla escena por escena, y
+      va junto con la pantalla del sistema de los siete.
+
+- [ ] **La escala tipográfica que este archivo documenta no es la que sale.** Dice «quedan
+      20 · 16 · 15» y el mínimo real del sitio React es **12 px** —las etiquetas de sección, el
+      eslogan del pie—. No es un defecto de contraste (los 12 px ya cumplen AA), es que la
+      documentación miente sobre su propio sistema: o se anota el nivel de etiqueta, o se sube.
+
+
+- [x] **El recordatorio de skills ya no promete lo que no hay (2026-09-27).** El plugin
+      `mattpocock-skills` se activa en `.claude/settings.json`, que viaja con el repositorio,
+      pero **instalarlo es por máquina**: en la de Alan nunca se instaló —comprobado: el único
+      marketplace sincronizado es el de Anthropic— así que el hook le sugería siete skills que
+      al invocarlas respondían «Unknown skill».
+
+      El repositorio sí existe y es legítimo: `mattpocock/skills`, público, MIT, con su
+      `.claude-plugin`, y **los siete nombres del hook son correctos** —se verificaron uno por
+      uno contra el contenido del repo—. El problema era sólo la instalación.
+
+      `.claude/hooks/skills.sh` comprueba antes de hablar: si el plugin está, sale la lista de
+      siempre; si no, salen las dos órdenes para instalarlo. Probado en los dos casos.
+
+      **Falta que cada quien lo instale en su máquina** (una vez, no viaja con el repo):
+
+      ```
+      /plugin marketplace add mattpocock/skills
+      /plugin install mattpocock-skills@mattpocock
+      ```
+
+- [ ] **Borrar los artifacts viejos de claude.ai — decisión de Alan.** No son dos, como decía
+      este archivo: **son nueve**, y no todos se borran igual.
+
+      **Los ocho recorridos, uno por solución** —«Del andén al cobro», «De la llamada al
+      cierre», «De la checada al recibo», «Del carrito a la puerta», «Del WhatsApp al reporte
+      del lunes», «De la talla única a tu medida», «Del cuarto del servidor a cualquier lugar»,
+      «Del campo a la oficina, el mismo día»—. Son una foto del **22 de septiembre** y ya
+      derivaron: el del ERP se sigue llamando «Del andén al cobro» y esa página hoy se llama
+      «Del trabajo hecho al dinero cobrado». Desde esa foto llevan **diez pasadas** encima
+      —tipografías propias, la pantalla del sistema, el cierre corregido, los 30 minutos, la
+      acción en la primera pantalla—. **Se borran:** su reemplazo existe, responde 200 en el
+      dominio y trae su propia imagen de vista previa.
+
+      **«Ocho piezas, una operación» es distinto y no se borra a la ligera:** es el resumen de
+      las ocho soluciones con su diagrama, y **no tiene equivalente en el sitio**. Se leyó
+      completo y hoy está mal en dos cosas: apunta todos sus enlaces al preview de la rama
+      —lleva adentro un comentario que dice «cambiar cuando el PR se mezcle», y ya se mezcló—
+      y promete *«Diagnóstico sin costo y sin compromiso»*, que es justo lo que la nueva
+      política de precio de Aldo contradice. **Tres salidas:** arreglarlo y dejarlo, borrarlo y
+      perder la pieza, o llevarlo al sitio como página y entonces borrarlo.
+
+      **«Loomware contra el mundo» NO se toca:** es el estudio comparativo y este archivo lo
+      cita dos veces.
+
 Salió de la segunda pasada del estudio (2026-09-22): al volver a medir la página contra los
 veintidós sitios aparecieron cosas que son nuestras. Ninguna bloquea a las de Aldo. El PR que
 Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
 
-- [ ] **La página del ERP no dice cuánto tiempo le quita al prospecto.** El cierre ofrece el
-      diagnóstico pero no dice si son treinta minutos o tres días, y ésa es la objeción que
-      queda. Aldo validó el 2026-09-23 *«una llamada de 30 minutos, sin costo»*, así que ya se
-      puede traer al recorrido: es una línea de `recorridos-fuente/erp.html`.
+- [x] **Los 30 minutos, en los ocho (2026-09-27).** Y al traerlos salió algo peor: **el cierre
+      regalaba el diagnóstico.** Aldo escribió el 27, en la pregunta del precio, que «la primera
+      llamada no tiene costo; **el diagnóstico tiene su precio** según el tamaño de tu empresa».
+      Pero el cierre de los ocho decía, en el mismo párrafo, *«Recorremos tu operación completa …
+      y te decimos qué conviene resolver primero. La primera llamada son 30 minutos, sin
+      costo»*: quien lo lee entiende que revisarle la operación entera entra en los treinta
+      minutos gratis. En el ERP las dos frases viven en la misma página, a cuatro pantallas una
+      de otra.
 
-- [ ] **Cuando el PR se mezcle, los artifacts de WhatsApp van al dominio.** Desde la revisión
-      de Aldo (2026-09-23), los dos enlaces de cada archivo de `recorridos-fuente/` —la marca y
-      «formulario del sitio»— son relativos: sirven en la página del sitio, pero en un artifact
-      suelto de claude.ai no llevan a ningún lado. Al mezclar, o se publican los artifacts con
-      esos dos enlaces en absoluto a `https://loomware.com.mx`, o se deja de mandar el artifact y
-      se manda sólo el enlace del sitio, que ya es lo que recomienda este archivo.
+      El cierre ya no promete la revisión completa en la llamada —treinta minutos dan para que
+      te cuenten cómo trabajan y decirles por dónde empezar—; qué es el diagnóstico y qué cuesta
+      lo dice la pregunta del precio, que es de Aldo. **Aldo: revisa que el cierre nuevo diga lo
+      que de verdad ofreces en esa llamada.**
+
+- [x] **Los artifacts de WhatsApp se retiran; se manda el enlace del sitio (2026-09-27).**
+      Existieron por una razón concreta: cuando se escribieron, `loomware.com.mx/recorridos/erp`
+      respondía 404. Con el PR #4 mezclado esa razón se acabó, y se comprobó hoy: **la página da
+      200 en el dominio, abre sin cuenta ni registro, y su enlace ya trae su propia imagen de
+      vista previa** —`/recorridos/og-erp.png`, 200—, que era lo único que un artifact hacía
+      mejor.
+
+      Además el artifact hoy está roto: en la revisión del 23 los dos enlaces de cada archivo
+      pasaron a ser relativos (`/#recorrido-erp`, `/servicios/erp#contacto`); en la página del
+      sitio están bien, en un artifact suelto apuntan a claude.ai. **No se arreglan volviéndolos
+      absolutos**: eso sería mantener dos copias de ocho páginas que se separan la primera vez
+      que alguien cambie una coma.
+
+      **Lo que se manda, y nada más:** `https://loomware.com.mx/recorridos/<slug>`, sin
+      parámetros.
+
+      **Falta una cosa que sólo Alan puede hacer:** de los ocho, **dos quedaron compartidos** y
+      esos enlaces siguen vivos; quien los tenga abre una copia vieja con dos enlaces que no
+      llevan a ningún lado. Hay que **borrarlos en claude.ai**, y avisarle a quien se los haya
+      mandado que el bueno es el del dominio.
+
+- [ ] **La pantalla del sistema, en los siete recorridos que faltan.** Es lo único del
+      punto 7 de la receta que queda abierto, y es el trabajo más grande. El ERP la tiene
+      desde el 2026-09-23: al terminar los seis pasos se ve el tablero, con las cinco áreas,
+      tres cifras y una tabla.
+
+      **La pieza es reusable** —HTML con las variables de la propia página, así que hereda el
+      modo oscuro y reflúye— pero **los números no se copian**: los del ERP cuadran con los de
+      su recorrido a propósito (la tabla suma lo del paso 04 y su ganancia es la del 06), y esa
+      coherencia es justo lo que la hace creíble. Cada solución necesita las suyas, honestas y
+      cuadradas con su propio recorrido.
+
+      Son siete pantallas. **Hacerlas a medias es peor que no tenerlas**, y es donde más fácil
+      se inventa un dato: la regla de «no se afirma nada que no sepamos» aplica entera.
 
 - [ ] **Revisión minuciosa de las ocho tarjetas del «Paso a paso», una por una.** Es la tarea
-      grande de Alan. El ERP lleva cinco pasadas y **todavía no se cierra**; las otras siete no
-      han tenido ninguna. La receta que salió de destruir el ERP, en este orden:
+      grande de Alan, y el 2026-09-28 dejó de estar a medias: **los siete alcanzaron al ERP en
+      forma**. Lo que falta de esta tarea es la pantalla del sistema, que tiene su propio punto
+      arriba. La receta que salió de destruir el ERP, en este orden:
 
       1. **Qué es, explicado a un niño de 10 años.** La definición primero, antes de tocar
          nada. Si no se puede decir en una línea sin una palabra de oficina, el recorrido no
@@ -292,8 +699,39 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       las seis tarjetas de abajo; y el «Hoy:» de esas tarjetas en el color más apagado de la
       tarjeta, cuando es la parte que engancha.
 
-      **Estado: ERP en curso (nueve pasadas). CRM, nómina, tienda en línea, automatización,
-      software a medida, infraestructura cloud y apps móviles: sin empezar.**
+      **Lo que cerró la décima pasada (2026-09-27), con la página ya en producción:** el
+      rótulo del primer paso decía «Andén de recepción» en el HTML y «La puerta de entrada» en
+      el guion, que lo reescribe al arrancar —se veía un instante y además «andén» era palabra
+      de bodega—; la entrada hacía cuatro anuncios antes de enseñar nada; «Todo negocio sigue
+      algo» no significaba nada hasta después de leer las seis tarjetas; la pantalla volvía a
+      anclar en la bodega; y **el «Hoy» de las seis tarjetas no pasaba contraste** —4.36:1 en
+      claro y 4.39:1 en oscuro sobre la tarjeta resaltada, cuando AA pide 4.5—, que es la
+      primera vez que se mide la paleta de los recorridos y no la del sitio.
+
+      **Estado: ERP cerrado a la décima pasada.** Lo que le falta ya no es corrección sino
+      decisión: la primera pantalla no vende —cero botones, cero prueba, y la primera puerta a
+      5.3 pantallas contra las 0.7 de Bind—, el título de búsqueda pone la palabra clave en
+      sexta posición, y las seis imágenes son todas dibujos nuestros. Los tres están arriba, en
+      «Lo que la comparación del 2026-09-25 dejó abierto».
+
+      **Estado al 2026-09-28.** El ERP lleva diez pasadas. Los otros siete recibieron la suya ese
+      día, comparándolos contra él uno por uno, y quedaron así:
+
+      | | antes | ahora |
+      | --- | --- | --- |
+      | Dicen qué es la cosa en la primera línea | 3 de 8 | **8 de 8** |
+      | Palabras de la entrada | ERP 59, los demás 72 a 100 | **48 a 63 en los ocho** |
+      | Bloque de giros | ERP antes de los pasos, 7 después | **antes, en los ocho** |
+      | Puntos donde picar | ERP 6, los demás 4 | ERP 6, los demás **5** |
+      | Datos estructurados | ninguno | `HowTo` + `FAQPage` + migas en los ocho |
+      | Enlaces internos que reciben | 2 cada uno | **3 a 10** |
+
+      Se eliminó además la muletilla de molde que estaba idéntica en los siete —«Seis paradas y
+      una sola X. El giro no cambia la idea: abajo está el mismo recorrido en otros cinco»—, y
+      los títulos del bloque de giros salieron de la frase que cada bloque ya traía resaltada,
+      no se inventaron.
+
+      **Lo único que sigue separando a los siete del ERP es la pantalla del sistema.**
 
       **Lo que falta del ERP y no es mío:** los blancos táctiles —el logotipo mide 26 px de
       alto, el botón del recorrido 29 y los dos de contacto 42, cuando el sistema del sitio dice
@@ -315,6 +753,95 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       esas respuestas son política de la empresa y **necesitan el visto bueno de Aldo antes de
       publicarse**, igual que las de `src/data/faq.js`. Alegra tiene 3 378 palabras en su
       portada y un blog detrás; la portada no es donde se gana esto.
+
+## Posicionamiento orgánico — el terreno, medido el 2026-09-28
+
+Se midieron las consultas reales que nos importan y quién las contesta hoy. Esto reemplaza a
+cualquier suposición anterior sobre por dónde entra el tráfico.
+
+> **Reserva de método.** El buscador que se usó para mirar los resultados no es Google México, así
+> que la composición de cada página de resultados es indicativa y no una foto exacta. Lo que sí
+> queda comprobado es **el tipo de contenido que gana cada consulta**, que es lo que decide la
+> estrategia. La medición fina la da Search Console, que sigue sin darse de alta.
+
+### Lo que hay que aceptar antes de gastar una hora
+
+**Para las consultas grandes, Google no premia páginas de producto.** Para «mejores ERP para pymes
+en México» los primeros resultados son **artículos comparativos** —ComparaSoftware, Akari,
+erp.com.mx, Pulpos, Faciliza—, no fabricantes. Bind y SAP no están arriba con su landing: están
+**mencionados dentro** de esos artículos. Una página de servicio, por buena que sea, casi nunca
+puede ganar ahí: el formato ya decidió quién gana.
+
+Lo mismo con «cuánto cuesta un ERP en México»: la contestan guías de precio, todas con cifras.
+
+**La consecuencia práctica:** para el nivel 3 de abajo, el camino no es SEO, es **que nos listen**
+esos comparadores. Eso es gestión y relaciones, no código, y conviene no confundirlo con una tarea
+de la página.
+
+### Los tres niveles, por lo que se puede ganar
+
+**Nivel 1 · ganable en 2 a 4 meses — local y de servicio.** Quienes rankean aquí son despachos del
+tamaño de Loomware —SYCA, AppsySoftware, PuntoERP, Visual México— y la calidad técnica de nuestro
+sitio es muy superior a la suya. Fíjate en cómo lo hacen: **páginas por zona**
+(`syca.com.mx/desarrollo-de-software/edomex/toluca/`, `appsysoftware.com/desarrollo-software-ecatepec`).
+
+    implementación de ERP Estado de México
+    desarrollo de software a medida Atizapán / Naucalpan / Tlalnepantla / Ecatepec
+    sistema de nómina para empresas en Edomex
+    ERP para distribuidoras CDMX
+    consultoría ERP Estado de México
+
+Lo que hace falta: el perfil de Google Business (de Aldo) y páginas por zona con contenido real de
+cada una. **Una plantilla con el nombre de la ciudad cambiado es una página puerta y Google las
+penaliza**: si no hay algo cierto que decir de esa zona, esa página no se hace.
+
+**Nivel 2 · ganable en 4 a 8 meses — preguntas que hoy no contesta ninguna URL.**
+
+    cómo migrar de Excel a un ERP
+    qué pide el SAT para facturar en 2026
+    cuánto tarda implementar un ERP
+    sistema propio o a la medida, cuál conviene
+    cómo saber si mi empresa necesita un CRM
+
+La ventaja escondida: **las respuestas ya están escritas**, en `src/data/faq.js` y dentro de los
+ocho recorridos. Lo que falta es darles su propia URL en vez de tenerlas plegadas dentro de otra
+página. Varias son política de la empresa y **necesitan el visto bueno de Aldo antes de
+publicarse**, igual que las del FAQ.
+
+**Nivel 3 · no ganable con una landing.** «mejores ERP para pymes México», «ERP México», «cuánto
+cuesta un ERP». Ver arriba: se entra por mención en los comparadores, no por página propia.
+
+### Lo que sirve, por orden de efecto
+
+1. **Google Business Profile.** Días, no meses. Es de Aldo y está arriba en su lista.
+2. **Publicar un rango de precio.** Decisión de Aldo; el costo de no hacerlo ya está medido.
+3. **Páginas por zona**, con algo cierto que decir de cada una.
+4. **El FAQ y los recorridos como páginas propias**, con sus datos estructurados.
+5. **Repartir bien los enlaces internos** (ver «Alan»: hoy están muy mal repartidos).
+6. **Enlaces externos honestos**: LinkedIn de empresa, Canacintra, Canaco, directorios del giro, y
+   que GT-SHOP mencione a Loomware. Es el factor que más pesa y el único que no se arregla
+   escribiendo código: **hoy ningún sitio apunta a loomware.com.mx**.
+
+### Lo que no se va a hacer
+
+Texto oculto, relleno de palabras clave, páginas puerta por ciudad con el mismo contenido, compra
+de enlaces, redes privadas de blogs y artículos generados en masa sin revisar. En un dominio nuevo
+y sin autoridad una penalización no se nota: simplemente nunca arranca, y no hay forma de saber por
+qué. Queda escrito para que nadie lo proponga dentro de tres meses como «una prueba rápida».
+
+### Google Ads, y cómo se combina
+
+Ads compra hoy lo que el orgánico dará en seis meses, y sirve para algo más: **es la forma rápida
+de saber qué palabras convierten** antes de escribir treinta artículos. Dos condiciones que hoy no
+se cumplen:
+
+- **Analytics cargado**, o se paga a ciegas.
+- **Cada anuncio cae en la página de su servicio**, nunca en la portada. Eso ya está resuelto: las
+  ocho de servicio y las seis de giro tienen su propio formulario con el interés precargado.
+
+Por dónde empezar: marca y local en **concordancia exacta** —barato y con alta intención—, no
+amplia. Tres semanas con presupuesto chico dicen qué consulta trae llamadas, y ésas son las que
+después se atacan con contenido.
 
 ## Decisiones abiertas
 
@@ -348,6 +875,215 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       captura real** —con autorización del cliente y los datos cubiertos— vale más que cualquier
       dibujo, porque es lo único que nos pondría a la par de Bind y Xero en esa ficha del estudio.
       Se cambia el `<picture>` de `src/components/Hero.jsx`.
+
+## Resueltas el 2026-09-28 (auditoría de todo el sitio, URL por URL)
+
+Se midieron las 28 páginas construidas y las 25 del sitemap en vivo, en **216 combinaciones**
+—28 páginas × 6 tamaños × claro/oscuro en los ocho recorridos—: escritorio 1450, tablet
+horizontal 1024 y vertical 768, celular vertical 390, acostado 844×390 y chico 360×740.
+
+**Cómo quedó, medido después de los cambios:**
+
+| | antes | después |
+| --- | --- | --- |
+| Palabras en el HTML (lo que recibe Google) | 12 486 en 11 páginas | **25 210 en las 28** |
+| Pares de color bajo WCAG AA | **79** en claro, sin medir en oscuro | **cero**, claro y oscuro |
+| Blancos táctiles bajo 24 px (AA 2.5.8) | **31** casos | **cero** |
+| Desbordamiento horizontal | cero | **cero** |
+| Un solo `h1`, sin saltos de nivel | 28 de 28 | 28 de 28 |
+| Tarjetas sociales distintas | 8 de 23 | **23 de 23** |
+| Portada comprimida | 97 KB | 109 KB |
+
+- [x] **17 de las 25 URLs del sitemap llegaban a Google con el cuerpo vacío.** Mandaban
+      `<body><div id="root"></div></body>`: cero palabras. Todo el texto lo dibujaba JavaScript,
+      78 KB comprimidos de guiones para pintar unas 2 000 palabras que no cambian nunca. Google
+      renderiza, pero en una segunda pasada, y para un dominio nuevo sin autoridad ésa es la
+      demora que no conviene.
+
+      Ahora el build construye dos veces —una para el navegador y una para Node— y
+      `scripts/prerender.js` escribe el HTML de cada página dentro de su hueco. El navegador
+      **hidrata** ese HTML en vez de volver a dibujarlo: comprobado en nueve páginas, **cero
+      quejas de hidratación** y el contenido idéntico byte por byte salvo las escenas de la
+      portada, que sólo existen en escritorio y entran al hidratar.
+
+      **De paso corrige una cifra que este archivo presumía y no era comparable:** las 1 995
+      palabras contra las 1 964 de Bind. Bind las manda en el HTML; nosotros las mandábamos en un
+      guion. Hoy la portada manda **2 140 en el HTML**, y ahí sí se pueden comparar.
+
+      Cuesta 12 KB comprimidos en la portada (97 → 109 KB). Seguimos muy por debajo de cualquiera
+      del grupo medido: el segundo sitio más ligero pesaba el doble de los 97.
+
+      Las reglas para que no se rompa están escritas en `src/prerender.jsx`. La más importante:
+      **nada de `window` ni `document` en el cuerpo de un componente**. Si alguien lo mete, el
+      build se cae con el nombre de la página, que es lo que se busca.
+
+- [x] **79 pares de color por debajo de WCAG AA, y uno era un arreglo mío mal medido.** Tres
+      colores lo explicaban todo, y los tres se resolvieron midiendo contra **todos** los fondos
+      sobre los que aparecen, con 4.6:1 de objetivo en vez de 4.5 para que un fondo un poco
+      distinto no los vuelva a tirar:
+
+      | | antes | después |
+      | --- | --- | --- |
+      | cobre, el color del dato | `#A35C23` · 4.29:1 | `#9B5721` · 4.66:1 |
+      | `--ink-3`, leyendas y pies | `#7A7D86` · 3.46:1 | `#666971` · 4.61:1 |
+      | `--pain`, el «Hoy» | `#63666F` · 4.19:1 | `#5C5F67` · 4.67:1 |
+      | `--ink-3` en oscuro | `#817B70` · 3.68:1 | `#918C82` · 4.61:1 |
+
+      **La corrección que me toca:** el 24 de septiembre cambié `--pain` de `#6B6F79` a `#63666F`
+      y dejé escrito en el archivo que daba **4.97:1**. Daba **4.19**. Lo medí contra el fondo de
+      la tarjeta y ese texto no va sobre ese fondo, va sobre `#DFDCD5`. El «18 pares medidos,
+      cero fallos» de la quinta auditoría era cierto para los tokens del sitio React sobre blanco
+      y `--bg-soft`; **el contraste de los ocho recorridos nunca se había medido**, y su papel es
+      un poco más oscuro, que es lo que tiraba al cobre por dos centésimas.
+
+      **Y el modo oscuro tampoco se había medido nunca.** Ahora sí: de sus seis colores fallaba
+      uno y los otros cinco van de 5.2 a 13.7. Salieron además dos defectos que sólo se ven en
+      oscuro: el enlace a la calculadora del cierre del ERP **no tenía color** y salía en el azul
+      por omisión del navegador —1.99:1 sobre el papel oscuro, ilegible—, y `--ink-3` fallaba
+      sobre la placa del dato, que era el cuarto fondo que no había incluido.
+
+      *Lección de método, por segunda vez:* un color no se mide contra un fondo, se mide contra
+      todos los que pisa. Y forzar el tema con `data-theme` sólo sirve si después se comprueba
+      que el tema **de verdad** se aplicó: tres «fallos» de apps-móviles eran artefacto de una
+      pasada donde el atributo no había surtido efecto.
+
+- [x] **31 blancos táctiles por debajo de los 24×24 px que pide WCAG 2.2 AA (2.5.8).** Lighthouse
+      da accesibilidad 100 y no mide ese criterio. Medidos a 390×844:
+
+      - **los 21 enlaces del pie, en las 25 páginas**: 16 px de alto. El alto se lo da ahora el
+        propio enlace y la separación de la lista bajó a cero, así que **el pie mide exactamente
+        lo mismo que antes**. Los cortos («ERP», 22 px de ancho) llegan a 24 también de ancho.
+      - el correo, el teléfono y el WhatsApp del pie: 20 px
+      - «formulario del sitio» y el correo del cierre **de los ocho recorridos**: 11 px (15 en el
+        ERP). Es el enlace al formulario al final de la pieza que se manda por WhatsApp.
+      - «Escribir la pregunta» del ERP: 18 px · los tres destinos del 404: 17 px
+      - el índice del aviso: 19 px · «Volver al sitio»: 23 px
+      - «aviso de privacidad» dentro de la casilla: 15 px · la casilla: 16 px, ahora 24
+      - «Ver más» de las tarjetas de solución: 20 px, y además era un **segundo enlace al mismo
+        destino que la tarjeta**; ahora es el pie de la propia tarjeta
+
+      Donde el elemento manda su renglón, crece con su propio alto. Donde va dentro de un párrafo
+      —el cierre del recorrido, el 404, la casilla—, el blanco lo da una capa transparente y el
+      texto no se mueve: es la misma salida que ya usaba el botón del recorrido.
+
+      La barra de las páginas de servicio y de giro medía 31 px —cumple AA pero no los 44 del
+      sistema del sitio, y es la navegación principal de la página donde aterriza quien llega de
+      Google—: pasa a 45 px de blanco **sin que la barra crezca**.
+
+- [x] **Los seis chips de «¿Qué necesita tu empresa?» no hacían nada que se viera.** El subtítulo
+      prometía «encuentra rápidamente la solución» y al picar un chip no cambiaba nada en
+      pantalla: el único efecto era un campo escondido del formulario, pantallas abajo. Seis
+      botones que parecían muertos debajo de un título que promete encontrar algo.
+
+      Ahora cada chip enseña las soluciones que resuelven eso, con su nombre, su resumen y su
+      enlace. Los textos salen de `src/data/servicios.js`, así que no hay copia nueva que pueda
+      desfasarse de las páginas.
+
+      Y **nada viene preseleccionado**. Antes el valor por omisión era el primero, «Vender más»,
+      así que quien nunca tocaba un chip llegaba al formulario con *«Interés seleccionado: Vender
+      más»* ya puesto: le ponía palabras en la boca al visitante y te mandaba a ti un interés que
+      nadie eligió.
+
+- [x] **La voz se rompía justo donde se vende.** Los recorridos y los `h1` de servicio están
+      escritos con precisión, y al lado seguía vivo el idioma de cualquier vendedor de software.
+      Fuera: «Lleva tu negocio al siguiente nivel» (el título del formulario), «descubre cómo
+      podemos ayudarte a crecer con más control y eficiencia», «Análisis de tus canales y
+      procesos», «Oportunidades de mejora identificadas», «la solución que impulsará tu
+      crecimiento», «puntos críticos actuales», «evolucionamos contigo», «Un proceso claro para
+      resultados reales», «Tecnología empresarial para crecer con claridad, control y confianza»,
+      «flujos inteligentes», «operación sin fricciones», «Experiencias móviles para equipos» y
+      «Control total de tu negocio» —ningún software da control total—.
+
+      **El dato que lo resume:** cada servicio tenía una frase buena y una mala, y la portada
+      enseñaba la mala. Software a medida: el `h1` dice *«cuando ningún sistema de catálogo te
+      queda»* y el resumen de la tarjeta decía *«Soluciones a medida que se adaptan a tus
+      procesos y objetivos»*. Los ocho resúmenes se rehicieron desde su propio `h1`.
+
+      Y la inversión completa: **el formulario de las páginas de servicio estaba mejor escrito
+      que el de la portada**, porque las de servicio le pasan su propio texto y la portada se
+      quedaba con el genérico. La página que más tráfico va a recibir tenía la peor copia del
+      sitio.
+
+- [x] **Tres tamaños de empresa, y uno iba en la ficha que Google enseña.** «Equipos comerciales
+      de 2 a 30 personas», «Empresas de 10 a 300 colaboradores» y —la peor— *«Para empresas
+      mexicanas de 10 a 300 colaboradores»* en la **meta description** de nómina. Un director de
+      500 personas leía eso en Google y no entraba. Y contradecía al propio FAQ, que dice que se
+      trabaja igual con una sucursal que con varias sedes. Fuera los tres: cualquier giro y
+      cualquier tamaño, **de una persona a miles**.
+
+- [x] **La jerga se había limpiado en la mitad equivocada.** «Timbrado», «PAC», «dispersión»,
+      «conciliar», «SKU» se quitaron de los recorridos, que se mandan por WhatsApp a alguien que
+      ya te conoce, y seguían intactos en las páginas que reciben **tráfico frío de Google**: el
+      FAQ de la portada —que además es el `FAQPage` estructurado, o sea el fragmento que Google
+      enseña— y las ocho de servicio, con «explosión de materiales» y «antigüedad de saldos».
+
+      La regla que se aplicó es la del resto del sitio: **el texto que se lee va en palabras de
+      cualquiera y el nombre técnico vive en el rótulo**. «Timbrado» se queda en el título de
+      búsqueda y en el nombre de la función —es lo que la gente teclea— y se explica la primera
+      vez que aparece.
+
+      Y un desfase que la cacería anterior no vio porque sólo miró `recorridos-fuente/`: los
+      resúmenes de nómina y de la tienda en `src/data/recorridos.js` seguían con las cuatro
+      palabras que se habían quitado de las páginas. Ese texto es la meta description **y** la
+      tarjeta de la portada **y** la tarjeta de WhatsApp: la página decía una cosa y su ficha
+      otra.
+
+- [x] **Cuatro títulos y seis descripciones pasaban el corte de Google.** El título de
+      infraestructura cloud tenía 76 caracteres y una descripción tenía 223. Ahora la solución
+      **encabeza** el título —la palabra que la gente teclea iba al final— y donde el titular no
+      cabe hay un `seoTitulo` corto que se usa **sólo** en la ficha: el titular que se lee dentro
+      de la página no se toca. Los ocho quedan entre 40 y 58 caracteres, y las descripciones
+      entre 128 y 155.
+
+- [x] **Quince páginas compartían la misma tarjeta social**, con el mismo argumento que ya había
+      cerrado el caso de los recorridos: quince enlaces que se previsualizan idénticos parecen el
+      mismo enlace mandado quince veces. Ahora hay una por página (`npm run og:paginas`), con la
+      etiqueta, el titular y el resumen de esa misma página, en la paleta del sitio.
+
+- [x] **Y las ocho tarjetas de los recorridos tenían una carrera que las repetía.** Al
+      regenerarlas salieron **dos imágenes distintas de ocho**, y las quince nuevas salieron
+      **cuatro de quince**. La causa: `execFileSync` espera a que el navegador termine, pero el
+      PNG tarda un instante más en quedar escrito, y el archivo de la vuelta pasada seguía ahí, así
+      que se comprimía **la tarjeta anterior**. No truena y no avisa.
+
+      Las del repositorio sí eran distintas, así que la carrera llevaba ahí desde el 24 de
+      septiembre y sólo se veía cuando la máquina iba lenta. `scripts/capturar.js` ahora borra el
+      destino, espera a que exista y a que su tamaño deje de cambiar, y **los dos generadores
+      exigen al final que las tarjetas sean distintas entre sí**: sin esa prueba, el defecto
+      volvería a pasar inadvertido. Comprobado: 23 tarjetas, las 23 distintas.
+
+- [x] **La sede no coincidía consigo misma.** El pie y «Quiénes somos» decían *Ciudad de México*
+      y los datos estructurados del HTML decían *Atizapán de Zaragoza, Estado de México*. Para el
+      alta en Google Business eso no es un detalle: la verificación se cae si el nombre, la
+      dirección y el teléfono no coinciden en los tres lugares. Todo queda en **Estado de
+      México**.
+
+- [x] **Un mensaje interno podía llegarle a un visitante.** El formulario imprimía `err.message`
+      tal cual, así que si la llave de Resend se rota o se borra, el prospecto leía *«Falta
+      configurar RESEND_API_KEY»*. Ahora se enseña lo que el servidor dice **sobre sus datos**
+      —«Falta tu nombre»— y lo que dice sobre su propia configuración se sustituye por un aviso
+      normal.
+
+- [x] **Y once detalles más**, todos medidos: el `autocomplete="email tel"` era inválido y el
+      navegador lo ignoraba completo, así que el campo de contacto **no autocompletaba nada**;
+      dos enlaces al mismo destino por tarjeta en soluciones y en giros —en los giros el enlace
+      que se quedó es el del nombre, porque su capa es la que hace tocable el renglón entero en
+      celular, y ahora también en escritorio—; «En menos de 24 horas hábiles» de `/gracias`, que
+      no es una unidad que se use y podía leerse como tres días; «Míralo funcionar», que promete
+      ver el programa cuando siete de los ocho enseñan el mundo; el 404, que afirmaba que la
+      página *«cambió de lugar»* cuando el sitio no ha salido y nada ha cambiado de lugar; los
+      tres principios de «Quiénes somos» y cuatro respuestas del FAQ, que abrían en negación
+      contra la regla de tono; dos enlaces del pie con nombre inventado —«Integraciones» y
+      «Migración a la nube», que son Automatización e Infraestructura cloud y ya estaban en la
+      columna de al lado con su nombre real—; el `alt` de las escenas de la portada, que describía
+      el título en vez de la imagen; y los comentarios en inglés de `Process.jsx` y `Icon.jsx`.
+
+- [x] **Un hallazgo que retiro.** Levanté como el bloqueo número uno que GT-SHOP se publicaba sin
+      autorización de Eduardo Díaz. **No es cierto y ya estaba escrito en este archivo**: Eduardo
+      aprobó la cita y la marca el 22 de septiembre, él mismo mandó el texto por WhatsApp y
+      nosotros sólo lo pulimos. Lo saqué de la copia vieja de los pendientes, no de este archivo,
+      que es el que vale. Queda anotado también en `src/data/casos.js` para que no se vuelva a
+      levantar desde el código.
 
 ## Resueltas el 2026-09-25 (séptima y octava pasada del ERP, y la medición contra el grupo)
 

@@ -106,14 +106,26 @@
   color: var(--text-500);
   cursor: pointer;
 }
+/* La casilla mide 20 px para que se vea y se toque mejor. El blanco que pide
+   WCAG lo cumple la etiqueta completa: la casilla va dentro del <label>, así
+   que el texto entero la marca al tocarlo. */
 .contact__acepta input {
   flex: none;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   margin-top: 1px;
   accent-color: var(--purple-500);
 }
 .contact__acepta a {
+  position: relative;
   color: var(--purple-600);
   text-decoration: underline;
+}
+/* «aviso de privacidad» sí es un blanco aparte —navega— y medía 15 px. Va
+   dentro de un párrafo, así que el blanco lo da una capa transparente y el
+   texto no se mueve. */
+.contact__acepta a::after {
+  content: "";
+  position: absolute;
+  inset: -5px 0;
 }

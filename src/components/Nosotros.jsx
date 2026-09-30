@@ -7,12 +7,12 @@ const PRINCIPIOS = [
   {
     icon: 'search',
     title: 'Primero entendemos, luego proponemos',
-    text: 'Cada proyecto empieza con un diagnóstico. No vendemos un sistema antes de saber cómo opera tu empresa.',
+    text: 'Cada proyecto empieza con un diagnóstico: primero sabemos cómo opera tu empresa, y después proponemos.',
   },
   {
     icon: 'users',
-    title: 'Implementamos con tu equipo, no a sus espaldas',
-    text: 'Quien va a usar el sistema participa desde el diseño. Un software que nadie adopta es dinero tirado.',
+    title: 'Implementamos con tu equipo, de frente',
+    text: 'Quien va a usar el sistema participa desde el diseño, porque el software que se usa es el que se diseñó con quien lo usa.',
   },
   {
     icon: 'trending-up',
@@ -34,7 +34,7 @@ export default function Nosotros() {
               Ponemos orden en la operación y nos quedamos hasta que funcione
             </h2>
             <p>
-              Loomware nace en {CIUDAD} para atender a empresas que hoy operan entre hojas de
+              Loomware nace en el {CIUDAD} para atender a empresas que hoy operan entre hojas de
               cálculo, WhatsApp y programas que no se hablan entre sí. Les ayudamos a elegir e
               implementar la herramienta correcta —un CRM, un ERP, una automatización o software a
               la medida— sin obligarlas a cambiar su forma de trabajar para caber en un sistema.

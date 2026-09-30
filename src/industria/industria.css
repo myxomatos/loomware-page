@@ -37,6 +37,27 @@
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
+/* El enlace al recorrido, al pie de la tarjeta. Su blanco llega a 24 px con
+   una capa transparente, que es lo que pide WCAG 2.2 AA (2.5.8). */
+.ind__paso {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  margin: 0 var(--sp-5) var(--sp-5);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--copper-500);
+}
+.ind__paso::after {
+  content: "";
+  position: absolute;
+  inset: -5px 0;
+}
+.ind__paso:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .ind__servicio a {
   display: flex;
   flex-direction: column;

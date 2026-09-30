@@ -60,7 +60,7 @@ export default function Recorridos() {
       <div className="container">
         <header className="section__head">
           <span className="eyebrow">Recorridos · uno por solución</span>
-          <h2>Míralo funcionar antes de hablar con nosotros</h2>
+          <h2>Míralo paso a paso antes de hablar con nosotros</h2>
           <p className="section__subtitle">
             Cada solución explicada paso a paso, con un dibujo que cambia mientras bajas. Se
             abren desde cualquier celular, sin cuenta y sin registro.
@@ -83,7 +83,10 @@ export default function Recorridos() {
                   <img
                     className="recorrido__escena"
                     src={`/recorridos/escena-${r.slug}.svg`}
-                    alt={`Primer paso del recorrido: ${r.titulo}`}
+                    alt=""
+                    /* El dibujo repite lo que el título y el resumen ya dicen, así que
+                       para un lector de pantalla es ruido: el enlace se anuncia con su
+                       texto, que es el que sirve. */
                     loading="lazy"
                     decoding="async"
                   />
