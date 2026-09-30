@@ -149,7 +149,7 @@ export const INDUSTRIAS = [
     icon: 'users',
     nombre: 'Despachos y consultorías',
     dolor:
-      'Los clientes viven en la agenda de cada socio o gerente; cuando alguien falta, el seguimiento se pierde y el cliente lo nota.',
+      'Los clientes viven en la agenda de cada socio o gerente; si alguien falta, el seguimiento se pierde.',
     servicios: ['crm', 'automatizacion'],
 
     titulo: 'CRM para despachos y consultorías | Loomware',

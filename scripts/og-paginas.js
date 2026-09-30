@@ -90,7 +90,7 @@ const TARJETAS = [
     destino: `public/og/industrias-${g.id}.png`,
     lbl: g.nombre,
     h1: g.h1,
-    resumen: g.dolor.split('. ')[0] + '.',
+    resumen: g.dolor.split('. ')[0].replace(/\.$/, '') + '.',
   })),
   {
     destino: 'public/og/calculadora.png',

@@ -20,7 +20,7 @@ const INITIAL = { nombre: '', contacto: '', necesidad: '', acepta: false }
    frases de plantilla de propuesta —«Oportunidades de mejora
    identificadas»— que no decían qué pasa ni cuándo. */
 const BENEFITS = [
-  'Una llamada de 30 minutos, sin costo',
+  'Una llamada de 30 minutos, sin costo y sin compromiso',
   'Revisamos cómo entra y se mueve un dato hoy',
   'Y te decimos qué conviene resolver primero',
 ]

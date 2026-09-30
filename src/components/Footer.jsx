@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Logo from './Logo'
 import Icon from './Icon'
 import { EMAIL, TELEFONOS, CIUDAD, whatsappUrl } from '../data/contacto'
@@ -36,6 +37,10 @@ const COLUMNS = [
 ]
 
 export default function Footer() {
+  // Se decide después de montar, no al dibujar: el HTML prerenderizado no tiene
+  // Analytics y el primer dibujado del cliente tiene que dar lo mismo.
+  const [conAnalytics, setConAnalytics] = useState(false)
+  useEffect(() => setConAnalytics(typeof window.gtag === 'function'), [])
   return (
     <footer className="footer">
       <div className="container">
@@ -85,13 +90,10 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <p>
+          <p suppressHydrationWarning>
             © {new Date().getFullYear()} Loomware · Todos los derechos reservados.
-            {/* Sin Analytics no hay cookies ni banda que reabrir: el botón no haría
-                nada. La comprobación de `window` va primero porque este componente
-                también se dibuja en Node, al prerenderizar, y ahí `window` no
-                existe: sin ese guardia sería un ReferenceError, no un undefined. */}
-            {typeof window !== 'undefined' && typeof window.gtag === 'function' && (
+            {/* Sin Analytics no hay cookies ni banda que reabrir: el botón no haría nada. */}
+            {conAnalytics && (
               <>
                 {' · '}
                 <button

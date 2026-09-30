@@ -184,7 +184,7 @@ export default function Servicio({ slug }) {
               interes={s.nombre}
               origen={s.nombre}
               titulo={`Empecemos por un diagnóstico de ${s.nombre}`}
-              intro={`Revisamos tu operación y te decimos si ${s.nombre} es lo que conviene resolver primero. La primera llamada es sin costo y sin compromiso.`}
+              intro={`Revisamos tu operación y te decimos si ${s.nombre} es lo que conviene resolver primero. La primera llamada es de 30 minutos, sin costo y sin compromiso.`}
             />
 
             {relacionados.length > 0 && (

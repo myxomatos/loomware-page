@@ -366,7 +366,7 @@ export const SERVICIOS = [
     icon: 'cloud',
     titulo: 'Servidores en la nube administrados | Loomware',
     descripcion:
-      'Tus sistemas disponibles y respaldados, sin comprar servidores. Infraestructura cloud para empresas en México: la operamos nosotros o la opera tu equipo.',
+      'Tus sistemas disponibles y respaldados, sin comprar servidores. Infraestructura cloud a la medida en México: la operamos nosotros o la opera tu equipo.',
     h1: 'Infraestructura cloud: tu operación disponible, respaldada y segura',
     intro: [
       'El servidor en la oficina se apaga cuando se va la luz, se respalda cuando alguien se acuerda y se queda chico justo en temporada alta. Y cuando falla, la operación se detiene mientras alguien encuentra quién lo arregle.',
