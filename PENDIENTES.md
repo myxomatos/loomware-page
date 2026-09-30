@@ -106,7 +106,7 @@ devuelve el repositorio de GitHub y no el dominio.
 
 ---
 
-### Paso 4 · Google Business — 30 minutos
+### Paso 4 · Google Business — ✅ 2026-09-30 (perfil creado y verificado; ver «Aldo»)
 
 Es lo de mayor retorno por hora de toda la lista: un dominio nuevo tarda de tres a seis meses en
 posicionar y el perfil aparece en días. Es la puerta a lo único que podemos ganar este año, que
@@ -265,6 +265,19 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       teléfono); conviene pedir también `/`, `/recorridos/erp`, `/servicios/crm` y
       `/industrias/distribuidoras` (unas 10 al día). El registro TXT `google-site-verification`
       del DNS es el que sostiene la verificación: **no se borra**.
+- [x] ~~**Perfil de Google Business**~~ — 2026-09-30, con la cuenta de Loomware. Quedó
+      **verificado en automático** (la misma cuenta ya había verificado el dominio en Search
+      Console): sin video ni postal. Negocio **con área de servicio y sin dirección pública**
+      (decisión de Alan del 28): Atizapán de Zaragoza, Naucalpan de Juárez, Tlalnepantla de Baz,
+      Cuautitlán Izcalli y Ciudad de México. Categoría **«Compañía de software»** (en México no
+      existe «Empresa de desarrollo de software», y no hay secundaria que le quede: se dejó sola).
+      Teléfono 55 8096 8928, sitio web y chat por WhatsApp (`https://wa.me/525580968928`),
+      horario, descripción de 651 caracteres alineada con el sitio (pymes y medianas, «No
+      competimos por ser los más baratos…», llamada de 30 minutos sin costo), logotipo y
+      portada (`~/Descargas/loomware-google-business/`), y los ocho servicios con nombres de
+      búsqueda. Se omitió el crédito de Google Ads (MXN 7,000 al invertir lo mismo): se retoma
+      cuando los eventos clave de GA4 estén marcados. Pendiente menor: las descripciones de cada
+      servicio (entrando a cada uno; las frases son los `resumen` de `src/data/servicios.js`).
 - [ ] **(Recomendado) Excluir el tráfico interno en GA4**: *Flujos de datos → Sitio → Configurar
       etiquetas → Definir el tráfico interno* con la IP de la oficina, y activar su filtro en
       *Filtros de datos*. Si no, las pruebas de Aldo y Alan cuentan como visitas.
