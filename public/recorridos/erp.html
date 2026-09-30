@@ -528,7 +528,13 @@
       .colofon b{color:var(--ink-2);font-weight:500;}
 
       /* ---------- estado de la escena ---------- */
-      #truck,#mont{transition:transform .95s cubic-bezier(.35,.85,.3,1),opacity .45s ease;}
+      #truck,#mont,#carga{transition:transform .95s cubic-bezier(.35,.85,.3,1),opacity .45s ease;}
+      /* La cámara: el mundo entero se acerca o se aleja, un poco más lento que los
+         vehículos para que primero se vea a dónde vamos. */
+      #world{transform-origin:0 0;transition:transform 1.25s cubic-bezier(.45,.05,.2,1);}
+      .sombra{fill:#000;opacity:.13;}
+      #pantalla.destello{animation:destello 1.2s ease-out .7s;}
+      @keyframes destello{0%,100%{opacity:.85;} 25%{opacity:1;fill:#F2A65A;} 50%{opacity:.6;}}
       #truck.propio{--trk-t:#C4772F;--trk-l:#7A3F12;--trk-r:#A35C23;}
       .oculto{opacity:0;}
       .beam{opacity:0;transition:opacity .4s ease;}
@@ -540,7 +546,8 @@
       .mark{stroke:var(--ink-3);stroke-width:1.2;fill:none;stroke-dasharray:6 6;opacity:.7;}
 
       @media (prefers-reduced-motion:reduce){
-        #truck,#mont,.beam,.chip,.step{transition:none;}
+        #truck,#mont,#carga,#world,.beam,.chip,.step{transition:none;}
+        #pantalla.destello{animation:none;}
         .beam path{animation:none;}
       }
 
@@ -589,6 +596,65 @@
         .gauge{margin-left:0;}
       }
     </style>
+        <style>
+          /* lectura cómoda: ver scripts/recorridos.js */
+          body{font-size:16px;}
+          .lbl{font-size:12px;}
+          .paraquien{font-size:13.5px;}
+          .deck{font-size:17px;line-height:1.6;}
+          .specline,.antes figcaption,.cap,.legend,.pista{font-size:13px;}
+          .readout{padding:11px 15px;}
+          .readout__k,.readout__v{font-size:14px;}
+          .play{font-size:15px;font-weight:700;letter-spacing:.02em;padding:10px 20px;
+            border-radius:999px;color:var(--surface);background:var(--signal);border-color:var(--signal);}
+          .play:hover,.play[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface);}
+          .exp__nota{font-size:14px;}
+          .chip b{font-size:13px;} .chip span{font-size:12px;}
+          .steps__t{font-size:clamp(18px,2vw,22px);}
+          .paso{font-size:14px;} .gauge{font-size:12px;}
+          .step h3{font-size:clamp(18px,1.8vw,21px);}
+          .vs__row{grid-template-columns:minmax(0,1fr);gap:3px;padding:10px 14px;}
+          .vs__lbl{line-height:1.4;}
+          .vs__row p{font-size:16.5px;line-height:1.5;}
+          .enotro{font-size:15px;}
+          .giros p,.faq p,.costo p,.pant p,.atajo p,.cierre p,.giros__cierre{font-size:16px;}
+          .rejilla b,.costo .rejilla b{font-size:13px;}
+          .rejilla span{font-size:15px;} .rejilla .hoy{font-size:14px;}
+          .faq .rejilla > li > b{font-size:15px;}
+          .pant .kpi b{font-size:18px;} .pant .kpi span,.pant .fila--enc span,.pant .fila--suma .lbl{font-size:12px;}
+          .pant .tabla__t,.pant .pant__pie,.pant .app__barra{font-size:12px;}
+          .pant .mon,.pant .mar,.pant .app__lado{font-size:13px;}
+          .pant .pant__lee{font-size:16px;}
+          .btn{font-size:15px;} .cierre .otras{font-size:14px;} .colofon{font-size:14px;line-height:1.6;}
+          a.brand__cta{font-size:13px;}
+          nav.sigue b{font-size:12px;} nav.sigue .sigue__t{font-size:13px;}
+          @media (min-width:881px){
+            .cols{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:36px;}
+            .step{opacity:.4;}
+          }
+          /* En el teléfono el dibujo se queda pegado arriba y el paso tiene que caber
+             debajo: la letra baja un punto, el relleno se aprieta y la ficha deja sólo
+             su renglón principal. Medido a 390×844 y 360×740 con cabe.mjs. */
+          @media (max-width:880px) and (min-height:560px){
+            .legend{font-size:12.5px;}
+            .readout__v{display:none;}
+            .readout{padding:8px 12px;}
+            .stage svg{max-height:30vh;}
+            .step{padding-block:8px;}
+            .step-head{margin-bottom:6px;}
+            .step h3{font-size:18px;}
+            .vs__row{padding:7px 11px;gap:2px;}
+            .vs__row p{font-size:15.5px;line-height:1.42;}
+            .enotro{font-size:14px;margin-top:8px;}
+          }
+          /* Teléfono chico (360×740): el dibujo cede un poco más de alto. */
+          @media (max-width:880px) and (min-height:560px) and (max-height:780px){
+            .stage svg{max-height:24vh;}
+            .vs__row p{font-size:15px;}
+            .enotro{font-size:13.5px;}
+          }
+        </style>
+
 
     <style>
       /* El logotipo es un enlace al inicio sólo en la versión del sitio, así que
@@ -800,7 +866,7 @@
              cualquier otro texto aquí se ve un instante y desaparece. Y «andén de
              recepción» era además palabra de bodega. -->
         <span id="stateLabel">01 / 06 · La puerta de entrada</span>
-        <button class="play" id="play" type="button" aria-pressed="false">▶ Que avance solo</button>
+        <button class="play" id="play" type="button" aria-pressed="false">▶ Reproducir</button>
         <span>Cifras de ejemplo</span>
       </div>
 
@@ -1102,7 +1168,7 @@
   /* --- La oficina es el sistema: pantalla encendida y el servidor al lado.
          Es el único edificio con color, para que el acento signifique una cosa. --- */
   s += box(26, 20, 74, 58, 0, 50, "--ofi-t", "--ofi-l", "--ofi-r");
-  s += '<polygon points="' + q(pt(34,78,40), pt(92,78,40), pt(92,78,22), pt(34,78,22)) +
+  s += '<polygon id="pantalla" points="' + q(pt(34,78,40), pt(92,78,40), pt(92,78,22), pt(34,78,22)) +
        '" fill="var(--signal)" opacity=".85"/>';
   s += '<polygon points="' + q(pt(26,20,51), pt(100,20,51), pt(100,78,51), pt(26,78,51)) +
        '" fill="var(--signal)" opacity=".15"/>';
@@ -1141,7 +1207,7 @@
   s += box(318, 194, 132, 28, 0.4, 14, "--con-t", "--con-l", "--con-r");
   s += '<polygon points="' + q(pt(318,222,14), pt(450,222,14), pt(450,222,10), pt(318,222,10)) +
        '" fill="var(--money)" opacity=".9"/>';
-  s += '<polygon class="mark" points="' + q(pt(44,234,1.2), pt(176,234,1.2), pt(176,300,1.2), pt(44,300,1.2)) + '"/>';
+  s += '<polygon class="mark" points="' + q(pt(92,234,1.2), pt(236,234,1.2), pt(236,300,1.2), pt(92,300,1.2)) + '"/>';
 
   /* --- La gente: una en el andén de recepción, otra en la mesa de surtido --- */
   s += persona(150, 206);
@@ -1149,6 +1215,8 @@
 
   /* --- El camión, armado en su posición base y movido por transform --- */
   var TX = 40, TY = 238, T = "";
+  /* Sombra: sin ella el camión flota sobre el patio. */
+  T += '<polygon class="sombra" points="' + q(pt(TX+2,TY+4,0), pt(TX+142,TY+4,0), pt(TX+142,TY+50,0), pt(TX+2,TY+50,0)) + '"/>';
   [TX + 18, TX + 46, TX + 108].forEach(function(wx){
     T += box(wx, TY, 13, 46, 0, 15, "--whl", "--whl", "--whl");
   });
@@ -1157,10 +1225,13 @@
   T += '<polygon points="' + q(pt(TX+14,TY+43,46), pt(TX+106,TY+43,46), pt(TX+106,TY+43,37), pt(TX+14,TY+43,37)) +
        '" fill="var(--trk-t)"/>';
   T += box(TX + 106, TY + 3, 30, 40, 19, 62, "--trk-t", "--trk-l", "--trk-r");
-  s += '<g id="truck">' + T + '</g>';
+  /* El camión se agrega hasta después del montacargas: va en el patio, más
+     cerca de quien mira que el andén, así que tiene que taparlo y no al revés.
+     Dibujado antes, el montacargas del andén parecía ir montado en el camión. */
 
   /* --- El montacargas con su tarima --- */
   var FX = 200, FY = 250, F = "";
+  F += '<polygon class="sombra" points="' + q(pt(FX-12,FY,0), pt(FX+44,FY,0), pt(FX+44,FY+34,0), pt(FX-12,FY+34,0)) + '"/>';
   [[4,3],[4,22],[27,4],[27,21]].forEach(function(w){
     F += box(FX + w[0], FY + w[1], 8, 7, 0, 8, "--whl", "--whl", "--whl");
   });
@@ -1172,9 +1243,13 @@
   F += box(FX + 18, FY + 2, 22, 28, 46, 49, "--fk-t", "--fk-l", "--fk-r");
   F += box(FX + 2, FY + 3, 4, 5, 0, 48, "--chs", "--chs", "--chs");
   F += box(FX + 2, FY + 26, 4, 5, 0, 48, "--chs", "--chs", "--chs");
-  F += box(FX - 10, FY + 1, 24, 30, 10, 13, "--pal-t", "--pal-l", "--pal-r");
-  F += box(FX - 7, FY + 5, 18, 22, 13, 31, "--box-t", "--box-l", "--box-r");
   s += '<g id="mont">' + F + '</g>';
+  /* La carga va aparte del montacargas: en la salida sube al camión y el
+     montacargas se queda en el andén. */
+  var K = box(FX - 10, FY + 1, 24, 30, 10, 13, "--pal-t", "--pal-l", "--pal-r") +
+          box(FX - 7, FY + 5, 18, 22, 13, 31, "--box-t", "--box-l", "--box-r");
+  s += '<g id="carga">' + K + '</g>';
+  s += '<g id="truck">' + T + '</g>';
 
   /* --- El dato que sube al sistema: una línea por parada, hacia la oficina --- */
   var OFI = [63, 49, 52];
@@ -1191,36 +1266,49 @@
   document.getElementById("world").innerHTML = s;
 
   /* --- Estados --- */
-  function move(dx, dy){
-    return "translate(" + ((dx - dy) * C).toFixed(1) + "px," + ((dx + dy) * S).toFixed(1) + "px)";
+  /* dz sube el objeto en pantalla: el andén está 14 unidades arriba del patio. */
+  function move(dx, dy, dz){
+    return "translate(" + ((dx - dy) * C).toFixed(1) + "px," + ((dx + dy) * S - (dz || 0)).toFixed(1) + "px)";
+  }
+  /* La cámara se acerca a donde pasa cada paso y en el último se aleja para
+     enseñar el camino completo. Se calcula contra el viewBox del dibujo y se
+     limita para que nunca asome el borde del terreno. */
+  var VB = [14, 44, 744, 462], ZOOM = 1.45;
+  function camara(x, y, z){
+    if (x == null) return "translate(0px,0px) scale(1)";
+    var fx = (x - y) * C + OX, fy = (x + y) * S - z + OY, k = ZOOM;
+    var tx = VB[0] + VB[2] / 2 - k * fx, ty = VB[1] + VB[3] / 2 - k * fy;
+    tx = Math.min(VB[0] - k * VB[0], Math.max(VB[0] + VB[2] - k * (VB[0] + VB[2]), tx));
+    ty = Math.min(VB[1] - k * VB[1], Math.max(VB[1] + VB[3] - k * (VB[1] + VB[3]), ty));
+    return "translate(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px) scale(" + k + ")";
   }
   var STATES = [
-    { truck:move(14,-4),  truckOn:true,  propio:false, mont:move(-86,-16), montOn:true,  beams:[0],
+    { truck:move(58,-4),  truckOn:true,  propio:false, mont:move(-142,-58,14), montOn:true,  carga:true,  cam:camara(110,236,14), beams:[0],
       label:"01 / 06 · La puerta de entrada",
       k:"OC-1182 · Recepción",
       v:"40 de 40 piezas · llegó completo · ya sabes cuánto le debes" },
 
-    { truck:move(14,-4),  truckOn:false, propio:false, mont:move(26,-172), montOn:true,  beams:[1],
+    { truck:move(58,-4),  truckOn:false, propio:false, mont:move(26,-172), montOn:true,  carga:true,  cam:camara(250,70,30), beams:[1],
       label:"02 / 06 · Estante A-04, nivel 12",
       k:"ENT-2207 · Entró a su lugar",
       v:"312 piezas en A-04-12 · costo con envío $184.20 por pieza" },
 
-    { truck:move(14,-4),  truckOn:false, propio:false, mont:move(34,-64),  montOn:true,  beams:[2],
+    { truck:move(58,-4),  truckOn:false, propio:false, mont:move(34,-64),  montOn:true,  carga:true,  cam:camara(264,168,10), beams:[2],
       label:"03 / 06 · La mesa donde se junta",
       k:"PED-3471 · Apartado",
       v:"18 piezas · 3 lugares · una sola vuelta" },
 
-    { truck:move(292,-6), truckOn:true,  propio:true,  mont:move(150,-30), montOn:true,  beams:[3],
+    { truck:move(334,-6), truckOn:true,  propio:true,  mont:move(132,-58,14), montOn:true,  carga:true,  cam:camara(390,236,14), beams:[3],
       label:"04 / 06 · La puerta de salida",
       k:"Factura A-1140 · Enviada al SAT",
       v:"18 piezas · $41,760 · entrega y factura del mismo pedido" },
 
-    { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[4],
+    { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  carga:false, cam:camara(470,262,14), beams:[4],
       label:"05 / 06 · Entrega y cobro",
       k:"REP-0915 · Pago aplicado",
       v:"comprobante del pago hecho · sabes quién te debe y desde cuándo" },
 
-    { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  beams:[0,1,2,3,4],
+    { truck:move(360,10), truckOn:true,  propio:true,  mont:move(34,-64),  montOn:true,  carga:false, cam:camara(), beams:[0,1,2,3,4],
       label:"06 / 06 · Tablero de dirección",
       k:"Ganancia real · 22.4 %",
       v:"en todo el camino, una sola anotación · con el envío ya descontado" }
@@ -1228,6 +1316,9 @@
 
   var truckEl = document.getElementById("truck");
   var montEl  = document.getElementById("mont");
+  var cargaEl = document.getElementById("carga");
+  var worldEl = document.getElementById("world");
+  var pantallaEl = document.getElementById("pantalla");
   var labelEl = document.getElementById("stateLabel");
   var hudK = document.getElementById("hudK");
   var hudV = document.getElementById("hudV");
@@ -1249,6 +1340,15 @@
 
     montEl.style.transform = st.mont;
     montEl.classList.toggle("oculto", !st.montOn);
+    /* La carga viaja con el montacargas hasta la salida; después va dentro del
+       camión, así que desaparece con él. */
+    cargaEl.style.transform = st.carga ? st.mont : st.truck;
+    cargaEl.classList.toggle("oculto", !st.carga);
+    worldEl.style.transform = st.cam;
+    /* El sistema se entera: la pantalla de la oficina destella con cada dato. */
+    pantallaEl.classList.remove("destello");
+    void pantallaEl.getBoundingClientRect();
+    pantallaEl.classList.add("destello");
 
     beamEls.forEach(function(g, n){ g.classList.toggle("on", st.beams.indexOf(n) !== -1); });
 
@@ -1331,7 +1431,7 @@
     clearInterval(timer);
     timer = null;
     reproduciendo = false;
-    playEl.textContent = "▶ Que avance solo";
+    playEl.textContent = "▶ Reproducir";
     playEl.setAttribute("aria-pressed", "false");
   }
   playEl.addEventListener("click", function(){

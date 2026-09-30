@@ -855,12 +855,21 @@ después se atacan con contenido.
       precio cerrado → soporte en contrato aparte. En la FAQ, con un botón «¿Cuánto costaría en
       tu empresa?», y en el recorrido del ERP. La insignia «Precios competitivos» del hero pasó a
       «Quien diagnostica, diseña».
-- [ ] **Rediseño de los recorridos como reproductor** — 2026-09-29, apartado por Aldo. Los
-      recorridos se leen chicos y no atrapan. Prototipo con tres variantes del de tienda en línea
-      (A pantalla dividida, B el interruptor «Hoy / Con el sistema», C la cifra gigante), con
-      Reproducir/Pausa y capítulos, en la rama **`aldo-prototipo-recorridos`**
-      (`prototipos/recorrido-tienda/`; `npx vite` y abrir `/prototipos/recorrido-tienda/?variant=A`,
-      con `&paso=N` para saltar). Falta que Aldo elija; luego se reescribe bien, primero el ERP.
+- [ ] **Mejorar los recorridos: letra, acomodo y escenas** — 2026-09-30, con Aldo. Se descartó
+      el rediseño como reproductor (el prototipo de tres variantes se borró) y se mejora el diseño
+      actual.
+      - [x] **Letra y acomodo en los ocho** (`scripts/recorridos.js`, `ESTILO_LEGIBLE`): lectura en
+        16-17 px, ninguna etiqueta fuera de los dibujos baja de 12, el dibujo toma más ancho en
+        escritorio y «▶ Reproducir» es el control principal. Medido: en el ERP las palabras de 13 px
+        o menos pasaron del 81 % a menos del 20 %; en 390×844 los seis pasos de los ocho caben bajo
+        el dibujo (en 360×740 y 375×667 hay que deslizar un poco, como ya pasaba).
+      - [x] **Escena del ERP**: el montacargas se queda en el andén (antes se veía montado en el
+        camión porque el camión se dibujaba primero), la carga sube al camión en la salida, la
+        cámara se acerca a cada paso y se aleja en el sexto, sombras, y la pantalla de la oficina
+        destella con cada dato.
+      - [ ] **Las otras siete escenas, una por una**, con el mismo criterio: que nada se monte donde
+        no va, cámara que siga la historia y el texto de dentro del dibujo legible (hoy es lo único
+        que sigue por debajo de 12 px: la tarjeta de checado, las pantallas de teléfono…).
 - [ ] **Más casos de éxito.** Hay tres: Simagas, la red de 18 hospitales (anónimo) y GT-SHOP
       (2026-09-29). Los siguientes se preparan con `npm run logo:cliente <origen> <destino>`
       —con el SVG o PNG original del cliente usa su transparencia— y se escriben en
