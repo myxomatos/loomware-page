@@ -9,6 +9,10 @@
  *
  * dolor: lo que vemos en ese giro, en sus palabras. Sin cifras que no se hayan
  * medido. servicios: qué suele resolverlo, enlazando a cada servicio.
+ *
+ * Tono (decidido con Aldo el 2026-09-29): la voz es la de una empresa mediana
+ * —varias sucursales, almacenes, turnos, cientos de pedidos—, sin dejar fuera
+ * a la chica. Todo lo de «comoAyudamos» se construye a la medida.
  */
 export const INDUSTRIAS = [
   {
@@ -16,7 +20,7 @@ export const INDUSTRIAS = [
     icon: 'package',
     nombre: 'Distribuidoras y mayoristas',
     dolor:
-      'Pedidos que llegan por WhatsApp, inventario en una hoja que no coincide con el almacén y cobranza que se persigue de memoria.',
+      'Pedidos que llegan por WhatsApp y por vendedor, inventario que no coincide entre almacenes y cobranza que se persigue de memoria.',
     servicios: ['erp', 'crm'],
 
     titulo: 'ERP y CRM para distribuidoras en México | Loomware',
@@ -24,15 +28,15 @@ export const INDUSTRIAS = [
       'Sistemas para distribuidoras y mayoristas: inventario real, pedidos sin recaptura, cobranza con seguimiento y facturación CFDI. Llamada sin costo.',
     h1: 'Sistemas para distribuidoras: el inventario que dice el sistema es el que hay',
     intro: [
-      'En una distribuidora todo pasa por el inventario, y cuando el inventario no es confiable, todo lo demás se contagia: se vende lo que no hay, se compra lo que sobra y el cliente se entera antes que tú.',
-      'A eso se suman los pedidos que entran por WhatsApp y alguien tiene que capturar, la cobranza que vive en la cabeza del vendedor, y un cierre de mes que tarda más de lo que debería porque hay que conciliar tres archivos.',
+      'En una distribuidora todo pasa por el inventario, y cuando hay varios almacenes, rutas y sucursales, basta con que uno no sea confiable para que todo lo demás se contagie: se vende lo que no hay, se compra lo que sobra y el cliente se entera antes que tú.',
+      'A eso se suman cientos de pedidos que entran por WhatsApp, por teléfono y por vendedor y alguien tiene que capturar, la cobranza que vive en la cabeza de cada vendedor, y un cierre de mes que tarda más de lo que debería porque hay que conciliar los archivos de cada sucursal.',
     ],
     sintomas: [
-      'El conteo físico nunca cuadra con el sistema y nadie sabe desde cuándo.',
+      'El conteo físico nunca cuadra con el sistema, y entre almacenes cuadra todavía menos.',
       'Los pedidos llegan por WhatsApp, correo y teléfono, y alguien los recaptura uno por uno.',
       'No sabes el margen real por producto hasta que cierras el mes.',
       'La cobranza depende de que el vendedor se acuerde de llamar.',
-      'Cada promoción es una hoja aparte que hay que conciliar después.',
+      'Cada sucursal o cada ruta lleva su propio archivo, y la dirección ve el total hasta el cierre.',
     ],
     comoAyudamos: [
       {
@@ -57,21 +61,21 @@ export const INDUSTRIAS = [
   {
     id: 'manufactura',
     icon: 'settings',
-    nombre: 'Manufactura y talleres',
+    nombre: 'Manufactura',
     dolor:
-      'Órdenes de producción en papel, materia prima que se acaba sin aviso y costos reales que se conocen hasta el cierre de mes.',
+      'Órdenes de producción en papel o en pizarrón, materia prima que se acaba sin aviso y costos reales que se conocen hasta el cierre de mes.',
     servicios: ['erp', 'automatizacion'],
 
     titulo: 'ERP para manufactura y talleres en México | Loomware',
     descripcion:
-      'Órdenes de producción, materiales, costo real por lote y facturación en un solo sistema. Para talleres y manufactura en México. Llamada sin costo.',
+      'Órdenes de producción, materiales, costo real por lote y facturación en un solo sistema. Para plantas y talleres de manufactura en México. Llamada sin costo.',
     h1: 'Sistemas para manufactura: saber el costo real antes del cierre de mes',
     intro: [
-      'En un taller la orden de producción suele vivir en papel o en un pizarrón. Funciona mientras son pocas órdenes; cuando crecen, nadie sabe con certeza qué se está produciendo, con qué material y a qué costo.',
+      'En muchas plantas la orden de producción todavía vive en papel o en un pizarrón. Funciona mientras son pocas órdenes y un solo turno; cuando son cientos de órdenes, varias líneas y tres turnos, nadie sabe con certeza qué se está produciendo, con qué material y a qué costo.',
       'El resultado típico: se cotiza con un costo estimado que nunca se compara con el real, la materia prima se acaba sin aviso y la utilidad del mes aparece semanas después, cuando ya no se puede corregir nada.',
     ],
     sintomas: [
-      'Las órdenes de producción están en papel y su avance se pregunta de viva voz.',
+      'Las órdenes de producción están en papel y su avance se pregunta de viva voz, turno por turno.',
       'La materia prima se acaba sin que nadie lo vea venir.',
       'Cotizas con un costo estimado y nunca lo comparas con el real.',
       'No sabes cuánto material se fue en merma ni en qué lote.',
@@ -102,7 +106,7 @@ export const INDUSTRIAS = [
     icon: 'map-pin',
     nombre: 'Constructoras y servicios en campo',
     dolor:
-      'Cuadrillas sin forma de reportar avances, evidencias en el celular de cada quien y la oficina enterándose días después.',
+      'Cuadrillas en varias obras sin forma de reportar avances, evidencias en el celular de cada quien y la oficina enterándose días después.',
     servicios: ['apps-moviles', 'automatizacion'],
 
     titulo: 'App y sistemas para constructoras y obra | Loomware',
@@ -110,7 +114,7 @@ export const INDUSTRIAS = [
       'Reporte de avance en obra desde el celular, con fotos y firma, incluso sin señal. Para constructoras y empresas de servicio en campo en México.',
     h1: 'Sistemas para obra y campo: la oficina se entera el mismo día',
     intro: [
-      'El trabajo ocurre en la obra, pero la información llega a la oficina cuando alguien regresa: fotos en el celular de cada quien, bitácoras en papel y un reporte que se arma de memoria el viernes.',
+      'El trabajo ocurre en varias obras a la vez, pero la información llega a la oficina cuando alguien regresa: fotos en el celular de cada quien, bitácoras en papel y un reporte que se arma de memoria el viernes.',
       'Mientras tanto, la oficina no puede saber si una cuadrilla va retrasada, si el material llegó o si el cliente firmó la entrega. Cuando se entera, ya pasó.',
     ],
     sintomas: [
@@ -135,7 +139,7 @@ export const INDUSTRIAS = [
       },
       {
         titulo: 'Tablero de obra',
-        texto: 'La oficina ve el avance por obra y por cuadrilla el mismo día, no el lunes siguiente.',
+        texto: 'La oficina ve el avance de todas las obras y de cada cuadrilla el mismo día, no el lunes siguiente.',
       },
     ],
   },
@@ -145,7 +149,7 @@ export const INDUSTRIAS = [
     icon: 'users',
     nombre: 'Despachos y consultorías',
     dolor:
-      'Los clientes viven en la agenda de cada socio; cuando alguien falta, el seguimiento se pierde y el cliente lo nota.',
+      'Los clientes viven en la agenda de cada socio o gerente; cuando alguien falta, el seguimiento se pierde y el cliente lo nota.',
     servicios: ['crm', 'automatizacion'],
 
     titulo: 'CRM para despachos y consultorías | Loomware',
@@ -153,7 +157,7 @@ export const INDUSTRIAS = [
       'Cartera de clientes que no depende de la agenda de cada socio: historial, seguimientos y renovaciones con responsable y fecha. Llamada sin costo.',
     h1: 'Sistemas para despachos: que la cartera no viva en la cabeza de cada socio',
     intro: [
-      'En un despacho el activo son las relaciones, y las relaciones suelen vivir en la agenda personal de cada socio: su celular, su correo, su memoria. Funciona hasta que alguien se va de vacaciones, se enferma o deja la firma.',
+      'En un despacho o una consultoría el activo son las relaciones, y las relaciones suelen vivir en la agenda personal de cada socio o gerente: su celular, su correo, su memoria. Con cinco personas funciona; con varias áreas u oficinas, basta con que alguien se vaya de vacaciones o deje la firma para que se note.',
       'Entonces aparece el costo real: nadie sabe qué se le prometió al cliente, cuándo vence su contrato ni quién lo atendió la última vez.',
     ],
     sintomas: [
@@ -193,10 +197,10 @@ export const INDUSTRIAS = [
 
     titulo: 'Sistemas para comercio: tienda y mostrador | Loomware',
     descripcion:
-      'Un solo inventario para mostrador y tienda en línea, con pagos, envíos y facturación conectados. Para comercios en México. Llamada sin costo.',
+      'Un solo inventario para sucursales y tienda en línea, con pagos, envíos y facturación conectados, hecho a la medida. Para comercios en México. Llamada sin costo.',
     h1: 'Sistemas para comercio: un solo inventario para el mostrador y la tienda en línea',
     intro: [
-      'Vender en línea y en piso con dos inventarios distintos crea un problema que el cliente descubre antes que tú: compra algo que ya no hay, o deja de comprar algo que sí tenías.',
+      'Vender en línea y en varias sucursales con inventarios distintos crea un problema que el cliente descubre antes que tú: compra algo que ya no hay, o deja de comprar algo que sí tenías.',
       'A eso se suma la doble captura —cada pedido de internet se teclea otra vez en el sistema de la tienda— y una contabilidad que nunca termina de cuadrar entre canales.',
     ],
     sintomas: [
@@ -209,7 +213,7 @@ export const INDUSTRIAS = [
     comoAyudamos: [
       {
         titulo: 'Inventario único',
-        texto: 'Mostrador y tienda en línea descuentan del mismo inventario, al momento de la venta.',
+        texto: 'Las sucursales y la tienda en línea descuentan del mismo inventario, al momento de la venta.',
       },
       {
         titulo: 'Pedidos que entran solos',
@@ -217,7 +221,7 @@ export const INDUSTRIAS = [
       },
       {
         titulo: 'Pagos y envíos',
-        texto: 'Tarjeta, transferencia y meses sin intereses; cotización de envío, guía y rastreo para el cliente.',
+        texto: 'Tarjeta y transferencia; cotización de envío, guía y rastreo para el cliente.',
       },
       {
         titulo: 'Margen por canal',
@@ -227,26 +231,26 @@ export const INDUSTRIAS = [
   },
 
   {
-    id: 'servicios',
+    id: 'salud',
     icon: 'calendar',
-    nombre: 'Clínicas y servicios profesionales',
+    nombre: 'Salud',
     dolor:
-      'Agenda en un sistema, expedientes en otro y cobros en un tercero; el personal captura lo mismo tres veces.',
+      'Agenda en un sistema, historial del paciente en otro y cobros en un tercero; el personal captura lo mismo tres veces.',
     servicios: ['software-a-medida', 'nomina'],
 
-    titulo: 'Sistemas para clínicas y servicios | Loomware',
+    titulo: 'Sistemas para clínicas, hospitales y laboratorios | Loomware',
     descripcion:
-      'Agenda, expediente y cobro en un solo sistema, sin capturar lo mismo tres veces. Para clínicas y servicios profesionales en México.',
-    h1: 'Sistemas para clínicas y servicios: capturar una vez, no tres',
+      'Agenda, historial del paciente y cobro en un solo sistema, sin capturar lo mismo tres veces. Para clínicas, hospitales y laboratorios en México.',
+    h1: 'Sistemas para salud: capturar una vez, no tres',
     intro: [
-      'La agenda está en un lado, el expediente en otro y el cobro en un tercero. Cada paciente o cliente obliga a capturar los mismos datos varias veces, y ninguna de las tres versiones está completa.',
+      'En una clínica, un hospital o una red de laboratorios, la agenda está en un lado, el historial del paciente en otro y el cobro en un tercero. Cada paciente obliga a capturar los mismos datos varias veces, en cada sede, y ninguna de las versiones está completa.',
       'El costo no es sólo el tiempo del personal: es que nadie puede responder rápido cuántas citas se cumplieron, cuánto se cobró y qué quedó pendiente.',
     ],
     sintomas: [
-      'Los mismos datos se capturan en la agenda, en el expediente y en el cobro.',
+      'Los mismos datos se capturan en la agenda, en el historial y en el cobro.',
       'Las confirmaciones de cita se mandan a mano, una por una.',
       'No sabes tu tasa de asistencia ni cuántas citas se perdieron.',
-      'El expediente está en papel o en un archivo que sólo abre una persona.',
+      'El historial del paciente está en papel o en un archivo que sólo abre una persona.',
       'La nómina del personal se calcula aparte, en Excel.',
     ],
     comoAyudamos: [
@@ -255,8 +259,8 @@ export const INDUSTRIAS = [
         texto: 'Recordatorios por WhatsApp o correo antes de la cita, sin que nadie los mande.',
       },
       {
-        titulo: 'Expediente y cobro en el mismo lugar',
-        texto: 'El historial, lo realizado y lo cobrado viven juntos. Se captura una vez.',
+        titulo: 'Historial y cobro en el mismo lugar',
+        texto: 'El historial, lo realizado y lo cobrado viven juntos y se captura una vez. Se adapta a lo que pide la NOM-004; la certificación NOM-024, si tu institución la requiere, se define en el proyecto.',
       },
       {
         titulo: 'Control de la operación',

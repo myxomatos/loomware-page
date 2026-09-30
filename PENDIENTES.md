@@ -65,6 +65,14 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       persona tiene cargo y foto. Falta también el apellido de Alan.
 - [ ] **Lectura legal de `/aviso-de-privacidad`** antes de producción. Los datos del responsable
       están en `src/data/contacto.js`; si se constituye una sociedad, se cambian ahí.
+- [ ] **Cita de Simagas.** Su caso ya está en `#casos` con logotipo (autorizado). Falta quién
+      firma la cita: Aldo lo confirma con ellos. Cuando haya resultados medidos, reemplazan el
+      «En implementación» de `src/data/casos.js`.
+- [ ] **Contrato de encargado para los proyectos con datos de salud.** Con el ISSSTE aplica la
+      LGPDPPSO (art. 53: contrato con cláusulas mínimas) y con clínicas privadas la LFPDPPP
+      (Loomware es «encargado»). La NOM-024 alcanza también a quien desarrolla o comercializa
+      el sistema (numeral 1.2). Las apps de salud, publicadas con la cuenta del cliente.
+      Revisión del 2026-09-29, no es asesoría legal: que lo vea un abogado.
 - [ ] **Que el contrato respalde lo que dice el sitio** — *[material de venta]*: «el contrato te
       entrega el código, la base de datos y la documentación» y «precio cerrado por ese alcance;
       si lo amplías, se cotiza aparte y lo apruebas tú». También va en el recorrido del ERP.
@@ -76,10 +84,16 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       como elección y «¿Cuánto cuesta?» menciona la cuota. Software a medida dejó de pintar la
       renta por usuario como lo malo: el contraste es el sistema de catálogo que no se ajusta.
       Fuera «muchos clientes» de nómina y tienda en línea.
-- [ ] **Validar las seis páginas de industria** (`src/data/industrias.js`) — *[material de
-      venta]*: síntomas y solución por giro, junto con el «Hoy» por giro del recorrido del ERP.
-- [ ] **Confirmar que nómina y comercio en línea se ofrecen.** Si no, se quitan de
-      `src/data/servicios.js` y se van solos de todo el sitio.
+- [x] ~~**Validar las seis páginas de industria**~~ — 2026-09-29, con Aldo. El cliente objetivo es
+      la **pequeña y mediana empresa, con mucha experiencia en la mediana**; lo grande (Simagas, la
+      red de 18 hospitales) es credencial, no mercado. Las industrias suben el tono a empresa
+      mediana —almacenes, sucursales, turnos, varias obras— y todo lo que prometen se presenta
+      como a la medida. «Clínicas y servicios profesionales» pasó a **Salud**
+      (`/industrias/salud`; la URL vieja redirige), con «historial del paciente» en vez de
+      «expediente clínico». Fuera «meses sin intereses» de comercio.
+- [x] ~~**Confirmar que nómina y comercio en línea se ofrecen.**~~ — 2026-09-29: sí. Nómina como
+      servicio (se cobra por empleado calculado y timbrado) o como herramienta a la medida;
+      comercio en línea siempre a la medida y lo administra el cliente.
 - [ ] **GT-SHOP, extras.** Eduardo ya aprobó la cita y el uso de la marca (2026-09-22). Si los
       tiene: el archivo original del logotipo (el de hoy salió de una captura) y una medición real
       —pedidos, tiempo de entrega, devoluciones— que reemplace el `resultado` en `src/data/casos.js`.
@@ -284,8 +298,10 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       precio cerrado → soporte en contrato aparte. En la FAQ, con un botón «¿Cuánto costaría en
       tu empresa?», y en el recorrido del ERP. La insignia «Precios competitivos» del hero pasó a
       «Quien diagnostica, diseña».
-- [ ] **Más casos de éxito.** GT-SHOP es el primero. Los siguientes se preparan con
-      `npm run logo:cliente <origen> <destino>` y se escriben en `src/data/casos.js`.
+- [ ] **Más casos de éxito.** Hay tres: Simagas, la red de 18 hospitales (anónimo) y GT-SHOP
+      (2026-09-29). Los siguientes se preparan con `npm run logo:cliente <origen> <destino>`
+      —con el SVG o PNG original del cliente usa su transparencia— y se escriben en
+      `src/data/casos.js`.
 - [ ] **Conversión de bajo compromiso.** Una guía descargable («Checklist: ¿tu empresa necesita
       un ERP?») para quien aún no quiere llamada.
 - [ ] **Remarketing.** Píxel y audiencias cuando arranquen con Ads.

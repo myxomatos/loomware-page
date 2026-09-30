@@ -27,7 +27,8 @@ if (!origen || !destino) {
 // El tono del cuerpo de texto: presente, sin gritar.
 const TINTA = { r: 70, g: 80, b: 105 }
 
-const base = sharp(origen)
+const base = sharp(origen, { density: 300 })
+const { hasAlpha } = await base.metadata()
 const { data, info } = await base.clone().greyscale().median(3).normalize()
   .raw().toBuffer({ resolveWithObject: true })
 const { width: W, height: H } = info
@@ -41,10 +42,17 @@ const percentil = (p) => {
 }
 const corte = percentil(0.86)
 
-const alpha = Buffer.alloc(data.length)
-for (let i = 0; i < data.length; i++) {
-  const v = data[i]
-  alpha[i] = v <= corte ? 0 : Math.min(255, Math.round(((v - corte) / (255 - corte)) * 300))
+// Con el archivo original (SVG o PNG con transparencia) la forma ya viene en
+// el canal alfa y se usa tal cual: separar por brillo se comería los colores
+// oscuros de la marca. El brillo queda para rescatar fotos de pantalla.
+const alpha = hasAlpha
+  ? await base.clone().ensureAlpha().extractChannel(3).raw().toBuffer()
+  : Buffer.alloc(data.length)
+if (!hasAlpha) {
+  for (let i = 0; i < data.length; i++) {
+    const v = data[i]
+    alpha[i] = v <= corte ? 0 : Math.min(255, Math.round(((v - corte) / (255 - corte)) * 300))
+  }
 }
 
 // El reflejo de la pantalla vive a los costados de la mitad de arriba, fuera
