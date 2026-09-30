@@ -99,11 +99,33 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       —pedidos, tiempo de entrega, devoluciones— que reemplace el `resultado` en `src/data/casos.js`.
 - [ ] **Video de «Ver cómo funciona».** Subirlo a YouTube como *No listado* y poner la URL en
       `src/data/video.js`; también acepta un MP4 de menos de ~15 MB en `public/video/`.
-- [ ] **Analítica.** Crear la propiedad de GA4 y marcar como conversiones los eventos que el
-      código ya reporta: `generate_lead` (con `metodo` = formulario o calculadora),
-      `click_whatsapp` con el origen, y `calculadora_inicio`. Desde el 2026-09-27
-      `generate_lead` se cuenta una vez por envío: antes la calculadora contaba doble y abrir o
-      recargar `/gracias` contaba uno falso.
+- [ ] **Analítica: crear GA4 y cargar `VITE_GA_ID`** — *lo siguiente, 2026-09-30*. El código ya
+      está listo (`vite.config.js`, `src/components/Cookies.jsx`, `src/lib/analytics.js`): con el ID
+      se inserta GA en todas las páginas con el consentimiento en «denegado», aparecen la banda de
+      cookies y el enlace «Cookies» del pie, y la CSP autoriza sus fragmentos al compilar. El aviso
+      de privacidad (sección 7) ya lo cubre. Eventos que se reportan: `generate_lead` (`metodo` =
+      formulario o calculadora; uno por envío), `click_whatsapp` (`origen`), `calculadora_inicio`,
+      `calculadora_desde_hero`, `recorrido_desde_inicio` (`recorrido`) y `ver_video`.
+
+      1. <https://analytics.google.com> → Administrar → Crear → Propiedad `loomware.com.mx`, zona
+         horaria México (Ciudad de México), moneda MXN, objetivo «generar clientes potenciales».
+         Flujo de datos Web `https://loomware.com.mx` («Sitio»), medición mejorada activada.
+         Copiar el ID de medición (`G-…`).
+      2. Recopilación y modificación de datos → Retención de datos → **14 meses** (por omisión son 2).
+      3. Cloudflare → Workers & Pages → loomware-page → Settings → Variables and Secrets → Add:
+         tipo **Text** (el ID no es secreto), nombre `VITE_GA_ID`, **solo Production** (para que los
+         previews no ensucien las estadísticas).
+      4. **Retry deployment** del último de `main`: es variable de compilación, no aplica a lo ya
+         publicado. Luego Claude verifica el HTML, la CSP y la banda.
+      5. Visualización de datos → **Eventos clave** → Nuevo: `generate_lead` y `click_whatsapp`
+         (el nombre exacto; se pueden marcar antes de que ocurran).
+      6. Definiciones personalizadas → dimensiones de alcance **evento**: `metodo` («Método de
+         contacto»), `origen` («Origen de WhatsApp»), `recorrido` («Recorrido»).
+      7. Recomendado: definir el tráfico interno con tu IP (Configurar etiquetas) y activar su filtro.
+
+      Prueba: incógnito → debe salir la banda → Aceptar → en **Tiempo real** apareces tú; un clic en
+      WhatsApp debe dar `click_whatsapp`. Para `generate_lead`, la calculadora avisando que es
+      prueba (llega un correo real).
 - [ ] **Logo en otros lados.** El logo del sitio es ahora la nube de cuatro lóbulos, sin
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
@@ -306,6 +328,12 @@ Alan iba a abrir ya no hace falta: el #4 sale de `aldo` y trae su rama completa.
       precio cerrado → soporte en contrato aparte. En la FAQ, con un botón «¿Cuánto costaría en
       tu empresa?», y en el recorrido del ERP. La insignia «Precios competitivos» del hero pasó a
       «Quien diagnostica, diseña».
+- [ ] **Rediseño de los recorridos como reproductor** — 2026-09-29, apartado por Aldo. Los
+      recorridos se leen chicos y no atrapan. Prototipo con tres variantes del de tienda en línea
+      (A pantalla dividida, B el interruptor «Hoy / Con el sistema», C la cifra gigante), con
+      Reproducir/Pausa y capítulos, en la rama **`aldo-prototipo-recorridos`**
+      (`prototipos/recorrido-tienda/`; `npx vite` y abrir `/prototipos/recorrido-tienda/?variant=A`,
+      con `&paso=N` para saltar). Falta que Aldo elija; luego se reescribe bien, primero el ERP.
 - [ ] **Más casos de éxito.** Hay tres: Simagas, la red de 18 hospitales (anónimo) y GT-SHOP
       (2026-09-29). Los siguientes se preparan con `npm run logo:cliente <origen> <destino>`
       —con el SVG o PNG original del cliente usa su transparencia— y se escriben en
