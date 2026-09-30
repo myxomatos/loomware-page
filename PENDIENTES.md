@@ -86,7 +86,7 @@ cookie. Si no aparece, falta el *Retry deployment*.
 
 ---
 
-### Paso 3 · Search Console — 15 minutos
+### Paso 3 · Search Console — ✅ 2026-09-30 (propiedad de dominio verificada por DNS; sitemap enviado)
 
 Es lo único que contesta si Google ya indexó el sitio. Al 28 de septiembre, buscar «Loomware»
 devuelve el repositorio de GitHub y no el dominio.
@@ -258,6 +258,13 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       datos → Eventos → «Eventos recientes»* (tarda hasta 24 h). Estrella a **`generate_lead`** y
       **`click_whatsapp`**. Los que Google creó solo (`close_convert_lead`, `qualify_lead`) el sitio
       no los manda; se pueden desmarcar.
+- [ ] **Search Console, mañana (2026-10-01)**: en *Sitemaps* el de `https://loomware.com.mx/sitemap.xml`
+      debe pasar de «No se ha podido obtener» a «Correcto» con 25 páginas (del lado del sitio está
+      bien: Googlebot lo recibe con 200, `application/xml`, XML válido). Si sigue igual en 48 h,
+      reenviarlo. Ya se solicitó la indexación de `/servicios/erp` (Google la ve completa, como
+      teléfono); conviene pedir también `/`, `/recorridos/erp`, `/servicios/crm` y
+      `/industrias/distribuidoras` (unas 10 al día). El registro TXT `google-site-verification`
+      del DNS es el que sostiene la verificación: **no se borra**.
 - [ ] **(Recomendado) Excluir el tráfico interno en GA4**: *Flujos de datos → Sitio → Configurar
       etiquetas → Definir el tráfico interno* con la IP de la oficina, y activar su filtro en
       *Filtros de datos*. Si no, las pruebas de Aldo y Alan cuentan como visitas.
