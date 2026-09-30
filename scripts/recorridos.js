@@ -40,8 +40,8 @@ const FUENTES_LOCALES = `    <link rel="preload" href="/fonts/azeret-mono-recorr
    botón de avance automático se vuelve el control principal. Va como una hoja
    aparte, después de la del recorrido, para no reescribir las ocho fuentes: las
    ocho comparten clases desde que alcanzaron la forma del ERP. Se prende por
-   recorrido en LEGIBLE mientras se revisa. */
-const LEGIBLE = new Set(['erp'])
+   recorrido en LEGIBLE; desde el 2026-09-30 van los ocho. */
+const LEGIBLE = new Set(RECORRIDOS.map((r) => r.slug))
 const ESTILO_LEGIBLE = `    <style>
       /* lectura cómoda: ver scripts/recorridos.js */
       body{font-size:16px;}
@@ -71,7 +71,9 @@ const ESTILO_LEGIBLE = `    <style>
       .pant .tabla__t,.pant .pant__pie,.pant .app__barra{font-size:12px;}
       .pant .mon,.pant .mar,.pant .app__lado{font-size:13px;}
       .pant .pant__lee{font-size:16px;}
-      .btn{font-size:15px;} .cierre .otras{font-size:14px;} .colofon{font-size:12px;}
+      .btn{font-size:15px;} .cierre .otras{font-size:14px;} .colofon{font-size:14px;line-height:1.6;}
+      a.brand__cta{font-size:13px;}
+      nav.sigue b{font-size:12px;} nav.sigue .sigue__t{font-size:13px;}
       @media (min-width:881px){
         .cols{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:36px;}
         .step{opacity:.4;}

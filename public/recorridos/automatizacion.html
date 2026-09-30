@@ -515,6 +515,65 @@
         .gauge{margin-left:0;}
       }
     </style>
+        <style>
+          /* lectura cómoda: ver scripts/recorridos.js */
+          body{font-size:16px;}
+          .lbl{font-size:12px;}
+          .paraquien{font-size:13.5px;}
+          .deck{font-size:17px;line-height:1.6;}
+          .specline,.antes figcaption,.cap,.legend,.pista{font-size:13px;}
+          .readout{padding:11px 15px;}
+          .readout__k,.readout__v{font-size:14px;}
+          .play{font-size:15px;font-weight:700;letter-spacing:.02em;padding:10px 20px;
+            border-radius:999px;color:var(--surface);background:var(--signal);border-color:var(--signal);}
+          .play:hover,.play[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface);}
+          .exp__nota{font-size:14px;}
+          .chip b{font-size:13px;} .chip span{font-size:12px;}
+          .steps__t{font-size:clamp(18px,2vw,22px);}
+          .paso{font-size:14px;} .gauge{font-size:12px;}
+          .step h3{font-size:clamp(18px,1.8vw,21px);}
+          .vs__row{grid-template-columns:minmax(0,1fr);gap:3px;padding:10px 14px;}
+          .vs__lbl{line-height:1.4;}
+          .vs__row p{font-size:16.5px;line-height:1.5;}
+          .enotro{font-size:15px;}
+          .giros p,.faq p,.costo p,.pant p,.atajo p,.cierre p,.giros__cierre{font-size:16px;}
+          .rejilla b,.costo .rejilla b{font-size:13px;}
+          .rejilla span{font-size:15px;} .rejilla .hoy{font-size:14px;}
+          .faq .rejilla > li > b{font-size:15px;}
+          .pant .kpi b{font-size:18px;} .pant .kpi span,.pant .fila--enc span,.pant .fila--suma .lbl{font-size:12px;}
+          .pant .tabla__t,.pant .pant__pie,.pant .app__barra{font-size:12px;}
+          .pant .mon,.pant .mar,.pant .app__lado{font-size:13px;}
+          .pant .pant__lee{font-size:16px;}
+          .btn{font-size:15px;} .cierre .otras{font-size:14px;} .colofon{font-size:14px;line-height:1.6;}
+          a.brand__cta{font-size:13px;}
+          nav.sigue b{font-size:12px;} nav.sigue .sigue__t{font-size:13px;}
+          @media (min-width:881px){
+            .cols{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:36px;}
+            .step{opacity:.4;}
+          }
+          /* En el teléfono el dibujo se queda pegado arriba y el paso tiene que caber
+             debajo: la letra baja un punto, el relleno se aprieta y la ficha deja sólo
+             su renglón principal. Medido a 390×844 y 360×740 con cabe.mjs. */
+          @media (max-width:880px) and (min-height:560px){
+            .legend{font-size:12.5px;}
+            .readout__v{display:none;}
+            .readout{padding:8px 12px;}
+            .stage svg{max-height:30vh;}
+            .step{padding-block:8px;}
+            .step-head{margin-bottom:6px;}
+            .step h3{font-size:18px;}
+            .vs__row{padding:7px 11px;gap:2px;}
+            .vs__row p{font-size:15.5px;line-height:1.42;}
+            .enotro{font-size:14px;margin-top:8px;}
+          }
+          /* Teléfono chico (360×740): el dibujo cede un poco más de alto. */
+          @media (max-width:880px) and (min-height:560px) and (max-height:780px){
+            .stage svg{max-height:24vh;}
+            .vs__row p{font-size:15px;}
+            .enotro{font-size:13.5px;}
+          }
+        </style>
+
 
     <style>
       /* El logotipo es un enlace al inicio sólo en la versión del sitio, así que
