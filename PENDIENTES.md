@@ -19,7 +19,7 @@ responde 500.
 | --- | --- | --- | --- |
 | 1 | Revisar el preview en escritorio y en celular | <https://aldo.loomware-page.pages.dev> | ✅ 2026-09-23 |
 | 2 | Verificar `loomware.com.mx` en Resend | Resend y Cloudflare DNS | ✅ 2026-09-23 |
-| 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | `RESEND_API_KEY` ✅ 2026-09-24; faltan `DENUE_TOKEN`, `PROSPECT_KEY` y `VITE_GA_ID` |
+| 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | `RESEND_API_KEY` ✅ 2026-09-24; `DENUE_TOKEN` y `PROSPECT_KEY` ✅ 2026-09-29 (producción); falta `VITE_GA_ID` |
 | 4 | **Retry deployment** (las variables no aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último de la rama → ⋯ | Repetir tras cada variable nueva |
 | 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | Formulario ✅ 2026-09-24: llega de `web@` a `aldo_sanchez@` y «Responder» va al prospecto |
 | 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | ✅ 2026-09-27 (PR #4). Se mezcló sin cerrar las validaciones de contenido de «Aldo»; lo que no cuadre entra en otro PR |
@@ -123,7 +123,7 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       3. **Cada recorrido trae su propia imagen de vista previa** para WhatsApp. Se ve pegando el
          enlace en una conversación contigo mismo.
 
-- [ ] **Alan: pasarle a Aldo el token del INEGI, y Aldo cargarlo.** Desbloquea `/prospectar`
+- [x] ~~**Alan: pasarle a Aldo el token del INEGI, y Aldo cargarlo.**~~ Cargados `DENUE_TOKEN` y `PROSPECT_KEY` en producción con `wrangler pages secret put` el 2026-09-29 (la versión 4 de wrangler ya no acepta `--env preview`: el preview, si hace falta, en el panel). `/prospectar` busca en producción. Desbloquea `/prospectar`
       (paso 3 de la ruta): `DENUE_TOKEN` es de Alan y Aldo no puede capturarlo hasta que se lo manden por
       un canal privado. **Probado contra el INEGI el 2026-09-24: el token sirve.** El mensaje,
       listo para copiar —el token va en **otro mensaje**, nunca junto con estas instrucciones—:

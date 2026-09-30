@@ -23,6 +23,8 @@ async function call(parts) {
   let data = null
   try {
     data = JSON.parse(text)
+    // A veces el INEGI manda la lista dentro de un texto: "[{\"CLEE\":…}]".
+    if (typeof data === 'string' && /^\s*[[{]/.test(data)) data = JSON.parse(data)
   } catch {
     data = null
   }
