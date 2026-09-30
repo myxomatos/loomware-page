@@ -53,7 +53,7 @@ el navegador.)*
 
 ---
 
-### Paso 2 · Analytics — 20 minutos
+### Paso 2 · Analytics — ✅ 2026-09-30 (falta marcar los eventos clave; ver «Aldo»)
 
 **Los pasos completos —retención de 14 meses, eventos clave, dimensiones personalizadas y
 tráfico interno— están en «Aldo → Analítica».** Aquí va el resumen.
@@ -86,7 +86,7 @@ cookie. Si no aparece, falta el *Retry deployment*.
 
 ---
 
-### Paso 3 · Search Console — 15 minutos
+### Paso 3 · Search Console — ✅ 2026-09-30 (propiedad de dominio verificada por DNS; sitemap enviado)
 
 Es lo único que contesta si Google ya indexó el sitio. Al 28 de septiembre, buscar «Loomware»
 devuelve el repositorio de GitHub y no el dominio.
@@ -106,7 +106,7 @@ devuelve el repositorio de GitHub y no el dominio.
 
 ---
 
-### Paso 4 · Google Business — 30 minutos
+### Paso 4 · Google Business — ✅ 2026-09-30 (perfil creado y verificado; ver «Aldo»)
 
 Es lo de mayor retorno por hora de toda la lista: un dominio nuevo tarda de tres a seis meses en
 posicionar y el perfil aparece en días. Es la puerta a lo único que podemos ganar este año, que
@@ -170,7 +170,7 @@ responde 500.
 | --- | --- | --- | --- |
 | 1 | Revisar el preview en escritorio y en celular | <https://aldo.loomware-page.pages.dev> | ✅ 2026-09-23 |
 | 2 | Verificar `loomware.com.mx` en Resend | Resend y Cloudflare DNS | ✅ 2026-09-23 |
-| 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | `RESEND_API_KEY` ✅ 2026-09-24; `DENUE_TOKEN` y `PROSPECT_KEY` ✅ 2026-09-29 (producción); falta `VITE_GA_ID` |
+| 3 | Cargar las variables, cada una en *Production* y en *Preview* | Cloudflare → `loomware-page` → Settings → Variables and Secrets | `RESEND_API_KEY` ✅ 2026-09-24; `DENUE_TOKEN` y `PROSPECT_KEY` ✅ 2026-09-29 (producción); `VITE_GA_ID` ✅ 2026-09-30 (sólo producción) |
 | 4 | **Retry deployment** (las variables no aplican a un despliegue ya publicado) | Cloudflare → Deployments → el último de la rama → ⋯ | Repetir tras cada variable nueva |
 | 5 | Probar en el preview: enviar el formulario (debe llegar el correo y aterrizar en `/gracias`) y buscar en `/prospectar` | Preview | Formulario ✅ 2026-09-24: llega de `web@` a `aldo_sanchez@` y «Responder» va al prospecto |
 | 6 | Abrir el PR de `aldo` a `main`, revisarlo con `mattpocock-skills:code-review` y mezclarlo | GitHub | ✅ 2026-09-27 (PR #4). Se mezcló sin cerrar las validaciones de contenido de «Aldo»; lo que no cuadre entra en otro PR |
@@ -245,33 +245,42 @@ responde 500 *«Falta configurar: DENUE_TOKEN, PROSPECT_KEY»* (lista todas las 
       —pedidos, tiempo de entrega, devoluciones— que reemplace el `resultado` en `src/data/casos.js`.
 - [ ] **Video de «Ver cómo funciona».** Subirlo a YouTube como *No listado* y poner la URL en
       `src/data/video.js`; también acepta un MP4 de menos de ~15 MB en `public/video/`.
-- [ ] **Analítica: crear GA4 y cargar `VITE_GA_ID`** — *lo siguiente, 2026-09-30*. El código ya
-      está listo (`vite.config.js`, `src/components/Cookies.jsx`, `src/lib/analytics.js`): con el ID
-      se inserta GA en todas las páginas con el consentimiento en «denegado», aparecen la banda de
-      cookies y el enlace «Cookies» del pie, y la CSP autoriza sus fragmentos al compilar. El aviso
-      de privacidad (sección 7) ya lo cubre. Eventos que se reportan: `generate_lead` (`metodo` =
-      formulario o calculadora; uno por envío), `click_whatsapp` (`origen`), `calculadora_inicio`,
-      `calculadora_desde_hero`, `recorrido_desde_inicio` (`recorrido`) y `ver_video`.
-
-      1. <https://analytics.google.com> → Administrar → Crear → Propiedad `loomware.com.mx`, zona
-         horaria México (Ciudad de México), moneda MXN, objetivo «generar clientes potenciales».
-         Flujo de datos Web `https://loomware.com.mx` («Sitio»), medición mejorada activada.
-         Copiar el ID de medición (`G-…`).
-      2. Recopilación y modificación de datos → Retención de datos → **14 meses** (por omisión son 2).
-      3. Cloudflare → Workers & Pages → loomware-page → Settings → Variables and Secrets → Add:
-         tipo **Text** (el ID no es secreto), nombre `VITE_GA_ID`, **solo Production** (para que los
-         previews no ensucien las estadísticas).
-      4. **Retry deployment** del último de `main`: es variable de compilación, no aplica a lo ya
-         publicado. Luego Claude verifica el HTML, la CSP y la banda.
-      5. Visualización de datos → **Eventos clave** → Nuevo: `generate_lead` y `click_whatsapp`
-         (el nombre exacto; se pueden marcar antes de que ocurran).
-      6. Definiciones personalizadas → dimensiones de alcance **evento**: `metodo` («Método de
-         contacto»), `origen` («Origen de WhatsApp»), `recorrido` («Recorrido»).
-      7. Recomendado: definir el tráfico interno con tu IP (Configurar etiquetas) y activar su filtro.
-
-      Prueba: incógnito → debe salir la banda → Aceptar → en **Tiempo real** apareces tú; un clic en
-      WhatsApp debe dar `click_whatsapp`. Para `generate_lead`, la calculadora avisando que es
-      prueba (llega un correo real).
+- [x] ~~**Analítica: crear GA4 y cargar `VITE_GA_ID`**~~ — 2026-09-30. Propiedad
+      `loomware.com.mx` en la cuenta Loomware, ID **`G-2K52ZSGMRP`** (cargado como `VITE_GA_ID`, tipo
+      Text, sólo en Production). Comprobado en producción: el guion de Google en todas las páginas,
+      consentimiento en «denegado», banda de cookies, consola limpia y datos en Tiempo real.
+      Conservación de datos en 14 meses; medición mejorada sin «cambios de historial» (inflaba las
+      visitas con cada `#ancla`), sin búsquedas en el sitio y sin interacciones con formularios
+      (`generate_lead` ya cuenta el envío real). Dimensiones personalizadas de evento: `metodo`
+      («Método de contacto»), `origen` («Origen de WhatsApp»), `recorrido` («Recorrido»).
+- [ ] **Marcar los eventos clave en GA4** — *a partir del 2026-10-01*. En esta versión ya no se
+      crean por nombre: se les pone estrella cuando aparecen en *Administrar → Visualización de
+      datos → Eventos → «Eventos recientes»* (tarda hasta 24 h). Estrella a **`generate_lead`** y
+      **`click_whatsapp`**. Los que Google creó solo (`close_convert_lead`, `qualify_lead`) el sitio
+      no los manda; se pueden desmarcar.
+- [ ] **Search Console, mañana (2026-10-01)**: en *Sitemaps* el de `https://loomware.com.mx/sitemap.xml`
+      debe pasar de «No se ha podido obtener» a «Correcto» con 25 páginas (del lado del sitio está
+      bien: Googlebot lo recibe con 200, `application/xml`, XML válido). Si sigue igual en 48 h,
+      reenviarlo. Ya se solicitó la indexación de `/servicios/erp` (Google la ve completa, como
+      teléfono); conviene pedir también `/`, `/recorridos/erp`, `/servicios/crm` y
+      `/industrias/distribuidoras` (unas 10 al día). El registro TXT `google-site-verification`
+      del DNS es el que sostiene la verificación: **no se borra**.
+- [x] ~~**Perfil de Google Business**~~ — 2026-09-30, con la cuenta de Loomware. Quedó
+      **verificado en automático** (la misma cuenta ya había verificado el dominio en Search
+      Console): sin video ni postal. Negocio **con área de servicio y sin dirección pública**
+      (decisión de Alan del 28): Atizapán de Zaragoza, Naucalpan de Juárez, Tlalnepantla de Baz,
+      Cuautitlán Izcalli y Ciudad de México. Categoría **«Compañía de software»** (en México no
+      existe «Empresa de desarrollo de software», y no hay secundaria que le quede: se dejó sola).
+      Teléfono 55 8096 8928, sitio web y chat por WhatsApp (`https://wa.me/525580968928`),
+      horario, descripción de 651 caracteres alineada con el sitio (pymes y medianas, «No
+      competimos por ser los más baratos…», llamada de 30 minutos sin costo), logotipo y
+      portada (`~/Descargas/loomware-google-business/`), y los ocho servicios con nombres de
+      búsqueda. Se omitió el crédito de Google Ads (MXN 7,000 al invertir lo mismo): se retoma
+      cuando los eventos clave de GA4 estén marcados. Pendiente menor: las descripciones de cada
+      servicio (entrando a cada uno; las frases son los `resumen` de `src/data/servicios.js`).
+- [ ] **(Recomendado) Excluir el tráfico interno en GA4**: *Flujos de datos → Sitio → Configurar
+      etiquetas → Definir el tráfico interno* con la IP de la oficina, y activar su filtro en
+      *Filtros de datos*. Si no, las pruebas de Aldo y Alan cuentan como visitas.
 - [ ] **Logo en otros lados.** El logo del sitio es ahora la nube de cuatro lóbulos, sin
       degradado (2026-09-22). Actualizarlo en WhatsApp Business, firma de correo, tarjetas y
       plantillas de cotización. Vive en `src/components/Logo.jsx` y `public/favicon.svg`.
